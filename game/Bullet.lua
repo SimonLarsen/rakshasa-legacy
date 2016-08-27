@@ -1,34 +1,82 @@
 local Bullet = class("game.Bullet", prox.Entity)
 
-Bullet.static.OWNER_PLAYER = 1
-Bullet.static.OWNER_ENEMY  = 2
+Bullet.static.TYPE_PLAYER_BULLET = 1
+Bullet.static.TYPE_PLAYER_SUPER  = 2
+Bullet.static.TYPE_ENEMY_BULLET  = 3
 
-local bullet_colors = {
-	[Bullet.static.OWNER_PLAYER] = {175, 255, 223},
-	[Bullet.static.OWNER_ENEMY]  = {255, 178, 178},
+local bullet_speed = {
+	[Bullet.static.TYPE_PLAYER_BULLET] = 500,
+	[Bullet.static.TYPE_PLAYER_SUPER]  = 1000,
+	[Bullet.static.TYPE_ENEMY_BULLET]  = 200
 }
 
-local MOVE_SPEED = 500
+local bullet_acceleration = {
+	[Bullet.static.TYPE_PLAYER_BULLET] = 10000,
+	[Bullet.static.TYPE_PLAYER_SUPER]  = 1500,
+	[Bullet.static.TYPE_ENEMY_BULLET]  = 10000
+}
 
-function Bullet:enter(x, y, owner)
+local bullet_damage = {
+	[Bullet.static.TYPE_PLAYER_BULLET] = 1,
+	[Bullet.static.TYPE_PLAYER_SUPER]  = 4,
+	[Bullet.static.TYPE_ENEMY_BULLET] = 1
+}
+
+function Bullet:enter(x, y, dir, type)
+	self:setName("bullet")
 	self.x = x
 	self.y = y
-	self.owner = owner
+	self.z = 1
+	self.dir = dir
+	self.type = type
+	self.speed = 0
+	self.rotation_speed = 0
 
-	if self.owner == Bullet.static.OWNER_PLAYER then
-		self.yspeed = -MOVE_SPEED
-		self:setRenderer(prox.Sprite("data/images/bullet_player.png", 2, 5))
+	if self.type == Bullet.static.TYPE_PLAYER_BULLET then
+		self:setRenderer(prox.Sprite("data/images/bullet_player.png", 15, 3))
+		self:setCollider(prox.BoxCollider(2, 2))
+	elseif self.type == Bullet.static.TYPE_PLAYER_SUPER then
+		self:setRenderer(prox.Sprite("data/images/bullet_super.png"))
+		self:setCollider(prox.BoxCollider(4, 4))
+	elseif self.type == Bullet.static.TYPE_ENEMY_BULLET then
+		self:setRenderer(prox.Sprite("data/images/bullet_enemy.png"))
+		self:setCollider(prox.BoxCollider(4, 4))
+		self.rotation_speed = 8
 	else
-		self.yspeed = MOVE_SPEED
+		error("Unknown enemy type \"%s\".", self.type)
 	end
+	self:getRenderer():setRotation(self.dir)
 end
 
 function Bullet:update(dt, rt)
-	self.y = self.y + self.yspeed * dt
+	local rot = self:getRenderer().r
+	self:getRenderer().r = rot + self.rotation_speed * dt
 
-	if self.y < -16 or self.y > prox.window.getHeight()+16 then
+	self.speed = prox.math.movetowards(self.speed, bullet_speed[self.type], bullet_acceleration[self.type]*dt)
+
+	self.x = self.x + math.cos(self.dir) * self.speed * dt
+	self.y = self.y + math.sin(self.dir) * self.speed * dt
+
+	if self.x < -16 or self.x > prox.window.getWidth()+16
+	or self.y < -16 or self.y > prox.window.getHeight()+16 then
 		self:remove()
 	end
+end
+
+function Bullet:kill()
+	self:remove()
+end
+
+function Bullet:getType()
+	return self.type
+end
+
+function Bullet:getDamage()
+	return bullet_damage[self.type]
+end
+
+function Bullet:isPlayerBullet()
+	return self.type == Bullet.static.TYPE_PLAYER_BULLET or self.type == Bullet.static.TYPE_PLAYER_SUPER
 end
 
 return Bullet
