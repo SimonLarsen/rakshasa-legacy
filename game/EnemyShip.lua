@@ -1,5 +1,6 @@
 local Enemy = require("game.Enemy")
 local Bullet = require("game.Bullet")
+local Explosion = require("game.Explosion")
 
 local EnemyShip = class("game.EnemyShip", Enemy)
 
@@ -68,7 +69,7 @@ function EnemyShip:update(dt, rt)
 	end
 
 	if self.y > prox.window.getHeight()+32 then
-		self:kill()
+		self:remove()
 	end
 end
 
@@ -79,19 +80,10 @@ function EnemyShip:shoot()
 	self:getScene():add(Bullet(self.x, self.y+14, dir, Bullet.static.TYPE_ENEMY_BULLET))
 end
 
-function EnemyShip:onCollide(o, dt, rt)
-	if o:getName() == "bullet" and o:isPlayerBullet() then
-		self.health = self.health - o:getDamage()
-		if self.health <= 0 then
-			self:kill()
-		end
-		o:kill()
+function EnemyShip:onRemove()
+	if self.timer then
+		prox.timer.cancel(self.timer)
 	end
-end
-
-function EnemyShip:kill()
-	prox.timer.cancel(self.timer)
-	self:remove()
 end
 
 return EnemyShip

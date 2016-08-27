@@ -1,4 +1,5 @@
 prox = require("prox")
+HC = require("HC")
 
 function prox.load()
 	prox.window.setSize(320, 480)

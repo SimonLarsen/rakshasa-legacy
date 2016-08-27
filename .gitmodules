@@ -1,3 +1,6 @@
 [submodule "prox"]
 	path = prox
 	url = https://github.com/SimonLarsen/prox.git
+[submodule "HC"]
+	path = HC
+	url = https://github.com/vrld/HC.git

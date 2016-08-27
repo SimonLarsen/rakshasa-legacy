@@ -13,6 +13,7 @@ local SUPER_COOLDOWN = 0.15
 local SUPER_THRESHOLD = 0.1
 
 function Ship:enter(x, y, side)
+	self:setName("ship")
 	self.x, self.y = x, y
 	self.z = 0
 	self.side = side
@@ -60,10 +61,10 @@ function Ship:update(dt, rt)
 	if self.joystick:isDown("shoot") and self.cooldown <= 0 and math.abs(self.direction - self.dead_zone) > SUPER_THRESHOLD then
 		if math.abs(self.direction - self.super_zone) < SUPER_THRESHOLD then
 			self.cooldown = SUPER_COOLDOWN
-			self:getScene():add(Bullet(self.x, self.y-14, 1.5*math.pi, Bullet.static.TYPE_PLAYER_SUPER))
+			self:getScene():add(Bullet(self.x, self.y-32, 1.5*math.pi, Bullet.static.TYPE_PLAYER_SUPER))
 		else
 			self.cooldown = BULLET_COOLDOWN
-			self:getScene():add(Bullet(self.x, self.y-14, 1.5*math.pi, Bullet.static.TYPE_PLAYER_BULLET))
+			self:getScene():add(Bullet(self.x, self.y-20, 1.5*math.pi, Bullet.static.TYPE_PLAYER_BULLET))
 		end
 	end
 end

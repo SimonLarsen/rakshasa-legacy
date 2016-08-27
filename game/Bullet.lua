@@ -41,6 +41,7 @@ function Bullet:enter(x, y, dir, type)
 	elseif self.type == Bullet.static.TYPE_ENEMY_BULLET then
 		self:setRenderer(prox.Sprite("data/images/bullet_enemy.png"))
 		self:setCollider(prox.BoxCollider(4, 4))
+		self.hc_rect = HC.rectangle(0, 0, 4, 4)
 		self.rotation_speed = 8
 	else
 		error("Unknown enemy type \"%s\".", self.type)
@@ -77,6 +78,11 @@ end
 
 function Bullet:isPlayerBullet()
 	return self.type == Bullet.static.TYPE_PLAYER_BULLET or self.type == Bullet.static.TYPE_PLAYER_SUPER
+end
+
+function Bullet:getHCShape()
+	self.hc_rect:moveTo(self.x, self.y)
+	return self.hc_rect
 end
 
 return Bullet
