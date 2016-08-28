@@ -47,18 +47,19 @@ function Chain:update(dt, rt)
 
 	-- Check collision with bullets
 	self.invulnerable = self.invulnerable - dt
-	if self.invulnerable <= 0 then
-		hc_rect = HC.rectangle(0, 0, dist, 5)
-		hc_rect:moveTo(self.x, self.y)
-		hc_rect:setRotation(self.direction)
+	hc_rect = HC.rectangle(0, 0, dist, 5)
+	hc_rect:moveTo(self.x, self.y)
+	hc_rect:setRotation(self.direction)
 
-		for i,v in ipairs(self:getScene():findAll("bullet")) do
-			if not v:isPlayerBullet() and hc_rect:collidesWith(v:getHCShape()) then
+	for i,v in ipairs(self:getScene():findAll("bullet")) do
+		if not v:isPlayerBullet() and hc_rect:collidesWith(v:getHCShape()) then
+			if self.invulnerable <= 0 then
 				self.invulnerable = INVULNERABLE_TIME
 				self:getScene():find("screenshaker"):shake(0.5, 8, 60)
+				self:getScene():find("controller"):playerHit()
 				prox.joystick.setVibration(1, 0.8, 0.8, 0.8)
-				v:kill()
 			end
+			v:kill()
 		end
 	end
 end

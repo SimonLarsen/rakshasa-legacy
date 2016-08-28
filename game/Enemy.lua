@@ -5,7 +5,8 @@ local Gem = require("game.Gem")
 local Enemy = class("game.Enemy", prox.Entity)
 
 function Enemy:enter(health, large)
-	self.health = health
+	self.max_health = health
+	self.health = self.max_health
 	self.hit = 0
 	self.large = large or false
 

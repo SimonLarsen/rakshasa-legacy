@@ -1,3 +1,5 @@
+local Explosion = require("game.Explosion")
+
 local Bullet = class("game.Bullet", prox.Entity)
 
 Bullet.static.TYPE_PLAYER_BULLET = 1
@@ -26,7 +28,7 @@ function Bullet:enter(x, y, dir, type)
 	self:setName("bullet")
 	self.x = x
 	self.y = y
-	self.z = 1
+	self.z = -1
 	self.dir = dir
 	self.type = type
 	self.speed = 0
@@ -65,6 +67,7 @@ function Bullet:update(dt, rt)
 end
 
 function Bullet:kill()
+	self:getScene():add(Explosion(self.x, self.y, Explosion.static.SIZE_SMALL))
 	self:remove()
 end
 

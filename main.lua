@@ -9,5 +9,9 @@ function prox.load()
 	prox.window.setSize(640, 480)
 	prox.window.setScale(2)
 
-	prox.gamestate.switch({require("game.Controller")("data/levels/1.lua")})
+	-- Preload fonts
+	prox.resources.getImageFont("data/fonts/small.png", " 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ.,:;-?!'*")
+	prox.resources.getImageFont("data/fonts/banner_font.png", " -0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz", 1)
+
+	prox.gamestate.switch({require("game.Controller")("data/levels/2.lua")})
 end

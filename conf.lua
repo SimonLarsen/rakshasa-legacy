@@ -1,12 +1,12 @@
 function love.conf(t)
-    t.identity = "dk.tangramgames.ld36"
+    t.identity = "dk.tangramgames.rakshasa"
     t.version = "0.10.1"
     t.console = false
     t.accelerometerjoystick = false
     t.externalstorage = false
     t.gammacorrect = false
  
-    t.window.title = "LD36"
+    t.window.title = "Rakshasa"
     t.window.icon = nil
     t.window.width = 320*2
     t.window.height = 480*2

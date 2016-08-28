@@ -7,10 +7,10 @@ Explosion.static.SIZE_LARGE  = 3
 function Explosion:enter(x, y, size)
 	self.x = x
 	self.y = y
-	self.z = 3
+	self.z = -1
 
 	if size == Explosion.static.SIZE_SMALL then
-		error("Small Explosion not implemented.")
+		self:setRenderer(prox.Animation("data/animations/explosion_small.lua"))
 	elseif size == Explosion.static.SIZE_MEDIUM then
 		self:setRenderer(prox.Animation("data/animations/explosion.lua"))
 	elseif size == Explosion.static.SIZE_LARGE then
