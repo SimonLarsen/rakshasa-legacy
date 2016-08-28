@@ -1,7 +1,16 @@
+local shaders = require("shaders")
 local Explosion = require("game.Explosion")
 local Gem = require("game.Gem")
 
 local Enemy = class("game.Enemy", prox.Entity)
+
+function Enemy:enter(health, large)
+	self.health = health
+	self.hit = 0
+	self.large = large or false
+
+	self.white_shader = shaders.getShader("data/shaders/whiteout.lua")
+end
 
 function Enemy:onCollide(o, dt, rt)
 	if o:getName() == "bullet" and o:isPlayerBullet() then
@@ -14,8 +23,17 @@ function Enemy:onCollide(o, dt, rt)
 	end
 end
 
+function Enemy:update(dt, rt)
+	self.hit = self.hit - dt
+	self:getRenderer():setShader(self.hit > 0 and self.white_shader or nil)
+end
+
 function Enemy:kill()
-	self:getScene():add(Explosion(self.x, self.y))
+	if self.large then
+		self:getScene():add(Explosion(self.x, self.y, Explosion.static.SIZE_LARGE))
+	else
+		self:getScene():add(Explosion(self.x, self.y, Explosion.static.SIZE_MEDIUM))
+	end
 
 	for i=1, self:getGems() do
 		self:getScene():add(Gem(

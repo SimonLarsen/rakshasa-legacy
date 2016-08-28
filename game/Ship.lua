@@ -23,8 +23,10 @@ function Ship:enter(x, y, side)
 	self.joystick = prox.JoystickBinding(1, 0.1)
 
 	self:setCollider(prox.BoxCollider(18, 34))
-	self:setRenderer(prox.MultiRenderer())
 	self.gear_sprite = prox.Sprite("data/images/ship_gear.png", 19, 19)
+
+	self:setRenderer(prox.MultiRenderer())
+	self:getRenderer():addRenderer(self.gear_sprite, 0, 1)
 
 	if side == Ship.static.SIDE_LEFT then
 		self.joystick:add("shoot", "leftshoulder")
@@ -32,21 +34,16 @@ function Ship:enter(x, y, side)
 		self.yaxis = "lefty"
 		self.dead_zone = -math.pi/2
 		self.super_zone = math.pi/2
-
-		self.ship_sprite = prox.Sprite("data/images/ship_left.png", 28, 27)
-		self:getRenderer():addRenderer(self.gear_sprite, 0, 1)
-		self:getRenderer():addRenderer(self.ship_sprite)
+		self.animator = prox.Animator("data/animators/ship_left.lua")
 	else
 		self.joystick:add("shoot", "rightshoulder")
 		self.xaxis = "rightx"
 		self.yaxis = "righty"
 		self.dead_zone = math.pi/2
 		self.super_zone = -math.pi/2
-
-		self.ship_sprite = prox.Sprite("data/images/ship_right.png", 12, 27)
-		self:getRenderer():addRenderer(self.gear_sprite, 0, 1)
-		self:getRenderer():addRenderer(self.ship_sprite)
+		self.animator = prox.Animator("data/animators/ship_right.lua")
 	end
+	self:getRenderer():addRenderer(self.animator)
 end
 
 function Ship:update(dt, rt)

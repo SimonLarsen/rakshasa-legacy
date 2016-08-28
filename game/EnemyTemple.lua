@@ -1,4 +1,3 @@
-local shaders = require("shaders")
 local Enemy = require("game.Enemy")
 local Bullet = require("game.Bullet")
 
@@ -10,26 +9,25 @@ local MOVE_SPEED = 20
 local BULLET_COOLDOWN = 3
 
 function EnemyTemple:enter(x)
+	Enemy.enter(self, MAX_HEALTH, true)
+
 	self.x = x
 	self.y = -30
 	self.cooldown = 4
 	self.health = MAX_HEALTH
-	self.hit = 0
 
 	self:setRenderer(prox.Sprite("data/images/enemy_temple.png", 45, 36))
-	self.white_shader = shaders.getShader("data/shaders/whiteout.lua")
 	self:setCollider(prox.BoxCollider(80, 32))
 end
 
 function EnemyTemple:update(dt, rt)
+	Enemy.update(self, dt, rt)
+
 	self.y = self.y + MOVE_SPEED * dt
 
 	if self.y > prox.window.getHeight()+30 then
 		self:remove()
 	end
-
-	self.hit = self.hit - dt
-	self:getRenderer():setShader(self.hit > 0 and self.white_shader or nil)
 
 	self.cooldown = self.cooldown - dt
 	if self.cooldown <= 0 then
