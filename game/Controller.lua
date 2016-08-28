@@ -1,20 +1,31 @@
+local serialize = require("prox.serialize")
 local Ship = require("game.Ship")
 local Chain = require("game.Chain")
-
-local EnemyShip = require("game.EnemyShip")
-local EnemyDrone = require("game.EnemyDrone")
-local EnemyTemple = require("game.EnemyTemple")
-local EnemyMine = require("game.EnemyMine")
+local Enemy = require("game.Enemy")
 
 local Controller = class("game.Controller", prox.Entity)
 
-function Controller:enter()
+local constructors = {
+	ship = require("game.EnemyShip"),
+	drone = require("game.EnemyDrone"),
+	drone_spawner = require("game.DroneSpawner"),
+	temple = require("game.EnemyTemple"),
+	mine = require("game.EnemyMine")
+}
+
+function Controller:enter(path)
 	self:getScene():getCamera():setPosition(prox.window.getWidth()/2, prox.window.getHeight()/2)
 
 	local ship1 = self:getScene():add(Ship(prox.window.getWidth()/2 - 40, prox.window.getHeight() - 80, Ship.static.SIDE_LEFT))
 	local ship2 = self:getScene():add(Ship(prox.window.getWidth()/2 + 40, prox.window.getHeight() - 80, Ship.static.SIDE_RIGHT))
 	self:getScene():add(Chain(ship1, ship2))
 
+	self.events = serialize.read(path)
+	self.wave = 1
+	self.step = 1
+	self.time = 0
+
+	--[[
 	prox.timer.after(1, function() self:getScene():add(EnemyShip(100, 180)) end)
 	prox.timer.after(2, function() self:getScene():add(EnemyShip(220, 160)) end)
 	prox.timer.after(3, function() self:getScene():add(EnemyShip(160, 140)) end)
@@ -38,6 +49,32 @@ function Controller:enter()
 
 	prox.timer.after(25, function() self:getScene():add(EnemyShip(80, 200)) end)
 	prox.timer.after(25, function() self:getScene():add(EnemyShip(240, 200)) end)
+	]]
+end
+
+function Controller:update(dt, rt)
+	self.time = self.time + dt
+
+	if self.wave > #self.events then
+
+	elseif self.step > #self.events[self.wave] then
+		if self:getScene():find(Enemy) == nil then
+			self.step = 1
+			self.wave = self.wave + 1
+			self.time = 0
+		end
+	else
+		if self.time >= self:currentStep()[1] then
+			local args = prox.table.sub(self:currentStep(), 3, #self:currentStep())
+			self:getScene():add(constructors[self:currentStep()[2]](unpack(args)))
+
+			self.step = self.step + 1
+		end
+	end
+end
+
+function Controller:currentStep()
+	return self.events[self.wave][self.step]
 end
 
 return Controller

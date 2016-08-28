@@ -13,6 +13,7 @@ function Chain:enter(ship1, ship2)
 
 	self.ship1 = ship1
 	self.ship2 = ship2
+	self.direction = 0
 
 	self.center_sprite = prox.Sprite("data/images/chain_center.png")
 	self.center_ring = prox.Sprite("data/images/chain_ring.png")
@@ -37,10 +38,10 @@ function Chain:update(dt, rt)
 	end
 
 	-- Rotate center and gears
-	local direction = math.atan2(ydist, xdist)
-	self.center_ring:setRotation(direction)
-	self.ship1:setDirection(direction)
-	self.ship2:setDirection(direction)
+	self.direction = math.atan2(ydist, xdist)
+	self.center_ring:setRotation(self.direction)
+	self.ship1:setDirection(self.direction)
+	self.ship2:setDirection(self.direction)
 	self.ship1:getGearSprite():setRotation(dist / 48)
 	self.ship2:getGearSprite():setRotation(dist / 48)
 
@@ -49,7 +50,7 @@ function Chain:update(dt, rt)
 	if self.invulnerable <= 0 then
 		hc_rect = HC.rectangle(0, 0, dist, 5)
 		hc_rect:moveTo(self.x, self.y)
-		hc_rect:setRotation(direction)
+		hc_rect:setRotation(self.direction)
 
 		for i,v in ipairs(self:getScene():findAll("bullet")) do
 			if not v:isPlayerBullet() and hc_rect:collidesWith(v:getHCShape()) then
