@@ -4,10 +4,12 @@ local Chain = class("game.Chain", prox.Entity)
 
 local MIN_DIST = 86
 local SUPER_THRESHOLD = 0.1
+local INVULNERABLE_TIME = 1
 
 function Chain:enter(ship1, ship2)
 	self:setName("chain")
 	self.z = 2
+	self.invulnerable = 0
 
 	self.ship1 = ship1
 	self.ship2 = ship2
@@ -43,18 +45,24 @@ function Chain:update(dt, rt)
 	self.ship2:getGearSprite():setRotation(dist / 48)
 
 	-- Check collision with bullets
-	hc_rect = HC.rectangle(0, 0, dist, 5)
-	hc_rect:moveTo(self.x, self.y)
-	hc_rect:setRotation(direction)
+	self.invulnerable = self.invulnerable - dt
+	if self.invulnerable <= 0 then
+		hc_rect = HC.rectangle(0, 0, dist, 5)
+		hc_rect:moveTo(self.x, self.y)
+		hc_rect:setRotation(direction)
 
-	for i,v in ipairs(self:getScene():findAll("bullet")) do
-		if not v:isPlayerBullet() and hc_rect:collidesWith(v:getHCShape()) then
-			v:kill()
+		for i,v in ipairs(self:getScene():findAll("bullet")) do
+			if not v:isPlayerBullet() and hc_rect:collidesWith(v:getHCShape()) then
+				self.invulnerable = INVULNERABLE_TIME
+				v:kill()
+			end
 		end
 	end
 end
 
 function Chain:draw()
+	if self.invulnerable >= 0 and prox.time.getTime() % 0.15 < 0.075 then return end
+
 	local xdist = (self.ship2.x - self.ship1.x) / 2
 	local ydist = (self.ship2.y - self.ship1.y) / 2
 	local dist = math.sqrt(xdist^2 + ydist^2)

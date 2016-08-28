@@ -1,3 +1,4 @@
+local shaders = require("shaders")
 local Enemy = require("game.Enemy")
 local Bullet = require("game.Bullet")
 local Explosion = require("game.Explosion")
@@ -31,6 +32,7 @@ function EnemyShip:enter(destx, desty)
 	self.time = 0
 	self.yspeed = 0
 	self.health = MAX_HEALTH
+	self.hit = 0
 	self.cooldown = ENTER_TIME
 
 	self.player_chain = self:getScene():find("chain")
@@ -45,6 +47,7 @@ function EnemyShip:enter(destx, desty)
 	)
 
 	self:setRenderer(prox.Sprite("data/images/enemy_ship.png"))
+	self.white_shader = shaders.getShader("data/shaders/whiteout.lua")
 	self:setCollider(prox.BoxCollider(32, 24))
 end
 
@@ -61,6 +64,9 @@ function EnemyShip:update(dt, rt)
 		self.yspeed = prox.math.cap(self.yspeed + EXIT_ACCELERATION * dt, 0, EXIT_SPEED)
 		self.y = self.y + self.yspeed * dt
 	end
+
+	self.hit = self.hit - dt
+	self:getRenderer():setShader(self.hit > 0 and self.white_shader or nil)
 
 	self.cooldown = self.cooldown - dt
 	if self.cooldown <= 0 then
@@ -84,6 +90,10 @@ function EnemyShip:onRemove()
 	if self.timer then
 		prox.timer.cancel(self.timer)
 	end
+end
+
+function EnemyShip:getGems()
+	return 2
 end
 
 return EnemyShip

@@ -22,6 +22,7 @@ function Ship:enter(x, y, side)
 
 	self.joystick = prox.JoystickBinding(1, 0.1)
 
+	self:setCollider(prox.BoxCollider(18, 34))
 	self:setRenderer(prox.MultiRenderer())
 	self.gear_sprite = prox.Sprite("data/images/ship_gear.png", 19, 19)
 
@@ -76,6 +77,12 @@ end
 function Ship:setDirection(direction)
 	self.gear_sprite:setRotation(direction)
 	self.direction = direction
+end
+
+function Ship:onCollide(o, dt, rt)
+	if o:getName() == "gem" then
+		o:remove()
+	end
 end
 
 return Ship
