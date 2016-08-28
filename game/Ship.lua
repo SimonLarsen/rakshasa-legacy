@@ -50,8 +50,8 @@ function Ship:update(dt, rt)
 	-- Move ship
 	local speed = self.joystick:isDown("shoot") and SLOW_SPEED or FAST_SPEED
 
-	self.x = prox.math.cap(self.x + speed * dt * self.joystick:getAxis(self.xaxis), 10, prox.window.getWidth()-10)
-	self.y = prox.math.cap(self.y + speed * dt * self.joystick:getAxis(self.yaxis), 10, prox.window.getHeight()-10)
+	self.x = prox.math.cap(self.x + speed * dt * self.joystick:getAxis(self.xaxis), 10, settings.screen_width-10)
+	self.y = prox.math.cap(self.y + speed * dt * self.joystick:getAxis(self.yaxis), 10, settings.screen_height-10)
 
 	-- Shoot
 	self.cooldown = self.cooldown - dt

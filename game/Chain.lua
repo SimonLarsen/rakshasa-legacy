@@ -4,7 +4,7 @@ local Chain = class("game.Chain", prox.Entity)
 
 local MIN_DIST = 86
 local SUPER_THRESHOLD = 0.1
-local INVULNERABLE_TIME = 1
+local INVULNERABLE_TIME = 2
 
 function Chain:enter(ship1, ship2)
 	self:setName("chain")

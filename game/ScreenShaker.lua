@@ -10,7 +10,7 @@ function ScreenShaker:enter()
 end
 
 function ScreenShaker:update(dt, rt)
-	local cx, cy = prox.window.getWidth()/2, prox.window.getHeight()/2
+	local cx, cy = settings.screen_width/2, settings.screen_height/2
 
 	if self.time > 0 then
 		self.time = self.time - dt

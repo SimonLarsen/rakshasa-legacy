@@ -17,10 +17,10 @@ local constructors = {
 }
 
 function Controller:enter(path)
-	self:getScene():getCamera():setPosition(prox.window.getWidth()/2, prox.window.getHeight()/2)
+	self:getScene():getCamera():setPosition(settings.screen_width/2, settings.screen_height/2)
 
-	local ship1 = self:getScene():add(Ship(prox.window.getWidth()/2 - 40, prox.window.getHeight() - 80, Ship.static.SIDE_LEFT))
-	local ship2 = self:getScene():add(Ship(prox.window.getWidth()/2 + 40, prox.window.getHeight() - 80, Ship.static.SIDE_RIGHT))
+	local ship1 = self:getScene():add(Ship(settings.screen_width/2 - 40, settings.screen_height - 80, Ship.static.SIDE_LEFT))
+	local ship2 = self:getScene():add(Ship(settings.screen_width/2 + 40, settings.screen_height - 80, Ship.static.SIDE_RIGHT))
 	self:getScene():add(Chain(ship1, ship2))
 	self:getScene():add(ScreenShaker())
 	self:getScene():add(HexLife())
@@ -29,6 +29,8 @@ function Controller:enter(path)
 	self.wave = 1
 	self.step = 1
 	self.time = 0
+
+	self.border_image = prox.resources.getImage("data/images/border.png")
 end
 
 function Controller:update(dt, rt)
@@ -54,6 +56,19 @@ end
 
 function Controller:currentStep()
 	return self.events[self.wave][self.step]
+end
+
+function Controller:gui()
+	local bx1 = (prox.window.getWidth() - settings.screen_width) / 2 - self.border_image:getWidth()
+	local bx2 = (prox.window.getWidth() + settings.screen_width) / 2 + 1
+
+	love.graphics.setColor(0, 0, 0)
+	love.graphics.rectangle("fill", 0, 0, bx1, prox.window.getHeight())
+	love.graphics.rectangle("fill", bx2, 0, bx1, prox.window.getHeight())
+
+	love.graphics.setColor(255, 255, 255)
+	love.graphics.draw(self.border_image, bx1, 0, 0, 1, prox.window.getHeight())
+	love.graphics.draw(self.border_image, bx2, 0, 0, 1, prox.window.getHeight())
 end
 
 return Controller

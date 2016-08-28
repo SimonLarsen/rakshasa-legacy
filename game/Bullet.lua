@@ -58,8 +58,8 @@ function Bullet:update(dt, rt)
 	self.x = self.x + math.cos(self.dir) * self.speed * dt
 	self.y = self.y + math.sin(self.dir) * self.speed * dt
 
-	if self.x < -16 or self.x > prox.window.getWidth()+16
-	or self.y < -16 or self.y > prox.window.getHeight()+16 then
+	if self.x < -16 or self.x > settings.screen_width+16
+	or self.y < -16 or self.y > settings.screen_height+16 then
 		self:remove()
 	end
 end

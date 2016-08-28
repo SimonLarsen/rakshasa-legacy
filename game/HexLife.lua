@@ -23,8 +23,8 @@ function HexLife:enter()
 	self.z = 10
 
 	self.hex16 = prox.resources.getImage("data/images/hex16.png")
-	self.mapw = math.floor(prox.window.getWidth() / 16)
-	self.maph = math.floor(prox.window.getHeight() / 14) + 2
+	self.mapw = math.floor(settings.screen_width/ 16)
+	self.maph = math.floor(settings.screen_height / 14) + 2
 
 	self.map = self:createNumericMap(self.mapw, self.maph)
 end
