@@ -55,6 +55,7 @@ function Chain:update(dt, rt)
 		for i,v in ipairs(self:getScene():findAll("bullet")) do
 			if not v:isPlayerBullet() and hc_rect:collidesWith(v:getHCShape()) then
 				self.invulnerable = INVULNERABLE_TIME
+				self:getScene():find("screenshaker"):shake(0.5, 8, 60)
 				prox.joystick.setVibration(1, 0.8, 0.8, 0.8)
 				v:kill()
 			end
