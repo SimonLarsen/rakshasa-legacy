@@ -2,7 +2,7 @@ local Gem = class("game.Gem", prox.Entity)
 
 local ACCELERATION = 300
 local SCROLL_SPEED = 240
-local FOLLOW_SPEED = 350
+local FOLLOW_SPEED = 450
 local FOLLOW_RANGE = 32
 
 Gem.static.STATE_FALL = 1

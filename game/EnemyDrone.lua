@@ -18,7 +18,7 @@ function EnemyDrone:enter(points)
 	self.target = 2
 	self.health = MAX_HEALTH
 
-	self.cooldown = 1 + 2*love.math.random()
+	self.cooldown = 2
 	self.player_chain = self:getScene():find("chain")
 
 	self:setRenderer(prox.Animation("data/animations/enemy_drone.lua"))
