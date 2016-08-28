@@ -13,7 +13,6 @@ function EnemyMine:enter(x, ylimit)
 	self.x = x
 	self.y = -16
 	self.ylimit = ylimit
-	self.health = MAX_HEALTH
 
 	self:setRenderer(prox.Animator("data/animators/enemy_mine.lua"))
 	self:setCollider(prox.BoxCollider(28, 26))
@@ -29,6 +28,7 @@ function EnemyMine:update(dt, rt)
 
 	elseif self.y > self.ylimit then
 		self:getScene():add(Explosion(self.x, self.y, Explosion.static.SIZE_MEDIUM))
+		self:getScene():find("screenshaker"):shake(0.4, 2, 60)
 		for i=0,3 do
 			self:getScene():add(Bullet(self.x, self.y, i*math.pi/2, Bullet.static.TYPE_ENEMY_BULLET))
 		end

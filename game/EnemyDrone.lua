@@ -16,7 +16,6 @@ function EnemyDrone:enter(points)
 	self.x = self.points[1][1]
 	self.y = self.points[1][2]
 	self.target = 2
-	self.health = MAX_HEALTH
 
 	self.cooldown = 2
 	self.player_chain = self:getScene():find("chain")

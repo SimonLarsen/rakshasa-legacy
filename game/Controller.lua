@@ -11,7 +11,8 @@ local constructors = {
 	drone = require("game.EnemyDrone"),
 	drone_spawner = require("game.DroneSpawner"),
 	temple = require("game.EnemyTemple"),
-	mine = require("game.EnemyMine")
+	mine = require("game.EnemyMine"),
+	turret = require("game.EnemyTurret")
 }
 
 function Controller:enter(path)

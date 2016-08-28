@@ -31,7 +31,6 @@ function EnemyShip:enter(destx, desty)
 	self.state = EnemyShip.static.STATE_ENTER
 	self.time = 0
 	self.yspeed = 0
-	self.health = MAX_HEALTH
 	self.cooldown = ENTER_TIME
 
 	self.player_chain = self:getScene():find("chain")
@@ -45,7 +44,8 @@ function EnemyShip:enter(destx, desty)
 		end
 	)
 
-	self:setRenderer(prox.Sprite("data/images/enemy_ship.png"))
+	--self:setRenderer(prox.Sprite("data/images/enemy_ship.png"))
+	self:setRenderer(prox.Animation("data/animations/enemy_ship.lua"))
 	self:setCollider(prox.BoxCollider(32, 24))
 end
 

@@ -14,9 +14,8 @@ function EnemyTemple:enter(x)
 	self.x = x
 	self.y = -30
 	self.cooldown = 4
-	self.health = MAX_HEALTH
 
-	self:setRenderer(prox.Sprite("data/images/enemy_temple.png", 45, 36))
+	self:setRenderer(prox.Animation("data/animations/enemy_temple.lua"))
 	self:setCollider(prox.BoxCollider(80, 32))
 end
 
