@@ -3,6 +3,7 @@ local Ship = require("game.Ship")
 local Chain = require("game.Chain")
 local Enemy = require("game.Enemy")
 local ScreenShaker = require("game.ScreenShaker")
+local HexLife = require("game.HexLife")
 
 local Controller = class("game.Controller", prox.Entity)
 
@@ -22,6 +23,7 @@ function Controller:enter(path)
 	local ship2 = self:getScene():add(Ship(prox.window.getWidth()/2 + 40, prox.window.getHeight() - 80, Ship.static.SIDE_RIGHT))
 	self:getScene():add(Chain(ship1, ship2))
 	self:getScene():add(ScreenShaker())
+	self:getScene():add(HexLife())
 
 	self.events = serialize.read(path)
 	self.wave = 1
