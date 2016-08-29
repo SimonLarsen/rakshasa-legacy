@@ -29,14 +29,13 @@ function Boss:onCollide(o, dt, rt)
 	if o:getName() == "bullet" and o:isPlayerBullet() then
 		self:damage(o:getDamage())
 		self.hit = 0.05
-		if self.health <= 0 then
-			self:kill()
-		end
 		o:kill()
 	end
 end
 
 function Boss:damage(damage)
+	if not self.active then return end
+
 	self.health = math.max(self.health - damage, 0)
 	if self.health > 0 then
 		self.healthbar_cooldown = HEALTHBAR_COOLDOWN
