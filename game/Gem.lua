@@ -63,4 +63,8 @@ function Gem:update(dt, rt)
 	end
 end
 
+function Gem:getPoints()
+	return 100
+end
+
 return Gem

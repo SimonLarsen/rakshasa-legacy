@@ -38,7 +38,9 @@ end
 
 function Boss:damage(damage)
 	self.health = self.health - damage
-	self.healthbar_cooldown = HEALTHBAR_COOLDOWN
+	if self.health > 0 then
+		self.healthbar_cooldown = HEALTHBAR_COOLDOWN
+	end
 end
 
 function Boss:kill()

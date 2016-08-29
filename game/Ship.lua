@@ -99,6 +99,7 @@ end
 
 function Ship:onCollide(o, dt, rt)
 	if o:getName() == "gem" then
+		self:getScene():find("controller"):addScore(o:getPoints())
 		o:remove()
 	end
 end

@@ -12,6 +12,8 @@ function prox.load()
 	-- Preload fonts
 	prox.resources.getImageFont("data/fonts/small.png", " 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ.,:;-?!'*")
 	prox.resources.getImageFont("data/fonts/banner_font.png", " -0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz", 1)
+	prox.resources.getImageFont("data/fonts/serif.png", " -0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz", 1)
 
-	prox.gamestate.switch({require("game.Controller")("data/levels/2.lua")})
+	--prox.gamestate.switch({require("game.Controller")("data/levels/2.lua")})
+	prox.gamestate.switch({require("title.Controller")()})
 end

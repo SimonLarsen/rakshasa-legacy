@@ -3,7 +3,6 @@ local Ship = require("game.Ship")
 local Chain = require("game.Chain")
 local Enemy = require("game.Enemy")
 local ScreenShaker = require("game.ScreenShaker")
-local HexLife = require("game.HexLife")
 
 local Controller = class("game.Controller", prox.Entity)
 
@@ -33,6 +32,7 @@ function Controller:enter(path)
 	self.step = 1
 	self.time = 0
 	self.lives = 3
+	self.score = 0
 
 	self.state = Controller.static.STATE_WARMUP
 
@@ -42,7 +42,6 @@ function Controller:enter(path)
 	local ship2 = self:getScene():add(Ship(Ship.static.SIDE_RIGHT))
 	self:getScene():add(Chain(ship1, ship2))
 	self:getScene():add(ScreenShaker())
-	self:getScene():add(HexLife())
 
 	self.border_image = prox.resources.getImage("data/images/border.png")
 	self.gameover_dialog = prox.resources.getImage("data/images/gameover_dialog.png")
@@ -106,7 +105,8 @@ function Controller:gui()
 	love.graphics.draw(self.border_image, bx2, 0, 0, 1, prox.window.getHeight())
 
 	love.graphics.setFont(self.small_font)
-	love.graphics.print("LIVES: " .. self.lives, bx2 + 16, prox.window.getHeight()-24)
+	love.graphics.print("LIVES: " .. self.lives, bx2 + 16, prox.window.getHeight()-34)
+	love.graphics.print("SCORE: " .. self.score, bx2 + 16, prox.window.getHeight()-24)
 
 	if self.state == Controller.static.STATE_GAMEOVER then
 		love.graphics.draw(self.gameover_dialog, prox.window.getWidth()/2, prox.window.getHeight()/2, 0, 1, 1, 150, 100)
@@ -117,11 +117,13 @@ function Controller:gui()
 		local midy = prox.window.getHeight()/2
 
 		love.graphics.setColor(255, 255, 255)
-		love.graphics.line(midx-text_width/2-5, midy-86, midx+text_width/2+5, midy-86)
+		love.graphics.line(midx-text_width/2-5, midy-72, midx+text_width/2+5, midy-72)
 
 		love.graphics.setColor(0, 0, 0)
 		love.graphics.setColor(255, 255, 255)
-		love.graphics.printf("Game over", midx-150, midy-90, 300, "center")
+		love.graphics.printf("Game over", midx-150, midy-76, 300, "center")
+
+		love.graphics.printf("SCORE: " .. self.score, midx-150, midy-50, 300, "center")
 	end
 end
 
@@ -133,6 +135,10 @@ function Controller:playerHit()
 			v:kill()
 		end
 	end
+end
+
+function Controller:addScore(points)
+	self.score = self.score + points
 end
 
 return Controller
