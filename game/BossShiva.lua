@@ -30,8 +30,8 @@ local positions = {
 }
 
 function BossShiva:enter()
-	self:setName("shiva")
 	Boss.enter(self, "Shiva", MAX_HEALTH)
+	self:setName("shiva")
 
 	self.x = settings.screen_width / 2
 	self.y = -80
@@ -163,6 +163,7 @@ function BossShiva:kill()
 	self.arm_left:kill()
 	self.arm_right:kill()
 	self:getScene():find("screenshaker"):shake(4, 3, 60)
+	prox.timer.cancel(self.head_tween)
 
 	prox.timer.after(3, function()
 		self:remove()

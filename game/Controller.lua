@@ -16,7 +16,8 @@ local constructors = {
 	turret = require("game.EnemyTurret"),
 	-- bosses
 	durga = require("game.BossDurga"),
-	shiva = require("game.BossShiva")
+	shiva = require("game.BossShiva"),
+	agni = require("game.BossAgni")
 }
 
 local WARMUP_TIME = 3

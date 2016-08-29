@@ -28,7 +28,6 @@ function ShivaArm:enter(side)
 	self.active = false
 	self.moving = true
 	self.position = 1
-	self.rage = false
 
 	self.pattern_time = -ENTER_TIME
 	self.step = 1

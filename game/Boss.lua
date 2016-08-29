@@ -28,7 +28,6 @@ end
 function Boss:onCollide(o, dt, rt)
 	if o:getName() == "bullet" and o:isPlayerBullet() then
 		self:damage(o:getDamage())
-		self.hit = 0.05
 		o:kill()
 	end
 end
@@ -36,6 +35,7 @@ end
 function Boss:damage(damage)
 	if not self.active then return end
 
+	self.hit = 0.05
 	self.health = math.max(self.health - damage, 0)
 	if self.health > 0 then
 		self.healthbar_cooldown = HEALTHBAR_COOLDOWN
@@ -71,7 +71,7 @@ function Boss:gui()
 	
 	-- Health bar
 	local bar_width = math.max(0, math.floor(self.healthbar / self.max_health * 150))
-	love.graphics.draw(self.boss_healthbar, midx, 52, 0, 1, 1, 106, 18)
+	love.graphics.draw(self.boss_healthbar, midx, 52, 0, 1, 1, 95, 18)
 
 	love.graphics.setColor(0, 0, 0)
 	love.graphics.rectangle("fill", midx-76, 39, bar_width+2, 27)

@@ -37,18 +37,20 @@ function Bullet:enter(x, y, dir, type)
 	if self.type == Bullet.static.TYPE_PLAYER_BULLET then
 		self:setRenderer(prox.Sprite("data/images/bullet_player.png", 15, 3))
 		self:setCollider(prox.BoxCollider(2, 2))
+		self:getRenderer():setRotation(self.dir)
 	elseif self.type == Bullet.static.TYPE_PLAYER_SUPER then
 		self:setRenderer(prox.Sprite("data/images/bullet_super.png"))
 		self:setCollider(prox.BoxCollider(4, 4))
+		self:getRenderer():setRotation(self.dir)
 	elseif self.type == Bullet.static.TYPE_ENEMY_BULLET then
 		self:setRenderer(prox.Sprite("data/images/bullet_enemy.png"))
 		self:setCollider(prox.BoxCollider(4, 4))
 		self.hc_rect = HC.rectangle(0, 0, 4, 4)
 		self.rotation_speed = 8
+		self:getRenderer():setRotation(love.math.random()*2*math.pi)
 	else
 		error("Unknown enemy type \"%s\".", self.type)
 	end
-	self:getRenderer():setRotation(self.dir)
 end
 
 function Bullet:update(dt, rt)
