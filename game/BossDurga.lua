@@ -106,6 +106,7 @@ function BossDurga:enter()
 		function()
 			self.state = BossDurga.static.STATE_CLOSED
 			self.active = true
+			self:getScene():find("hexlife"):fillAll(0.4)
 
 			local destx = love.math.random(0,1) == 0 and 100 or 220
 			self.moving = true

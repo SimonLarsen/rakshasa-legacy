@@ -48,7 +48,6 @@ function Controller:enter(path)
 	self.gameover_dialog = prox.resources.getImage("data/images/gameover_dialog.png")
 
 	self.small_font = prox.resources.getImageFont("data/fonts/small.png")
-	self.banner_font = prox.resources.getImageFont("data/fonts/banner_font.png")
 	self.sans_font = prox.resources.getImageFont("data/fonts/large_sans.png")
 end
 
@@ -88,11 +87,10 @@ function Controller:update(dt, rt)
 	elseif self.state == Controller.static.STATE_GAMEOVER then
 		if self.joystick:wasPressed("confirm") then
 			for i,v in ipairs(self:getScene():getEntities()) do
-				if v:getName() == "titlecontroller" then
-					v:reset()
-				else
+				if v:getName() ~= "titlecontroller" and v:getName() ~= "hexlife" then
 					v:remove()
 				end
+				self:getScene():find("titlecontroller"):reset()
 			end
 		end
 	end
@@ -119,17 +117,10 @@ function Controller:gui()
 	love.graphics.print("SCORE: " .. self.score, bx2 + 16, prox.window.getHeight()-24)
 
 	if self.state == Controller.static.STATE_GAMEOVER then
-		love.graphics.draw(self.gameover_dialog, prox.window.getWidth()/2, prox.window.getHeight()/2, 0, 1, 1, 150, 100)
+		love.graphics.draw(self.gameover_dialog, prox.window.getWidth()/2, prox.window.getHeight()/2, 0, 1, 1, 160, 100)
 
-		love.graphics.setFont(self.banner_font)
-		local text_width = self.banner_font:getWidth("Game over")
 		local midx = prox.window.getWidth()/2
 		local midy = prox.window.getHeight()/2
-
-		love.graphics.setColor(255, 255, 255)
-		love.graphics.line(midx-text_width/2-5, midy-72, midx+text_width/2+5, midy-72)
-
-		love.graphics.printf("Game over", midx-150, midy-76, 300, "center")
 
 		love.graphics.setFont(self.sans_font)
 		love.graphics.printf("SCORE", midx-149, midy-20, 300, "center")
@@ -145,7 +136,6 @@ function Controller:playerHit()
 	if self.lives == 0 then
 		self.state = Controller.static.STATE_GAMEOVER
 		if self.score > settings.highscore then
-			print("new highscore!")
 			settings.highscore = self.score
 		end
 		for i,v in ipairs(self:getScene():findAll("ship")) do

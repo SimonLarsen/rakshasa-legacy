@@ -83,8 +83,6 @@ function Ship:update(dt, rt)
 				self:getScene():add(Bullet(self.x, self.y-20, 1.5*math.pi, Bullet.static.TYPE_PLAYER_BULLET))
 			end
 		end
-	elseif self.state == Ship.static.STATE_DEAD then
-		self.y = self.y + 20*dt
 	end
 end
 

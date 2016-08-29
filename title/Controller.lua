@@ -12,6 +12,8 @@ function Controller:enter()
 	self:setName("titlecontroller")
 	self:reset()
 
+	self:getScene():add(HexLife())
+
 	self.ready = false
 	self.stick_active = false
 	self.selection = 1
@@ -19,8 +21,6 @@ function Controller:enter()
 	self.joystick:add("confirm", "a")
 	self.joystick:add("up", "dpup")
 	self.joystick:add("down", "dpdown")
-
-	self:getScene():add(HexLife())
 
 	self.selection_image = prox.resources.getImage("data/images/selection_marker.png")
 	self.border_image = prox.resources.getImage("data/images/border.png")
@@ -46,9 +46,9 @@ function Controller:update(dt, rt)
 		end
 	end
 
-	if self.joystick:wasPressed("confirm") then
+	if self.ready and self.joystick:wasPressed("confirm") then
 		if self.selection == 1 then
-			self:getScene():add(require("game.Controller")("data/levels/1.lua"))
+			self:getScene():add(require("game.Controller")("data/levels/2.lua"))
 			self:hide()
 		elseif self.selection == 2 then
 
@@ -93,6 +93,7 @@ end
 
 function Controller:reset()
 	self:setEnabled(true)
+
 	self.border_alpha = 0
 	prox.timer.tween(1, self, {border_alpha = 255}, "out-quad")
 

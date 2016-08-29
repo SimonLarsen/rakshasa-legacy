@@ -33,19 +33,19 @@ function HexLife:update(dt, rt)
 	self.y = self.y + dt * SCROLL_SPEED
 	if self.y >= 0 then
 		self.y = -28
-		self:scrollUp(self.map)
+		self:scrollUp()
 	end
 
 	for iy=0, self.maph-1 do
 		for ix=0, self.mapw-1 do
-			self.map[ix][iy] = prox.math.movetowards(self.map[ix][iy], 0, 2*dt)
+			self.map[ix][iy] = prox.math.movetowards(self.map[ix][iy], 0, 16*self.map[ix][iy]^2*dt)
 		end
 	end
 
 	for i,v in ipairs(self:getScene():getEntities()) do
 		if v:isInstanceOf(Enemy) or v:isInstanceOf(Ship)
 		or v:isInstanceOf(Bullet) or v:isInstanceOf(Gem) then
-			self:setAtPosition(v.x, v.y, 1)
+			self:setAtPosition(v.x, v.y, math.max(0.09, self:getAtPosition(v.x, v.y)))
 		end
 	end
 end
@@ -54,7 +54,7 @@ function HexLife:draw()
 	for iy=0, self.maph-1 do
 		for ix=0, self.mapw-1 do
 			if self.map[ix][iy] > 0 then
-				love.graphics.setColor(255, 255, 255, 20*self.map[ix][iy])
+				love.graphics.setColor(255, 255, 255, 255*self.map[ix][iy])
 				if iy % 2 == 0 then
 					love.graphics.draw(self.hex16, ix*16-4, iy*14 + self.y)
 				else
@@ -66,16 +66,16 @@ function HexLife:draw()
 	love.graphics.setColor(255, 255, 255, 255)
 end
 
-function HexLife:scrollUp(map)
-	for iy = 0, 1 do
+function HexLife:scrollUp()
+	for iy=self.maph-1,2,-1 do
 		for ix=0, self.mapw-1 do
-			self.map[ix][iy] = 0
+			self.map[ix][iy] = self.map[ix][iy-2]
 		end
 	end
 
-	for iy = 2, self.maph-1 do
+	for iy = 0, 1 do
 		for ix=0, self.mapw-1 do
-			self.map[ix][iy] = self.map[ix][iy-2]
+			self.map[ix][iy] = 0
 		end
 	end
 end
@@ -143,11 +143,18 @@ function HexLife:setCell(x, y, value)
 	or y < 0 or y >= self.maph then
 		return
 	end
-
 	self.map[x][y] = value
 end
 
-function HexLife:setAtPosition(x, y, value)
+function HexLife:getCell(x, y)
+	if x < 0 or x >= self.mapw
+	or y < 0 or y >= self.maph then
+		return 0
+	end
+	return self.map[x][y]
+end
+
+function HexLife:positionToCell(x, y)
 	local cx, cy
 
 	cy = math.floor((y-self.y) / 14)
@@ -156,7 +163,26 @@ function HexLife:setAtPosition(x, y, value)
 	else
 		cx = math.floor((x - 4) / 15)
 	end
+
+	return cx, cy
+end
+
+function HexLife:setAtPosition(x, y, value)
+	local cx, cy = self:positionToCell(x, y)
 	self:setCell(cx, cy, value)
+end
+
+function HexLife:getAtPosition(x, y)
+	local cx, cy = self:positionToCell(x, y)
+	return self:getCell(cx, cy)
+end
+
+function HexLife:fillAll(value)
+	for ix=0,self.mapw-1 do
+		for iy=0,self.maph-1 do
+			self.map[ix][iy] = 1
+		end
+	end
 end
 
 return HexLife
