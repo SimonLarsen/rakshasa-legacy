@@ -5,6 +5,7 @@ local Chain = class("game.Chain", prox.Entity)
 local MIN_DIST = 86
 local SUPER_THRESHOLD = 0.1
 local INVULNERABLE_TIME = 2
+local FORCE = 4500
 
 Chain.static.STATE_ACTIVE = 1
 Chain.static.STATE_DEAD  = 2
@@ -35,10 +36,11 @@ function Chain:update(dt, rt)
 	local dist = math.sqrt(xdist^2 + ydist^2)
 
 	if dist < MIN_DIST then
-		self.ship1.x = self.x - xdist / dist * MIN_DIST / 2
-		self.ship2.x = self.x + xdist / dist * MIN_DIST / 2
-		self.ship1.y = self.y - ydist / dist * MIN_DIST / 2
-		self.ship2.y = self.y + ydist / dist * MIN_DIST / 2
+		self.ship1.xspeed = self.ship1.xspeed - xdist / dist * dt * FORCE
+		self.ship1.yspeed = self.ship1.yspeed - ydist / dist * dt * FORCE
+
+		self.ship2.xspeed = self.ship2.xspeed + xdist / dist * dt * FORCE
+		self.ship2.yspeed = self.ship2.yspeed + ydist / dist * dt * FORCE
 	end
 
 	-- Rotate center and gears
@@ -87,6 +89,7 @@ end
 
 function Chain:kill()
 	self.state = Chain.static.STATE_DEAD
+	self.invulnerable = 1000000
 end
 
 return Chain

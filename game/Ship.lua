@@ -6,8 +6,11 @@ local Ship = class("game.Ship", prox.Entity)
 Ship.static.SIDE_LEFT = 1
 Ship.static.SIDE_RIGHT = 2
 
-local FAST_SPEED = 250
-local SLOW_SPEED = 150
+local FAST_ACCELERATION = 2300
+local SLOW_ACCELERATION = 2000
+local DECELLERATION = 1200
+local SLOW_MAX_SPEED = 150
+local FAST_MAX_SPEED = 250
 
 local BULLET_COOLDOWN = 0.1
 local SUPER_COOLDOWN = 0.15
@@ -23,6 +26,8 @@ function Ship:enter(side)
 	self:setName("ship")
 	self.y = settings.screen_height + 50
 	self.z = 0
+	self.xspeed = 0
+	self.yspeed = 0
 	self.side = side
 	self.cooldown = 0
 	self.direction = 0
@@ -63,13 +68,26 @@ function Ship:enter(side)
 end
 
 function Ship:update(dt, rt)
-	if self.state == Ship.static.STATE_ENTER then
-	elseif self.state == Ship.static.STATE_ACTIVE then
+	if self.state == Ship.static.STATE_ACTIVE then
 		-- Move ship
-		local speed = self.joystick:isDown("shoot") and SLOW_SPEED or FAST_SPEED
+		local shooting = self.joystick:isDown("shoot")
+		local acceleration = shooting and SLOW_ACCELERATION or FAST_ACCELERATION
+		local max_speed = shooting and SLOW_MAX_SPEED or FAST_MAX_SPEED
 
-		self.x = prox.math.cap(self.x + speed * dt * self.joystick:getAxis(self.xaxis), 10, settings.screen_width-10)
-		self.y = prox.math.cap(self.y + speed * dt * self.joystick:getAxis(self.yaxis), 10, settings.screen_height-10)
+		self.xspeed = self.xspeed + acceleration * dt * self.joystick:getAxis(self.xaxis)
+		self.yspeed = self.yspeed + acceleration * dt * self.joystick:getAxis(self.yaxis)
+
+		local speed = math.sqrt(self.xspeed^2 + self.yspeed^2)
+		if speed > max_speed then
+			self.xspeed = self.xspeed / speed * max_speed
+			self.yspeed = self.yspeed / speed * max_speed
+		end
+
+		self.x = prox.math.cap(self.x + self.xspeed * dt, 10, settings.screen_width-10)
+		self.y = prox.math.cap(self.y + self.yspeed * dt, 10, settings.screen_height-10)
+
+		self.xspeed = prox.math.movetowards(self.xspeed, 0, DECELLERATION*dt)
+		self.yspeed = prox.math.movetowards(self.yspeed, 0, DECELLERATION*dt)
 
 		-- Shoot
 		self.cooldown = self.cooldown - dt

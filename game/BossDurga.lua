@@ -7,10 +7,12 @@ local BossDurga = class("game.BossDurga", Boss)
 
 local MAX_HEALTH = 400
 local ENTER_TIME = 2
+local EXPLOSION_DELAY = 0.6
 
-BossDurga.static.STATE_ENTER  = 1
-BossDurga.static.STATE_CLOSED = 2
-BossDurga.static.STATE_OPEN   = 3
+BossDurga.static.STATE_ENTER     = 1
+BossDurga.static.STATE_CLOSED    = 2
+BossDurga.static.STATE_OPEN      = 3
+BossDurga.static.STATE_EXPLODING = 4
 
 local patterns = {
 	[1] = {
@@ -178,6 +180,9 @@ function BossDurga:update(dt, rt)
 				end
 			)
 		end
+	
+	elseif self.state == BossDurga.static.STATE_EXPLODING then
+
 	end
 
 	self.shield_left.x = self.x - self.shield_offset
@@ -214,6 +219,11 @@ end
 
 function BossDurga:shoot()
 	self:getScene():add(Bullet(self.x+self.head_offset, self.y+24, math.pi/2, Bullet.static.TYPE_ENEMY_BULLET))
+end
+
+function BossDurga:kill()
+	self.state = BossDurga.static.STATE_EXPLODING
+	self.pattern_time = EXPLOSION_DELAY
 end
 
 return BossDurga

@@ -31,7 +31,7 @@ function Controller:enter(path)
 	self.wave = 1
 	self.step = 1
 	self.time = 0
-	self.lives = 1
+	self.lives = 3
 	self.score = 0
 	self.joystick = prox.JoystickBinding(1)
 	self.joystick:add("confirm", "a")

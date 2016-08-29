@@ -37,9 +37,12 @@ function Boss:onCollide(o, dt, rt)
 end
 
 function Boss:damage(damage)
-	self.health = self.health - damage
+	self.health = math.max(self.health - damage, 0)
 	if self.health > 0 then
 		self.healthbar_cooldown = HEALTHBAR_COOLDOWN
+	end
+	if self.health == 0 then
+		self:kill()
 	end
 end
 
