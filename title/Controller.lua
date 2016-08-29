@@ -1,4 +1,5 @@
 local HexLife = require("game.HexLife")
+local Background = require("game.Background")
 
 local Controller = class("title.Controller", prox.Entity)
 
@@ -13,6 +14,8 @@ function Controller:enter()
 	self:reset()
 
 	self:getScene():add(HexLife())
+	self:getScene():add(Background())
+	self:getScene():getCamera():setPosition(settings.screen_width/2, settings.screen_height/2)
 
 	self.ready = false
 	self.stick_active = false
@@ -47,12 +50,12 @@ function Controller:update(dt, rt)
 	end
 
 	if self.ready and self.joystick:wasPressed("confirm") then
-		if self.selection == 1 then
+		if options[self.selection] == "START" then
 			self:getScene():add(require("game.Controller")("data/levels/2.lua"))
 			self:hide()
-		elseif self.selection == 2 then
+		elseif options[self.selection] == "CONFIG" then
 
-		elseif self.selection == 3 then
+		elseif options[self.selection] == "QUIT" then
 			self:hide()
 			prox.timer.after(1, function() love.event.quit() end)
 		end

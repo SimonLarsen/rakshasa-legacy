@@ -87,11 +87,11 @@ function Controller:update(dt, rt)
 	elseif self.state == Controller.static.STATE_GAMEOVER then
 		if self.joystick:wasPressed("confirm") then
 			for i,v in ipairs(self:getScene():getEntities()) do
-				if v:getName() ~= "titlecontroller" and v:getName() ~= "hexlife" then
+				if v:getName() ~= "titlecontroller" and v:getName() ~= "hexlife" and v:getName() ~= "background" then
 					v:remove()
 				end
-				self:getScene():find("titlecontroller"):reset()
 			end
+			self:getScene():find("titlecontroller"):reset()
 		end
 	end
 end

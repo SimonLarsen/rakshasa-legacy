@@ -107,6 +107,7 @@ function BossDurga:enter()
 			self.state = BossDurga.static.STATE_CLOSED
 			self.active = true
 			self:getScene():find("hexlife"):fillAll(0.4)
+			self:getScene():find("screenshaker"):shake(0.5, 4, 60)
 
 			local destx = love.math.random(0,1) == 0 and 100 or 220
 			self.moving = true
@@ -141,6 +142,7 @@ function BossDurga:update(dt, rt)
 			self.shield_right:setVulnerable(false)
 			self:getScene():add(Explosion(self.shield_left.x-20, self.shield_left.y+4, Explosion.static.SIZE_LARGE))
 			self:getScene():add(Explosion(self.shield_right.x+20, self.shield_right.y+4, Explosion.static.SIZE_LARGE))
+			self:getScene():find("screenshaker"):shake(0.5, 4, 60)
 
 			prox.timer.tween(2, self, {shield_offset = 86}, "linear")
 		end
@@ -166,6 +168,7 @@ function BossDurga:update(dt, rt)
 			self.pattern_time = 0
 			self.step = 1
 			self:getScene():add(Explosion(self.x+self.head_offset, self.y, Explosion.static.SIZE_LARGE))
+			self:getScene():find("screenshaker"):shake(0.5, 4, 60)
 
 			prox.timer.cancel(self.head_tween)
 			prox.timer.tween(2, self, {shield_offset = 36}, "linear",

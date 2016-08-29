@@ -38,7 +38,7 @@ function HexLife:update(dt, rt)
 
 	for iy=0, self.maph-1 do
 		for ix=0, self.mapw-1 do
-			self.map[ix][iy] = prox.math.movetowards(self.map[ix][iy], 0, 16*self.map[ix][iy]^2*dt)
+			self.map[ix][iy] = prox.math.movetowards(self.map[ix][iy], 0, 10*math.max(self.map[ix][iy],0.1)^2*dt)
 		end
 	end
 
@@ -157,11 +157,11 @@ end
 function HexLife:positionToCell(x, y)
 	local cx, cy
 
-	cy = math.floor((y-self.y) / 14)
+	cy = math.floor((y-self.y-1) / 14)
 	if cy % 2 == 0 then
-		cx = math.floor((x - 12) / 15)
+		cx = math.floor((x + 4) / 16)
 	else
-		cx = math.floor((x - 4) / 15)
+		cx = math.floor((x - 4) / 16)
 	end
 
 	return cx, cy
