@@ -1,5 +1,6 @@
 local Boss = require("game.Boss")
 local DurgaShield = require("game.DurgaShield")
+local DurgaChain = require("game.DurgaChain")
 local Bullet = require("game.Bullet")
 local Explosion = require("game.Explosion")
 local WhiteFlash = require("game.WhiteFlash")
@@ -7,7 +8,7 @@ local Gem = require("game.Gem")
 
 local BossDurga = class("game.BossDurga", Boss)
 
-local MAX_HEALTH = 100
+local MAX_HEALTH = 400
 local ENTER_TIME = 2
 local EXPLOSION_DELAY = 0.5
 
@@ -105,6 +106,7 @@ function BossDurga:enter()
 	self.shield_offset = 34
 	self.shield_left = self:getScene():add(DurgaShield(DurgaShield.static.SIDE_LEFT))
 	self.shield_right = self:getScene():add(DurgaShield(DurgaShield.static.SIDE_RIGHT))
+	self.chain = self:getScene():add(DurgaChain(self.x, self.y, self.head_offset, self.shield_offset))
 
 	prox.timer.tween(2, self, {y = 140}, "out-sine",
 		function()
@@ -197,6 +199,10 @@ function BossDurga:update(dt, rt)
 	self.shield_right.x = self.x + self.shield_offset
 	self.shield_left.y = self.y + 48
 	self.shield_right.y = self.y + 48
+	self.chain.x = self.x
+	self.chain.y = self.y
+	self.chain.shield_offset = self.shield_offset
+	self.chain.head_offset = self.head_offset
 
 	if self.active then
 		self.pattern_time = self.pattern_time + dt
@@ -246,10 +252,11 @@ function BossDurga:kill()
 	self.moving = false
 	self:getScene():find("screenshaker"):shake(4, 3, 60)
 
-	prox.timer.after(4, function()
+	prox.timer.after(3, function()
 		self:remove()
 		self.shield_left:remove()
 		self.shield_right:remove()
+		self.chain:remove()
 		self:getScene():add(WhiteFlash(1, "in-linear"))
 		self:dropGems()
 	end)
