@@ -31,9 +31,10 @@ function Controller:enter(path)
 	self.wave = 1
 	self.step = 1
 	self.time = 0
-	self.lives = 3
+	self.lives = 1
 	self.score = 0
-
+	self.joystick = prox.JoystickBinding(1)
+	self.joystick:add("confirm", "a")
 	self.state = Controller.static.STATE_WARMUP
 
 	self:getScene():getCamera():setPosition(settings.screen_width/2, settings.screen_height/2)
@@ -48,6 +49,7 @@ function Controller:enter(path)
 
 	self.small_font = prox.resources.getImageFont("data/fonts/small.png")
 	self.banner_font = prox.resources.getImageFont("data/fonts/banner_font.png")
+	self.sans_font = prox.resources.getImageFont("data/fonts/large_sans.png")
 end
 
 function Controller:update(dt, rt)
@@ -83,8 +85,16 @@ function Controller:update(dt, rt)
 			end
 		end
 
-	else
-
+	elseif self.state == Controller.static.STATE_GAMEOVER then
+		if self.joystick:wasPressed("confirm") then
+			for i,v in ipairs(self:getScene():getEntities()) do
+				if v:getName() == "titlecontroller" then
+					v:reset()
+				else
+					v:remove()
+				end
+			end
+		end
 	end
 end
 
@@ -119,11 +129,14 @@ function Controller:gui()
 		love.graphics.setColor(255, 255, 255)
 		love.graphics.line(midx-text_width/2-5, midy-72, midx+text_width/2+5, midy-72)
 
-		love.graphics.setColor(0, 0, 0)
-		love.graphics.setColor(255, 255, 255)
 		love.graphics.printf("Game over", midx-150, midy-76, 300, "center")
 
-		love.graphics.printf("SCORE: " .. self.score, midx-150, midy-50, 300, "center")
+		love.graphics.setFont(self.sans_font)
+		love.graphics.printf("SCORE", midx-149, midy-20, 300, "center")
+		love.graphics.printf(self.score, midx-149, midy, 300, "center")
+
+		love.graphics.printf("YOUR BEST", midx-149, midy+30, 300, "center")
+		love.graphics.printf(settings.highscore, midx-149, midy+50, 300, "center")
 	end
 end
 
@@ -131,9 +144,14 @@ function Controller:playerHit()
 	self.lives = self.lives - 1
 	if self.lives == 0 then
 		self.state = Controller.static.STATE_GAMEOVER
+		if self.score > settings.highscore then
+			print("new highscore!")
+			settings.highscore = self.score
+		end
 		for i,v in ipairs(self:getScene():findAll("ship")) do
 			v:kill()
 		end
+		self:getScene():find("chain"):kill()
 	end
 end
 

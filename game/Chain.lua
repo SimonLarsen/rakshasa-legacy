@@ -6,10 +6,14 @@ local MIN_DIST = 86
 local SUPER_THRESHOLD = 0.1
 local INVULNERABLE_TIME = 2
 
+Chain.static.STATE_ACTIVE = 1
+Chain.static.STATE_DEAD  = 2
+
 function Chain:enter(ship1, ship2)
 	self:setName("chain")
 	self.z = 2
 	self.invulnerable = 0
+	self.state = Chain.static.STATE_ACTIVE
 
 	self.ship1 = ship1
 	self.ship2 = ship2
@@ -53,7 +57,7 @@ function Chain:update(dt, rt)
 
 	for i,v in ipairs(self:getScene():findAll("bullet")) do
 		if not v:isPlayerBullet() and hc_rect:collidesWith(v:getHCShape()) then
-			if self.invulnerable <= 0 then
+			if self.state == Chain.static.STATE_ACTIVE and self.invulnerable <= 0 then
 				self.invulnerable = INVULNERABLE_TIME
 				self:getScene():find("screenshaker"):shake(0.5, 8, 60)
 				self:getScene():find("controller"):playerHit()
@@ -79,6 +83,10 @@ function Chain:draw()
 
 	self.center_ring:draw(self.x, self.y)
 	self.center_sprite:draw(self.x, self.y)
+end
+
+function Chain:kill()
+	self.state = Chain.static.STATE_DEAD
 end
 
 return Chain

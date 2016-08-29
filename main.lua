@@ -2,7 +2,8 @@ prox = require("prox")
 HC = require("HC")
 settings = {
 	screen_width = 320,
-	screen_height = 480
+	screen_height = 480,
+	highscore = 0
 }
 
 function prox.load()
@@ -13,7 +14,7 @@ function prox.load()
 	prox.resources.getImageFont("data/fonts/small.png", " 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ.,:;-?!'*")
 	prox.resources.getImageFont("data/fonts/banner_font.png", " -0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz", 1)
 	prox.resources.getImageFont("data/fonts/serif.png", " -0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz", 1)
+	prox.resources.getImageFont("data/fonts/large_sans.png", " ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789", 2)
 
-	--prox.gamestate.switch({require("game.Controller")("data/levels/2.lua")})
 	prox.gamestate.switch({require("title.Controller")()})
 end
