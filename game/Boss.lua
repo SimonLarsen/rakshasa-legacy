@@ -2,7 +2,7 @@ local Enemy = require("game.Enemy")
 
 local Boss = class("game.Boss", Enemy)
 
-local HEALTHBAR_COOLDOWN = 0.5
+local HEALTHBAR_COOLDOWN = 0.3
 
 function Boss:enter(boss_name, health)
 	Enemy.enter(self, health, true)

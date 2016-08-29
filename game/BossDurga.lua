@@ -108,7 +108,7 @@ function BossDurga:enter()
 	self.shield_right = self:getScene():add(DurgaShield(DurgaShield.static.SIDE_RIGHT))
 	self.chain = self:getScene():add(DurgaChain(self.x, self.y, self.head_offset, self.shield_offset))
 
-	prox.timer.tween(2, self, {y = 140}, "out-sine",
+	prox.timer.tween(ENTER_TIME, self, {y = 140}, "out-sine",
 		function()
 			self.state = BossDurga.static.STATE_CLOSED
 			self.active = true
@@ -162,7 +162,7 @@ function BossDurga:update(dt, rt)
 
 		if self.moving_head == false then
 			self.moving_head = true
-			self.head_position = self.head_position % 4 + 1
+			self.head_position = self.head_position % #head_positions + 1
 			local destx = head_positions[self.head_position]
 			self.head_tween = prox.timer.tween(2, self, {head_offset = destx}, "in-out-quad")
 			prox.timer.after(2.5, function() self.moving_head = false end)
@@ -218,7 +218,7 @@ function BossDurga:update(dt, rt)
 				self:shoot()
 			elseif command == "wait" then
 			else
-				error("Unknown boss pattern command.")
+				error("Unknown Durga pattern command.")
 			end
 
 			self.step = self.step + 1
@@ -267,8 +267,8 @@ function BossDurga:dropGems()
 	local radius = 26
 	for i=0, gems-1 do
 		local angle = i / gems * 2*math.pi
-		local x = self.x + math.cos(angle) * radius
-		local y = self.y + self.head_offset + math.sin(angle) * radius
+		local x = self.x + self.head_offset + math.cos(angle) * radius
+		local y = self.y + math.sin(angle) * radius
 		self:getScene():add(Gem(x, y))
 	end
 end

@@ -3,6 +3,7 @@ local Background = class("game.Background", prox.Entity)
 local SCROLL_SPEED = 10
 
 function Background:enter()
+	self.z = 100
 	self:setName("background")
 	self.image = prox.resources.getImage("data/images/background_layer.png")
 end

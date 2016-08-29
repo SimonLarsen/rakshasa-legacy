@@ -20,7 +20,7 @@ end
 function HexLife:enter()
 	self:setName("hexlife")
 	self.y = -28
-	self.z = 10
+	self.z = 99
 
 	self.hex16 = prox.resources.getImage("data/images/hex16.png")
 	self.mapw = math.floor(settings.screen_width/ 16)
