@@ -1,4 +1,5 @@
 local serialize = require("prox.serialize")
+local music = require("music")
 local Ship = require("game.Ship")
 local Chain = require("game.Chain")
 local Enemy = require("game.Enemy")
@@ -45,6 +46,7 @@ function Controller:enter(path)
 	prox.timer.tween(1, self, {hud_alpha = 255}, "out-quad")
 
 	self:getScene():getCamera():setPosition(settings.screen_width/2, settings.screen_height/2)
+	music.playFile("data/music/thunder.ogg")
 
 	local ship1 = self:getScene():add(Ship(Ship.static.SIDE_LEFT))
 	local ship2 = self:getScene():add(Ship(Ship.static.SIDE_RIGHT))

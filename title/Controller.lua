@@ -1,3 +1,4 @@
+local music = require("music")
 local HexLife = require("game.HexLife")
 local Background = require("game.Background")
 
@@ -50,6 +51,7 @@ function Controller:update(dt, rt)
 	end
 
 	if self.ready and self.joystick:wasPressed("confirm") then
+		music.stop()
 		if options[self.selection] == "START" then
 			self:getScene():add(require("game.Controller")("data/levels/1.lua"))
 			self:hide()
@@ -96,6 +98,8 @@ end
 
 function Controller:reset()
 	self:setEnabled(true)
+
+	music.playFile("data/music/dots.ogg")
 
 	self.border_alpha = 0
 	prox.timer.tween(1, self, {border_alpha = 255}, "out-quad")
