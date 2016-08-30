@@ -34,10 +34,15 @@ function Controller:enter(path)
 	self.step = 1
 	self.time = 0
 	self.lives = 3
+	self.lives_display = self.lives
 	self.score = 0
+	self.score_display = self.score
 	self.joystick = prox.JoystickBinding(1)
 	self.joystick:add("confirm", "a")
 	self.state = Controller.static.STATE_WARMUP
+
+	self.hud_alpha = 0
+	prox.timer.tween(1, self, {hud_alpha = 255}, "out-quad")
 
 	self:getScene():getCamera():setPosition(settings.screen_width/2, settings.screen_height/2)
 
@@ -49,6 +54,11 @@ function Controller:enter(path)
 	self.border_image = prox.resources.getImage("data/images/border.png")
 	self.gameover_dialog = prox.resources.getImage("data/images/gameover_dialog.png")
 
+	self.lives_bar = prox.resources.getImage("data/images/lives_bar.png")
+	self.diamond_image = prox.resources.getImage("data/images/diamond.png")
+	self.diamond_flash_image = prox.resources.getImage("data/images/diamond_flash.png")
+	self.scorebox_image = prox.resources.getImage("data/images/scorebox.png")
+
 	self.small_font = prox.resources.getImageFont("data/fonts/small.png")
 	self.sans_font = prox.resources.getImageFont("data/fonts/large_sans.png")
 end
@@ -56,6 +66,7 @@ end
 function Controller:update(dt, rt)
 	self.time = self.time + dt
 
+	self.score_display = prox.math.movetowards(self.score_display, self.score, dt*800)
 	if self.state == Controller.static.STATE_WARMUP then
 		if self.time >= WARMUP_TIME then
 			self.state = Controller.static.STATE_ACTIVE
@@ -104,7 +115,7 @@ end
 
 function Controller:gui()
 	local bx1 = (prox.window.getWidth() - settings.screen_width) / 2 - self.border_image:getWidth()
-	local bx2 = (prox.window.getWidth() + settings.screen_width) / 2 + 1
+	local bx2 = (prox.window.getWidth() + settings.screen_width) / 2
 
 	love.graphics.setColor(0, 0, 0)
 	love.graphics.rectangle("fill", 0, 0, bx1, prox.window.getHeight())
@@ -114,9 +125,20 @@ function Controller:gui()
 	love.graphics.draw(self.border_image, bx1, 0, 0, 1, prox.window.getHeight())
 	love.graphics.draw(self.border_image, bx2, 0, 0, 1, prox.window.getHeight())
 
-	love.graphics.setFont(self.small_font)
-	love.graphics.print("LIVES: " .. self.lives, bx2 + 16, prox.window.getHeight()-34)
-	love.graphics.print("SCORE: " .. self.score, bx2 + 16, prox.window.getHeight()-24)
+	love.graphics.setColor(255, 255, 255, self.hud_alpha)
+	love.graphics.draw(self.scorebox_image, prox.window.getWidth()/2+163, 16)
+	love.graphics.printf(math.floor(self.score_display), prox.window.getWidth()/2+177, 69, 130, "center")
+
+	love.graphics.draw(self.lives_bar, prox.window.getWidth()/2-315, 16)
+	for i=1, self.lives do
+		love.graphics.draw(self.diamond_image, prox.window.getWidth()/2-289 + (i-1)*36, 22)
+	end
+	if self.lives_display > self.lives then
+		love.graphics.setColor(255, 255, 255, (self.lives_display % 1)*255)
+		love.graphics.draw(self.diamond_flash_image, prox.window.getWidth()/2-294+math.floor(self.lives_display)*36, 17)
+	end
+
+	love.graphics.setColor(255, 255, 255)
 
 	if self.state == Controller.static.STATE_GAMEOVER then
 		love.graphics.draw(self.gameover_dialog, prox.window.getWidth()/2, prox.window.getHeight()/2, 0, 1, 1, 160, 100)
@@ -134,6 +156,7 @@ function Controller:gui()
 end
 
 function Controller:playerHit()
+	prox.timer.tween(1, self, {lives_display = self.lives-1}, "in-quad")
 	self.lives = self.lives - 1
 	if self.lives == 0 then
 		self.state = Controller.static.STATE_GAMEOVER

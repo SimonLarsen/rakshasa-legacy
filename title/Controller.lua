@@ -51,7 +51,7 @@ function Controller:update(dt, rt)
 
 	if self.ready and self.joystick:wasPressed("confirm") then
 		if options[self.selection] == "START" then
-			self:getScene():add(require("game.Controller")("data/levels/2.lua"))
+			self:getScene():add(require("game.Controller")("data/levels/1.lua"))
 			self:hide()
 		elseif options[self.selection] == "CONFIG" then
 
@@ -68,7 +68,7 @@ function Controller:gui()
 
 	local midx = prox.window.getWidth()/2
 	local bx1 = (prox.window.getWidth() - settings.screen_width) / 2 - self.border_image:getWidth()
-	local bx2 = (prox.window.getWidth() + settings.screen_width) / 2 + 1
+	local bx2 = (prox.window.getWidth() + settings.screen_width) / 2
 
 	love.graphics.setColor(0, 0, 0)
 	love.graphics.rectangle("fill", 0, 0, bx1, prox.window.getHeight())
