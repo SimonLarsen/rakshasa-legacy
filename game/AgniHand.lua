@@ -64,15 +64,15 @@ function AgniHand:enter(side)
 end
 
 function AgniHand:update(dt, rt)
-	if self.moving == false then
-		self.moving = true
-		self.position = self.position % #positions[self.side] + 1
-		local destx = positions[self.side][self.position][1]
-		local desty = positions[self.side][self.position][2]
-		self.head_tween = prox.timer.tween(2, self, {x = destx, y = desty}, "in-out-quad", function() self.moving = false end)
-	end
-
 	if self.active then
+		if self.moving == false then
+			self.moving = true
+			self.position = self.position % #positions[self.side] + 1
+			local destx = positions[self.side][self.position][1]
+			local desty = positions[self.side][self.position][2]
+			self.hand_tween = prox.timer.tween(2, self, {x = destx, y = desty}, "in-out-quad", function() self.moving = false end)
+		end
+
 		self.pattern_time = self.pattern_time + dt
 		if self.pattern_time > patterns[self.phase][self.step][1] then
 			local command = patterns[self.phase][self.step][2]
@@ -116,6 +116,11 @@ function AgniHand:onRage()
 	if self.side == AgniHand.static.SIDE_RIGHT then
 		self.pattern_time = -2
 	end
+end
+
+function AgniHand:kill()
+	self.active = false
+	prox.timer.cancel(self.hand_tween)
 end
 
 return AgniHand

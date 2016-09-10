@@ -27,7 +27,7 @@ Controller.static.STATE_WARMUP   = 1
 Controller.static.STATE_ACTIVE   = 2
 Controller.static.STATE_GAMEOVER = 3
 
-function Controller:enter(path)
+function Controller:enter(path, binding)
 	self:setName("controller")
 
 	self.events = serialize.read(path)
@@ -38,8 +38,7 @@ function Controller:enter(path)
 	self.lives_display = self.lives
 	self.score = 0
 	self.score_display = self.score
-	self.joystick = prox.JoystickBinding(1)
-	self.joystick:add("confirm", "a")
+	self.binding = binding
 	self.state = Controller.static.STATE_WARMUP
 
 	self.hud_alpha = 0
@@ -48,8 +47,8 @@ function Controller:enter(path)
 	self:getScene():getCamera():setPosition(settings.screen_width/2, settings.screen_height/2)
 	music.playFile("data/music/thunder.ogg")
 
-	local ship1 = self:getScene():add(Ship(Ship.static.SIDE_LEFT))
-	local ship2 = self:getScene():add(Ship(Ship.static.SIDE_RIGHT))
+	local ship1 = self:getScene():add(Ship(Ship.static.SIDE_LEFT, self.binding))
+	local ship2 = self:getScene():add(Ship(Ship.static.SIDE_RIGHT, self.binding))
 	self:getScene():add(Chain(ship1, ship2))
 	self:getScene():add(ScreenShaker())
 
@@ -100,9 +99,9 @@ function Controller:update(dt, rt)
 		end
 
 	elseif self.state == Controller.static.STATE_GAMEOVER then
-		if self.joystick:wasPressed("confirm") then
+		if self.binding:wasPressed("confirm") then
 			for i,v in ipairs(self:getScene():getEntities()) do
-				if v:getName() ~= "titlecontroller" and v:getName() ~= "hexlife" and v:getName() ~= "background" then
+				if v:getName() ~= "titlecontroller" and v:getName() ~= "hexgrid" and v:getName() ~= "background" then
 					v:remove()
 				end
 			end
@@ -162,6 +161,7 @@ function Controller:playerHit()
 	self.lives = self.lives - 1
 	if self.lives == 0 then
 		self.state = Controller.static.STATE_GAMEOVER
+		music.stop()
 		if self.score > settings.highscore then
 			settings.highscore = self.score
 		end

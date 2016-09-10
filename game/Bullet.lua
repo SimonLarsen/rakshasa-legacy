@@ -20,7 +20,7 @@ local bullet_acceleration = {
 
 local bullet_damage = {
 	[Bullet.static.TYPE_PLAYER_BULLET] = 1,
-	[Bullet.static.TYPE_PLAYER_SUPER]  = 4,
+	[Bullet.static.TYPE_PLAYER_SUPER]  = 3,
 	[Bullet.static.TYPE_ENEMY_BULLET] = 1
 }
 

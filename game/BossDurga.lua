@@ -8,7 +8,7 @@ local Gem = require("game.Gem")
 
 local BossDurga = class("game.BossDurga", Boss)
 
-local MAX_HEALTH = 400
+local MAX_HEALTH = 300
 local ENTER_TIME = 2
 local EXPLOSION_DELAY = 0.5
 
@@ -112,7 +112,7 @@ function BossDurga:enter()
 		function()
 			self.state = BossDurga.static.STATE_CLOSED
 			self.active = true
-			self:getScene():find("hexlife"):fillAll(0.4)
+			self:getScene():find("hexgrid"):fillAll(0.4)
 			self:getScene():find("screenshaker"):shake(0.5, 4, 60)
 
 			local destx = love.math.random(0,1) == 0 and 100 or 220

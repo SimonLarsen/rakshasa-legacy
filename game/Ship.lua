@@ -22,7 +22,7 @@ Ship.static.STATE_ENTER  = 1
 Ship.static.STATE_ACTIVE = 2
 Ship.static.STATE_DEAD   = 3
 
-function Ship:enter(side)
+function Ship:enter(side, binding)
 	self:setName("ship")
 	self.y = settings.screen_height + 50
 	self.z = 0
@@ -33,7 +33,7 @@ function Ship:enter(side)
 	self.direction = 0
 	self.state = Ship.static.STATE_ENTER
 
-	self.joystick = prox.JoystickBinding(1, 0.1)
+	self.binding = binding
 
 	self:setCollider(prox.BoxCollider(18, 34))
 	self.gear_sprite = prox.Sprite("data/images/ship_gear.png", 19, 19)
@@ -43,7 +43,7 @@ function Ship:enter(side)
 
 	if side == Ship.static.SIDE_LEFT then
 		self.x = settings.screen_width/2 - 40
-		self.joystick:add("shoot", "leftshoulder")
+		self.shoot_action = "leftshoot"
 		self.xaxis = "leftx"
 		self.yaxis = "lefty"
 		self.dead_zone = -math.pi/2
@@ -51,7 +51,7 @@ function Ship:enter(side)
 		self.animator = prox.Animator("data/animators/ship_left.lua")
 	else
 		self.x = settings.screen_width/2 + 40
-		self.joystick:add("shoot", "rightshoulder")
+		self.shoot_action = "rightshoot"
 		self.xaxis = "rightx"
 		self.yaxis = "righty"
 		self.dead_zone = math.pi/2
@@ -70,12 +70,12 @@ end
 function Ship:update(dt, rt)
 	if self.state == Ship.static.STATE_ACTIVE then
 		-- Move ship
-		local shooting = self.joystick:isDown("shoot")
+		local shooting = self.binding:isDown(self.shoot_action)
 		local acceleration = shooting and SLOW_ACCELERATION or FAST_ACCELERATION
 		local max_speed = shooting and SLOW_MAX_SPEED or FAST_MAX_SPEED
 
-		self.xspeed = self.xspeed + acceleration * dt * self.joystick:getAxis(self.xaxis)
-		self.yspeed = self.yspeed + acceleration * dt * self.joystick:getAxis(self.yaxis)
+		self.xspeed = self.xspeed + acceleration * dt * self.binding:getAxis(self.xaxis)
+		self.yspeed = self.yspeed + acceleration * dt * self.binding:getAxis(self.yaxis)
 
 		local speed = math.sqrt(self.xspeed^2 + self.yspeed^2)
 		if speed > max_speed then
@@ -92,7 +92,7 @@ function Ship:update(dt, rt)
 		-- Shoot
 		self.cooldown = self.cooldown - dt
 
-		if self.joystick:isDown("shoot") and self.cooldown <= 0 and math.abs(self.direction - self.dead_zone) > SUPER_THRESHOLD then
+		if self.binding:isDown(self.shoot_action) and self.cooldown <= 0 and math.abs(self.direction - self.dead_zone) > SUPER_THRESHOLD then
 			if math.abs(self.direction - self.super_zone) < SUPER_THRESHOLD then
 				self.cooldown = SUPER_COOLDOWN
 				self:getScene():add(Bullet(self.x, self.y-32, 1.5*math.pi, Bullet.static.TYPE_PLAYER_SUPER))

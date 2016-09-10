@@ -40,7 +40,7 @@ function BossAgni:enter()
 		function()
 			self.state = BossAgni.static.STATE_CALM
 			self.active = true
-			self:getScene():find("hexlife"):fillAll(0.4)
+			self:getScene():find("hexgrid"):fillAll(0.4)
 			self:getScene():find("screenshaker"):shake(0.5, 4, 60)
 		end
 	)
@@ -69,7 +69,7 @@ function BossAgni:update(dt, rt)
 			self.step = 1
 			self.phase = 1
 
-			self:getScene():find("hexlife"):fillAll(0.3)
+			self:getScene():find("hexgrid"):fillAll(0.3)
 			self:getScene():find("screenshaker"):shake(0.4, 4, 60)
 
 			self.hand_left:onRage()
@@ -85,6 +85,15 @@ function BossAgni:update(dt, rt)
 			self.position = self.position % #positions + 1
 			local destx = positions[self.position]
 			self.head_tween = prox.timer.tween(4, self, {x = destx}, "in-out-quad", function() self.moving = false end)
+		end
+
+	elseif self.state == BossAgni.static.STATE_EXPLODING then
+		if self.moving == false then
+			self.moving = true
+			local x = love.math.random(self.x - 60, self.x + 60)
+			local y = love.math.random(self.y - 38, self.y + 30)
+			self:getScene():add(Explosion(x, y, Explosion.static.SIZE_LARGE))
+			prox.timer.after(EXPLOSION_DELAY, function() self.moving = false end)
 		end
 	end
 

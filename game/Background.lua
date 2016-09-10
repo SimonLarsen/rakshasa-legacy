@@ -9,7 +9,10 @@ function Background:enter()
 end
 
 function Background:update(dt, rt)
-	self.y = self.y + SCROLL_SPEED * dt % self.image:getHeight()
+	self.y = self.y + SCROLL_SPEED * dt
+	if self.y > self.image:getHeight() then
+		self.y = self.y - self.image:getHeight()
+	end
 end
 
 function Background:draw()

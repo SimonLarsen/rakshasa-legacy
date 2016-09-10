@@ -1,5 +1,5 @@
 local music = require("music")
-local HexLife = require("game.HexLife")
+local HexGrid = require("game.HexGrid")
 local Background = require("game.Background")
 
 local Controller = class("title.Controller", prox.Entity)
@@ -14,17 +14,33 @@ function Controller:enter()
 	self:setName("titlecontroller")
 	self:reset()
 
-	self:getScene():add(HexLife())
+	self:getScene():add(HexGrid())
 	self:getScene():add(Background())
 	self:getScene():getCamera():setPosition(settings.screen_width/2, settings.screen_height/2)
 
 	self.ready = false
-	self.stick_active = false
 	self.selection = 1
-	self.joystick = prox.JoystickBinding(1)
-	self.joystick:add("confirm", "a")
-	self.joystick:add("up", "dpup")
-	self.joystick:add("down", "dpdown")
+
+	self.binding = prox.JoystickBinding(1)
+	self.binding:add("confirm", "a")
+	self.binding:add("up", "dpup")
+	self.binding:add("down", "dpdown")
+	self.binding:add("leftshoot", "leftshoulder")
+	self.binding:add("rightshoot", "rightshoulder")
+	--[[
+	self.binding = prox.KeyboardBinding()
+	self.binding:add("confirm", "return")
+	self.binding:add("leftshoot", "lshift")
+	self.binding:add("rightshoot", "-")
+	self.binding:add("up", "up")
+	self.binding:add("down", "down")
+	self.binding:add("left", "left")
+	self.binding:add("right", "right")
+	self.binding:addAxis("leftx", "a", "d")
+	self.binding:addAxis("lefty", "w", "s")
+	self.binding:addAxis("rightx", "j", "l")
+	self.binding:addAxis("righty", "i", "k")
+	]]
 
 	self.selection_image = prox.resources.getImage("data/images/selection_marker.png")
 	self.border_image = prox.resources.getImage("data/images/border.png")
@@ -35,28 +51,24 @@ function Controller:enter()
 end
 
 function Controller:update(dt, rt)
-	local yaxis = self.joystick:getAxis("lefty")
-
-	local stick_active_before = self.stick_active
-	self.stick_active = math.abs(yaxis) > 0.8
+	local yaxis = self.binding:getAxis("lefty")
 
 	if self.ready then
-		if self.stick_active and not stick_active_before then
-			self.selection = prox.math.cap(self.selection + prox.math.sign(yaxis), 1, #options)
-		elseif self.joystick:wasPressed("down") then
-			self.selection = prox.math.cap(self.selection + 1, 1, #options)
-		elseif self.joystick:wasPressed("up") then
-			self.selection = prox.math.cap(self.selection - 1, 1, #options)
+		if self.binding:wasPressed("down") then
+			self.selection = prox.math.wrap(self.selection + 1, 1, #options)
+		elseif self.binding:wasPressed("up") then
+			self.selection = prox.math.wrap(self.selection - 1, 1, #options)
 		end
 	end
 
-	if self.ready and self.joystick:wasPressed("confirm") then
+	if self.ready and self.binding:wasPressed("confirm") then
 		music.stop()
 		if options[self.selection] == "START" then
-			self:getScene():add(require("game.Controller")("data/levels/1.lua"))
+			self:getScene():add(require("game.Controller")("data/levels/1.lua", self.binding))
 			self:hide()
 		elseif options[self.selection] == "CONFIG" then
-
+			self:getScene():add(require("title.OptionsMenu")(self.binding))
+			self:hide()
 		elseif options[self.selection] == "QUIT" then
 			self:hide()
 			prox.timer.after(1, function() love.event.quit() end)

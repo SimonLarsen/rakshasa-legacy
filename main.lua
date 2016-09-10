@@ -1,9 +1,10 @@
 prox = require("prox")
 HC = require("HC")
+
 settings = {
 	screen_width = 320,
 	screen_height = 480,
-	highscore = 0
+	highscore = 0,
 }
 
 function prox.load()

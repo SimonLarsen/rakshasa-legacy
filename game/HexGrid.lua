@@ -3,7 +3,7 @@ local Ship = require("game.Ship")
 local Bullet = require("game.Bullet")
 local Gem = require("game.Gem")
 
-local HexLife = class("game.HexLife", prox.Entity)
+local HexGrid = class("game.HexGrid", prox.Entity)
 
 local UPDATE_DELAY = 0.5
 local SCROLL_SPEED = 20
@@ -17,8 +17,8 @@ local cell_alive = function(map, x, y)
 	return map[x][y] and 1 or 0
 end
 
-function HexLife:enter()
-	self:setName("hexlife")
+function HexGrid:enter()
+	self:setName("hexgrid")
 	self.y = -28
 	self.z = 99
 
@@ -29,7 +29,7 @@ function HexLife:enter()
 	self.map = self:createNumericMap(self.mapw, self.maph)
 end
 
-function HexLife:update(dt, rt)
+function HexGrid:update(dt, rt)
 	self.y = self.y + dt * SCROLL_SPEED
 	if self.y >= 0 then
 		self.y = -28
@@ -50,7 +50,7 @@ function HexLife:update(dt, rt)
 	end
 end
 
-function HexLife:draw()
+function HexGrid:draw()
 	for iy=0, self.maph-1 do
 		for ix=0, self.mapw-1 do
 			if self.map[ix][iy] > 0 then
@@ -66,7 +66,7 @@ function HexLife:draw()
 	love.graphics.setColor(255, 255, 255, 255)
 end
 
-function HexLife:scrollUp()
+function HexGrid:scrollUp()
 	for iy=self.maph-1,2,-1 do
 		for ix=0, self.mapw-1 do
 			self.map[ix][iy] = self.map[ix][iy-2]
@@ -80,7 +80,7 @@ function HexLife:scrollUp()
 	end
 end
 
-function HexLife:clearMap(map, value)
+function HexGrid:clearMap(map, value)
 	for iy=0, self.maph-1 do
 		for ix=0, self.mapw-1 do
 			map[ix][iy] = value
@@ -88,7 +88,7 @@ function HexLife:clearMap(map, value)
 	end
 end
 
-function HexLife:updateMap()
+function HexGrid:updateMap()
 	local new = self.map2
 	local old = self.map1
 
@@ -116,7 +116,7 @@ function HexLife:updateMap()
 	self.map2 = old
 end
 
-function HexLife:createBooleanMap(w, h)
+function HexGrid:createBooleanMap(w, h)
 	local map = {}
 	for ix=0,self.mapw-1 do
 		map[ix] = {}
@@ -127,7 +127,7 @@ function HexLife:createBooleanMap(w, h)
 	return map
 end
 
-function HexLife:createNumericMap(w, h)
+function HexGrid:createNumericMap(w, h)
 	local map = {}
 	for ix=0,self.mapw-1 do
 		map[ix] = {}
@@ -138,7 +138,7 @@ function HexLife:createNumericMap(w, h)
 	return map
 end
 
-function HexLife:setCell(x, y, value)
+function HexGrid:setCell(x, y, value)
 	if x < 0 or x >= self.mapw
 	or y < 0 or y >= self.maph then
 		return
@@ -146,7 +146,7 @@ function HexLife:setCell(x, y, value)
 	self.map[x][y] = value
 end
 
-function HexLife:getCell(x, y)
+function HexGrid:getCell(x, y)
 	if x < 0 or x >= self.mapw
 	or y < 0 or y >= self.maph then
 		return 0
@@ -154,7 +154,7 @@ function HexLife:getCell(x, y)
 	return self.map[x][y]
 end
 
-function HexLife:positionToCell(x, y)
+function HexGrid:positionToCell(x, y)
 	local cx, cy
 
 	cy = math.floor((y-self.y-1) / 14)
@@ -167,17 +167,17 @@ function HexLife:positionToCell(x, y)
 	return cx, cy
 end
 
-function HexLife:setAtPosition(x, y, value)
+function HexGrid:setAtPosition(x, y, value)
 	local cx, cy = self:positionToCell(x, y)
 	self:setCell(cx, cy, value)
 end
 
-function HexLife:getAtPosition(x, y)
+function HexGrid:getAtPosition(x, y)
 	local cx, cy = self:positionToCell(x, y)
 	return self:getCell(cx, cy)
 end
 
-function HexLife:fillAll(value)
+function HexGrid:fillAll(value)
 	for ix=0,self.mapw-1 do
 		for iy=0,self.maph-1 do
 			self.map[ix][iy] = 1
@@ -185,4 +185,22 @@ function HexLife:fillAll(value)
 	end
 end
 
-return HexLife
+local hex_adj_even_x = {-1, 0, -1, 1, -1, 0}
+local hex_adj_odd_x  = {0, 1, -1, 1, 0, 1}
+local hex_adj_y = {-1, -1, 0, 0, 1, 1}
+
+function HexGrid:getNeighbors(x, y)
+	local i = 0
+	return function()
+		i = i + 1
+		if i <= 6 then
+			if y % 2 == 0 then
+				return x+hex_adj_even_x[i], y+hex_adj_y[i]
+			else
+				return x+hex_adj_odd_x[i], y+hex_adj_y[i]
+			end
+		end
+	end
+end
+
+return HexGrid

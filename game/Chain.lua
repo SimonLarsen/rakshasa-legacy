@@ -63,7 +63,6 @@ function Chain:update(dt, rt)
 				self.invulnerable = INVULNERABLE_TIME
 				self:getScene():find("screenshaker"):shake(0.5, 8, 60)
 				self:getScene():find("controller"):playerHit()
-				prox.joystick.setVibration(1, 0.8, 0.8, 0.8)
 			end
 			v:kill()
 		end

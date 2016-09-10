@@ -8,7 +8,7 @@ local ShivaArm = require("game.ShivaArm")
 
 local BossShiva = class("game.BossShiva", Boss)
 
-local MAX_HEALTH = 400
+local MAX_HEALTH = 300
 local ENTER_TIME = 3
 local EXPLOSION_DELAY = 0.5
 
@@ -52,7 +52,7 @@ function BossShiva:enter()
 		function()
 			self.state = BossShiva.static.STATE_CALM
 			self.active = true
-			self:getScene():find("hexlife"):fillAll(0.4)
+			self:getScene():find("hexgrid"):fillAll(0.4)
 			self:getScene():find("screenshaker"):shake(0.5, 4, 60)
 		end
 	)
@@ -81,7 +81,7 @@ function BossShiva:update(dt, rt)
 			self.step = 1
 			self.phase = 1
 
-			self:getScene():find("hexlife"):fillAll(0.3)
+			self:getScene():find("hexgrid"):fillAll(0.3)
 			self:getScene():find("screenshaker"):shake(0.4, 4, 60)
 
 			self.arm_left.rage = true
