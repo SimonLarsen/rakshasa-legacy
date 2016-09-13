@@ -52,7 +52,6 @@ function Controller:enter(path, binding)
 	self:getScene():add(Chain(ship1, ship2))
 	self:getScene():add(ScreenShaker())
 
-	self.border_image = prox.resources.getImage("data/images/border.png")
 	self.gameover_dialog = prox.resources.getImage("data/images/gameover_dialog.png")
 
 	self.lives_bar = prox.resources.getImage("data/images/lives_bar.png")
@@ -110,17 +109,6 @@ function Controller:currentStep()
 end
 
 function Controller:gui()
-	local bx1 = (prox.window.getWidth() - settings.screen_width) / 2 - self.border_image:getWidth()
-	local bx2 = (prox.window.getWidth() + settings.screen_width) / 2
-
-	love.graphics.setColor(0, 0, 0)
-	love.graphics.rectangle("fill", 0, 0, bx1, prox.window.getHeight())
-	love.graphics.rectangle("fill", bx2, 0, bx1, prox.window.getHeight())
-
-	love.graphics.setColor(255, 255, 255)
-	love.graphics.draw(self.border_image, bx1, 0, 0, 1, prox.window.getHeight())
-	love.graphics.draw(self.border_image, bx2, 0, 0, 1, prox.window.getHeight())
-
 	love.graphics.setColor(255, 255, 255, self.hud_alpha)
 	love.graphics.draw(self.scorebox_image, prox.window.getWidth()/2+163, 16)
 	love.graphics.printf(math.floor(self.score_display), prox.window.getWidth()/2+177, 69, 130, "center")

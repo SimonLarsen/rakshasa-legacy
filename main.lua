@@ -17,5 +17,10 @@ function prox.load()
 	prox.resources.getImageFont("data/fonts/serif.png", " -0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz", 1)
 	prox.resources.getImageFont("data/fonts/large_sans.png", " ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789", 2)
 
-	prox.gamestate.switch({require("title.Controller")()})
+	prox.gamestate.switch({
+		require("title.Controller")(),
+		require("game.HexGrid")(),
+		require("game.Background")(),
+		require("game.ScreenBorder")()
+	})
 end
