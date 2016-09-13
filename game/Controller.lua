@@ -93,18 +93,13 @@ function Controller:update(dt, rt)
 			if self.time >= self:currentStep()[1] then
 				local args = prox.table.sub(self:currentStep(), 3, #self:currentStep())
 				self:getScene():add(constructors[self:currentStep()[2]](unpack(args)))
-
 				self.step = self.step + 1
 			end
 		end
 
 	elseif self.state == Controller.static.STATE_GAMEOVER then
 		if self.binding:wasPressed("confirm") then
-			for i,v in ipairs(self:getScene():getEntities()) do
-				if v:getName() ~= "titlecontroller" and v:getName() ~= "hexgrid" and v:getName() ~= "background" then
-					v:remove()
-				end
-			end
+			self:getScene():clear()
 			self:getScene():find("titlecontroller"):reset()
 		end
 	end

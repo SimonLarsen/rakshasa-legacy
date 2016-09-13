@@ -203,4 +203,8 @@ function HexGrid:getNeighbors(x, y)
 	end
 end
 
+function HexGrid:keepAlive()
+	return true
+end
+
 return HexGrid

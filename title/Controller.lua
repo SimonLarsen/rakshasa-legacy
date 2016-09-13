@@ -143,4 +143,8 @@ function Controller:hide()
 	)
 end
 
+function Controller:keepAlive()
+	return true
+end
+
 return Controller
