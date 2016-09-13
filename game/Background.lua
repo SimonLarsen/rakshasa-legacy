@@ -4,8 +4,9 @@ local SCROLL_SPEED = 10
 
 function Background:enter()
 	self.z = 100
-	self:setName("background")
 	self.image = prox.resources.getImage("data/images/background_layer.png")
+	self.alpha = 0
+	prox.timer.tween(2, self, {alpha = 15}, "out-cubic")
 end
 
 function Background:update(dt, rt)
@@ -16,7 +17,7 @@ function Background:update(dt, rt)
 end
 
 function Background:draw()
-	local alpha = 15 + 5*math.cos(prox.time.getTime()*4)
+	local alpha = self.alpha + 5*math.cos(prox.time.getTime()*4)
 	love.graphics.setColor(255, 255, 255, alpha)
 	love.graphics.draw(self.image, 0, self.y)
 	love.graphics.draw(self.image, 0, self.y-self.image:getHeight())

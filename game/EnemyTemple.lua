@@ -1,5 +1,6 @@
 local Enemy = require("game.Enemy")
 local Bullet = require("game.Bullet")
+local Flash = require("game.Flash")
 
 local EnemyTemple = class("game.EnemyTemple", Enemy)
 
@@ -38,6 +39,8 @@ end
 function EnemyTemple:shoot()
 	self:getScene():add(Bullet(self.x-38, self.y+18, math.pi/2, Bullet.static.TYPE_ENEMY_BULLET))
 	self:getScene():add(Bullet(self.x+39, self.y+18, math.pi/2, Bullet.static.TYPE_ENEMY_BULLET))
+	self:getScene():add(Flash(self.x-38, self.y+18))
+	self:getScene():add(Flash(self.x+39, self.y+18))
 end
 
 function EnemyTemple:getGems()

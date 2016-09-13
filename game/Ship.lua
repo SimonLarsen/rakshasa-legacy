@@ -1,5 +1,6 @@
 local Bullet = require("game.Bullet")
 local Explosion = require("game.Explosion")
+local Flash = require("game.Flash")
 
 local Ship = class("game.Ship", prox.Entity)
 
@@ -96,6 +97,7 @@ function Ship:update(dt, rt)
 			if math.abs(self.direction - self.super_zone) < SUPER_THRESHOLD then
 				self.cooldown = SUPER_COOLDOWN
 				self:getScene():add(Bullet(self.x, self.y-32, 1.5*math.pi, Bullet.static.TYPE_PLAYER_SUPER))
+				self:getScene():add(Flash(self.x, self.y-24, 2))
 			else
 				self.cooldown = BULLET_COOLDOWN
 				self:getScene():add(Bullet(self.x, self.y-20, 1.5*math.pi, Bullet.static.TYPE_PLAYER_BULLET))

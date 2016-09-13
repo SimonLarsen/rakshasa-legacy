@@ -1,6 +1,7 @@
 local Enemy = require("game.Enemy")
 local Bullet = require("game.Bullet")
 local Explosion = require("game.Explosion")
+local Flash = require("game.Flash")
 
 local EnemyShip = class("game.EnemyShip", Enemy)
 
@@ -79,7 +80,8 @@ function EnemyShip:shoot()
 	local xdist = self.player_chain.x - self.x
 	local ydist = self.player_chain.y - self.y
 	local dir = math.atan2(ydist, xdist)
-	self:getScene():add(Bullet(self.x, self.y+14, dir, Bullet.static.TYPE_ENEMY_BULLET))
+	self:getScene():add(Bullet(self.x, self.y, dir, Bullet.static.TYPE_ENEMY_BULLET))
+	self:getScene():add(Flash(self.x, self.y))
 end
 
 function EnemyShip:onRemove()
