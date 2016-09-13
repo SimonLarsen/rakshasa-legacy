@@ -25,6 +25,8 @@ function Controller:enter()
 	joystick:add("confirm", "a")
 	joystick:add("up", "dpup")
 	joystick:add("down", "dpdown")
+	joystick:add("left", "dpleft")
+	joystick:add("right", "dpright")
 	joystick:add("leftshoot", "leftshoulder")
 	joystick:add("rightshoot", "rightshoulder")
 
@@ -95,7 +97,7 @@ function Controller:gui()
 
 	love.graphics.setFont(self.sans_font)
 	for i,v in ipairs(options) do
-		local alpha = prox.math.cap(self.menu_alpha - math.abs(i - self.selection)*80, 0, 255)
+		local alpha = prox.math.cap(self.menu_alpha - math.abs(i-self.selection)*80, 0, 255)
 		love.graphics.setColor(255, 255, 255, alpha)
 		love.graphics.printf(v, midx-149, 260+(i-1)*30, 300, "center")
 
