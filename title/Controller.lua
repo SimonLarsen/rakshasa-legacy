@@ -60,10 +60,10 @@ function Controller:update(dt, rt)
 	end
 
 	if self.ready and self.binding:wasPressed("confirm") then
-		music.stop()
 		if options[self.selection] == "START" then
-			self:getScene():add(require("game.Controller")("data/levels/1.lua", self.binding))
+			music.stop()
 			self:hide()
+			self:getScene():add(require("game.Controller")("data/levels/1.lua", self.binding))
 		elseif options[self.selection] == "CONFIG" then
 			self:getScene():add(require("title.OptionsMenu")(self.binding))
 			self:hide()
@@ -96,10 +96,12 @@ function Controller:gui()
 	love.graphics.setColor(255, 255, 255, 255)
 end
 
-function Controller:reset()
+function Controller:reset(keep_music)
 	self:setEnabled(true)
 
-	music.playFile("data/music/dots.ogg")
+	if not keep_music then
+		music.playFile("data/music/dots.ogg")
+	end
 
 	self.title_y = 172
 	self.title_alpha = 0

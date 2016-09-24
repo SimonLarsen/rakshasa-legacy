@@ -4,16 +4,16 @@ local Boss = class("game.Boss", Enemy)
 
 local HEALTHBAR_COOLDOWN = 0.3
 
-function Boss:enter(boss_name, health)
+function Boss:enter(boss_id, health)
 	Enemy.enter(self, health, true)
 
-	self.boss_name = boss_name
+	self.boss_id = boss_id
 	self.healthbar = self.health
 	self.healthbar_cooldown = 0
 	self.active = false
 
 	self.boss_healthbar = prox.resources.getImage("data/images/boss_healthbar.png")
-	self.banner_font = prox.resources.getImageFont("data/fonts/banner_font.png")
+	self.name_text = prox.resources.getImage("data/images/bosstext_" .. self.boss_id .. ".png")
 end
 
 function Boss:update(dt, rt)
@@ -55,20 +55,9 @@ function Boss:gui()
 	local midx = prox.window.getWidth()/2
 
 	-- Boss name
-	love.graphics.setFont(self.banner_font)
-	local name_width = self.banner_font:getWidth(self.boss_name)
-	love.graphics.setColor(0, 0, 0)
-	love.graphics.rectangle("fill", midx-name_width/2-10, 14, name_width+20, 28)
+	local textx = midx - math.floor(self.name_text:getWidth() / 2)
+	love.graphics.draw(self.name_text, textx, 15)
 
-	love.graphics.setColor(255, 255, 255)
-	love.graphics.line(midx-name_width/2-5, 20, midx+name_width/2+5, 20)
-
-	love.graphics.setColor(0, 0, 0)
-	love.graphics.printf(self.boss_name, midx-151, 16, 300, "center")
-	love.graphics.printf(self.boss_name, midx-149, 16, 300, "center")
-	love.graphics.setColor(255, 255, 255)
-	love.graphics.printf(self.boss_name, midx-150, 16, 300, "center")
-	
 	-- Health bar
 	local bar_width = math.max(0, math.floor(self.healthbar / self.max_health * 150))
 	love.graphics.draw(self.boss_healthbar, midx, 52, 0, 1, 1, 95, 18)

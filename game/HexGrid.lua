@@ -185,20 +185,73 @@ function HexGrid:fillAll(value)
 	end
 end
 
-local hex_adj_even_x = {-1, 0, -1, 1, -1, 0}
-local hex_adj_odd_x  = {0, 1, -1, 1, 0, 1}
-local hex_adj_y = {-1, -1, 0, 0, 1, 1}
+local hex_adj_even_x = {-1, 0, 1, 0, -1, -1}
+local hex_adj_odd_x  = {0, 1, 1, 1, 0, -1}
+local hex_adj_y = {-1, -1, 0, 1, 1, 0}
+
+---
+-- Returns coordinates of neighbor i adjacent to
+-- hex tile (x, y).
+--
+-- Neighbor order:
+--  1 2
+-- 6 x 3
+--  5 4
+function HexGrid:getNeighbor(x, y, i)
+	if y % 2 == 0 then
+		return x+hex_adj_even_x[i], y+hex_adj_y[i]
+	else
+		return x+hex_adj_odd_x[i], y+hex_adj_y[i]
+	end
+end
 
 function HexGrid:getNeighbors(x, y)
 	local i = 0
 	return function()
 		i = i + 1
 		if i <= 6 then
-			if y % 2 == 0 then
-				return x+hex_adj_even_x[i], y+hex_adj_y[i]
-			else
-				return x+hex_adj_odd_x[i], y+hex_adj_y[i]
+			return self:getNeighbor(x, y, i)
+		end
+	end
+end
+
+function HexGrid:getRingCorners(x, y, r)
+	local i = 0
+	return function()
+		i = i + 1
+		if i <= 6 then
+			local cx, cy = x, y
+			for j=1,r do
+				cx, cy = self:getNeighbor(cx, cy, i)
 			end
+			return cx, cy
+		end
+	end
+end
+
+function HexGrid:getRing(x, y, r)
+	local i = 0
+	local dir = 3
+	local corners = self:getRingCorners(x, y, r)
+
+	local nx, ny = corners()
+	local sx, sy = nx, ny
+	local cx, cy = nx, ny
+	return function()
+		if i == 0 then
+			i = i + 1
+			nx, ny = corners()
+			return cx, cy
+		end
+		if i <= 6 then
+			cx, cy = self:getNeighbor(cx, cy, dir)
+			if (cx == nx and cy == ny)
+			or (cx == sx and cy == sy) then
+				i = i + 1
+				dir = prox.math.wrap(dir+1, 1, 6)
+				nx, ny = corners()
+			end
+			return cx, cy
 		end
 	end
 end

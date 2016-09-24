@@ -84,8 +84,8 @@ local head_positions = {
 }
 
 function BossDurga:enter()
+	Boss.enter(self, "durga", MAX_HEALTH)
 	self:setName("durga")
-	Boss.enter(self, "Durga", MAX_HEALTH)
 
 	self.x = settings.screen_width / 2
 	self.y = -80
@@ -115,7 +115,7 @@ function BossDurga:enter()
 			self:getScene():find("hexgrid"):fillAll(0.4)
 			self:getScene():find("screenshaker"):shake(0.5, 4, 60)
 
-			local destx = love.math.random(0,1) == 0 and 100 or 220
+			local destx = love.math.random(0,1) == 0 and 75 or 245
 			self.moving = true
 
 			self.shield_left:setVulnerable(true)
@@ -131,7 +131,7 @@ function BossDurga:update(dt, rt)
 	if self.state == BossDurga.static.STATE_CLOSED then
 		if self.moving == false then
 			self.moving = true
-			local destx = self.x < 160 and 220 or 100
+			local destx = self.x < 160 and 245 or 75
 			prox.timer.tween(3, self, {x = destx}, "in-out-quad", function() self.moving = false end)
 		end
 		

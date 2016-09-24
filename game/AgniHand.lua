@@ -41,6 +41,7 @@ function AgniHand:enter(side)
 	self.rage = false
 	self.moving = true
 	self.position = 1
+	self.y = -30
 
 	self.pattern_time = 0
 	self.step = 1

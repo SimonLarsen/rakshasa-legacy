@@ -22,8 +22,8 @@ local positions = {
 }
 
 function BossAgni:enter()
-	Boss.enter(self, "Agni", MAX_HEALTH)
-	self:setName("Agni")
+	Boss.enter(self, "agni", MAX_HEALTH)
+	self:setName("agni")
 
 	self.x = settings.screen_width / 2
 	self.y = -40

@@ -30,7 +30,7 @@ local positions = {
 }
 
 function BossShiva:enter()
-	Boss.enter(self, "Shiva", MAX_HEALTH)
+	Boss.enter(self, "shiva", MAX_HEALTH)
 	self:setName("shiva")
 
 	self.x = settings.screen_width / 2

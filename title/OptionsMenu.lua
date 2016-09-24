@@ -70,7 +70,7 @@ local options = {
 		label = "BACK",
 		action=function(o)
 			o:hide()
-			o:getScene():find("titlecontroller"):reset()
+			o:getScene():find("titlecontroller"):reset(true)
 			return false
 		end
 	},
