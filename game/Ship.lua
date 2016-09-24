@@ -15,7 +15,7 @@ local FAST_MAX_SPEED = 250
 
 local BULLET_COOLDOWN = 0.1
 local SUPER_COOLDOWN = 0.15
-local SUPER_THRESHOLD = 0.1
+local DEADZONE_THRESHOLD = 0.20
 
 local ENTER_TIME = 1.0
 
@@ -33,6 +33,7 @@ function Ship:enter(side, binding)
 	self.cooldown = 0
 	self.direction = 0
 	self.state = Ship.static.STATE_ENTER
+	self.power_level = 1
 
 	self.binding = binding
 
@@ -93,14 +94,18 @@ function Ship:update(dt, rt)
 		-- Shoot
 		self.cooldown = self.cooldown - dt
 
-		if self.binding:isDown(self.shoot_action) and self.cooldown <= 0 and math.abs(self.direction - self.dead_zone) > SUPER_THRESHOLD then
-			if math.abs(self.direction - self.super_zone) < SUPER_THRESHOLD then
-				self.cooldown = SUPER_COOLDOWN
+		if self.binding:isDown(self.shoot_action) and self.cooldown <= 0 then
+			self.cooldown = BULLET_COOLDOWN
+			if self.power_level == 1 then
+				self:getScene():add(Bullet(self.x, self.y-20, 1.5*math.pi, Bullet.static.TYPE_PLAYER_BULLET))
+			elseif self.power_level == 2 then
 				self:getScene():add(Bullet(self.x, self.y-32, 1.5*math.pi, Bullet.static.TYPE_PLAYER_SUPER))
 				self:getScene():add(Flash(self.x, self.y-24, 2))
+			elseif self.power_level == 3 then
+				self:getScene():add(Bullet(self.x, self.y-32, 1.5*math.pi, Bullet.static.TYPE_PLAYER_ULTRA))
+				self:getScene():add(Flash(self.x, self.y-24, 2))
 			else
-				self.cooldown = BULLET_COOLDOWN
-				self:getScene():add(Bullet(self.x, self.y-20, 1.5*math.pi, Bullet.static.TYPE_PLAYER_BULLET))
+				error("Player power levels must be >= 1 and <= 3.")
 			end
 		end
 	end
@@ -115,10 +120,20 @@ function Ship:setDirection(direction)
 	self.direction = direction
 end
 
+function Ship:setPowerLevel(level)
+	self.power_level = level
+end
+
 function Ship:onCollide(o, dt, rt)
 	if o:getName() == "gem" then
 		self:getScene():find("controller"):addScore(o:getPoints())
 		o:remove()
+	elseif o:getName() == "heart" then
+		self:getScene():find("controller"):addScore(o:getPoints())
+		self:getScene():find("controller"):addLives(1)
+		o:remove()
+	elseif o:getName() == "bullet" and o:isPlayerBullet() then
+		o:kill()
 	end
 end
 

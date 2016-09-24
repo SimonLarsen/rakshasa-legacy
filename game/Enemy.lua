@@ -36,7 +36,7 @@ function Enemy:kill()
 	else
 		self:getScene():add(Explosion(self.x, self.y, Explosion.static.SIZE_MEDIUM))
 	end
-
+	
 	for i=1, self:getGems() do
 		self:getScene():add(Gem(
 			self.x + love.math.random(-8, 8),

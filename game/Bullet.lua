@@ -4,23 +4,27 @@ local Bullet = class("game.Bullet", prox.Entity)
 
 Bullet.static.TYPE_PLAYER_BULLET = 1
 Bullet.static.TYPE_PLAYER_SUPER  = 2
-Bullet.static.TYPE_ENEMY_BULLET  = 3
+Bullet.static.TYPE_PLAYER_ULTRA  = 3
+Bullet.static.TYPE_ENEMY_BULLET  = 4
 
 local bullet_speed = {
 	[Bullet.static.TYPE_PLAYER_BULLET] = 500,
-	[Bullet.static.TYPE_PLAYER_SUPER]  = 1000,
+	[Bullet.static.TYPE_PLAYER_SUPER]  = 750,
+	[Bullet.static.TYPE_PLAYER_ULTRA]  = 1000,
 	[Bullet.static.TYPE_ENEMY_BULLET]  = 200
 }
 
 local bullet_acceleration = {
 	[Bullet.static.TYPE_PLAYER_BULLET] = 10000,
 	[Bullet.static.TYPE_PLAYER_SUPER]  = 1500,
+	[Bullet.static.TYPE_PLAYER_ULTRA]  = 5000,
 	[Bullet.static.TYPE_ENEMY_BULLET]  = 10000
 }
 
 local bullet_damage = {
 	[Bullet.static.TYPE_PLAYER_BULLET] = 1,
-	[Bullet.static.TYPE_PLAYER_SUPER]  = 3,
+	[Bullet.static.TYPE_PLAYER_SUPER]  = 2,
+	[Bullet.static.TYPE_PLAYER_ULTRA]  = 3,
 	[Bullet.static.TYPE_ENEMY_BULLET] = 1
 }
 
@@ -42,6 +46,10 @@ function Bullet:enter(x, y, dir, type)
 		self:setRenderer(prox.Sprite("data/images/bullet_super.png"))
 		self:setCollider(prox.BoxCollider(4, 4))
 		self:getRenderer():setRotation(self.dir)
+	elseif self.type == Bullet.static.TYPE_PLAYER_ULTRA then
+		self:setRenderer(prox.Sprite("data/images/bullet_super.png"))
+		self:setCollider(prox.BoxCollider(4, 4))
+		self:getRenderer():setRotation(self.dir)
 	elseif self.type == Bullet.static.TYPE_ENEMY_BULLET then
 		self:setRenderer(prox.Sprite("data/images/bullet_enemy.png"))
 		self:setCollider(prox.BoxCollider(4, 4))
@@ -49,7 +57,7 @@ function Bullet:enter(x, y, dir, type)
 		self.rotation_speed = 8
 		self:getRenderer():setRotation(love.math.random()*2*math.pi)
 	else
-		error("Unknown enemy type \"%s\".", self.type)
+		error(string.format("Unknown enemy type \"%s\".", self.type))
 	end
 end
 
@@ -82,7 +90,7 @@ function Bullet:getDamage()
 end
 
 function Bullet:isPlayerBullet()
-	return self.type == Bullet.static.TYPE_PLAYER_BULLET or self.type == Bullet.static.TYPE_PLAYER_SUPER
+	return self.type <= Bullet.static.TYPE_PLAYER_ULTRA
 end
 
 function Bullet:getHCShape()

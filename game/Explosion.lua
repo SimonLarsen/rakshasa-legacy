@@ -32,7 +32,7 @@ function Explosion:update(dt, rt)
 			local hex = self:getScene():find("hexgrid")
 			local cx, cy = hex:positionToCell(self.x, self.y)
 			for x, y in hex:getRingCorners(cx, cy, self.hex_step) do
-				hex:setCell(x, y, 1)
+				hex:setCell(x, y, 0.8)
 			end
 
 			self.hex_next_step = HEX_STEP_DELAY

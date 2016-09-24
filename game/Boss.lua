@@ -59,7 +59,7 @@ function Boss:gui()
 	love.graphics.draw(self.name_text, textx, 15)
 
 	-- Health bar
-	local bar_width = math.max(0, math.floor(self.healthbar / self.max_health * 150))
+	local bar_width = math.max(0, math.ceil(self.healthbar / self.max_health * 150))
 	love.graphics.draw(self.boss_healthbar, midx, 52, 0, 1, 1, 95, 18)
 
 	love.graphics.setColor(0, 0, 0)

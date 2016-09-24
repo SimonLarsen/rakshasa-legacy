@@ -5,6 +5,7 @@ local Bullet = require("game.Bullet")
 local Explosion = require("game.Explosion")
 local WhiteFlash = require("game.WhiteFlash")
 local Gem = require("game.Gem")
+local Heart = require("game.Heart")
 
 local BossDurga = class("game.BossDurga", Boss)
 
@@ -259,6 +260,7 @@ function BossDurga:kill()
 		self.chain:remove()
 		self:getScene():add(WhiteFlash(1, "in-linear"))
 		self:dropGems()
+		self:getScene():add(Heart(self.x + self.head_offset, self.y))
 	end)
 end
 

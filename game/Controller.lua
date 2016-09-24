@@ -23,7 +23,7 @@ local constructors = {
 }
 
 local WARMUP_TIME = 3
-local TRANSITION_TIME = 9
+local TRANSITION_TIME = 10
 
 Controller.static.STATE_WARMUP     = 1
 Controller.static.STATE_ACTIVE     = 2
@@ -83,7 +83,7 @@ function Controller:update(dt, rt)
 	elseif self.state == Controller.static.STATE_ACTIVE then
 		if self.wave > #self.events then
 			local level = self.level
-			prox.timer.after(2, function() self:getScene():add(EndText(level)) end)
+			prox.timer.after(3, function() self:getScene():add(EndText(level)) end)
 			self:progressLevel()
 		elseif self.wave == 0 then
 			if self.time >= 0 then
@@ -136,6 +136,9 @@ function Controller:gui()
 	if self.lives_display > self.lives then
 		love.graphics.setColor(255, 255, 255, (self.lives_display % 1)*255)
 		love.graphics.draw(self.diamond_flash_image, prox.window.getWidth()/2-294+math.floor(self.lives_display)*36, 17)
+	elseif self.lives_display < self.lives then
+		love.graphics.setColor(255, 255, 255, (1 - (self.lives_display % 1))*255)
+		love.graphics.draw(self.diamond_flash_image, prox.window.getWidth()/2-294+math.floor(self.lives_display)*36, 17)
 	end
 
 	love.graphics.setColor(255, 255, 255)
@@ -156,7 +159,8 @@ function Controller:gui()
 end
 
 function Controller:playerHit()
-	prox.timer.tween(1, self, {lives_display = self.lives-1}, "in-quad")
+	if self.lives_tween then prox.timer.cancel(self.lives_tween) end
+	self.lives_tween = prox.timer.tween(1, self, {lives_display = self.lives-1}, "in-quad")
 	self.lives = self.lives - 1
 	if self.lives == 0 then
 		self.state = Controller.static.STATE_GAMEOVER
@@ -173,6 +177,12 @@ end
 
 function Controller:addScore(points)
 	self.score = self.score + points
+end
+
+function Controller:addLives(lives)
+	if self.lives_tween then prox.timer.cancel(self.lives_tween) end
+	self.lives = prox.math.cap(self.lives + lives, 0, 3)
+	prox.timer.tween(1, self, {lives_display = self.lives}, "in-quad")
 end
 
 function Controller:progressLevel()

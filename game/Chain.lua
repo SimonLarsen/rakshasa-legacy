@@ -1,11 +1,13 @@
-local Bullet = require("game.Bullet")
-
 local Chain = class("game.Chain", prox.Entity)
 
 local MIN_DIST = 86
 local SUPER_THRESHOLD = 0.1
 local INVULNERABLE_TIME = 2
 local FORCE = 4500
+
+local POWER_LEVEL1_DIST = 0
+local POWER_LEVEL2_DIST = 140
+local POWER_LEVEL3_DIST = 220
 
 Chain.static.STATE_ACTIVE = 1
 Chain.static.STATE_DEAD  = 2
@@ -42,6 +44,13 @@ function Chain:update(dt, rt)
 		self.ship2.xspeed = self.ship2.xspeed + xdist / dist * dt * FORCE
 		self.ship2.yspeed = self.ship2.yspeed + ydist / dist * dt * FORCE
 	end
+
+	-- Update power level based on ship distance
+	local power_level = 1
+	if dist >= POWER_LEVEL3_DIST then power_level = 3
+	elseif dist >= POWER_LEVEL2_DIST then power_level = 2 end
+	self.ship1:setPowerLevel(power_level)
+	self.ship2:setPowerLevel(power_level)
 
 	-- Rotate center and gears
 	self.direction = math.atan2(ydist, xdist)

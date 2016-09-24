@@ -61,12 +61,12 @@ function Controller:update(dt, rt)
 
 	if self.ready and self.binding:wasPressed("confirm") then
 		if options[self.selection] == "START" then
-			music.stop()
 			self:hide()
+			music.stop()
 			self:getScene():add(require("game.Controller")(1, self.binding))
 		elseif options[self.selection] == "CONFIG" then
-			self:getScene():add(require("title.OptionsMenu")(self.binding))
 			self:hide()
+			self:getScene():add(require("title.OptionsMenu")(self.binding))
 		elseif options[self.selection] == "QUIT" then
 			self:hide()
 			prox.timer.after(1, function() love.event.quit() end)
