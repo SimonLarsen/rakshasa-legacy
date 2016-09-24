@@ -4,6 +4,7 @@ local Ship = require("game.Ship")
 local Chain = require("game.Chain")
 local Enemy = require("game.Enemy")
 local ScreenShaker = require("game.ScreenShaker")
+local EndText = require("game.EndText")
 
 local Controller = class("game.Controller", prox.Entity)
 
@@ -22,24 +23,30 @@ local constructors = {
 }
 
 local WARMUP_TIME = 3
+local TRANSITION_TIME = 9
 
-Controller.static.STATE_WARMUP   = 1
-Controller.static.STATE_ACTIVE   = 2
-Controller.static.STATE_GAMEOVER = 3
+Controller.static.STATE_WARMUP     = 1
+Controller.static.STATE_ACTIVE     = 2
+Controller.static.STATE_TRANSITION = 3
+Controller.static.STATE_GAMEOVER   = 4
 
-function Controller:enter(path, binding)
+local levels = {
+	"data/levels/1.lua",
+	"data/levels/2.lua",
+	"data/levels/3.lua"
+}
+
+function Controller:enter(level, binding)
 	self:setName("controller")
 
-	self.events = serialize.read(path)
-	self.wave = 1
-	self.step = 1
-	self.time = 0
+	self:loadLevel(level)
 	self.lives = 3
 	self.lives_display = self.lives
 	self.score = 0
 	self.score_display = self.score
 	self.binding = binding
 	self.state = Controller.static.STATE_WARMUP
+	self.time = 0
 
 	self.hud_alpha = 0
 	prox.timer.tween(1, self, {hud_alpha = 255}, "out-quad")
@@ -75,7 +82,9 @@ function Controller:update(dt, rt)
 
 	elseif self.state == Controller.static.STATE_ACTIVE then
 		if self.wave > #self.events then
-
+			local level = self.level
+			prox.timer.after(2, function() self:getScene():add(EndText(level)) end)
+			self:progressLevel()
 		elseif self.wave == 0 then
 			if self.time >= 0 then
 				self.step = 1
@@ -95,9 +104,16 @@ function Controller:update(dt, rt)
 				self.step = self.step + 1
 			end
 		end
+	
+	elseif self.state == Controller.static.STATE_TRANSITION then
+		if self.time >= TRANSITION_TIME then
+			self.state = Controller.static.STATE_ACTIVE
+			self.time = 0
+		end
 
 	elseif self.state == Controller.static.STATE_GAMEOVER then
 		if self.binding:wasPressed("confirm") then
+			prox.timer.clear()
 			self:getScene():clear()
 			self:getScene():find("titlecontroller"):reset()
 		end
@@ -157,6 +173,20 @@ end
 
 function Controller:addScore(points)
 	self.score = self.score + points
+end
+
+function Controller:progressLevel()
+	self:loadLevel(self.level + 1)
+	self.state = Controller.static.STATE_TRANSITION
+	self.time = 0
+end
+
+function Controller:loadLevel(level)
+	self.level = level
+	self.events = serialize.read(levels[self.level])
+	self.wave = 1
+	self.step = 1
+	self.time = 0
 end
 
 return Controller

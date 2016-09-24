@@ -63,7 +63,7 @@ function Controller:update(dt, rt)
 		if options[self.selection] == "START" then
 			music.stop()
 			self:hide()
-			self:getScene():add(require("game.Controller")("data/levels/1.lua", self.binding))
+			self:getScene():add(require("game.Controller")(1, self.binding))
 		elseif options[self.selection] == "CONFIG" then
 			self:getScene():add(require("title.OptionsMenu")(self.binding))
 			self:hide()
@@ -120,6 +120,7 @@ end
 function Controller:hide()
 	self.ready = false
 
+	prox.timer.clear()
 	prox.timer.tween(1, self, {title_alpha = 0, menu_alpha = 0}, "out-quad",
 		function()
 			self:setEnabled(false)
