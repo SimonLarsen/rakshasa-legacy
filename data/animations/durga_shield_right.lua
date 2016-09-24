@@ -1,10 +1,8 @@
 {
-	image = "data/images/durga_shield_left.png",
-	fw = 75,
-	fh = 117,
+	image = "data/images/durga_shield_right.png",
+	fw = 87,
+	fh = 122,
 	ox = 42,
-	oy = 102,
-	sx = -1,
-	sy = 1,
+	oy = 78,
 	delay = 0.05
 }

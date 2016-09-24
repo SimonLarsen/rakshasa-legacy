@@ -9,15 +9,15 @@ Bullet.static.TYPE_ENEMY_BULLET  = 4
 
 local bullet_speed = {
 	[Bullet.static.TYPE_PLAYER_BULLET] = 500,
-	[Bullet.static.TYPE_PLAYER_SUPER]  = 750,
-	[Bullet.static.TYPE_PLAYER_ULTRA]  = 1000,
+	[Bullet.static.TYPE_PLAYER_SUPER]  = 500,
+	[Bullet.static.TYPE_PLAYER_ULTRA]  = 500,
 	[Bullet.static.TYPE_ENEMY_BULLET]  = 200
 }
 
 local bullet_acceleration = {
 	[Bullet.static.TYPE_PLAYER_BULLET] = 10000,
-	[Bullet.static.TYPE_PLAYER_SUPER]  = 1500,
-	[Bullet.static.TYPE_PLAYER_ULTRA]  = 5000,
+	[Bullet.static.TYPE_PLAYER_SUPER]  = 10000,
+	[Bullet.static.TYPE_PLAYER_ULTRA]  = 10000,
 	[Bullet.static.TYPE_ENEMY_BULLET]  = 10000
 }
 

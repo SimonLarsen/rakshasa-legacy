@@ -25,6 +25,8 @@ function Chain:enter(ship1, ship2)
 	self.center_sprite = prox.Sprite("data/images/chain_center.png")
 	self.center_ring = prox.Sprite("data/images/chain_ring.png")
 	self.chain_link = prox.Sprite("data/images/chain_link.png", 4, 4)
+
+	self:setCollider(prox.BoxCollider(26, 26))
 end
 
 function Chain:update(dt, rt)
@@ -98,6 +100,14 @@ end
 function Chain:kill()
 	self.state = Chain.static.STATE_DEAD
 	self.invulnerable = 1000000
+end
+
+function Chain:onCollide(o)
+	if o:getName() == "heart" then
+		self:getScene():find("controller"):addScore(o:getPoints())
+		self:getScene():find("controller"):addLives(1)
+		o:remove()
+	end
 end
 
 return Chain

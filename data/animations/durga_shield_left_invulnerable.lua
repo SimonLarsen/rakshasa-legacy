@@ -1,8 +1,8 @@
 {
 	image = "data/images/durga_shield_left_invulnerable.png",
-	fw = 75,
-	fh = 117,
-	ox = 42,
-	oy = 102,
+	fw = 87,
+	fh = 122,
+	ox = 44,
+	oy = 78,
 	delay = 0.05
 }

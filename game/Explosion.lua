@@ -4,7 +4,7 @@ Explosion.static.SIZE_SMALL  = 1
 Explosion.static.SIZE_MEDIUM = 2
 Explosion.static.SIZE_LARGE  = 3
 
-local HEX_STEP_DELAY = 0.05
+local HEX_STEP_DELAY = 0.08
 function Explosion:enter(x, y, size)
 	self.x = x
 	self.y = y

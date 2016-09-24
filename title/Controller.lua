@@ -25,6 +25,7 @@ function Controller:enter()
 	joystick:add("right", "dpright")
 	joystick:add("leftshoot", "leftshoulder")
 	joystick:add("rightshoot", "rightshoulder")
+	joystick:add("screenshot", "x")
 
 	local keyboard = prox.KeyboardBinding()
 	keyboard:add("confirm", "return")

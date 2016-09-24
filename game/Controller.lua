@@ -5,6 +5,7 @@ local Chain = require("game.Chain")
 local Enemy = require("game.Enemy")
 local ScreenShaker = require("game.ScreenShaker")
 local EndText = require("game.EndText")
+local Heart = require("game.Heart")
 
 local Controller = class("game.Controller", prox.Entity)
 
@@ -23,7 +24,7 @@ local constructors = {
 }
 
 local WARMUP_TIME = 3
-local TRANSITION_TIME = 10
+local TRANSITION_TIME = 7
 
 Controller.static.STATE_WARMUP     = 1
 Controller.static.STATE_ACTIVE     = 2
@@ -82,8 +83,7 @@ function Controller:update(dt, rt)
 
 	elseif self.state == Controller.static.STATE_ACTIVE then
 		if self.wave > #self.events then
-			local level = self.level
-			prox.timer.after(3, function() self:getScene():add(EndText(level)) end)
+			self:getScene():add(EndText(self.level))
 			self:progressLevel()
 		elseif self.wave == 0 then
 			if self.time >= 0 then
@@ -92,7 +92,7 @@ function Controller:update(dt, rt)
 				self.time = 0
 			end
 		elseif self.step > #self.events[self.wave] then
-			if self:getScene():find(Enemy) == nil then
+			if self:getScene():find(Enemy) == nil and self:getScene():find(Heart) == nil then
 				self.step = 1
 				self.wave = self.wave + 1
 				self.time = 0
@@ -117,6 +117,11 @@ function Controller:update(dt, rt)
 			self:getScene():clear()
 			self:getScene():find("titlecontroller"):reset()
 		end
+	end
+
+	if self.binding:wasPressed("screenshot") then
+		local scn = love.graphics.newScreenshot()
+		local file = scn:encode("png", "rakshasa-" .. os.date("%Y-%m-%M-%S") .. ".png")
 	end
 end
 

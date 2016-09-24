@@ -10,7 +10,7 @@ function Heart:enter(x, y)
 	self.y = self.starty
 	self.z = 4
 
-	self:setCollider(prox.BoxCollider(24, 38))
+	self:setCollider(prox.BoxCollider(20, 34))
 	self:setRenderer(prox.Sprite("data/images/heart.png"))
 end
 

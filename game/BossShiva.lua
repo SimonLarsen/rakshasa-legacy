@@ -1,8 +1,10 @@
 local Boss = require("game.Boss")
 local Bullet = require("game.Bullet")
+local Flash = require("game.Flash")
 local Explosion = require("game.Explosion")
 local WhiteFlash = require("game.WhiteFlash")
 local Gem = require("game.Gem")
+local Heart = require("game.Heart")
 local ShivaChain = require("game.ShivaChain")
 local ShivaArm = require("game.ShivaArm")
 
@@ -141,6 +143,7 @@ function BossShiva:shoot()
 	ydist = self.player_chain.y - guny
 	dir = math.atan2(ydist, xdist)
 	self:getScene():add(Bullet(gunx, guny, dir, Bullet.static.TYPE_ENEMY_BULLET))
+	self:getScene():add(Flash(gunx, guny))
 
 	gunx = self.x - 25
 	guny = self.y + 35
@@ -148,6 +151,7 @@ function BossShiva:shoot()
 	ydist = self.player_chain.y - guny
 	dir = math.atan2(ydist, xdist)
 	self:getScene():add(Bullet(gunx, guny, dir, Bullet.static.TYPE_ENEMY_BULLET))
+	self:getScene():add(Flash(gunx, guny))
 end
 
 function BossShiva:kill()
@@ -166,12 +170,13 @@ function BossShiva:kill()
 	prox.timer.cancel(self.head_tween)
 
 	prox.timer.after(3, function()
-		self:remove()
 		self.chain:remove()
 		self.arm_left:remove()
 		self.arm_right:remove()
 		self:getScene():add(WhiteFlash(1, "in-linear"))
+		self:getScene():add(Heart(settings.screen_width/2, settings.screen_height/3))
 		self:dropGems()
+		self:remove()
 	end)
 end
 

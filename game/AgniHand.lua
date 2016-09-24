@@ -1,4 +1,5 @@
 local Bullet = require("game.Bullet")
+local Flash = require("game.Flash")
 
 local AgniHand = class("game.AgniHand", prox.Entity)
 
@@ -106,6 +107,7 @@ function AgniHand:shoot()
 		local offy = love.math.random(-radius, radius)
 		self:getScene():add(Bullet(self.x+offx, self.y+offy, dir, Bullet.static.TYPE_ENEMY_BULLET))
 	end
+	self:getScene():add(Flash(self.x, self.y))
 end
 
 function AgniHand:onRage()

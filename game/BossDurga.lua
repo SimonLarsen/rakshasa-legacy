@@ -6,12 +6,16 @@ local Explosion = require("game.Explosion")
 local WhiteFlash = require("game.WhiteFlash")
 local Gem = require("game.Gem")
 local Heart = require("game.Heart")
+local Flash = require("game.Flash")
 
 local BossDurga = class("game.BossDurga", Boss)
 
 local MAX_HEALTH = 300
 local ENTER_TIME = 2
 local EXPLOSION_DELAY = 0.5
+
+local SHIELD_OFFSET_CLOSED = 42
+local SHIELD_OFFSET_OPEN = 86
 
 BossDurga.static.STATE_ENTER     = 1
 BossDurga.static.STATE_CLOSED    = 2
@@ -104,7 +108,7 @@ function BossDurga:enter()
 
 	self.head_offset = 0
 	self.head_position = 1
-	self.shield_offset = 34
+	self.shield_offset = SHIELD_OFFSET_CLOSED
 	self.shield_left = self:getScene():add(DurgaShield(DurgaShield.static.SIDE_LEFT))
 	self.shield_right = self:getScene():add(DurgaShield(DurgaShield.static.SIDE_RIGHT))
 	self.chain = self:getScene():add(DurgaChain(self.x, self.y, self.head_offset, self.shield_offset))
@@ -116,7 +120,7 @@ function BossDurga:enter()
 			self:getScene():find("hexgrid"):fillAll(0.4)
 			self:getScene():find("screenshaker"):shake(0.5, 4, 60)
 
-			local destx = love.math.random(0,1) == 0 and 75 or 245
+			local destx = love.math.random(0,1) == 0 and 85 or 235
 			self.moving = true
 
 			self.shield_left:setVulnerable(true)
@@ -132,7 +136,7 @@ function BossDurga:update(dt, rt)
 	if self.state == BossDurga.static.STATE_CLOSED then
 		if self.moving == false then
 			self.moving = true
-			local destx = self.x < 160 and 245 or 75
+			local destx = self.x < 160 and 235 or 85
 			prox.timer.tween(3, self, {x = destx}, "in-out-quad", function() self.moving = false end)
 		end
 		
@@ -151,7 +155,7 @@ function BossDurga:update(dt, rt)
 			self:getScene():add(Explosion(self.shield_right.x+20, self.shield_right.y+4, Explosion.static.SIZE_LARGE))
 			self:getScene():find("screenshaker"):shake(0.5, 4, 60)
 
-			self.shield_tween = prox.timer.tween(2, self, {shield_offset = 86}, "linear")
+			self.shield_tween = prox.timer.tween(2, self, {shield_offset = SHIELD_OFFSET_OPEN}, "linear")
 		end
 
 	elseif self.state == BossDurga.static.STATE_OPEN then
@@ -178,7 +182,7 @@ function BossDurga:update(dt, rt)
 			self:getScene():find("screenshaker"):shake(0.5, 4, 60)
 
 			prox.timer.cancel(self.head_tween)
-			self.shield_tween = prox.timer.tween(2, self, {shield_offset = 36}, "linear",
+			self.shield_tween = prox.timer.tween(2, self, {shield_offset = SHIELD_OFFSET_CLOSED}, "linear",
 				function()
 					self.shield_left:setVulnerable(true)
 					self.shield_right:setVulnerable(true)
@@ -197,9 +201,9 @@ function BossDurga:update(dt, rt)
 	end
 
 	self.shield_left.x = self.x - self.shield_offset
-	self.shield_right.x = self.x + self.shield_offset
-	self.shield_left.y = self.y + 48
-	self.shield_right.y = self.y + 48
+	self.shield_right.x = self.x + self.shield_offset-1
+	self.shield_left.y = self.y + 35
+	self.shield_right.y = self.y + 35
 	self.chain.x = self.x
 	self.chain.y = self.y
 	self.chain.shield_offset = self.shield_offset
@@ -236,6 +240,7 @@ end
 
 function BossDurga:shoot()
 	self:getScene():add(Bullet(self.x+self.head_offset, self.y+24, math.pi/2, Bullet.static.TYPE_ENEMY_BULLET))
+	self:getScene():add(Flash(self.x+self.head_offset, self.y+24))
 end
 
 function BossDurga:kill()
@@ -254,13 +259,13 @@ function BossDurga:kill()
 	self:getScene():find("screenshaker"):shake(4, 3, 60)
 
 	prox.timer.after(3, function()
-		self:remove()
 		self.shield_left:remove()
 		self.shield_right:remove()
 		self.chain:remove()
 		self:getScene():add(WhiteFlash(1, "in-linear"))
 		self:dropGems()
-		self:getScene():add(Heart(self.x + self.head_offset, self.y))
+		self:getScene():add(Heart(settings.screen_width/2, settings.screen_height/3))
+		self:remove()
 	end)
 end
 
