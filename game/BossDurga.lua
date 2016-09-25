@@ -198,8 +198,8 @@ function BossDurga:update(dt, rt)
 		end
 	end
 
-	self.shield_left.x = self.x - self.shield_offset
-	self.shield_right.x = self.x + self.shield_offset-1
+	self.shield_left.x = math.ceil(self.x - self.shield_offset)
+	self.shield_right.x = math.ceil(self.x + self.shield_offset-1)
 	self.shield_left.y = self.y + 35
 	self.shield_right.y = self.y + 35
 	self.chain.x = self.x
