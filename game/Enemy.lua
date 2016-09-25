@@ -35,6 +35,7 @@ function Enemy:kill()
 		self:getScene():find("screenshaker"):shake(0.5, 2, 60)
 	else
 		self:getScene():add(Explosion(self.x, self.y, Explosion.static.SIZE_MEDIUM))
+		self:getScene():find("screenshaker"):shake(0.3, 1, 60)
 	end
 	
 	for i=1, self:getGems() do
