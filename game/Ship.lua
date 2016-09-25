@@ -1,3 +1,4 @@
+local shaders = require("shaders")
 local Bullet = require("game.Bullet")
 local Explosion = require("game.Explosion")
 local Flash = require("game.Flash")
@@ -34,6 +35,7 @@ function Ship:enter(side, binding)
 	self.direction = 0
 	self.state = Ship.static.STATE_ENTER
 	self.power_level = 1
+	self.flash = 0
 
 	self.binding = binding
 
@@ -67,6 +69,8 @@ function Ship:enter(side, binding)
 			self.state = Ship.static.STATE_ACTIVE
 		end
 	)
+
+	self.white_shader = shaders.getShader("data/shaders/whiteout.lua")
 end
 
 function Ship:update(dt, rt)
@@ -109,6 +113,9 @@ function Ship:update(dt, rt)
 			end
 		end
 	end
+
+	self.flash = self.flash - dt
+	self:getRenderer():setShader(self.flash > 0 and self.white_shader or nil)
 end
 
 function Ship:getGearSprite()
@@ -128,6 +135,7 @@ function Ship:onCollide(o, dt, rt)
 	if o:getName() == "gem" then
 		self:getScene():find("controller"):addScore(o:getPoints())
 		o:remove()
+		self.flash = 0.05
 	elseif o:getName() == "heart" then
 		self:getScene():find("controller"):addScore(o:getPoints())
 		self:getScene():find("controller"):addLives(1)
