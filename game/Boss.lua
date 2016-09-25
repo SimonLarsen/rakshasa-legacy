@@ -1,4 +1,6 @@
 local Enemy = require("game.Enemy")
+local Gem = require("game.Gem")
+local Heart = require("game.Heart")
 
 local Boss = class("game.Boss", Enemy)
 
@@ -47,6 +49,18 @@ end
 
 function Boss:kill()
 
+end
+
+function Boss:dropGems()
+	local gems = self:getGems()
+	local radius = 32
+	for i=0, gems-1 do
+		local angle = i / gems * 2*math.pi
+		local x = self.x + math.cos(angle) * radius
+		local y = self.y + math.sin(angle) * radius
+		self:getScene():add(Gem(x, y))
+	end
+	self:getScene():add(Heart(settings.screen_width/2, settings.screen_height/2))
 end
 
 function Boss:gui()

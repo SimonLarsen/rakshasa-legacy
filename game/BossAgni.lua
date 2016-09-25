@@ -2,8 +2,6 @@ local Boss = require("game.Boss")
 local Bullet = require("game.Bullet")
 local Explosion = require("game.Explosion")
 local WhiteFlash = require("game.WhiteFlash")
-local Gem = require("game.Gem")
-local Heart = require("game.Heart")
 local AgniHand = require("game.AgniHand")
 local AgniGears = require("game.AgniGears")
 
@@ -128,20 +126,8 @@ function BossAgni:kill()
 		self.gears:remove()
 		self:getScene():add(WhiteFlash(1, "in-linear"))
 		self:dropGems()
-		self:getScene():add(Heart(settings.screen_width/2, settings.screen_height/3))
 		self:remove()
 	end)
-end
-
-function BossAgni:dropGems()
-	local gems = self:getGems()
-	local radius = 32
-	for i=0, gems-1 do
-		local angle = i / gems * 2*math.pi
-		local x = self.x + math.cos(angle) * radius
-		local y = self.y + math.sin(angle) * radius
-		self:getScene():add(Gem(x, y))
-	end
 end
 
 function BossAgni:getGems()

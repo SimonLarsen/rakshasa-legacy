@@ -3,8 +3,6 @@ local Bullet = require("game.Bullet")
 local Flash = require("game.Flash")
 local Explosion = require("game.Explosion")
 local WhiteFlash = require("game.WhiteFlash")
-local Gem = require("game.Gem")
-local Heart = require("game.Heart")
 local ShivaChain = require("game.ShivaChain")
 local ShivaArm = require("game.ShivaArm")
 
@@ -174,21 +172,9 @@ function BossShiva:kill()
 		self.arm_left:remove()
 		self.arm_right:remove()
 		self:getScene():add(WhiteFlash(1, "in-linear"))
-		self:getScene():add(Heart(settings.screen_width/2, settings.screen_height/3))
 		self:dropGems()
 		self:remove()
 	end)
-end
-
-function BossShiva:dropGems()
-	local gems = self:getGems()
-	local radius = 26
-	for i=0, gems-1 do
-		local angle = i / gems * 2*math.pi
-		local x = self.x + math.cos(angle) * radius
-		local y = self.y + math.sin(angle) * radius
-		self:getScene():add(Gem(x, y))
-	end
 end
 
 function BossShiva:getGems()

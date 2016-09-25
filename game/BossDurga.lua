@@ -4,8 +4,6 @@ local DurgaChain = require("game.DurgaChain")
 local Bullet = require("game.Bullet")
 local Explosion = require("game.Explosion")
 local WhiteFlash = require("game.WhiteFlash")
-local Gem = require("game.Gem")
-local Heart = require("game.Heart")
 local Flash = require("game.Flash")
 
 local BossDurga = class("game.BossDurga", Boss)
@@ -264,20 +262,8 @@ function BossDurga:kill()
 		self.chain:remove()
 		self:getScene():add(WhiteFlash(1, "in-linear"))
 		self:dropGems()
-		self:getScene():add(Heart(settings.screen_width/2, settings.screen_height/3))
 		self:remove()
 	end)
-end
-
-function BossDurga:dropGems()
-	local gems = self:getGems()
-	local radius = 26
-	for i=0, gems-1 do
-		local angle = i / gems * 2*math.pi
-		local x = self.x + self.head_offset + math.cos(angle) * radius
-		local y = self.y + math.sin(angle) * radius
-		self:getScene():add(Gem(x, y))
-	end
 end
 
 function BossDurga:getGems()
