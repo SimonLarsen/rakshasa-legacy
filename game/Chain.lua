@@ -1,3 +1,4 @@
+local shaders = require("shaders")
 local Chain = class("game.Chain", prox.Entity)
 
 local MIN_DIST = 86
@@ -26,7 +27,19 @@ function Chain:enter(ship1, ship2)
 	self.center_ring = prox.Sprite("data/images/chain_ring.png")
 	self.chain_link = prox.Sprite("data/images/chain_link.png", 4, 4)
 
+	self.dissolve_shader = shaders.getShader("data/shaders/dissolve.lua")
+	local filter_image = prox.resources.getImage("data/images/dissolve.png")
+	filter_image:setWrap("repeat","repeat")
+	self.dissolve_edge = 1.2
+	self.dissolve_shader:send("filter", filter_image)
+	self.dissolve_shader:send("edge", self.dissolve_edge)
+	self.head_alpha = 0
+
 	self:setCollider(prox.BoxCollider(26, 26))
+
+	prox.timer.after(0.7, function()
+		prox.timer.tween(1.5, self, {dissolve_edge = -0.5}, "in-linear")
+	end)
 end
 
 function Chain:update(dt, rt)
@@ -78,19 +91,36 @@ function Chain:update(dt, rt)
 			v:kill()
 		end
 	end
+
+	self.dissolve_shader:send("edge", self.dissolve_edge)
 end
 
 function Chain:draw()
-	if self.invulnerable >= 0 and prox.time.getTime() % 0.15 < 0.075 then return end
+	if self.state == Chain.static.STATE_ACTIVE
+	and self.invulnerable >= 0
+	and prox.time.getTime() % 0.15 < 0.075 then
+		return
+	end
 
 	local xdist = (self.ship2.x - self.ship1.x) / 2
 	local ydist = (self.ship2.y - self.ship1.y) / 2
 	local dist = math.sqrt(xdist^2 + ydist^2)
 	local count = dist / 9
 
+	if self.dissolve_edge > 0 then
+		love.graphics.setShader(self.dissolve_shader)
+	end
+
 	for i=0, count-1 do
 		self.chain_link:draw(self.x + xdist * i / count, self.y + ydist * i / count)
 		self.chain_link:draw(self.x - xdist * i / count, self.y - ydist * i / count)
+	end
+
+	love.graphics.setShader()
+
+	if self.invulnerable >= 0
+	and prox.time.getTime() % 0.15 < 0.075 then
+		return
 	end
 
 	self.center_ring:draw(self.x, self.y)
@@ -100,6 +130,7 @@ end
 function Chain:kill()
 	self.state = Chain.static.STATE_DEAD
 	self.invulnerable = 1000000
+	prox.timer.tween(2.0, self, {dissolve_edge = 1.2}, "in-linear")
 end
 
 function Chain:onCollide(o)
