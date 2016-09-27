@@ -23,9 +23,15 @@ function Chain:enter(ship1, ship2)
 	self.ship2 = ship2
 	self.direction = 0
 
-	self.center_sprite = prox.Sprite("data/images/chain_center.png")
+	self.center_sprites = {
+		prox.Sprite("data/images/chain_center1.png"),
+		prox.Sprite("data/images/chain_center2.png"),
+		prox.Sprite("data/images/chain_center3.png")
+	}
 	self.center_ring = prox.Sprite("data/images/chain_ring.png")
-	self.chain_link = prox.Sprite("data/images/chain_link.png", 4, 4)
+	self.center_flash = prox.Sprite("data/images/chain_center_flash.png")
+	self.chain_link = prox.Sprite("data/images/chain_link2.png", 5, 5)
+	self.center_flash_alpha = 0
 
 	self.dissolve_shader = shaders.getShader("data/shaders/dissolve.lua")
 	local filter_image = prox.resources.getImage("data/images/dissolve.png")
@@ -61,11 +67,16 @@ function Chain:update(dt, rt)
 	end
 
 	-- Update power level based on ship distance
+	self.center_flash_alpha = self.center_flash_alpha - math.max(0, 2000*dt)
 	local power_level = 1
 	if dist >= POWER_LEVEL3_DIST then power_level = 3
 	elseif dist >= POWER_LEVEL2_DIST then power_level = 2 end
 	self.ship1:setPowerLevel(power_level)
 	self.ship2:setPowerLevel(power_level)
+	if power_level ~= self.power_level then
+		self.power_level = power_level
+		self.center_flash_alpha = 255
+	end
 
 	-- Rotate center and gears
 	self.direction = math.atan2(ydist, xdist)
@@ -105,7 +116,7 @@ function Chain:draw()
 	local xdist = (self.ship2.x - self.ship1.x) / 2
 	local ydist = (self.ship2.y - self.ship1.y) / 2
 	local dist = math.sqrt(xdist^2 + ydist^2)
-	local count = dist / 9
+	local count = dist / 12
 
 	if self.dissolve_edge > 0 then
 		love.graphics.setShader(self.dissolve_shader)
@@ -124,7 +135,13 @@ function Chain:draw()
 	end
 
 	self.center_ring:draw(self.x, self.y)
-	self.center_sprite:draw(self.x, self.y)
+	self.center_sprites[self.power_level]:draw(self.x, self.y)
+
+	if self.center_flash_alpha > 0 then
+		love.graphics.setColor(255, 255, 255, math.max(0, self.center_flash_alpha))
+		self.center_flash:draw(self.x, self.y)
+		love.graphics.setColor(255, 255, 255, 255)
+	end
 end
 
 function Chain:kill()

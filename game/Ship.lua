@@ -14,7 +14,7 @@ local DECELLERATION = 1200
 local SLOW_MAX_SPEED = 150
 local FAST_MAX_SPEED = 250
 
-local BULLET_COOLDOWN = 0.1
+local BULLET_COOLDOWN = 0.12
 local SUPER_COOLDOWN = 0.15
 local DEADZONE_THRESHOLD = 0.20
 
@@ -23,6 +23,10 @@ local ENTER_TIME = 1.0
 Ship.static.STATE_ENTER  = 1
 Ship.static.STATE_ACTIVE = 2
 Ship.static.STATE_DEAD   = 3
+
+local BULLET_COOLDOWN = {
+	0.1, 0.13, 0.16
+}
 
 function Ship:enter(side, binding)
 	self:setName("ship")
@@ -99,7 +103,6 @@ function Ship:update(dt, rt)
 		self.cooldown = self.cooldown - dt
 
 		if self.binding:isDown(self.shoot_action) and self.cooldown <= 0 then
-			self.cooldown = BULLET_COOLDOWN
 			if self.power_level == 1 then
 				self:getScene():add(Bullet(self.x, self.y-20, 1.5*math.pi, Bullet.static.TYPE_PLAYER_BULLET))
 			elseif self.power_level == 2 then
@@ -111,6 +114,7 @@ function Ship:update(dt, rt)
 			else
 				error("Player power levels must be >= 1 and <= 3.")
 			end
+			self.cooldown = BULLET_COOLDOWN[self.power_level]
 		end
 	end
 

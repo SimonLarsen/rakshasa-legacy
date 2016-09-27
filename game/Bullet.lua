@@ -23,8 +23,8 @@ local bullet_acceleration = {
 
 local bullet_damage = {
 	[Bullet.static.TYPE_PLAYER_BULLET] = 1,
-	[Bullet.static.TYPE_PLAYER_SUPER]  = 2,
-	[Bullet.static.TYPE_PLAYER_ULTRA]  = 3,
+	[Bullet.static.TYPE_PLAYER_SUPER]  = 2.6,
+	[Bullet.static.TYPE_PLAYER_ULTRA]  = 4.8,
 	[Bullet.static.TYPE_ENEMY_BULLET] = 1
 }
 
@@ -39,15 +39,15 @@ function Bullet:enter(x, y, dir, type)
 	self.rotation_speed = 0
 
 	if self.type == Bullet.static.TYPE_PLAYER_BULLET then
-		self:setRenderer(prox.Sprite("data/images/bullet_player.png", 15, 3))
+		self:setRenderer(prox.Sprite("data/images/bullet_player1.png", 12, 4))
 		self:setCollider(prox.BoxCollider(2, 2))
 		self:getRenderer():setRotation(self.dir)
 	elseif self.type == Bullet.static.TYPE_PLAYER_SUPER then
-		self:setRenderer(prox.Sprite("data/images/bullet_super.png"))
+		self:setRenderer(prox.Sprite("data/images/bullet_player2.png", 8, 7))
 		self:setCollider(prox.BoxCollider(4, 4))
 		self:getRenderer():setRotation(self.dir)
 	elseif self.type == Bullet.static.TYPE_PLAYER_ULTRA then
-		self:setRenderer(prox.Sprite("data/images/bullet_super.png"))
+		self:setRenderer(prox.Sprite("data/images/bullet_player3.png", 11, 11))
 		self:setCollider(prox.BoxCollider(4, 4))
 		self:getRenderer():setRotation(self.dir)
 	elseif self.type == Bullet.static.TYPE_ENEMY_BULLET then
