@@ -33,9 +33,13 @@ function Enemy:kill()
 	if self.large then
 		self:getScene():add(Explosion(self.x, self.y, Explosion.static.SIZE_LARGE))
 		self:getScene():find("screenshaker"):shake(0.5, 2, 60)
+		local sfx = prox.resources.getSound("data/sounds/explosion3.wav")
+		sfx:play()
 	else
 		self:getScene():add(Explosion(self.x, self.y, Explosion.static.SIZE_MEDIUM))
 		self:getScene():find("screenshaker"):shake(0.3, 1, 60)
+		local sfx = prox.resources.getSound("data/sounds/explosion1_short.wav")
+		sfx:play()
 	end
 	
 	for i=1, self:getGems() do

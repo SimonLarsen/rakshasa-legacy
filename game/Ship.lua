@@ -75,6 +75,11 @@ function Ship:enter(side, binding)
 	)
 
 	self.white_shader = shaders.getShader("data/shaders/whiteout.lua")
+
+	self.sfx_blip = prox.resources.getSound("data/sounds/blip2.wav")
+	self.sfx_blip:setVolume(0.5)
+	self.sfx_laser = prox.resources.getSound("data/sounds/laser3.wav")
+	self.sfx_laser:setVolume(0.8)
 end
 
 function Ship:update(dt, rt)
@@ -107,13 +112,13 @@ function Ship:update(dt, rt)
 				self:getScene():add(Bullet(self.x, self.y-20, 1.5*math.pi, Bullet.static.TYPE_PLAYER_BULLET))
 			elseif self.power_level == 2 then
 				self:getScene():add(Bullet(self.x, self.y-32, 1.5*math.pi, Bullet.static.TYPE_PLAYER_SUPER))
-				self:getScene():add(Flash(self.x, self.y-24, 2))
 			elseif self.power_level == 3 then
 				self:getScene():add(Bullet(self.x, self.y-32, 1.5*math.pi, Bullet.static.TYPE_PLAYER_ULTRA))
-				self:getScene():add(Flash(self.x, self.y-24, 2))
 			else
 				error("Player power levels must be >= 1 and <= 3.")
 			end
+			self:getScene():add(Flash(self.x, self.y-24, 2))
+			self.sfx_laser:play()
 			self.cooldown = BULLET_COOLDOWN[self.power_level]
 		end
 	end
@@ -140,6 +145,7 @@ function Ship:onCollide(o, dt, rt)
 		self:getScene():find("controller"):addScore(o:getPoints())
 		o:remove()
 		self.flash = 0.05
+		self.sfx_blip:play()
 	elseif o:getName() == "heart" then
 		self:getScene():find("controller"):addScore(o:getPoints())
 		self:getScene():find("controller"):addLives(1)

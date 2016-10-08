@@ -33,6 +33,8 @@ function EnemyMine:update(dt, rt)
 			self:getScene():add(Bullet(self.x, self.y, i*math.pi/2, Bullet.static.TYPE_ENEMY_BULLET))
 		end
 		self:remove()
+		local sfx = prox.resources.getSound("data/sounds/explosion3.wav")
+		sfx:play()
 	end
 
 	local ydist = self.ylimit - self.y

@@ -1,26 +1,29 @@
-local current = nil
-
 local music = {}
+
+local instance = nil
+local volume = 1
 
 function music.playFile(path)
 	if current then
 		current:stop()
 	end
 
-	current = love.audio.newSource(path, "stream")
-	love.audio.play(current)
+	local source = love.audio.newSource(path, "stream")
+	instance = love.audio.play(source)
+	instance:setVolume(volume)
 end
 
 function music.stop()
-	if current then
-		current:stop()
-		current = nil
+	if instance then
+		instance:stop()
+		instance = nil
 	end
 end
 
-function music.setVolume(volume)
+function music.setVolume(v)
+	volume = v
 	if current then
-		current:setVolume(volume)
+		instance:setVolume(volume)
 	end
 end
 

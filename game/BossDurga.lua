@@ -117,6 +117,8 @@ function BossDurga:enter()
 			self.active = true
 			self:getScene():find("hexgrid"):fillAll(0.4)
 			self:getScene():find("screenshaker"):shake(0.5, 4, 60)
+			local sfx = prox.resources.getSound("data/sounds/big_explosion.wav")
+			sfx:play()
 
 			local destx = love.math.random(0,1) == 0 and 85 or 235
 			self.moving = true
