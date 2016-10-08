@@ -71,6 +71,7 @@ local options = {
 		action=function(o)
 			o:hide()
 			o:getScene():find("titlecontroller"):reset(true)
+			o.sfx_confirm:play()
 			return false
 		end
 	},
@@ -90,25 +91,32 @@ function OptionsMenu:enter(binding)
 	prox.timer.after(2.0, function() self.ready = true end)
 
 	self.sans_font = prox.resources.getImageFont("data/fonts/large_sans.png")
+
+	self.sfx_blip = prox.resources.getSound("data/sounds/blip.wav")
+	self.sfx_confirm = prox.resources.getSound("data/sounds/weird_bang.wav")
 end
 
 function OptionsMenu:update(dt, rt)
 	if self.ready then
 		if self.binding:wasPressed("down") then
 			self.selection = prox.math.wrap(self.selection + 1, 1, #options)
+			self.sfx_blip:play()
 		elseif self.binding:wasPressed("up") then
 			self.selection = prox.math.wrap(self.selection - 1, 1, #options)
+			self.sfx_blip:play()
 		elseif self.binding:wasPressed("left") then
 			if options[self.selection].left then
 				options[self.selection].left(self)
 				prox.timer.after(0.2, function() self.ready = true end)
 				self.ready = false
+				self.sfx_blip:play()
 			end
 		elseif self.binding:wasPressed("right") then
 			if options[self.selection].right then
 				options[self.selection].right(self)
 				prox.timer.after(0.2, function() self.ready = true end)
 				self.ready = false
+				self.sfx_blip:play()
 			end
 		elseif self.binding:wasPressed("confirm") then
 			if options[self.selection].action then

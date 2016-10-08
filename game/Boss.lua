@@ -1,6 +1,8 @@
 local Enemy = require("game.Enemy")
 local Gem = require("game.Gem")
 local Heart = require("game.Heart")
+local music = require("music")
+local WhiteFlash = require("game.WhiteFlash")
 
 local Boss = class("game.Boss", Enemy)
 
@@ -48,7 +50,20 @@ function Boss:damage(damage)
 end
 
 function Boss:kill()
+	for i,v in ipairs(self:getScene():findAll("bullet")) do
+		if not v:isPlayerBullet() then
+			v:kill()
+		end
+	end
+end
 
+function Boss:purge()
+	music.stop()
+	local sfx = prox.resources.getSound("data/sounds/big_explosion.wav")
+	sfx:play()
+	self:getScene():add(WhiteFlash(1, "in-linear"))
+	self:dropGems()
+	self:remove()
 end
 
 function Boss:dropGems()

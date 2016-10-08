@@ -3,7 +3,6 @@ local DurgaShield = require("game.DurgaShield")
 local DurgaChain = require("game.DurgaChain")
 local Bullet = require("game.Bullet")
 local Explosion = require("game.Explosion")
-local WhiteFlash = require("game.WhiteFlash")
 local Flash = require("game.Flash")
 
 local BossDurga = class("game.BossDurga", Boss)
@@ -117,8 +116,6 @@ function BossDurga:enter()
 			self.active = true
 			self:getScene():find("hexgrid"):fillAll(0.4)
 			self:getScene():find("screenshaker"):shake(0.5, 4, 60)
-			local sfx = prox.resources.getSound("data/sounds/big_explosion.wav")
-			sfx:play()
 
 			local destx = love.math.random(0,1) == 0 and 85 or 235
 			self.moving = true
@@ -128,6 +125,9 @@ function BossDurga:enter()
 			prox.timer.tween(2, self, {x = destx}, "in-out-quad", function() self.moving = false end)
 		end
 	)
+
+	self.sfx_explosion1 = prox.resources.getSound("data/sounds/explosion1.wav")
+	self.sfx_explosion3 = prox.resources.getSound("data/sounds/explosion3.wav")
 end
 
 function BossDurga:update(dt, rt)
@@ -153,6 +153,7 @@ function BossDurga:update(dt, rt)
 			self.shield_right:setVulnerable(false)
 			self:getScene():add(Explosion(self.shield_left.x-20, self.shield_left.y+4, Explosion.static.SIZE_LARGE))
 			self:getScene():add(Explosion(self.shield_right.x+20, self.shield_right.y+4, Explosion.static.SIZE_LARGE))
+			self.sfx_explosion3:play()
 			self:getScene():find("screenshaker"):shake(0.5, 4, 60)
 
 			self.shield_tween = prox.timer.tween(2, self, {shield_offset = SHIELD_OFFSET_OPEN}, "linear")
@@ -179,6 +180,7 @@ function BossDurga:update(dt, rt)
 			self.pattern_time = 0
 			self.step = 1
 			self:getScene():add(Explosion(self.x+self.head_offset, self.y, Explosion.static.SIZE_LARGE))
+			self.sfx_explosion3:play()
 			self:getScene():find("screenshaker"):shake(0.5, 4, 60)
 
 			prox.timer.cancel(self.head_tween)
@@ -196,6 +198,7 @@ function BossDurga:update(dt, rt)
 			local x = love.math.random(self.x - 100, self.x + 100)
 			local y = love.math.random(self.y - 24, self.y + 70)
 			self:getScene():add(Explosion(x, y, Explosion.static.SIZE_LARGE))
+			self.sfx_explosion1:play()
 			prox.timer.after(EXPLOSION_DELAY, function() self.moving = false end)
 		end
 	end
@@ -244,11 +247,7 @@ function BossDurga:shoot()
 end
 
 function BossDurga:kill()
-	for i,v in ipairs(self:getScene():findAll("bullet")) do
-		if not v:isPlayerBullet() then
-			v:kill()
-		end
-	end
+	Boss.kill(self)
 
 	prox.timer.cancel(self.shield_tween)
 	prox.timer.cancel(self.head_tween)
@@ -262,9 +261,7 @@ function BossDurga:kill()
 		self.shield_left:remove()
 		self.shield_right:remove()
 		self.chain:remove()
-		self:getScene():add(WhiteFlash(1, "in-linear"))
-		self:dropGems()
-		self:remove()
+		self:purge()
 	end)
 end
 

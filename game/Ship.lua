@@ -76,10 +76,16 @@ function Ship:enter(side, binding)
 
 	self.white_shader = shaders.getShader("data/shaders/whiteout.lua")
 
-	self.sfx_blip = prox.resources.getSound("data/sounds/blip2.wav")
+	self.sfx_blip = prox.resources.getSound("data/sounds/blip.wav")
 	self.sfx_blip:setVolume(0.5)
-	self.sfx_laser = prox.resources.getSound("data/sounds/laser3.wav")
-	self.sfx_laser:setVolume(0.8)
+	self.sfx_laser = {
+		[1] = prox.resources.getSound("data/sounds/laser1.wav"),
+		[2] = prox.resources.getSound("data/sounds/laser2.wav"),
+		[3] = prox.resources.getSound("data/sounds/laser3.wav")
+	}
+	for i,v in ipairs(self.sfx_laser) do
+		v:setVolume(0.8)
+	end
 end
 
 function Ship:update(dt, rt)
@@ -118,7 +124,7 @@ function Ship:update(dt, rt)
 				error("Player power levels must be >= 1 and <= 3.")
 			end
 			self:getScene():add(Flash(self.x, self.y-24, 2))
-			self.sfx_laser:play()
+			self.sfx_laser[self.power_level]:play()
 			self.cooldown = BULLET_COOLDOWN[self.power_level]
 		end
 	end

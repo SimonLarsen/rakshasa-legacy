@@ -11,6 +11,9 @@ function Enemy:enter(health, large)
 	self.large = large or false
 
 	self.white_shader = shaders.getShader("data/shaders/whiteout.lua")
+
+	self.sfx_explosion1 = prox.resources.getSound("data/sounds/explosion1.wav")
+	self.sfx_explosion3 = prox.resources.getSound("data/sounds/explosion3.wav")
 end
 
 function Enemy:onCollide(o, dt, rt)
@@ -34,12 +37,11 @@ function Enemy:kill()
 		self:getScene():add(Explosion(self.x, self.y, Explosion.static.SIZE_LARGE))
 		self:getScene():find("screenshaker"):shake(0.5, 2, 60)
 		local sfx = prox.resources.getSound("data/sounds/explosion3.wav")
-		sfx:play()
+		self.sfx_explosion3:play()
 	else
 		self:getScene():add(Explosion(self.x, self.y, Explosion.static.SIZE_MEDIUM))
 		self:getScene():find("screenshaker"):shake(0.3, 1, 60)
-		local sfx = prox.resources.getSound("data/sounds/explosion1_short.wav")
-		sfx:play()
+		self.sfx_explosion1:play()
 	end
 	
 	for i=1, self:getGems() do

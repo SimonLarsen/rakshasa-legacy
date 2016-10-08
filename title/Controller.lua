@@ -47,6 +47,9 @@ function Controller:enter()
 
 	self.serif_font = prox.resources.getImageFont("data/fonts/serif.png")
 	self.sans_font = prox.resources.getImageFont("data/fonts/large_sans.png")
+
+	self.sfx_blip = prox.resources.getSound("data/sounds/blip.wav")
+	self.sfx_confirm = prox.resources.getSound("data/sounds/weird_bang.wav")
 end
 
 function Controller:update(dt, rt)
@@ -55,12 +58,15 @@ function Controller:update(dt, rt)
 	if self.ready then
 		if self.binding:wasPressed("down") then
 			self.selection = prox.math.wrap(self.selection + 1, 1, #options)
+			self.sfx_blip:play()
 		elseif self.binding:wasPressed("up") then
 			self.selection = prox.math.wrap(self.selection - 1, 1, #options)
+			self.sfx_blip:play()
 		end
 	end
 
 	if self.ready and self.binding:wasPressed("confirm") then
+		self.sfx_confirm:play()
 		if options[self.selection] == "START" then
 			self:hide()
 			music.stop()

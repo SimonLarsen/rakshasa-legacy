@@ -2,7 +2,6 @@ local Boss = require("game.Boss")
 local Bullet = require("game.Bullet")
 local Flash = require("game.Flash")
 local Explosion = require("game.Explosion")
-local WhiteFlash = require("game.WhiteFlash")
 local ShivaChain = require("game.ShivaChain")
 local ShivaArm = require("game.ShivaArm")
 
@@ -61,6 +60,8 @@ function BossShiva:enter()
 	self:setCollider(prox.BoxCollider(54, 54))
 
 	self.player_chain = self:getScene():find("chain")
+
+	self.sfx_explosion1 = prox.resources.getSound("data/sounds/explosion1.wav")
 end
 
 function BossShiva:update(dt, rt)
@@ -104,6 +105,7 @@ function BossShiva:update(dt, rt)
 			local y = love.math.random(self.y - 38, self.y + 30)
 			self:getScene():add(Explosion(x, y, Explosion.static.SIZE_LARGE))
 			prox.timer.after(EXPLOSION_DELAY, function() self.moving = false end)
+			self.sfx_explosion1:play()
 		end
 	end
 
@@ -153,11 +155,7 @@ function BossShiva:shoot()
 end
 
 function BossShiva:kill()
-	for i,v in ipairs(self:getScene():findAll("bullet")) do
-		if not v:isPlayerBullet() then
-			v:kill()
-		end
-	end
+	Boss.kill(self)
 
 	self.active = false
 	self.moving = false
@@ -171,9 +169,7 @@ function BossShiva:kill()
 		self.chain:remove()
 		self.arm_left:remove()
 		self.arm_right:remove()
-		self:getScene():add(WhiteFlash(1, "in-linear"))
-		self:dropGems()
-		self:remove()
+		self:purge()
 	end)
 end
 

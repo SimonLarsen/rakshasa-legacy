@@ -1,7 +1,6 @@
 local Boss = require("game.Boss")
 local Bullet = require("game.Bullet")
 local Explosion = require("game.Explosion")
-local WhiteFlash = require("game.WhiteFlash")
 local AgniHand = require("game.AgniHand")
 local AgniGears = require("game.AgniGears")
 
@@ -48,6 +47,7 @@ function BossAgni:enter()
 	self:setCollider(prox.BoxCollider(54, 54))
 
 	self.player_chain = self:getScene():find("chain")
+	self.sfx_explosion1 = prox.resources.getSound("data/sounds/explosion1.wav")
 end
 
 function BossAgni:update(dt, rt)
@@ -93,6 +93,7 @@ function BossAgni:update(dt, rt)
 			local y = love.math.random(self.y - 38, self.y + 30)
 			self:getScene():add(Explosion(x, y, Explosion.static.SIZE_LARGE))
 			prox.timer.after(EXPLOSION_DELAY, function() self.moving = false end)
+			self.sfx_explosion1:play()
 		end
 	end
 
@@ -105,11 +106,7 @@ function BossAgni:update(dt, rt)
 end
 
 function BossAgni:kill()
-	for i,v in ipairs(self:getScene():findAll("bullet")) do
-		if not v:isPlayerBullet() then
-			v:kill()
-		end
-	end
+	Boss.kill(self)
 
 	self.active = false
 	self.moving = false
@@ -124,9 +121,7 @@ function BossAgni:kill()
 		self.hand_left:remove()
 		self.hand_right:remove()
 		self.gears:remove()
-		self:getScene():add(WhiteFlash(1, "in-linear"))
-		self:dropGems()
-		self:remove()
+		self:purge()
 	end)
 end
 
