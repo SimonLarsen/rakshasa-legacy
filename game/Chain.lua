@@ -1,5 +1,6 @@
 local shaders = require("shaders")
 local Bullet = require("game.Bullet")
+local BallFlash = require("game.BallFlash")
 
 local Chain = class("game.Chain", prox.Entity)
 
@@ -156,16 +157,26 @@ function Chain:powerAttack()
 	local xdist = (self.ship2.x - self.ship1.x) / 2
 	local ydist = (self.ship2.y - self.ship1.y) / 2
 	local dist = math.sqrt(xdist^2 + ydist^2)
-	local count = math.floor(dist / 30 + 0.5)
+	local count = math.ceil(dist / 30)
 	local rdist = count * 30
 	local xstep = xdist / dist * 30
 	local ystep = ydist / dist * 30
+
 	for i=0, count-1 do
-		self:getScene():add(Bullet(self.x + i*xstep, self.y + i*ystep, 1.5*math.pi, Bullet.static.TYPE_PLAYER_BALL))
+		self:getScene():add(BallFlash(self.x + i*xstep, self.y + i*ystep))
 		if i > 0 then
-			self:getScene():add(Bullet(self.x - i*xstep, self.y - i*ystep, 1.5*math.pi, Bullet.static.TYPE_PLAYER_BALL))
+			self:getScene():add(BallFlash(self.x - i*xstep, self.y - i*ystep))
 		end
 	end
+
+	prox.timer.after(0.5, function()
+		for i=0, count-1 do
+			self:getScene():add(Bullet(self.x + i*xstep, self.y + i*ystep, 1.5*math.pi, Bullet.static.TYPE_PLAYER_BALL))
+			if i > 0 then
+				self:getScene():add(Bullet(self.x - i*xstep, self.y - i*ystep, 1.5*math.pi, Bullet.static.TYPE_PLAYER_BALL))
+			end
+		end
+	end)
 end
 
 function Chain:kill()

@@ -25,7 +25,7 @@ local constructors = {
 
 local WARMUP_TIME = 3
 local TRANSITION_TIME = 9
-local MAX_GEMS = 30
+local MAX_GEMS = 5
 
 Controller.static.STATE_WARMUP     = 1
 Controller.static.STATE_ACTIVE     = 2
@@ -123,11 +123,6 @@ function Controller:update(dt, rt)
 			self:getScene():clear()
 			self:getScene():find("titlecontroller"):reset()
 		end
-	end
-
-	if self.binding:wasPressed("screenshot") then
-		local scn = love.graphics.newScreenshot()
-		local file = scn:encode("png", "rakshasa-" .. os.date("%Y-%m-%M-%S") .. ".png")
 	end
 end
 

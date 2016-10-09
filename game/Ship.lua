@@ -168,7 +168,7 @@ function Ship:onCollide(o, dt, rt)
 	elseif o:getName() == "heart" then
 		self:getScene():find("controller"):addHeart()
 		o:remove()
-	elseif o:getName() == "bullet" and o:isPlayerBullet() then
+	elseif o:getName() == "bullet" and o:isPlayerBullet() and not o:isDPS() then
 		o:kill()
 	end
 end
