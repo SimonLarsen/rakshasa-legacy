@@ -72,6 +72,7 @@ local options = {
 			o:hide()
 			o:getScene():find("titlecontroller"):reset(true)
 			o.sfx_confirm:play()
+			o:saveSettings()
 			return false
 		end
 	},
@@ -165,6 +166,13 @@ function OptionsMenu:gui()
 	end
 
 	love.graphics.setColor(255, 255, 255, 255)
+end
+
+function OptionsMenu:saveSettings()
+	settings.scale = prox.window.getScale()
+	settings.fullscreen = prox.window.getFullscreen()
+	settings.fullscreen_mode = prox.window.getFullscreenMode()
+	saveSettings()
 end
 
 function OptionsMenu:hide()

@@ -173,7 +173,7 @@ function Controller:gui()
 		love.graphics.printf(self.score, midx-149, midy, 300, "center")
 
 		love.graphics.printf("YOUR BEST", midx-149, midy+30, 300, "center")
-		love.graphics.printf(settings.highscore, midx-149, midy+50, 300, "center")
+		love.graphics.printf(highscore.score, midx-149, midy+50, 300, "center")
 	end
 end
 
@@ -182,16 +182,21 @@ function Controller:playerHit()
 	self.lives_tween = prox.timer.tween(1, self, {lives_display = self.lives-1}, "in-quad")
 	self.lives = self.lives - 1
 	if self.lives == 0 then
-		self.state = Controller.static.STATE_GAMEOVER
-		music.stop()
-		if self.score > settings.highscore then
-			settings.highscore = self.score
-		end
-		for i,v in ipairs(self:getScene():findAll("ship")) do
-			v:kill()
-		end
-		self:getScene():find("chain"):kill()
+		self:gameOver()
 	end
+end
+
+function Controller:gameOver()
+	self.state = Controller.static.STATE_GAMEOVER
+	music.stop()
+	if self.score > highscore.score then
+		highscore.score = self.score
+		saveHighscore()
+	end
+	for i,v in ipairs(self:getScene():findAll("ship")) do
+		v:kill()
+	end
+	self:getScene():find("chain"):kill()
 end
 
 function Controller:addScore(points)
