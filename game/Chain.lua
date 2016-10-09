@@ -162,18 +162,21 @@ function Chain:powerAttack()
 	local xstep = xdist / dist * 30
 	local ystep = ydist / dist * 30
 
+	local old_x = self.x
+	local old_y = self.y
+
 	for i=0, count-1 do
-		self:getScene():add(BallFlash(self.x + i*xstep, self.y + i*ystep))
+		self:getScene():add(BallFlash(old_x + i*xstep, old_y + i*ystep))
 		if i > 0 then
-			self:getScene():add(BallFlash(self.x - i*xstep, self.y - i*ystep))
+			self:getScene():add(BallFlash(old_x - i*xstep, old_y - i*ystep))
 		end
 	end
 
 	prox.timer.after(0.5, function()
 		for i=0, count-1 do
-			self:getScene():add(Bullet(self.x + i*xstep, self.y + i*ystep, 1.5*math.pi, Bullet.static.TYPE_PLAYER_BALL))
+			self:getScene():add(Bullet(old_x + i*xstep, old_y + i*ystep, 1.5*math.pi, Bullet.static.TYPE_PLAYER_BALL))
 			if i > 0 then
-				self:getScene():add(Bullet(self.x - i*xstep, self.y - i*ystep, 1.5*math.pi, Bullet.static.TYPE_PLAYER_BALL))
+				self:getScene():add(Bullet(old_x - i*xstep, old_y - i*ystep, 1.5*math.pi, Bullet.static.TYPE_PLAYER_BALL))
 			end
 		end
 	end)
