@@ -23,7 +23,10 @@ end
 function Boss:update(dt, rt)
 	Enemy.update(self, dt, rt)
 
-	self.healthbar = prox.math.movetowards(self.healthbar, self.health, 150*dt)
+	if self.healthbar_cooldown <= 0 then
+		self.healthbar = prox.math.movetowards(self.healthbar, self.health, 150*dt)
+	end
+	self.healthbar_cooldown = self.healthbar_cooldown - dt
 end
 
 function Boss:onCollide(o, dt, rt)
