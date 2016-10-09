@@ -25,6 +25,7 @@ local constructors = {
 
 local WARMUP_TIME = 3
 local TRANSITION_TIME = 7
+local MAX_GEMS = 30
 
 Controller.static.STATE_WARMUP     = 1
 Controller.static.STATE_ACTIVE     = 2
@@ -45,6 +46,8 @@ function Controller:enter(level, binding)
 	self.lives_display = self.lives
 	self.score = 0
 	self.score_display = self.score
+	self.gems = 0
+	self.gems_display = self.gems
 	self.binding = binding
 	self.state = Controller.static.STATE_WARMUP
 	self.time = 0
@@ -66,6 +69,7 @@ function Controller:enter(level, binding)
 	self.diamond_image = prox.resources.getImage("data/images/diamond.png")
 	self.diamond_flash_image = prox.resources.getImage("data/images/diamond_flash.png")
 	self.scorebox_image = prox.resources.getImage("data/images/scorebox.png")
+	self.power_overlay = prox.resources.getImage("data/images/power_overlay.png")
 
 	self.small_font = prox.resources.getImageFont("data/fonts/small.png")
 	self.sans_font = prox.resources.getImageFont("data/fonts/large_sans.png")
@@ -75,6 +79,8 @@ function Controller:update(dt, rt)
 	self.time = self.time + dt
 
 	self.score_display = prox.math.movetowards(self.score_display, self.score, dt*800)
+	self.gems_display = prox.math.movetowards(self.gems_display, self.gems, 20*dt)
+
 	if self.state == Controller.static.STATE_WARMUP then
 		if self.time >= WARMUP_TIME then
 			self.state = Controller.static.STATE_ACTIVE
@@ -134,6 +140,7 @@ function Controller:gui()
 	love.graphics.draw(self.scorebox_image, prox.window.getWidth()/2+163, 16)
 	love.graphics.printf(math.floor(self.score_display), prox.window.getWidth()/2+177, 69, 130, "center")
 
+	-- draw lives
 	love.graphics.draw(self.lives_bar, prox.window.getWidth()/2-315, 16)
 	for i=1, self.lives do
 		love.graphics.draw(self.diamond_image, prox.window.getWidth()/2-289 + (i-1)*36, 22)
@@ -147,6 +154,18 @@ function Controller:gui()
 	end
 
 	love.graphics.setColor(255, 255, 255)
+	
+	-- power bar
+	love.graphics.setColor(211, 80, 80)
+	local power_width = math.floor(self.gems_display / MAX_GEMS * 125 + 0.5)
+	love.graphics.rectangle("fill", prox.window.getWidth()/2-303, 88, power_width, 33)
+	if self.gems >= MAX_GEMS then
+		local alpha = math.sqrt((-prox.time.getTime() % 1)) * 255
+		love.graphics.setColor(255, 255, 255, alpha)
+		love.graphics.rectangle("fill", prox.window.getWidth()/2-303, 88, power_width, 33)
+	end
+	love.graphics.setColor(255, 255, 255)
+	love.graphics.draw(self.power_overlay, prox.window.getWidth()/2-318, 80)
 
 	if self.state == Controller.static.STATE_GAMEOVER then
 		love.graphics.draw(self.gameover_dialog, prox.window.getWidth()/2, prox.window.getHeight()/2, 0, 1, 1, 160, 100)
@@ -184,10 +203,25 @@ function Controller:addScore(points)
 	self.score = self.score + points
 end
 
+function Controller:addGems(count)
+	self.gems = math.min(self.gems + count, MAX_GEMS)
+	self:addScore(count * 100)
+end
+
+function Controller:useGems()
+	self.gems = 0
+	self.gems_display = 0
+end
+
 function Controller:addLives(lives)
 	if self.lives_tween then prox.timer.cancel(self.lives_tween) end
 	self.lives = prox.math.cap(self.lives + lives, 0, 3)
 	prox.timer.tween(1, self, {lives_display = self.lives}, "in-quad")
+end
+
+function Controller:addHeart()
+	self:addScore(1000)
+	self:addLives(1)
 end
 
 function Controller:progressLevel()
@@ -202,6 +236,10 @@ function Controller:loadLevel(level)
 	self.wave = 1
 	self.step = 1
 	self.time = 0
+end
+
+function Controller:hasFullPower()
+	return self.gems >= MAX_GEMS
 end
 
 return Controller

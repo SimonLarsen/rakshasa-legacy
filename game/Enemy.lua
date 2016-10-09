@@ -18,12 +18,16 @@ end
 
 function Enemy:onCollide(o, dt, rt)
 	if o:getName() == "bullet" and o:isPlayerBullet() then
-		self.health = self.health - o:getDamage()
+		if o:isDPS() then
+			self.health = self.health - o:getDamage()*dt
+		else
+			self.health = self.health - o:getDamage()
+			o:kill()
+		end
 		self.hit = 0.05
 		if self.health <= 0 then
 			self:kill()
 		end
-		o:kill()
 	end
 end
 

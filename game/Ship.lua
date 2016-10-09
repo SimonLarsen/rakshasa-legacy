@@ -19,6 +19,7 @@ local SUPER_COOLDOWN = 0.15
 local DEADZONE_THRESHOLD = 0.20
 
 local ENTER_TIME = 1.0
+local POWER_TRIGGER_TIME = 0.1
 
 Ship.static.STATE_ENTER  = 1
 Ship.static.STATE_ACTIVE = 2
@@ -40,6 +41,7 @@ function Ship:enter(side, binding)
 	self.state = Ship.static.STATE_ENTER
 	self.power_level = 1
 	self.flash = 0
+	self.power_trigger = 0
 
 	self.binding = binding
 
@@ -52,6 +54,7 @@ function Ship:enter(side, binding)
 	if side == Ship.static.SIDE_LEFT then
 		self.x = settings.screen_width/2 - 40
 		self.shoot_action = "leftshoot"
+		self.power_action = "leftpower"
 		self.xaxis = "leftx"
 		self.yaxis = "lefty"
 		self.dead_zone = -math.pi/2
@@ -60,6 +63,7 @@ function Ship:enter(side, binding)
 	else
 		self.x = settings.screen_width/2 + 40
 		self.shoot_action = "rightshoot"
+		self.power_action = "rightpower"
 		self.xaxis = "rightx"
 		self.yaxis = "righty"
 		self.dead_zone = math.pi/2
@@ -89,6 +93,7 @@ function Ship:enter(side, binding)
 end
 
 function Ship:update(dt, rt)
+	self.power_trigger = self.power_trigger - dt
 	if self.state == Ship.static.STATE_ACTIVE then
 		-- Move ship
 		local shooting = self.binding:isDown(self.shoot_action)
@@ -127,6 +132,10 @@ function Ship:update(dt, rt)
 			self.sfx_laser[self.power_level]:play()
 			self.cooldown = BULLET_COOLDOWN[self.power_level]
 		end
+
+		if self.binding:wasPressed(self.power_action) then
+			self.power_trigger = POWER_TRIGGER_TIME
+		end
 	end
 
 	self.flash = self.flash - dt
@@ -146,15 +155,18 @@ function Ship:setPowerLevel(level)
 	self.power_level = level
 end
 
+function Ship:powerTriggered()
+	return self.power_trigger > 0
+end
+
 function Ship:onCollide(o, dt, rt)
 	if o:getName() == "gem" then
-		self:getScene():find("controller"):addScore(o:getPoints())
+		self:getScene():find("controller"):addGems(o:getGems())
 		o:remove()
 		self.flash = 0.05
 		self.sfx_blip:play()
 	elseif o:getName() == "heart" then
-		self:getScene():find("controller"):addScore(o:getPoints())
-		self:getScene():find("controller"):addLives(1)
+		self:getScene():find("controller"):addHeart()
 		o:remove()
 	elseif o:getName() == "bullet" and o:isPlayerBullet() then
 		o:kill()

@@ -6,7 +6,7 @@ local WhiteFlash = require("game.WhiteFlash")
 
 local Boss = class("game.Boss", Enemy)
 
-local HEALTHBAR_COOLDOWN = 0.3
+local HEALTHBAR_COOLDOWN = 0.2
 
 function Boss:enter(boss_id, health)
 	Enemy.enter(self, health, true)
@@ -23,10 +23,7 @@ end
 function Boss:update(dt, rt)
 	Enemy.update(self, dt, rt)
 
-	self.healthbar_cooldown = self.healthbar_cooldown - dt
-	if self.healthbar_cooldown <= 0 then
-		self.healthbar = prox.math.movetowards(self.healthbar, self.health, 150*dt)
-	end
+	self.healthbar = prox.math.movetowards(self.healthbar, self.health, 150*dt)
 end
 
 function Boss:onCollide(o, dt, rt)
@@ -59,7 +56,7 @@ end
 
 function Boss:purge()
 	music.stop()
-	local sfx = prox.resources.getSound("data/sounds/big_explosion.wav")
+	local sfx = prox.resources.getSound("data/sounds/explosion2.wav")
 	sfx:play()
 	self:getScene():add(WhiteFlash(1, "in-linear"))
 	self:dropGems()

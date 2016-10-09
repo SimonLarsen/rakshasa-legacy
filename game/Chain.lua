@@ -1,4 +1,6 @@
 local shaders = require("shaders")
+local Bullet = require("game.Bullet")
+
 local Chain = class("game.Chain", prox.Entity)
 
 local MIN_DIST = 86
@@ -22,6 +24,7 @@ function Chain:enter(ship1, ship2)
 	self.ship1 = ship1
 	self.ship2 = ship2
 	self.direction = 0
+	self.controller = self:getScene():find("controller")
 
 	self.center_sprites = {
 		prox.Sprite("data/images/chain_center1.png"),
@@ -66,6 +69,11 @@ function Chain:update(dt, rt)
 		self.ship2.yspeed = self.ship2.yspeed + ydist / dist * dt * FORCE
 	end
 
+	if self.ship1:powerTriggered() and self.ship2:powerTriggered() and self.controller:hasFullPower() then
+		self.controller:useGems()
+		self:powerAttack()
+	end
+
 	-- Update power level based on ship distance
 	self.center_flash_alpha = self.center_flash_alpha - math.max(0, 2000*dt)
 	local power_level = 1
@@ -97,7 +105,7 @@ function Chain:update(dt, rt)
 			if self.state == Chain.static.STATE_ACTIVE and self.invulnerable <= 0 then
 				self.invulnerable = INVULNERABLE_TIME
 				self:getScene():find("screenshaker"):shake(0.5, 8, 60)
-				self:getScene():find("controller"):playerHit()
+				self.controller:playerHit()
 			end
 			v:kill()
 		end
@@ -144,6 +152,22 @@ function Chain:draw()
 	end
 end
 
+function Chain:powerAttack()
+	local xdist = (self.ship2.x - self.ship1.x) / 2
+	local ydist = (self.ship2.y - self.ship1.y) / 2
+	local dist = math.sqrt(xdist^2 + ydist^2)
+	local count = math.floor(dist / 30 + 0.5)
+	local rdist = count * 30
+	local xstep = xdist / dist * 30
+	local ystep = ydist / dist * 30
+	for i=0, count-1 do
+		self:getScene():add(Bullet(self.x + i*xstep, self.y + i*ystep, 1.5*math.pi, Bullet.static.TYPE_PLAYER_BALL))
+		if i > 0 then
+			self:getScene():add(Bullet(self.x - i*xstep, self.y - i*ystep, 1.5*math.pi, Bullet.static.TYPE_PLAYER_BALL))
+		end
+	end
+end
+
 function Chain:kill()
 	self.state = Chain.static.STATE_DEAD
 	self.invulnerable = 1000000
@@ -152,8 +176,7 @@ end
 
 function Chain:onCollide(o)
 	if o:getName() == "heart" then
-		self:getScene():find("controller"):addScore(o:getPoints())
-		self:getScene():find("controller"):addLives(1)
+		self.controller:addHeart()
 		o:remove()
 	end
 end

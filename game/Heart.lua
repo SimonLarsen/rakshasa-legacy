@@ -18,8 +18,4 @@ function Heart:update(dt, rt)
 	self.y = self.starty + math.cos(prox.time.getTime() * 2) * 8
 end
 
-function Heart:getPoints()
-	return 1000
-end
-
 return Heart

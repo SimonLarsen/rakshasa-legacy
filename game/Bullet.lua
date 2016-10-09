@@ -5,12 +5,14 @@ local Bullet = class("game.Bullet", prox.Entity)
 Bullet.static.TYPE_PLAYER_BULLET = 1
 Bullet.static.TYPE_PLAYER_SUPER  = 2
 Bullet.static.TYPE_PLAYER_ULTRA  = 3
-Bullet.static.TYPE_ENEMY_BULLET  = 4
+Bullet.static.TYPE_PLAYER_BALL   = 4
+Bullet.static.TYPE_ENEMY_BULLET  = 5
 
 local bullet_speed = {
 	[Bullet.static.TYPE_PLAYER_BULLET] = 500,
 	[Bullet.static.TYPE_PLAYER_SUPER]  = 500,
 	[Bullet.static.TYPE_PLAYER_ULTRA]  = 500,
+	[Bullet.static.TYPE_PLAYER_BALL]   = 300,
 	[Bullet.static.TYPE_ENEMY_BULLET]  = 200
 }
 
@@ -18,14 +20,32 @@ local bullet_acceleration = {
 	[Bullet.static.TYPE_PLAYER_BULLET] = 10000,
 	[Bullet.static.TYPE_PLAYER_SUPER]  = 10000,
 	[Bullet.static.TYPE_PLAYER_ULTRA]  = 10000,
+	[Bullet.static.TYPE_PLAYER_BALL]   = 600,
 	[Bullet.static.TYPE_ENEMY_BULLET]  = 10000
 }
 
 local bullet_damage = {
-	[Bullet.static.TYPE_PLAYER_BULLET] = 1,
+	[Bullet.static.TYPE_PLAYER_BULLET] = 1.0,
 	[Bullet.static.TYPE_PLAYER_SUPER]  = 2.6,
 	[Bullet.static.TYPE_PLAYER_ULTRA]  = 4.8,
-	[Bullet.static.TYPE_ENEMY_BULLET] = 1
+	[Bullet.static.TYPE_PLAYER_BALL]   = 64.0,
+	[Bullet.static.TYPE_ENEMY_BULLET]  = 1.0
+}
+
+local is_player_bullet = {
+	[Bullet.static.TYPE_PLAYER_BULLET] = true,
+	[Bullet.static.TYPE_PLAYER_SUPER]  = true,
+	[Bullet.static.TYPE_PLAYER_ULTRA]  = true,
+	[Bullet.static.TYPE_PLAYER_BALL]   = true,
+	[Bullet.static.TYPE_ENEMY_BULLET]  = false
+}
+
+local is_dps = {
+	[Bullet.static.TYPE_PLAYER_BULLET] = false,
+	[Bullet.static.TYPE_PLAYER_SUPER]  = false,
+	[Bullet.static.TYPE_PLAYER_ULTRA]  = false,
+	[Bullet.static.TYPE_PLAYER_BALL]   = true,
+	[Bullet.static.TYPE_ENEMY_BULLET]  = false
 }
 
 function Bullet:enter(x, y, dir, type)
@@ -50,6 +70,9 @@ function Bullet:enter(x, y, dir, type)
 		self:setRenderer(prox.Sprite("data/images/bullet_player3.png", 11, 11))
 		self:setCollider(prox.BoxCollider(4, 4))
 		self:getRenderer():setRotation(self.dir)
+	elseif self.type == Bullet.static.TYPE_PLAYER_BALL then
+		self:setRenderer(prox.Animation("data/animations/powerball.lua"))
+		self:setCollider(prox.BoxCollider(30, 30))
 	elseif self.type == Bullet.static.TYPE_ENEMY_BULLET then
 		self:setRenderer(prox.Sprite("data/images/bullet_enemy.png"))
 		self:setCollider(prox.BoxCollider(4, 4))
@@ -57,7 +80,7 @@ function Bullet:enter(x, y, dir, type)
 		self.rotation_speed = 8
 		self:getRenderer():setRotation(love.math.random()*2*math.pi)
 	else
-		error(string.format("Unknown enemy type \"%s\".", self.type))
+		error(string.format("Unknown bullet type \"%s\".", self.type))
 	end
 end
 
@@ -90,12 +113,24 @@ function Bullet:getDamage()
 end
 
 function Bullet:isPlayerBullet()
-	return self.type <= Bullet.static.TYPE_PLAYER_ULTRA
+	return is_player_bullet[self.type]
+end
+
+function Bullet:isDPS()
+	return is_dps[self.type]
 end
 
 function Bullet:getHCShape()
 	self.hc_rect:moveTo(self.x, self.y)
 	return self.hc_rect
+end
+
+function Bullet:onCollide(o, dt, rt)
+	if self.type == Bullet.static.TYPE_PLAYER_BALL then
+		if o:getName() == "bullet" and o:getType() ~= Bullet.static.TYPE_PLAYER_BALL then
+			o:kill()
+		end
+	end
 end
 
 return Bullet
