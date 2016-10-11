@@ -172,14 +172,12 @@ function Chain:powerAttack()
 		end
 	end
 
-	prox.timer.after(0.5, function()
-		for i=0, count-1 do
-			self:getScene():add(Bullet(old_x + i*xstep, old_y + i*ystep, 1.5*math.pi, Bullet.static.TYPE_PLAYER_BALL))
-			if i > 0 then
-				self:getScene():add(Bullet(old_x - i*xstep, old_y - i*ystep, 1.5*math.pi, Bullet.static.TYPE_PLAYER_BALL))
-			end
+	for i=0, count-1 do
+		self:getScene():add(Bullet(old_x + i*xstep, old_y + i*ystep, 1.5*math.pi, Bullet.static.TYPE_PLAYER_BALL))
+		if i > 0 then
+			self:getScene():add(Bullet(old_x - i*xstep, old_y - i*ystep, 1.5*math.pi, Bullet.static.TYPE_PLAYER_BALL))
 		end
-	end)
+	end
 end
 
 function Chain:kill()

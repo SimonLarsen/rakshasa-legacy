@@ -40,12 +40,28 @@ local is_player_bullet = {
 	[Bullet.static.TYPE_ENEMY_BULLET]  = false
 }
 
+local is_super = {
+	[Bullet.static.TYPE_PLAYER_BULLET] = false,
+	[Bullet.static.TYPE_PLAYER_SUPER]  = false,
+	[Bullet.static.TYPE_PLAYER_ULTRA]  = false,
+	[Bullet.static.TYPE_PLAYER_BALL]   = true,
+	[Bullet.static.TYPE_ENEMY_BULLET]  = false
+}
+
 local is_dps = {
 	[Bullet.static.TYPE_PLAYER_BULLET] = false,
 	[Bullet.static.TYPE_PLAYER_SUPER]  = false,
 	[Bullet.static.TYPE_PLAYER_ULTRA]  = false,
 	[Bullet.static.TYPE_PLAYER_BALL]   = true,
 	[Bullet.static.TYPE_ENEMY_BULLET]  = false
+}
+
+local delay = {
+	[Bullet.static.TYPE_PLAYER_BULLET] = 0,
+	[Bullet.static.TYPE_PLAYER_SUPER]  = 0,
+	[Bullet.static.TYPE_PLAYER_ULTRA]  = 0,
+	[Bullet.static.TYPE_PLAYER_BALL]   = 9*0.07,
+	[Bullet.static.TYPE_ENEMY_BULLET]  = 0
 }
 
 function Bullet:enter(x, y, dir, type)
@@ -82,11 +98,24 @@ function Bullet:enter(x, y, dir, type)
 	else
 		error(string.format("Unknown bullet type \"%s\".", self.type))
 	end
+
+	self.delay = delay[self.type]
+	if self.delay > 0 then
+		self:getRenderer():setVisible(false)
+	end
 end
 
 function Bullet:update(dt, rt)
 	local rot = self:getRenderer().r
 	self:getRenderer().r = rot + self.rotation_speed * dt
+
+	if self.delay > 0 then
+		self.delay = self.delay - dt
+		if self.delay <= 0 then
+			self:getRenderer():setVisible(true)
+		end
+		return
+	end
 
 	self.speed = prox.math.movetowards(self.speed, bullet_speed[self.type], bullet_acceleration[self.type]*dt)
 
@@ -118,6 +147,10 @@ end
 
 function Bullet:isDPS()
 	return is_dps[self.type]
+end
+
+function Bullet:isSuper()
+	return is_super[self.type]
 end
 
 function Bullet:getHCShape()

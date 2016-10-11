@@ -1,8 +1,8 @@
 {
 	image = "data/images/powerball_charge.png",
-	fw = 37,
-	fh = 37,
-	ox = 18,
-	oy = 18,
-	delay = 0.05
+	fw = 39,
+	fh = 39,
+	ox = 19,
+	oy = 19,
+	delay = 0.07
 }
