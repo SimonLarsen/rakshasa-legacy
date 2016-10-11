@@ -249,8 +249,12 @@ end
 function BossDurga:kill()
 	Boss.kill(self)
 
-	prox.timer.cancel(self.shield_tween)
-	prox.timer.cancel(self.head_tween)
+	if self.shield_tween then
+		prox.timer.cancel(self.shield_tween)
+	end
+	if self.head_tween then
+		prox.timer.cancel(self.head_tween)
+	end
 
 	self.active = false
 	self.state = BossDurga.static.STATE_EXPLODING

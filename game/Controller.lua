@@ -41,7 +41,8 @@ local levels = {
 function Controller:enter(level, binding)
 	self:setName("controller")
 
-	self:loadLevel(level)
+	self.level = level
+	self:loadLevel()
 	self.lives = 3
 	self.lives_display = self.lives
 	self.score = 0
@@ -225,13 +226,14 @@ function Controller:addHeart()
 end
 
 function Controller:progressLevel()
-	self:loadLevel(self.level + 1)
+	self.level = self.level+1
+	self:loadLevel(self.level)
+	self:getScene():find("background"):set(self.level)
 	self.state = Controller.static.STATE_TRANSITION
 	self.time = 0
 end
 
-function Controller:loadLevel(level)
-	self.level = level
+function Controller:loadLevel()
 	self.events = serialize.read(levels[self.level])
 	self.wave = 1
 	self.step = 1

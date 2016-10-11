@@ -1,8 +1,8 @@
 local Enemy = require("game.Enemy")
 local Gem = require("game.Gem")
 local Heart = require("game.Heart")
-local music = require("music")
 local WhiteFlash = require("game.WhiteFlash")
+local music = require("music")
 
 local Boss = class("game.Boss", Enemy)
 
