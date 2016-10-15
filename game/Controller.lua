@@ -8,8 +8,6 @@ local EndText = require("game.EndText")
 local Heart = require("game.Heart")
 
 local DualController = require("controls.DualController")
-local SwitchController = require("controls.SwitchController")
-local PivotController = require("controls.PivotController")
 
 local Controller = class("game.Controller", prox.Entity)
 
@@ -66,7 +64,7 @@ function Controller:enter(level, binding)
 	local ship_left = self:getScene():add(Ship(Ship.static.SIDE_LEFT))
 	local ship_right = self:getScene():add(Ship(Ship.static.SIDE_RIGHT))
 	local chain = self:getScene():add(Chain(ship_left, ship_right))
-	self:getScene():add(SwitchController(binding, ship_left, ship_right, chain))
+	self:getScene():add(DualController(binding, ship_left, ship_right, chain, settings.ship_switch))
 	self:getScene():add(ScreenShaker())
 
 	self.gameover_dialog = prox.resources.getImage("data/images/gameover_dialog.png")

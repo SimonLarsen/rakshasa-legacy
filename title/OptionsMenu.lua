@@ -86,7 +86,7 @@ function OptionsMenu:enter(binding)
 	self.ready = false
 	self.alpha = 0
 	prox.timer.after(1, function()
-		prox.timer.tween(1.8, self, {alpha = 495}, "out-quad")
+		prox.timer.tween(1.8, self, {alpha = 255 + #options*80}, "out-quad")
 	end)
 
 	prox.timer.after(2.0, function() self.ready = true end)
@@ -135,12 +135,13 @@ function OptionsMenu:gui()
 
 	local midx = prox.window.getWidth()/2
 	local centerx = prox.window.getWidth()/2 + 30
+	local top = 200
 
 	for i,v in ipairs(options) do
 		local alpha = prox.math.cap(self.alpha-math.abs(i-self.selection)*80, 0, 255)
 		love.graphics.setColor(255, 255, 255, alpha)
 
-		love.graphics.printf(v.label, centerx-310, 260+(i-1)*30, 300, "right")
+		love.graphics.printf(v.label, centerx-310, top+(i-1)*30, 300, "right")
 		local value
 		if v.value then
 			if type(v.value) == "function" then
@@ -150,7 +151,7 @@ function OptionsMenu:gui()
 			end
 		end
 		if value then
-			love.graphics.printf(v.value(), centerx+10, 260+(i-1)*30, 300, "left")
+			love.graphics.printf(v.value(), centerx+10, top+(i-1)*30, 300, "left")
 		end
 
 		if self.ready and self.selection == i then
@@ -160,8 +161,8 @@ function OptionsMenu:gui()
 				rightx = centerx + self.sans_font:getWidth(v.value()) + 24
 			end
 
-			love.graphics.line(midx-150, 268+(i-1)*30, leftx, 268+(i-1)*30)
-			love.graphics.line(rightx, 268+(i-1)*30, midx+150, 268+(i-1)*30)
+			love.graphics.line(midx-150, top+8+(i-1)*30, leftx, top+8+(i-1)*30)
+			love.graphics.line(rightx, top+8+(i-1)*30, midx+150, top+8+(i-1)*30)
 		end
 	end
 

@@ -8,7 +8,8 @@ settings = {
 	screen_height = 480,
 	scale = 2,
 	fullscreen = false,
-	fullscreen_mode = "scale"
+	fullscreen_mode = "scale",
+	ship_switch = true
 }
 
 highscore = {
