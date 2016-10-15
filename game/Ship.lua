@@ -2,6 +2,7 @@ local shaders = require("shaders")
 local Bullet = require("game.Bullet")
 local Explosion = require("game.Explosion")
 local Flash = require("game.Flash")
+local GemPickup = require("game.GemPickup")
 
 local Ship = class("game.Ship", prox.Entity)
 
@@ -167,6 +168,7 @@ end
 function Ship:onCollide(o, dt, rt)
 	if o:getName() == "gem" then
 		self:getScene():find("controller"):addGems(o:getGems())
+		self:getScene():add(GemPickup(o.x, o.y))
 		o:remove()
 		self.flash = 0.05
 		self.sfx_blip:play()
