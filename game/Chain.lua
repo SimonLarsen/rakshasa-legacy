@@ -34,7 +34,8 @@ function Chain:enter(ship1, ship2)
 	}
 	self.center_ring = prox.Sprite("data/images/chain_ring.png")
 	self.center_flash = prox.Sprite("data/images/chain_center_flash.png")
-	self.chain_link = prox.Sprite("data/images/chain_link2.png", 5, 5)
+	self.link1 = prox.Sprite("data/images/link1.png", 5, 5)
+	self.link2 = prox.Sprite("data/images/link2.png", 3, 3)
 	self.center_flash_alpha = 0
 
 	self.dissolve_shader = shaders.getShader("data/shaders/dissolve.lua")
@@ -125,15 +126,20 @@ function Chain:draw()
 	local xdist = (self.ship2.x - self.ship1.x) / 2
 	local ydist = (self.ship2.y - self.ship1.y) / 2
 	local dist = math.sqrt(xdist^2 + ydist^2)
-	local count = dist / 12
+	local count = dist / 10
 
 	if self.dissolve_edge > 0 then
 		love.graphics.setShader(self.dissolve_shader)
 	end
 
 	for i=0, count-1 do
-		self.chain_link:draw(self.x + xdist * i / count, self.y + ydist * i / count)
-		self.chain_link:draw(self.x - xdist * i / count, self.y - ydist * i / count)
+		self.link1:draw(self.x + xdist * i / count, self.y + ydist * i / count)
+		self.link1:draw(self.x - xdist * i / count, self.y - ydist * i / count)
+	end
+
+	for i=0, count-1 do
+		self.link2:draw(self.x + xdist * (i+0.5) / count, self.y + ydist * (i+0.5) / count)
+		self.link2:draw(self.x - xdist * (i+0.5) / count, self.y - ydist * (i+0.5) / count)
 	end
 
 	love.graphics.setShader()

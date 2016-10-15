@@ -1,10 +1,9 @@
 {
 	image = "data/images/ship_thrust.png",
-	fw = 40,
-	fh = 65,
-	ox = 28,
-	oy = 27,
+	fw = 46,
+	fh = 63,
+	ox = 23,
+	oy = 24,
 	sx = -1,
-	sy = 1,
 	delay = 0.1
 }

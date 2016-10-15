@@ -5,6 +5,7 @@ local SCROLL_SPEED = 10
 local files = {
 	"data/images/background1.png",
 	"data/images/background2.png",
+	"data/images/background3.png"
 }
 
 function Background:enter(lvl)

@@ -7,6 +7,10 @@ local ScreenShaker = require("game.ScreenShaker")
 local EndText = require("game.EndText")
 local Heart = require("game.Heart")
 
+local DualController = require("controls.DualController")
+local SwitchController = require("controls.SwitchController")
+local PivotController = require("controls.PivotController")
+
 local Controller = class("game.Controller", prox.Entity)
 
 local constructors = {
@@ -59,9 +63,10 @@ function Controller:enter(level, binding)
 	self:getScene():getCamera():setPosition(settings.screen_width/2, settings.screen_height/2)
 	music.playFile("data/music/thunder.ogg")
 
-	local ship1 = self:getScene():add(Ship(Ship.static.SIDE_LEFT, self.binding))
-	local ship2 = self:getScene():add(Ship(Ship.static.SIDE_RIGHT, self.binding))
-	self:getScene():add(Chain(ship1, ship2))
+	local ship_left = self:getScene():add(Ship(Ship.static.SIDE_LEFT))
+	local ship_right = self:getScene():add(Ship(Ship.static.SIDE_RIGHT))
+	local chain = self:getScene():add(Chain(ship_left, ship_right))
+	self:getScene():add(SwitchController(binding, ship_left, ship_right, chain))
 	self:getScene():add(ScreenShaker())
 
 	self.gameover_dialog = prox.resources.getImage("data/images/gameover_dialog.png")

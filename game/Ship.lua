@@ -15,7 +15,6 @@ local SLOW_MAX_SPEED = 150
 local FAST_MAX_SPEED = 250
 
 local BULLET_COOLDOWN = 0.12
-local SUPER_COOLDOWN = 0.15
 local DEADZONE_THRESHOLD = 0.20
 
 local ENTER_TIME = 1.0
@@ -29,12 +28,14 @@ local BULLET_COOLDOWN = {
 	0.1, 0.13, 0.16
 }
 
-function Ship:enter(side, binding)
+function Ship:enter(side)
 	self:setName("ship")
 	self.y = settings.screen_height + 50
 	self.z = 0
 	self.xspeed = 0
 	self.yspeed = 0
+	self.xmove = 0
+	self.ymove = 0
 	self.side = side
 	self.cooldown = 0
 	self.direction = 0
@@ -43,32 +44,21 @@ function Ship:enter(side, binding)
 	self.flash = 0
 	self.power_trigger = 0
 
-	self.binding = binding
-
 	self:setCollider(prox.BoxCollider(18, 34))
 	self.gear_sprite = prox.Sprite("data/images/ship_gear.png", 19, 19)
 
 	self:setRenderer(prox.MultiRenderer())
 	self:getRenderer():addRenderer(self.gear_sprite, 0, 1)
 
-	if side == Ship.static.SIDE_LEFT then
+	self.animator_left = prox.Animator("data/animators/ship_left.lua")
+	self.animator_right = prox.Animator("data/animators/ship_right.lua")
+
+	if self.side == Ship.static.SIDE_LEFT then
 		self.x = settings.screen_width/2 - 40
-		self.shoot_action = "leftshoot"
-		self.power_action = "leftpower"
-		self.xaxis = "leftx"
-		self.yaxis = "lefty"
-		self.dead_zone = -math.pi/2
-		self.super_zone = math.pi/2
-		self.animator = prox.Animator("data/animators/ship_left.lua")
+		self.animator = self.animator_left
 	else
 		self.x = settings.screen_width/2 + 40
-		self.shoot_action = "rightshoot"
-		self.power_action = "rightpower"
-		self.xaxis = "rightx"
-		self.yaxis = "righty"
-		self.dead_zone = math.pi/2
-		self.super_zone = -math.pi/2
-		self.animator = prox.Animator("data/animators/ship_right.lua")
+		self.animator = self.animator_right
 	end
 	self:getRenderer():addRenderer(self.animator)
 
@@ -94,14 +84,16 @@ end
 
 function Ship:update(dt, rt)
 	self.power_trigger = self.power_trigger - dt
+	self.cooldown = self.cooldown - dt
+
 	if self.state == Ship.static.STATE_ACTIVE then
 		-- Move ship
-		local shooting = self.binding:isDown(self.shoot_action)
+		local shooting = self.cooldown > 0
 		local acceleration = shooting and SLOW_ACCELERATION or FAST_ACCELERATION
 		local max_speed = shooting and SLOW_MAX_SPEED or FAST_MAX_SPEED
 
-		self.xspeed = self.xspeed + acceleration * dt * self.binding:getAxis(self.xaxis)
-		self.yspeed = self.yspeed + acceleration * dt * self.binding:getAxis(self.yaxis)
+		self.xspeed = self.xspeed + acceleration * dt * self.xmove
+		self.yspeed = self.yspeed + acceleration * dt * self.ymove
 
 		local speed = math.sqrt(self.xspeed^2 + self.yspeed^2)
 		if speed > max_speed then
@@ -114,32 +106,39 @@ function Ship:update(dt, rt)
 
 		self.xspeed = prox.math.movetowards(self.xspeed, 0, DECELLERATION*dt)
 		self.yspeed = prox.math.movetowards(self.yspeed, 0, DECELLERATION*dt)
-
-		-- Shoot
-		self.cooldown = self.cooldown - dt
-
-		if self.binding:isDown(self.shoot_action) and self.cooldown <= 0 then
-			if self.power_level == 1 then
-				self:getScene():add(Bullet(self.x, self.y-20, 1.5*math.pi, Bullet.static.TYPE_PLAYER_BULLET))
-			elseif self.power_level == 2 then
-				self:getScene():add(Bullet(self.x, self.y-32, 1.5*math.pi, Bullet.static.TYPE_PLAYER_SUPER))
-			elseif self.power_level == 3 then
-				self:getScene():add(Bullet(self.x, self.y-32, 1.5*math.pi, Bullet.static.TYPE_PLAYER_ULTRA))
-			else
-				error("Player power levels must be >= 1 and <= 3.")
-			end
-			self:getScene():add(Flash(self.x, self.y-24, 2))
-			self.sfx_laser[self.power_level]:play()
-			self.cooldown = BULLET_COOLDOWN[self.power_level]
-		end
-
-		if self.binding:wasPressed(self.power_action) then
-			self.power_trigger = POWER_TRIGGER_TIME
-		end
 	end
 
-	self.flash = self.flash - dt
 	self:getRenderer():setShader(self.flash > 0 and self.white_shader or nil)
+	self.flash = self.flash - dt
+end
+
+function Ship:shoot()
+	if self.cooldown <= 0 then
+		if self.power_level == 1 then
+			self:getScene():add(Bullet(self.x, self.y-20, 1.5*math.pi, Bullet.static.TYPE_PLAYER_BULLET))
+		elseif self.power_level == 2 then
+			self:getScene():add(Bullet(self.x, self.y-32, 1.5*math.pi, Bullet.static.TYPE_PLAYER_SUPER))
+		elseif self.power_level == 3 then
+			self:getScene():add(Bullet(self.x, self.y-32, 1.5*math.pi, Bullet.static.TYPE_PLAYER_ULTRA))
+		else
+			error("Player power levels must be >= 1 and <= 3.")
+		end
+		self:getScene():add(Flash(self.x, self.y-24, 2))
+		self.sfx_laser[self.power_level]:play()
+		self.cooldown = BULLET_COOLDOWN[self.power_level]
+	end
+end
+
+function Ship:setMovement(xmove, ymove)
+	self.xmove, self.ymove = xmove, ymove
+end
+
+function Ship:triggerPower()
+	self.power_trigger = POWER_TRIGGER_TIME
+end
+
+function Ship:powerTriggered()
+	return self.power_trigger > 0
 end
 
 function Ship:getGearSprite()
@@ -155,8 +154,14 @@ function Ship:setPowerLevel(level)
 	self.power_level = level
 end
 
-function Ship:powerTriggered()
-	return self.power_trigger > 0
+function Ship:setSide(side)
+	self.side = side
+	if self.side == Ship.static.SIDE_LEFT then
+		self.animator = self.animator_left
+	else
+		self.animator = self.animator_right
+	end
+	self:getRenderer():addRenderer(self.animator)
 end
 
 function Ship:onCollide(o, dt, rt)
