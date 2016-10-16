@@ -39,7 +39,7 @@ function DualController:update(dt, rt)
 		self.switch_cooldown = SWITCH_COOLDOWN
 	end
 
-	if self.switch and self.ship_left.x > self.ship_right.x and self.switch_cooldown <= 0 then
+	if self.switch and self.ship_left.x - self.ship_right.x > 10 and self.switch_cooldown <= 0 then
 		self.ship_left, self.ship_right = self.ship_right, self.ship_left
 		self.ship_left:setSide(Ship.static.SIDE_LEFT)
 		self.ship_right:setSide(Ship.static.SIDE_right)
