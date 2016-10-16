@@ -1,4 +1,5 @@
 local PlayerController = require("controls.PlayerController")
+local Ship = require("game.Ship")
 
 local DualController = class("controls.DualController", PlayerController)
 

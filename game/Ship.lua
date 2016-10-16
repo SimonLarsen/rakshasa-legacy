@@ -1,5 +1,6 @@
 local shaders = require("shaders")
 local Bullet = require("game.Bullet")
+local PlayerBullet = require("game.PlayerBullet")
 local Explosion = require("game.Explosion")
 local Flash = require("game.Flash")
 local GemPickup = require("game.GemPickup")
@@ -116,11 +117,11 @@ end
 function Ship:shoot()
 	if self.cooldown <= 0 then
 		if self.power_level == 1 then
-			self:getScene():add(Bullet(self.x, self.y-20, 1.5*math.pi, Bullet.static.TYPE_PLAYER_BULLET))
+			self:getScene():add(PlayerBullet(self.x, self.y-20, 1.5*math.pi, PlayerBullet.static.TYPE_NORMAL))
 		elseif self.power_level == 2 then
-			self:getScene():add(Bullet(self.x, self.y-32, 1.5*math.pi, Bullet.static.TYPE_PLAYER_SUPER))
+			self:getScene():add(PlayerBullet(self.x, self.y-32, 1.5*math.pi, PlayerBullet.static.TYPE_SUPER))
 		elseif self.power_level == 3 then
-			self:getScene():add(Bullet(self.x, self.y-32, 1.5*math.pi, Bullet.static.TYPE_PLAYER_ULTRA))
+			self:getScene():add(PlayerBullet(self.x, self.y-32, 1.5*math.pi, PlayerBullet.static.TYPE_ULTRA))
 		else
 			error("Player power levels must be >= 1 and <= 3.")
 		end
@@ -175,7 +176,7 @@ function Ship:onCollide(o, dt, rt)
 	elseif o:getName() == "heart" then
 		self:getScene():find("controller"):addHeart()
 		o:remove()
-	elseif o:getName() == "bullet" and o:isPlayerBullet() and not o:isDPS() then
+	elseif o:getName() == "player_bullet" then
 		o:kill()
 	end
 end

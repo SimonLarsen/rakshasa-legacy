@@ -1,4 +1,4 @@
-local Bullet = require("game.Bullet")
+local EnemyBullet = require("game.EnemyBullet")
 local Flash = require("game.Flash")
 
 local ShivaArm = class("game.ShivaArm", prox.Entity)
@@ -81,10 +81,10 @@ end
 
 function ShivaArm:shoot()
 	if self.side == ShivaArm.static.SIDE_LEFT then
-		self:getScene():add(Bullet(self.x+21, self.y+14, 0, Bullet.static.TYPE_ENEMY_BULLET))
+		self:getScene():add(EnemyBullet(self.x+21, self.y+14, 0, EnemyBullet.static.TYPE_LASER))
 		self:getScene():add(Flash(self.x+21, self.y+14))
 	else
-		self:getScene():add(Bullet(self.x-14, self.y+18, math.pi, Bullet.static.TYPE_ENEMY_BULLET))
+		self:getScene():add(EnemyBullet(self.x-14, self.y+18, math.pi, EnemyBullet.static.TYPE_LASER))
 		self:getScene():add(Flash(self.x-14, self.y+18))
 	end
 end

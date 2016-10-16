@@ -1,4 +1,4 @@
-local Bullet = require("game.Bullet")
+local EnemyBullet = require("game.EnemyBullet")
 local Flash = require("game.Flash")
 
 local AgniHand = class("game.AgniHand", prox.Entity)
@@ -105,7 +105,7 @@ function AgniHand:shoot()
 	for i=1, SHOT_COUNT do
 		local offx = love.math.random(-radius, radius)
 		local offy = love.math.random(-radius, radius)
-		self:getScene():add(Bullet(self.x+offx, self.y+offy, dir, Bullet.static.TYPE_ENEMY_BULLET))
+		self:getScene():add(EnemyBullet(self.x+offx, self.y+offy, dir, EnemyBullet.static.TYPE_BALL))
 	end
 	self:getScene():add(Flash(self.x, self.y))
 end

@@ -27,7 +27,7 @@ local constructors = {
 
 local WARMUP_TIME = 3
 local TRANSITION_TIME = 9
-local MAX_GEMS = 30
+local MAX_GEMS =  20
 
 Controller.static.STATE_WARMUP     = 1
 Controller.static.STATE_ACTIVE     = 2

@@ -1,5 +1,6 @@
 local shaders = require("shaders")
-local Bullet = require("game.Bullet")
+--local PlayerPowerball = require("game.PlayerPowerball")
+local PurityWave = require("game.PurityWave")
 local BallFlash = require("game.BallFlash")
 
 local Chain = class("game.Chain", prox.Entity)
@@ -102,8 +103,8 @@ function Chain:update(dt, rt)
 	hc_rect:moveTo(self.x, self.y)
 	hc_rect:setRotation(self.direction)
 
-	for i,v in ipairs(self:getScene():findAll("bullet")) do
-		if not v:isPlayerBullet() and hc_rect:collidesWith(v:getHCShape()) then
+	for i,v in ipairs(self:getScene():findAll("enemy_bullet")) do
+		if hc_rect:collidesWith(v:getHCShape()) then
 			if self.state == Chain.static.STATE_ACTIVE and self.invulnerable <= 0 then
 				self.invulnerable = INVULNERABLE_TIME
 				self:getScene():find("screenshaker"):shake(0.5, 8, 60)
@@ -160,6 +161,8 @@ function Chain:draw()
 end
 
 function Chain:powerAttack()
+	self:getScene():add(PurityWave(self.ship1.x, self.ship2.x))
+	--[[
 	local xdist = (self.ship2.x - self.ship1.x) / 2
 	local ydist = (self.ship2.y - self.ship1.y) / 2
 	local dist = math.sqrt(xdist^2 + ydist^2)
@@ -179,11 +182,12 @@ function Chain:powerAttack()
 	end
 
 	for i=0, count-1 do
-		self:getScene():add(Bullet(old_x + i*xstep, old_y + i*ystep, 1.5*math.pi, Bullet.static.TYPE_PLAYER_BALL))
+		self:getScene():add(PlayerPowerball(old_x + i*xstep, old_y + i*ystep))
 		if i > 0 then
-			self:getScene():add(Bullet(old_x - i*xstep, old_y - i*ystep, 1.5*math.pi, Bullet.static.TYPE_PLAYER_BALL))
+			self:getScene():add(PlayerPowerball(old_x - i*xstep, old_y - i*ystep))
 		end
 	end
+	]]
 end
 
 function Chain:kill()

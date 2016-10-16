@@ -1,5 +1,5 @@
 local Boss = require("game.Boss")
-local Bullet = require("game.Bullet")
+local EnemyBullet = require("game.EnemyBullet")
 local Flash = require("game.Flash")
 local Explosion = require("game.Explosion")
 local ShivaChain = require("game.ShivaChain")
@@ -142,7 +142,7 @@ function BossShiva:shoot()
 	xdist = self.player_chain.x - gunx
 	ydist = self.player_chain.y - guny
 	dir = math.atan2(ydist, xdist)
-	self:getScene():add(Bullet(gunx, guny, dir, Bullet.static.TYPE_ENEMY_BULLET))
+	self:getScene():add(EnemyBullet(gunx, guny, dir, EnemyBullet.static.TYPE_BALL))
 	self:getScene():add(Flash(gunx, guny))
 
 	gunx = self.x - 25
@@ -150,7 +150,7 @@ function BossShiva:shoot()
 	xdist = self.player_chain.x - gunx
 	ydist = self.player_chain.y - guny
 	dir = math.atan2(ydist, xdist)
-	self:getScene():add(Bullet(gunx, guny, dir, Bullet.static.TYPE_ENEMY_BULLET))
+	self:getScene():add(EnemyBullet(gunx, guny, dir, EnemyBullet.static.TYPE_BALL))
 	self:getScene():add(Flash(gunx, guny))
 end
 

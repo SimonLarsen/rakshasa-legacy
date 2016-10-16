@@ -1,5 +1,5 @@
 local shaders = require("shaders")
-local Bullet = require("game.Bullet")
+local EnemyBullet = require("game.EnemyBullet")
 local Flash = require("game.Flash")
 
 local DurgaShield = class("game.DurgaShield", prox.Entity)
@@ -12,6 +12,7 @@ function DurgaShield:enter(side)
 	self.hit = 0
 	self.hitzone_offset = 12
 	self.vulnerable = false
+	self.invulnerable = 0
 
 	if self.side == DurgaShield.static.SIDE_LEFT then
 		self:setRenderer(prox.Animator("data/animators/durga_shield_left.lua"))
@@ -33,10 +34,17 @@ function DurgaShield:update(dt, rt)
 end
 
 function DurgaShield:onCollide(o, dt, rt)
-	if o:getName() == "bullet" and o:isPlayerBullet() then
-		if self.vulnerable then
-			self.hit = 0.05
+	if o:getName() == "player_bullet" then
+		if self.vulnerable and self.invulnerable <= 0 then
 			self:damage(o:getDamage())
+			self.hit = 0.05
+			self.invulnerable = 0.5
+		end
+		o:kill()
+	elseif o:getName() == "player_powerball" then
+		if self.vulnerable and self.invulnerable <= 0 then
+			self:damage(o:getDamage())
+			self.hit = 0.05
 		end
 		o:kill()
 	end
@@ -49,7 +57,7 @@ end
 function DurgaShield:shootOuter()
 	local gunx = self.x + self.offset_scale*35
 	local guny = self.y + 32
-	self:getScene():add(Bullet(gunx, guny, math.pi/2, Bullet.static.TYPE_ENEMY_BULLET))
+	self:getScene():add(EnemyBullet(gunx, guny, math.pi/2, EnemyBullet.static.TYPE_LASER))
 	self:getScene():add(Flash(gunx, guny))
 end
 
@@ -59,7 +67,7 @@ function DurgaShield:shootInner()
 	local xdist = self.player_chain.x - gunx
 	local ydist = self.player_chain.y - guny
 	local dir = math.atan2(ydist, xdist)
-	self:getScene():add(Bullet(gunx, guny, dir, Bullet.static.TYPE_ENEMY_BULLET))
+	self:getScene():add(EnemyBullet(gunx, guny, dir, EnemyBullet.static.TYPE_LASER))
 	self:getScene():add(Flash(gunx, guny))
 end
 

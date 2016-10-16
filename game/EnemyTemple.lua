@@ -1,5 +1,5 @@
 local Enemy = require("game.Enemy")
-local Bullet = require("game.Bullet")
+local EnemyBullet = require("game.EnemyBullet")
 local Flash = require("game.Flash")
 
 local EnemyTemple = class("game.EnemyTemple", Enemy)
@@ -10,7 +10,7 @@ local MOVE_SPEED = 20
 local BULLET_COOLDOWN = 3
 
 function EnemyTemple:enter(x)
-	Enemy.enter(self, MAX_HEALTH, true)
+	dt, rt = Enemy.enter(self, MAX_HEALTH, true)
 
 	self.x = x
 	self.y = -30
@@ -37,8 +37,8 @@ function EnemyTemple:update(dt, rt)
 end
 
 function EnemyTemple:shoot()
-	self:getScene():add(Bullet(self.x-38, self.y+18, math.pi/2, Bullet.static.TYPE_ENEMY_BULLET))
-	self:getScene():add(Bullet(self.x+39, self.y+18, math.pi/2, Bullet.static.TYPE_ENEMY_BULLET))
+	self:getScene():add(EnemyBullet(self.x-38, self.y+18, math.pi/2, EnemyBullet.static.TYPE_LASER))
+	self:getScene():add(EnemyBullet(self.x+39, self.y+18, math.pi/2, EnemyBullet.static.TYPE_LASER))
 	self:getScene():add(Flash(self.x-38, self.y+18))
 	self:getScene():add(Flash(self.x+39, self.y+18))
 end

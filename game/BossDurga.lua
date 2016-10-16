@@ -1,7 +1,7 @@
 local Boss = require("game.Boss")
 local DurgaShield = require("game.DurgaShield")
 local DurgaChain = require("game.DurgaChain")
-local Bullet = require("game.Bullet")
+local EnemyBullet = require("game.EnemyBullet")
 local Explosion = require("game.Explosion")
 local Flash = require("game.Flash")
 
@@ -242,7 +242,7 @@ function BossDurga:update(dt, rt)
 end
 
 function BossDurga:shoot()
-	self:getScene():add(Bullet(self.x+self.head_offset, self.y+24, math.pi/2, Bullet.static.TYPE_ENEMY_BULLET))
+	self:getScene():add(EnemyBullet(self.x+self.head_offset, self.y+24, math.pi/2, EnemyBullet.static.TYPE_LASER))
 	self:getScene():add(Flash(self.x+self.head_offset, self.y+24))
 end
 

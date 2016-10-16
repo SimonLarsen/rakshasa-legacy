@@ -15,6 +15,7 @@ function Boss:enter(boss_id, health)
 	self.healthbar = self.health
 	self.healthbar_cooldown = 0
 	self.active = false
+	self.invulnerable = 0
 
 	self.boss_healthbar = prox.resources.getImage("data/images/boss_healthbar.png")
 	self.name_text = prox.resources.getImage("data/images/bosstext_" .. self.boss_id .. ".png")
@@ -23,6 +24,8 @@ end
 function Boss:update(dt, rt)
 	Enemy.update(self, dt, rt)
 
+	self.invulnerable = self.invulnerable - dt
+
 	if self.healthbar_cooldown <= 0 then
 		self.healthbar = prox.math.movetowards(self.healthbar, self.health, 150*dt)
 	end
@@ -30,8 +33,16 @@ function Boss:update(dt, rt)
 end
 
 function Boss:onCollide(o, dt, rt)
-	if o:getName() == "bullet" and o:isPlayerBullet() then
-		self:damage(o:getDamage())
+	if o:getName() == "player_bullet" then
+		if self.invulnerable <= 0 then
+			self:damage(o:getDamage())
+		end
+		o:kill()
+	elseif o:getName() == "player_powerball" then
+		if self.invulnerable <= 0 then
+			self:damage(o:getDamage())
+			self.invulnerable = 0.1
+		end
 		o:kill()
 	end
 end
@@ -50,10 +61,8 @@ function Boss:damage(damage)
 end
 
 function Boss:kill()
-	for i,v in ipairs(self:getScene():findAll("bullet")) do
-		if not v:isPlayerBullet() then
-			v:kill()
-		end
+	for i,v in ipairs(self:getScene():findAll("enemy_bullet")) do
+		v:kill()
 	end
 end
 

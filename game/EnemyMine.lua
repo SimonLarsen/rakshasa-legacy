@@ -1,5 +1,5 @@
 local Enemy = require("game.Enemy")
-local Bullet = require("game.Bullet")
+local EnemyBullet = require("game.EnemyBullet")
 local Explosion = require("game.Explosion")
 
 local EnemyMine = class("game.EnemyMine", Enemy)
@@ -19,7 +19,7 @@ function EnemyMine:enter(x, ylimit)
 end
 
 function EnemyMine:update(dt, rt)
-	Enemy.update(self, dt, rt)
+	dt, rt = Enemy.update(self, dt, rt)
 
 	self.y = self.y + MOVE_SPEED * dt
 
@@ -30,7 +30,7 @@ function EnemyMine:update(dt, rt)
 		self:getScene():add(Explosion(self.x, self.y, Explosion.static.SIZE_MEDIUM))
 		self:getScene():find("screenshaker"):shake(0.4, 2, 60)
 		for i=0,3 do
-			self:getScene():add(Bullet(self.x, self.y, i*math.pi/2, Bullet.static.TYPE_ENEMY_BULLET))
+			self:getScene():add(EnemyBullet(self.x, self.y, i*math.pi/2, EnemyBullet.static.TYPE_LASER))
 		end
 		self:remove()
 		local sfx = prox.resources.getSound("data/sounds/explosion3.wav")

@@ -9,6 +9,8 @@ function Enemy:enter(health, large)
 	self.health = self.max_health
 	self.hit = 0
 	self.large = large or false
+	self.invulnerable = 0
+	self.time_speed = 1
 
 	self.white_shader = shaders.getShader("data/shaders/whiteout.lua")
 
@@ -16,24 +18,35 @@ function Enemy:enter(health, large)
 	self.sfx_explosion3 = prox.resources.getSound("data/sounds/explosion3.wav")
 end
 
+function Enemy:update(dt, rt)
+	dt = dt * self.time_speed
+	self.invulnerable = self.invulnerable - dt
+	self.hit = self.hit - dt
+	self:getRenderer():setShader(self.hit > 0 and self.white_shader or nil)
+	return dt, rt
+end
+
 function Enemy:onCollide(o, dt, rt)
-	if o:getName() == "bullet" and o:isPlayerBullet() then
-		if o:isSuper() then
-			self.health = 0
-		else
-			self.health = self.health - o:getDamage()
-			o:kill()
+	if o:getName() == "player_bullet" then
+		if self.invulnerable <= 0 then
+			self:damage(o:getDamage())
 		end
-		self.hit = 0.05
-		if self.health <= 0 then
-			self:kill()
+		o:kill()
+	elseif o:getName() == "player_powerball" then
+		if self.invulnerable <= 0 then
+			self:damage(o:getDamage())
+			self.invulnerable = 0.5
 		end
+	end
+
+	if self.health <= 0 then
+		self:kill()
 	end
 end
 
-function Enemy:update(dt, rt)
-	self.hit = self.hit - dt
-	self:getRenderer():setShader(self.hit > 0 and self.white_shader or nil)
+function Enemy:damage(damage)
+	self.health = self.health - damage
+	self.hit = 0.05
 end
 
 function Enemy:kill()
@@ -56,6 +69,10 @@ function Enemy:kill()
 	end
 
 	self:remove()
+end
+
+function Enemy:setTimeSpeed(speed)
+	self.time_speed = 1
 end
 
 return Enemy
