@@ -8,7 +8,7 @@ local MOVE_SPEED = 15
 local BULLET_COOLDOWN = 2.0
 
 function EnemyTurret:enter(x)
-	dt, rt = Enemy.enter(self, MAX_HEALTH)
+	Enemy.enter(self, MAX_HEALTH)
 
 	self.x = x
 	self.y = -30
@@ -21,7 +21,7 @@ function EnemyTurret:enter(x)
 end
 
 function EnemyTurret:update(dt, rt)
-	Enemy.update(self, dt, rt)
+	dt, rt = Enemy.update(self, dt, rt)
 
 	self.y = self.y + MOVE_SPEED * dt
 	if self.y > prox.window.getHeight()+30 then

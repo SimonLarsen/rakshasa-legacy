@@ -35,7 +35,7 @@ function Enemy:onCollide(o, dt, rt)
 	elseif o:getName() == "player_powerball" then
 		if self.invulnerable <= 0 then
 			self:damage(o:getDamage())
-			self.invulnerable = 0.5
+			self.invulnerable = 1.0
 		end
 	end
 
@@ -72,7 +72,7 @@ function Enemy:kill()
 end
 
 function Enemy:setTimeSpeed(speed)
-	self.time_speed = 1
+	self.time_speed = speed
 end
 
 return Enemy

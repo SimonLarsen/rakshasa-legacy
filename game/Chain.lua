@@ -99,7 +99,7 @@ function Chain:update(dt, rt)
 
 	-- Check collision with bullets
 	self.invulnerable = self.invulnerable - dt
-	hc_rect = HC.rectangle(0, 0, dist, 5)
+	hc_rect = HC.rectangle(0, 0, dist, 8)
 	hc_rect:moveTo(self.x, self.y)
 	hc_rect:setRotation(self.direction)
 
@@ -161,7 +161,7 @@ function Chain:draw()
 end
 
 function Chain:powerAttack()
-	self:getScene():add(PurityWave(self.ship1.x, self.ship2.x))
+	self:getScene():add(PurityWave(self.ship1.x, self.ship1.y, self.ship2.x, self.ship2.y))
 	--[[
 	local xdist = (self.ship2.x - self.ship1.x) / 2
 	local ydist = (self.ship2.y - self.ship1.y) / 2

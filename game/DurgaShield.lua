@@ -30,6 +30,8 @@ end
 
 function DurgaShield:update(dt, rt)
 	self.hit = self.hit - dt
+	self.invulnerable = self.invulnerable - dt
+
 	self:getRenderer():setShader(self.hit > 0 and self.white_shader or nil)
 end
 
@@ -38,13 +40,13 @@ function DurgaShield:onCollide(o, dt, rt)
 		if self.vulnerable and self.invulnerable <= 0 then
 			self:damage(o:getDamage())
 			self.hit = 0.05
-			self.invulnerable = 0.5
 		end
 		o:kill()
 	elseif o:getName() == "player_powerball" then
 		if self.vulnerable and self.invulnerable <= 0 then
 			self:damage(o:getDamage())
 			self.hit = 0.05
+			self.invulnerable = 1.0
 		end
 		o:kill()
 	end

@@ -21,7 +21,7 @@ function EnemyTemple:enter(x)
 end
 
 function EnemyTemple:update(dt, rt)
-	Enemy.update(self, dt, rt)
+	dt, rt = Enemy.update(self, dt, rt)
 
 	self.y = self.y + MOVE_SPEED * dt
 

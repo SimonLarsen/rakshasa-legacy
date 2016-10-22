@@ -3,7 +3,7 @@ local Ship = require("game.Ship")
 
 local DualController = class("controls.DualController", PlayerController)
 
-local SWITCH_COOLDOWN = 0.1
+local SWITCH_COOLDOWN = 0.5
 local SWITCH_MAX_SPEED = 10
 
 function DualController:enter(binding, ship_left, ship_right, chain, switch)

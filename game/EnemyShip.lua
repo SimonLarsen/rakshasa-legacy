@@ -23,7 +23,7 @@ local EXIT_ACCELERATION = 150
 local BULLET_COOLDOWN = 2.5
 
 function EnemyShip:enter(destx, desty)
-	dt, rt = Enemy.enter(self, MAX_HEALTH)
+	Enemy.enter(self, MAX_HEALTH)
 
 	self.x = destx
 	self.y = -20
@@ -50,7 +50,7 @@ function EnemyShip:enter(destx, desty)
 end
 
 function EnemyShip:update(dt, rt)
-	Enemy.update(self, dt, rt)
+	dt, rt = Enemy.update(self, dt, rt)
 
 	if self.state == EnemyShip.static.STATE_IDLE then
 		self.time = self.time - dt
