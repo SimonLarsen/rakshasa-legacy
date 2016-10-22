@@ -1,7 +1,7 @@
 local Enemy = require("game.Enemy")
-local EnemyDrone = require("game.EnemyDrone")
+local EnemyDrone = require("game.enemies.Drone")
 
-local DroneSpawner = class("game.DroneSpawner", Enemy)
+local DroneSpawner = class("game.enemies.DroneSpawner", Enemy)
 
 function DroneSpawner:enter(count, delay, points)
 	Enemy.enter(self, 0)

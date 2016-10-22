@@ -69,7 +69,7 @@ function DurgaShield:shootInner()
 	local xdist = self.player_chain.x - gunx
 	local ydist = self.player_chain.y - guny
 	local dir = math.atan2(ydist, xdist)
-	self:getScene():add(EnemyBullet(gunx, guny, dir, EnemyBullet.static.TYPE_LASER))
+	self:getScene():add(EnemyBullet(gunx, guny, dir, EnemyBullet.static.TYPE_BALL))
 	self:getScene():add(Flash(gunx, guny))
 end
 

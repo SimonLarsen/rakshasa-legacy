@@ -13,12 +13,12 @@ local Controller = class("game.Controller", prox.Entity)
 
 local constructors = {
 	-- enemies
-	ship = require("game.EnemyShip"),
-	drone = require("game.EnemyDrone"),
-	drone_spawner = require("game.DroneSpawner"),
-	temple = require("game.EnemyTemple"),
-	mine = require("game.EnemyMine"),
-	turret = require("game.EnemyTurret"),
+	ship = require("game.enemies.Ship"),
+	drone = require("game.enemies.Drone"),
+	drone_spawner = require("game.enemies.DroneSpawner"),
+	temple = require("game.enemies.Temple"),
+	mine = require("game.enemies.Mine"),
+	turret = require("game.enemies.Turret"),
 	-- bosses
 	durga = require("game.BossDurga"),
 	shiva = require("game.BossShiva"),

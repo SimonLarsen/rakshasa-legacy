@@ -3,10 +3,40 @@ local Bullet = require("game.Bullet")
 local EnemyBullet = class("game.EnemyBullet", Bullet)
 
 local SPEED = 200
-local ROTATION_SPEED = 8
 
 EnemyBullet.static.TYPE_LASER = 1
-EnemyBullet.static.TYPE_BALL = 2
+EnemyBullet.static.TYPE_BALL  = 2
+EnemyBullet.static.TYPE_SALVO = 3
+
+local animations = {
+	[EnemyBullet.static.TYPE_LASER] = "data/animations/bullets/enemy_laser.lua",
+	[EnemyBullet.static.TYPE_BALL]  = "data/animations/bullets/enemy_ball.lua",
+	[EnemyBullet.static.TYPE_SALVO] = "data/animations/bullets/enemy_salvo.lua"
+}
+
+local hitboxes = {
+	[EnemyBullet.static.TYPE_LASER] = {w = 6, h = 16},
+	[EnemyBullet.static.TYPE_BALL]  = {w = 8, h = 8},
+	[EnemyBullet.static.TYPE_SALVO] = {w = 10, h = 10}
+}
+
+local randomize_start_rotation = {
+	[EnemyBullet.static.TYPE_LASER] = false,
+	[EnemyBullet.static.TYPE_BALL]  = true,
+	[EnemyBullet.static.TYPE_SALVO] = true
+}
+
+local speed = {
+	[EnemyBullet.static.TYPE_LASER] = 200,
+	[EnemyBullet.static.TYPE_BALL]  = 200,
+	[EnemyBullet.static.TYPE_SALVO] = 200
+}
+
+local rotation_speed = {
+	[EnemyBullet.static.TYPE_LASER] = 0,
+	[EnemyBullet.static.TYPE_BALL]  = 8,
+	[EnemyBullet.static.TYPE_SALVO] = 0
+}
 
 function EnemyBullet:enter(x, y, dir, type)
 	self:setName("enemy_bullet")
@@ -17,19 +47,24 @@ function EnemyBullet:enter(x, y, dir, type)
 	self.dir = dir
 	self.time_speed = 1
 
-	self:setRenderer(prox.Sprite("data/images/bullets/enemy.png"))
-	self:setCollider(prox.BoxCollider(4, 4))
-	self.hc_rect = HC.rectangle(0, 0, 4, 4)
-	self:getRenderer():setRotation(love.math.random()*2*math.pi)
+	self:setRenderer(prox.Animation(animations[self.type]))
+	self:setCollider(prox.BoxCollider(hitboxes[self.type].w, hitboxes[self.type].h))
+	self.hc_rect = HC.rectangle(0, 0, hitboxes[self.type].w, hitboxes[self.type].h)
+
+	if randomize_start_rotation[self.type] then
+		self:getRenderer():setRotation(love.math.random()*2*math.pi)
+	else
+		self:getRenderer():setRotation(self.dir - math.pi/2)
+	end
 end
 
 function EnemyBullet:update(dt, rt)
 	dt = dt * self.time_speed
 	local rot = self:getRenderer().r
-	self:getRenderer().r = rot + ROTATION_SPEED * dt
+	self:getRenderer().r = rot + rotation_speed[self.type] * dt
 
-	self.x = self.x + math.cos(self.dir) * SPEED * dt
-	self.y = self.y + math.sin(self.dir) * SPEED * dt
+	self.x = self.x + math.cos(self.dir) * speed[self.type] * dt
+	self.y = self.y + math.sin(self.dir) * speed[self.type] * dt
 
 	if self.x < -16 or self.x > settings.screen_width+16
 	or self.y < -16 or self.y > settings.screen_height+16 then
