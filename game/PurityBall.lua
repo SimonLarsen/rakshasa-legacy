@@ -39,12 +39,13 @@ function PurityBall:enter(x, y)
 	self.shader:send("disp", disp)
 	prox.window.setShader(self.shader)
 
-	self:getScene():add(PurityDrone(self.x, self.y, TOTAL_TIME))
+	self:getScene():add(PurityDrone(self.x, self.y, TOTAL_TIME, OUT_TIME))
 end
 
 function PurityBall:update(dt, rt)
 	self.shader:send("time", prox.time.getTime())
 	self.shader:send("radius", self.radius)
+	self.shader:send("power", (1-self.speed)/(1-TARGET_SPEED))
 
 	for i,v in ipairs(self:getScene():getEntities()) do
 		if v:isInstanceOf(Slowable) then

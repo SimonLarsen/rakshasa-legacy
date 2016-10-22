@@ -48,12 +48,13 @@ function PurityWave:enter(x1, y1, x2, y2)
 	self.shader:send("disp", disp)
 	prox.window.setShader(self.shader)
 
-	self:getScene():add(PurityDrone(self.leftx, self.lefty, TOTAL_TIME))
-	self:getScene():add(PurityDrone(self.rightx, self.righty, TOTAL_TIME))
+	self:getScene():add(PurityDrone(self.leftx, self.lefty, TOTAL_TIME, OUT_TIME))
+	self:getScene():add(PurityDrone(self.rightx, self.righty, TOTAL_TIME, OUT_TIME))
 end
 
 function PurityWave:update(dt, rt)
 	self.shader:send("time", prox.time.getTime())
+	self.shader:send("power", (1-self.speed)/(1-TARGET_SPEED))
 
 	for i,v in ipairs(self:getScene():getEntities()) do
 		if v:isInstanceOf(Slowable) then
