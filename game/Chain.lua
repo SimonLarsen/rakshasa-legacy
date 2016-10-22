@@ -1,5 +1,4 @@
 local shaders = require("shaders")
---local PlayerPowerball = require("game.PlayerPowerball")
 local PurityWave = require("game.PurityWave")
 local BallFlash = require("game.BallFlash")
 
@@ -40,7 +39,7 @@ function Chain:enter(ship1, ship2)
 	self.center_flash_alpha = 0
 
 	self.dissolve_shader = shaders.getShader("data/shaders/dissolve.lua")
-	local filter_image = prox.resources.getImage("data/images/dissolve.png")
+	local filter_image = prox.resources.getImage("data/images/textures/dissolve.png")
 	filter_image:setWrap("repeat","repeat")
 	self.dissolve_edge = 1.2
 	self.dissolve_shader:send("filter", filter_image)
@@ -70,11 +69,6 @@ function Chain:update(dt, rt)
 
 		self.ship2.xspeed = self.ship2.xspeed + xdist / dist * dt * FORCE
 		self.ship2.yspeed = self.ship2.yspeed + ydist / dist * dt * FORCE
-	end
-
-	if self.ship1:powerTriggered() and self.ship2:powerTriggered() and self.controller:hasFullPower() then
-		self.controller:useGems()
-		self:powerAttack()
 	end
 
 	-- Update power level based on ship distance
@@ -160,34 +154,10 @@ function Chain:draw()
 	end
 end
 
-function Chain:powerAttack()
-	self:getScene():add(PurityWave(self.ship1.x, self.ship1.y, self.ship2.x, self.ship2.y))
-	--[[
-	local xdist = (self.ship2.x - self.ship1.x) / 2
-	local ydist = (self.ship2.y - self.ship1.y) / 2
-	local dist = math.sqrt(xdist^2 + ydist^2)
-	local count = math.ceil(dist / 30)
-	local rdist = count * 30
-	local xstep = xdist / dist * 30
-	local ystep = ydist / dist * 30
-
-	local old_x = self.x
-	local old_y = self.y
-
-	for i=0, count-1 do
-		self:getScene():add(BallFlash(old_x + i*xstep, old_y + i*ystep))
-		if i > 0 then
-			self:getScene():add(BallFlash(old_x - i*xstep, old_y - i*ystep))
-		end
+function Chain:purityWave()
+	if self.controller:usePurityWave() then
+		self:getScene():add(PurityWave(self.ship1.x, self.ship1.y-28, self.ship2.x, self.ship2.y-28))
 	end
-
-	for i=0, count-1 do
-		self:getScene():add(PlayerPowerball(old_x + i*xstep, old_y + i*ystep))
-		if i > 0 then
-			self:getScene():add(PlayerPowerball(old_x - i*xstep, old_y - i*ystep))
-		end
-	end
-	]]
 end
 
 function Chain:kill()

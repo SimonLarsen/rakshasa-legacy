@@ -1,4 +1,6 @@
-local Gem = class("game.Gem", prox.Entity)
+local Slowable = require("game.Slowable")
+
+local Gem = class("game.Gem", Slowable)
 
 local ACCELERATION = 300
 local SCROLL_SPEED = 240
@@ -9,6 +11,7 @@ Gem.static.STATE_FALL = 1
 Gem.static.STATE_FOLLOW = 2
 
 function Gem:enter(x, y)
+	Slowable.enter(self)
 	self:setName("gem")
 	self.x = x
 	self.y = y
@@ -25,6 +28,8 @@ function Gem:enter(x, y)
 end
 
 function Gem:update(dt, rt)
+	dt, rt = Slowable.update(self, dt, rt)
+
 	if self.state == Gem.static.STATE_FALL then
 		self.xspeed = prox.math.movetowards(self.xspeed, 0, 10*dt)
 		self.yspeed = prox.math.cap(self.yspeed + ACCELERATION * dt, -1000, SCROLL_SPEED)
@@ -54,8 +59,8 @@ function Gem:update(dt, rt)
 		local ydist = math.abs(self.y - self.following.y)
 		local dist = math.sqrt(xdist^2 + ydist^2)
 
-		self.x = prox.math.movetowards(self.x, self.following.x, xdist/dist*FOLLOW_SPEED*dt)
-		self.y = prox.math.movetowards(self.y, self.following.y, ydist/dist*FOLLOW_SPEED*dt)
+		self.x = prox.math.movetowards(self.x, self.following.x, xdist/dist*FOLLOW_SPEED*rt)
+		self.y = prox.math.movetowards(self.y, self.following.y, ydist/dist*FOLLOW_SPEED*rt)
 	end
 
 	if self.y > prox.window.getHeight()+18 then

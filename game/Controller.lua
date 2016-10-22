@@ -27,7 +27,10 @@ local constructors = {
 
 local WARMUP_TIME = 3
 local TRANSITION_TIME = 9
-local MAX_GEMS =  8
+
+local MAX_GEMS =  12
+local PURITY_BALL_COST = 6
+local PURITY_WAVE_COST = 12
 
 Controller.static.STATE_WARMUP     = 1
 Controller.static.STATE_ACTIVE     = 2
@@ -49,7 +52,8 @@ function Controller:enter(level, binding)
 	self.lives_display = self.lives
 	self.score = 0
 	self.score_display = self.score
-	self.gems = 0
+	--self.gems = 0
+	self.gems = MAX_GEMS
 	self.gems_display = self.gems
 	self.binding = binding
 	self.state = Controller.static.STATE_WARMUP
@@ -218,6 +222,26 @@ function Controller:useGems()
 	self.gems_display = 0
 end
 
+function Controller:usePurityBall()
+	if self.gems >= PURITY_BALL_COST then
+		self.gems = self.gems - PURITY_BALL_COST
+		self.gems_display = self.gems
+		return true
+	else
+		return false
+	end
+end
+
+function Controller:usePurityWave()
+	if self.gems >= PURITY_WAVE_COST then
+		self.gems = self.gems - PURITY_WAVE_COST
+		self.gems_display = self.gems
+		return true
+	else
+		return false
+	end
+end
+
 function Controller:addLives(lives)
 	if self.lives_tween then prox.timer.cancel(self.lives_tween) end
 	self.lives = prox.math.cap(self.lives + lives, 0, 3)
@@ -242,10 +266,6 @@ function Controller:loadLevel()
 	self.wave = 1
 	self.step = 1
 	self.time = 0
-end
-
-function Controller:hasFullPower()
-	return self.gems >= MAX_GEMS
 end
 
 return Controller

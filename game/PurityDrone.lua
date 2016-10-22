@@ -5,7 +5,7 @@ function PurityDrone:enter(x, y, time)
 	self.y = y
 	self.time = time
 
-	self.z = -1
+	self.z = 1
 
 	self:setRenderer(prox.Animation("data/animations/purity_drone.lua"))
 end

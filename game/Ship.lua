@@ -3,6 +3,7 @@ local PlayerBullet = require("game.PlayerBullet")
 local Explosion = require("game.Explosion")
 local Flash = require("game.Flash")
 local GemPickup = require("game.GemPickup")
+local PurityBall = require("game.PurityBall")
 
 local Ship = class("game.Ship", prox.Entity)
 
@@ -43,7 +44,7 @@ function Ship:enter(side)
 	self.state = Ship.static.STATE_ENTER
 	self.power_level = 1
 	self.flash = 0
-	self.power_trigger = 0
+	self.controller = self:getScene():find("controller")
 
 	self:setCollider(prox.BoxCollider(18, 34))
 	self.gear_sprite = prox.Sprite("data/images/ship_gear.png", 19, 19)
@@ -84,7 +85,6 @@ function Ship:enter(side)
 end
 
 function Ship:update(dt, rt)
-	self.power_trigger = self.power_trigger - dt
 	self.cooldown = self.cooldown - dt
 
 	if self.state == Ship.static.STATE_ACTIVE then
@@ -134,14 +134,6 @@ function Ship:setMovement(xmove, ymove)
 	self.xmove, self.ymove = xmove, ymove
 end
 
-function Ship:triggerPower()
-	self.power_trigger = POWER_TRIGGER_TIME
-end
-
-function Ship:powerTriggered()
-	return self.power_trigger > 0
-end
-
 function Ship:getGearSprite()
 	return self.gear_sprite
 end
@@ -153,6 +145,14 @@ end
 
 function Ship:setPowerLevel(level)
 	self.power_level = level
+end
+
+function Ship:purityBall()
+	if self:getScene():find(PurityBall) then return end
+
+	if self.controller:usePurityBall() then
+		self:getScene():add(PurityBall(self.x, self.y))
+	end
 end
 
 function Ship:setSide(side)
@@ -167,13 +167,13 @@ end
 
 function Ship:onCollide(o, dt, rt)
 	if o:getName() == "gem" then
-		self:getScene():find("controller"):addGems(o:getGems())
+		self.controller:addGems(o:getGems())
 		self:getScene():add(GemPickup(o.x, o.y))
 		o:remove()
 		self.flash = 0.05
 		self.sfx_blip:play()
 	elseif o:getName() == "heart" then
-		self:getScene():find("controller"):addHeart()
+		self.controller:addHeart()
 		o:remove()
 	elseif o:getName() == "player_bullet" then
 		o:kill()

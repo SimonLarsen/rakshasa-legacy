@@ -4,6 +4,8 @@ local PivotController = class("controls.PivotController", PlayerController)
 
 function PivotController:enter(binding, ship_left, ship_right, chain)
 	PlayerController.enter(self, binding, ship_left, ship_right, chain)
+
+	self.old_triggerright = 0
 end
 
 function PivotController:update(dt, rt)
@@ -45,19 +47,17 @@ function PivotController:update(dt, rt)
 	self.ship_left:setMovement(leftx, lefty)
 	self.ship_right:setMovement(rightx, righty)
 
-	if self.binding:isDown("leftshoot") then
-		self.ship_left:shoot()
+	if self.binding:isDown("leftpurity") then
+		self.ship_left:purityBall()
 	end
-	if self.binding:isDown("rightshoot") then
-		self.ship_right:shoot()
+	if self.binding:isDown("rightpurity") then
+		self.ship_right:purityBall()
 	end
 
-	if self.binding:wasPressed("leftpower") then
-		self.ship_left:triggerPower()
+	if self.binding:getAxis("triggerright") >= 0.8 and self.old_trigger_right < 0.5 then
+		self.chain:purityWave()
 	end
-	if self.binding:wasPressed("rightpower") then
-		self.ship_right:triggerPower()
-	end
+	self.old_trigger_right = self.binding:getAxis("triggerright")
 end
 
 return PivotController
