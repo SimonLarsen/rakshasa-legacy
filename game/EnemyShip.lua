@@ -45,7 +45,7 @@ function EnemyShip:enter(destx, desty)
 		end
 	)
 
-	self:setRenderer(prox.Animation("data/animations/enemy_ship.lua"))
+	self:setRenderer(prox.Animation("data/animations/enemies/ship.lua"))
 	self:setCollider(prox.BoxCollider(32, 24))
 end
 

@@ -21,7 +21,7 @@ function EnemyDrone:enter(points)
 	self.cooldown = 2
 	self.player_chain = self:getScene():find("chain")
 
-	self:setRenderer(prox.Animation("data/animations/enemy_drone.lua"))
+	self:setRenderer(prox.Animation("data/animations/enemies/drone.lua"))
 	self:setCollider(prox.BoxCollider(26, 26))
 end
 

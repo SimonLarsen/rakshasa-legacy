@@ -16,7 +16,7 @@ function EnemyTemple:enter(x)
 	self.y = -30
 	self.cooldown = 4
 
-	self:setRenderer(prox.Animation("data/animations/enemy_temple.lua"))
+	self:setRenderer(prox.Animation("data/animations/enemies/temple.lua"))
 	self:setCollider(prox.BoxCollider(80, 32))
 end
 

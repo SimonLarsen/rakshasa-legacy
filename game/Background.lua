@@ -3,9 +3,9 @@ local Background = class("game.Background", prox.Entity)
 local SCROLL_SPEED = 10
 
 local files = {
-	"data/images/background1.png",
-	"data/images/background2.png",
-	"data/images/background3.png"
+	"data/images/backgrounds/background1.png",
+	"data/images/backgrounds/background2.png",
+	"data/images/backgrounds/background3.png"
 }
 
 function Background:enter(lvl)

@@ -1,5 +1,5 @@
 {
-	image = "data/images/enemy_drone.png",
+	image = "data/images/enemies/drone.png",
 	fw = 48,
 	fh = 48,
 	ox = 24,

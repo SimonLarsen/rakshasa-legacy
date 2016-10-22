@@ -18,7 +18,7 @@ function Boss:enter(boss_id, health)
 	self.invulnerable = 0
 
 	self.boss_healthbar = prox.resources.getImage("data/images/boss_healthbar.png")
-	self.name_text = prox.resources.getImage("data/images/bosstext_" .. self.boss_id .. ".png")
+	self.name_text = prox.resources.getImage("data/images/text/boss_" .. self.boss_id .. ".png")
 end
 
 function Boss:update(dt, rt)

@@ -1,5 +1,5 @@
 {
-	image = "data/images/enemy_ship.png",
+	image = "data/images/enemies/ship.png",
 	fw = 38,
 	fh = 43,
 	ox = 19,

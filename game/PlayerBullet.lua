@@ -23,15 +23,15 @@ function PlayerBullet:enter(x, y, dir, type)
 	self.type = type
 
 	if self.type == PlayerBullet.static.TYPE_NORMAL then
-		self:setRenderer(prox.Sprite("data/images/bullet_player1.png", 12, 4))
+		self:setRenderer(prox.Sprite("data/images/bullets/player1.png", 12, 4))
 		self:setCollider(prox.BoxCollider(2, 2))
 		self:getRenderer():setRotation(self.dir)
 	elseif self.type == PlayerBullet.static.TYPE_SUPER then
-		self:setRenderer(prox.Sprite("data/images/bullet_player2.png", 8, 7))
+		self:setRenderer(prox.Sprite("data/images/bullets/player2.png", 8, 7))
 		self:setCollider(prox.BoxCollider(4, 4))
 		self:getRenderer():setRotation(self.dir)
 	elseif self.type == PlayerBullet.static.TYPE_ULTRA then
-		self:setRenderer(prox.Sprite("data/images/bullet_player3.png", 11, 11))
+		self:setRenderer(prox.Sprite("data/images/bullets/player3.png", 11, 11))
 		self:setCollider(prox.BoxCollider(4, 4))
 		self:getRenderer():setRotation(self.dir)
 	end

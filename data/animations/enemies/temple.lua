@@ -1,5 +1,5 @@
 {
-	image = "data/images/enemy_temple.png",
+	image = "data/images/enemies/temple.png",
 	fw = 91,
 	fh = 56,
 	ox = 45,

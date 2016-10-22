@@ -14,7 +14,7 @@ function EnemyMine:enter(x, ylimit)
 	self.y = -16
 	self.ylimit = ylimit
 
-	self:setRenderer(prox.Animator("data/animators/enemy_mine.lua"))
+	self:setRenderer(prox.Animator("data/animators/enemies/mine.lua"))
 	self:setCollider(prox.BoxCollider(28, 26))
 end
 

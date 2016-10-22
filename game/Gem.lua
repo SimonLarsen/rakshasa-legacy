@@ -20,7 +20,7 @@ function Gem:enter(x, y)
 
 	self.ships = self:getScene():findAll("ship")
 
-	self:setRenderer(prox.Sprite("data/images/gem" .. love.math.random(1,5) .. ".png"))
+	self:setRenderer(prox.Sprite("data/images/gems/gem" .. love.math.random(1,5) .. ".png"))
 	self:setCollider(prox.BoxCollider(10, 10))
 end
 

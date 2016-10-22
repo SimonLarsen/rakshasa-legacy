@@ -45,7 +45,6 @@ function Controller:enter()
 
 	self.binding = prox.MultiBinding({joystick,keyboard})
 
-	self.selection_image = prox.resources.getImage("data/images/selection_marker.png")
 	self.title_image = prox.resources.getImage("data/images/title.png")
 
 	self.serif_font = prox.resources.getImageFont("data/fonts/serif.png")

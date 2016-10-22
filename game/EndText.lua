@@ -14,9 +14,9 @@ function EndText:enter(level)
 	self.text2_alpha = 0
 	self.z = 0
 
-	self.img_number = prox.resources.getImage("data/images/endtext_" .. number_names[level] .. ".png")
-	self.img_trans = prox.resources.getImage("data/images/endtext_transcendence.png")
-	self.img_level = prox.resources.getImage("data/images/endtext_" .. level_names[level] .. ".png")
+	self.img_number = prox.resources.getImage("data/images/text/end_" .. number_names[level] .. ".png")
+	self.img_trans = prox.resources.getImage("data/images/text/end_transcendence.png")
+	self.img_level = prox.resources.getImage("data/images/text/end_" .. level_names[level] .. ".png")
 
 	prox.timer.tween(0.01, self, {box_alpha = 255}, "out-quad")
 

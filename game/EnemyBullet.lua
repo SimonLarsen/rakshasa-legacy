@@ -17,7 +17,7 @@ function EnemyBullet:enter(x, y, dir, type)
 	self.dir = dir
 	self.time_speed = 1
 
-	self:setRenderer(prox.Sprite("data/images/bullet_enemy.png"))
+	self:setRenderer(prox.Sprite("data/images/bullets/enemy.png"))
 	self:setCollider(prox.BoxCollider(4, 4))
 	self.hc_rect = HC.rectangle(0, 0, 4, 4)
 	self:getRenderer():setRotation(love.math.random()*2*math.pi)
