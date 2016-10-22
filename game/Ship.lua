@@ -1,5 +1,4 @@
 local shaders = require("shaders")
-local Bullet = require("game.Bullet")
 local PlayerBullet = require("game.PlayerBullet")
 local Explosion = require("game.Explosion")
 local Flash = require("game.Flash")

@@ -21,63 +21,23 @@ BossDurga.static.STATE_EXPLODING = 4
 
 local patterns = {
 	[1] = {
-		{1.0, "outer"},
-		{1.3, "outer"},
-		{1.6, "outer"},
-		{1.9, "outer"},
-		{2.2, "outer"},
-
-		{3.2, "inner"},
-		{4.2, "inner"},
-		{5.2, "inner"},
-		{6.2, "inner"}
+		{1.0, "outer"}, {1.3, "outer"}, {1.6, "outer"}, {1.9, "outer"}, {2.2, "outer"},
+		{3.2, "inner"}, {4.2, "inner"}, {5.2, "inner"}, {6.2, "inner"}
 	},
 	[2] = {
-		{1.0, "inner"},
-		{2.0, "inner"},
-		{3.0, "inner"},
-
-		{3.5, "outer"},
-		{3.7, "outer"},
-
-		{4.5, "mouth"},
-		{4.6, "mouth"},
-		{4.7, "mouth"},
-		{4.8, "mouth"},
-		{5.0, "wait"}
+		{1.0, "inner"}, {2.0, "inner"}, {3.0, "inner"},
+		{3.5, "outer"}, {3.7, "outer"},
+		{4.5, "mouth"}, {4.6, "mouth"}, {4.7, "mouth"}, {4.8, "mouth"}, {5.0, "wait"}
 	},
 	[3] = {
-		{1.0, "outer"},
-		{1.3, "outer"},
-		{1.6, "outer"},
-		{1.9, "outer"},
-		{2.2, "outer"},
-		{2.5, "outer"},
-		{2.8, "outer"},
-
-		{4.0, "inner"},
-		{5.0, "inner"},
-		{6.0, "inner"},
-		{7.0, "inner"}
+		{1.0, "outer"}, {1.3, "outer"}, {1.6, "outer"}, {1.9, "outer"}, {2.2, "outer"}, {2.5, "outer"}, {2.8, "outer"},
+		{4.0, "inner"}, {5.0, "inner"}, {6.0, "inner"}, {7.0, "inner"}
 	},
 	[4] = {
-		{0.6, "mouth"},
-		{0.8, "mouth"},
-		{1.0, "mouth"},
-		{1.2, "mouth"},
-		{1.4, "mouth"},
-
-		{2.1, "inner"},
-		{2.6, "inner"},
-
-		{3.1, "mouth"},
-		{3.3, "mouth"},
-		{3.5, "mouth"},
-		{3.7, "mouth"},
-		{3.9, "mouth"},
-
-		{4.6, "outer"},
-		{4.8, "outer"}
+		{0.6, "mouth"}, {0.8, "mouth"}, {1.0, "mouth"}, {1.2, "mouth"}, {1.4, "mouth"},
+		{2.1, "inner"}, {2.6, "inner"},
+		{3.1, "mouth"}, {3.3, "mouth"}, {3.5, "mouth"}, {3.7, "mouth"}, {3.9, "mouth"},
+		{4.6, "outer"}, {4.8, "outer"}
 	}
 }
 

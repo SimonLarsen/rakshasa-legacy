@@ -2,17 +2,17 @@ local Enemy = require("game.Enemy")
 local EnemyBullet = require("game.EnemyBullet")
 local Flash = require("game.Flash")
 
-local EnemyDrone = class("game.EnemyDrone", Enemy)
+local Drone = class("game.Drone", Enemy)
 
 local MAX_HEALTH = 1
 
 local MOVE_SPEED = 90
 local BULLET_COOLDOWN = 2.0
 
-function EnemyDrone:enter(points)
+function Drone:enter(points)
 	Enemy.enter(self, MAX_HEALTH)
 
-	assert(#points >= 2, "EnemyDrone needs at least two points.")
+	assert(#points >= 2, "Drone needs at least two points.")
 	self.points = points
 	self.x = self.points[1][1]
 	self.y = self.points[1][2]
@@ -25,7 +25,7 @@ function EnemyDrone:enter(points)
 	self:setCollider(prox.BoxCollider(26, 26))
 end
 
-function EnemyDrone:update(dt, rt)
+function Drone:update(dt, rt)
 	dt, rt = Enemy.update(self, dt, rt)
 
 	local xdist = self.points[self.target][1] - self.x
@@ -56,7 +56,7 @@ function EnemyDrone:update(dt, rt)
 	self:getRenderer().r = rot - 2*dt
 end
 
-function EnemyDrone:shoot()
+function Drone:shoot()
 	local xdist = self.player_chain.x - self.x
 	local ydist = self.player_chain.y - self.y
 	local dir = math.atan2(ydist, xdist)
@@ -64,14 +64,14 @@ function EnemyDrone:shoot()
 	self:getScene():add(Flash(self.x, self.y))
 end
 
-function EnemyDrone:onRemove()
+function Drone:onRemove()
 	if self.timer then
 		prox.timer.cancel(self.timer)
 	end
 end
 
-function EnemyDrone:getGems()
+function Drone:getGems()
 	return 1
 end
 
-return EnemyDrone
+return Drone

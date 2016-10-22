@@ -1,16 +1,17 @@
 local shaders = require("shaders")
 local Explosion = require("game.Explosion")
 local Gem = require("game.Gem")
+local Slowable = require("game.Slowable")
 
-local Enemy = class("game.Enemy", prox.Entity)
+local Enemy = class("game.Enemy", Slowable)
 
 function Enemy:enter(health, large)
+	Slowable.enter(self)
 	self.max_health = health
 	self.health = self.max_health
 	self.hit = 0
 	self.large = large or false
 	self.invulnerable = 0
-	self.time_speed = 1
 
 	self.white_shader = shaders.getShader("data/shaders/whiteout.lua")
 
@@ -19,7 +20,7 @@ function Enemy:enter(health, large)
 end
 
 function Enemy:update(dt, rt)
-	dt = dt * self.time_speed
+	dt, rt = Slowable.update(self, dt, rt)
 	self.invulnerable = self.invulnerable - dt
 	self.hit = self.hit - dt
 	self:getRenderer():setShader(self.hit > 0 and self.white_shader or nil)
@@ -69,10 +70,6 @@ function Enemy:kill()
 	end
 
 	self:remove()
-end
-
-function Enemy:setTimeSpeed(speed)
-	self.time_speed = speed
 end
 
 return Enemy

@@ -1,13 +1,13 @@
 local Enemy = require("game.Enemy")
 local EnemyBullet = require("game.EnemyBullet")
 
-local EnemyTurret = class("game.EnemyTurret", Enemy)
+local Turret = class("game.Turret", Enemy)
 
 local MAX_HEALTH = 15
 local MOVE_SPEED = 15
 local BULLET_COOLDOWN = 2.0
 
-function EnemyTurret:enter(x)
+function Turret:enter(x)
 	Enemy.enter(self, MAX_HEALTH)
 
 	self.x = x
@@ -20,7 +20,7 @@ function EnemyTurret:enter(x)
 	self:setCollider(prox.BoxCollider(40, 26))
 end
 
-function EnemyTurret:update(dt, rt)
+function Turret:update(dt, rt)
 	dt, rt = Enemy.update(self, dt, rt)
 
 	self.y = self.y + MOVE_SPEED * dt
@@ -35,15 +35,15 @@ function EnemyTurret:update(dt, rt)
 	end
 end
 
-function EnemyTurret:shoot()
+function Turret:shoot()
 	local xdist = self.player_chain.x - self.x
 	local ydist = self.player_chain.y - self.y
 	local dir = math.atan2(ydist, xdist)
 	self:getScene():add(EnemyBullet(self.x, self.y, dir, EnemyBullet.static.TYPE_BALL))
 end
 
-function EnemyTurret:getGems()
+function Turret:getGems()
 	return 2
 end
 
-return EnemyTurret
+return Turret

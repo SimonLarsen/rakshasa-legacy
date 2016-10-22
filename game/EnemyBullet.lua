@@ -1,6 +1,7 @@
-local Bullet = require("game.Bullet")
+local Slowable = require("game.Slowable")
+local Explosion = require("game.Explosion")
 
-local EnemyBullet = class("game.EnemyBullet", Bullet)
+local EnemyBullet = class("game.EnemyBullet", Slowable)
 
 local SPEED = 200
 
@@ -23,7 +24,7 @@ local hitboxes = {
 local randomize_start_rotation = {
 	[EnemyBullet.static.TYPE_LASER] = false,
 	[EnemyBullet.static.TYPE_BALL]  = true,
-	[EnemyBullet.static.TYPE_SALVO] = true
+	[EnemyBullet.static.TYPE_SALVO] = false
 }
 
 local speed = {
@@ -39,13 +40,13 @@ local rotation_speed = {
 }
 
 function EnemyBullet:enter(x, y, dir, type)
+	Slowable.enter(self)
 	self:setName("enemy_bullet")
 	self.x = x
 	self.y = y
 	self.z = -1
 	self.type = type
 	self.dir = dir
-	self.time_speed = 1
 
 	self:setRenderer(prox.Animation(animations[self.type]))
 	self:setCollider(prox.BoxCollider(hitboxes[self.type].w, hitboxes[self.type].h))
@@ -59,7 +60,7 @@ function EnemyBullet:enter(x, y, dir, type)
 end
 
 function EnemyBullet:update(dt, rt)
-	dt = dt * self.time_speed
+	dt, rt = Slowable.update(self, dt, rt)
 	local rot = self:getRenderer().r
 	self:getRenderer().r = rot + rotation_speed[self.type] * dt
 
@@ -72,13 +73,14 @@ function EnemyBullet:update(dt, rt)
 	end
 end
 
-function Bullet:getHCShape()
+function EnemyBullet:getHCShape()
 	self.hc_rect:moveTo(self.x, self.y)
 	return self.hc_rect
 end
 
-function Bullet:setTimeSpeed(speed)
-	self.time_speed = speed
+function EnemyBullet:kill()
+	self:getScene():add(Explosion(self.x, self.y, Explosion.static.SIZE_SMALL))
+	self:remove()
 end
 
 return EnemyBullet

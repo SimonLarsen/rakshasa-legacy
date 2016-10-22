@@ -2,12 +2,12 @@ local Enemy = require("game.Enemy")
 local EnemyBullet = require("game.EnemyBullet")
 local Explosion = require("game.Explosion")
 
-local EnemyMine = class("game.EnemyMine", Enemy)
+local Mine = class("game.Mine", Enemy)
 
 local MAX_HEALTH = 10
 local MOVE_SPEED = 45
 
-function EnemyMine:enter(x, ylimit)
+function Mine:enter(x, ylimit)
 	Enemy.enter(self, MAX_HEALTH)
 
 	self.x = x
@@ -18,7 +18,7 @@ function EnemyMine:enter(x, ylimit)
 	self:setCollider(prox.BoxCollider(28, 26))
 end
 
-function EnemyMine:update(dt, rt)
+function Mine:update(dt, rt)
 	dt, rt = Enemy.update(self, dt, rt)
 
 	self.y = self.y + MOVE_SPEED * dt
@@ -48,8 +48,8 @@ function EnemyMine:update(dt, rt)
 	end
 end
 
-function EnemyMine:getGems()
+function Mine:getGems()
 	return 3
 end
 
-return EnemyMine
+return Mine

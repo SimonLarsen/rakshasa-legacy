@@ -1,5 +1,4 @@
 local Boss = require("game.Boss")
-local Bullet = require("game.Bullet")
 local Explosion = require("game.Explosion")
 local AgniHand = require("game.AgniHand")
 local AgniGears = require("game.AgniGears")

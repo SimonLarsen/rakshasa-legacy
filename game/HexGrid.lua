@@ -1,6 +1,7 @@
 local Enemy = require("game.Enemy")
 local Ship = require("game.Ship")
-local Bullet = require("game.Bullet")
+local EnemyBullet = require("game.EnemyBullet")
+local PlayerBullet = require("game.PlayerBullet")
 local Gem = require("game.Gem")
 
 local HexGrid = class("game.HexGrid", prox.Entity)
@@ -44,7 +45,8 @@ function HexGrid:update(dt, rt)
 
 	for i,v in ipairs(self:getScene():getEntities()) do
 		if v:isInstanceOf(Enemy) or v:isInstanceOf(Ship)
-		or v:isInstanceOf(Bullet) or v:isInstanceOf(Gem) then
+		or v:isInstanceOf(EnemyBullet) or v:isInstanceOf(PlayerBullet)
+		or v:isInstanceOf(Gem) then
 			self:setAtPosition(v.x, v.y, math.max(0.09, self:getAtPosition(v.x, v.y)))
 		end
 	end

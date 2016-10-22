@@ -112,6 +112,7 @@ function Controller:update(dt, rt)
 				local args = prox.table.sub(self:currentStep(), 3, #self:currentStep())
 				self:getScene():add(constructors[self:currentStep()[2]](unpack(args)))
 				self.step = self.step + 1
+				self.time = 0
 			end
 		end
 	

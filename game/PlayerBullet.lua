@@ -1,6 +1,6 @@
-local Bullet = require("game.Bullet")
+local Explosion = require("game.Explosion")
 
-local PlayerBullet = class("game.PlayerBullet", Bullet)
+local PlayerBullet = class("game.PlayerBullet", prox.Entity)
 
 PlayerBullet.static.TYPE_NORMAL = 1
 PlayerBullet.static.TYPE_SUPER  = 2
@@ -49,6 +49,11 @@ end
 
 function PlayerBullet:getDamage()
 	return damage[self.type]
+end
+
+function PlayerBullet:kill()
+	self:getScene():add(Explosion(self.x, self.y, Explosion.static.SIZE_SMALL))
+	self:remove()
 end
 
 return PlayerBullet

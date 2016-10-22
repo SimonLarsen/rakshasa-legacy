@@ -1,6 +1,5 @@
 local shaders = require("shaders")
-local Enemy = require("game.Enemy")
-local EnemyBullet = require("game.EnemyBullet")
+local Slowable = require("game.Slowable")
 local PurityDrone = require("game.PurityDrone")
 
 local PurityWave = class("game.PurityWave", prox.Entity)
@@ -55,7 +54,7 @@ function PurityWave:update(dt, rt)
 	self.shader:send("time", prox.time.getTime())
 
 	for i,v in ipairs(self:getScene():getEntities()) do
-		if v:isInstanceOf(Enemy) or v:isInstanceOf(EnemyBullet) then
+		if v:isInstanceOf(Slowable) then
 			if v.x >= self.leftx and v.x <= self.rightx and v.y > 0 then
 				v:setTimeSpeed(self.speed)
 			else
