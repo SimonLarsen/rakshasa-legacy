@@ -28,8 +28,8 @@ local constructors = {
 local WARMUP_TIME = 3
 local TRANSITION_TIME = 9
 
-local MAX_GEMS =  12
-local PURITY_BALL_COST = 6
+local MAX_GEMS =  20
+local PURITY_BALL_COST = 10
 local PURITY_WAVE_COST = 20
 
 Controller.static.STATE_WARMUP     = 1
@@ -52,8 +52,7 @@ function Controller:enter(level, binding)
 	self.lives_display = self.lives
 	self.score = 0
 	self.score_display = self.score
-	--self.gems = 0
-	self.gems = MAX_GEMS
+	self.gems = 0
 	self.gems_display = self.gems
 	self.binding = binding
 	self.state = Controller.static.STATE_WARMUP
