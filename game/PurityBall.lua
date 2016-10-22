@@ -1,7 +1,9 @@
 local shaders = require("shaders")
 local Slowable = require("game.Slowable")
+local EnemyBullet = require("game.EnemyBullet")
 local PurityDrone = require("game.PurityDrone")
 local Purifier = require("game.Purifier")
+local Gem = require("game.Gem")
 
 local PurityBall = class("game.PurityBall", Purifier)
 
@@ -24,8 +26,8 @@ function PurityBall:enter(x, y)
 	prox.timer.tween(IN_TIME, self, {speed = TARGET_SPEED}, "out-quad")
 	prox.timer.tween(GROW_TIME, self, {radius = RADIUS}, "in-out-cubic")
 
-	prox.timer.after(TOTAL_TIME-IN_TIME-OUT_TIME, function()
-		prox.timer.tween(OUT_TIME, self, {speed = 1.0, alpha = 0}, "in-quad", function()
+	self.timer = prox.timer.after(TOTAL_TIME-IN_TIME-OUT_TIME, function()
+		self.timer = prox.timer.tween(OUT_TIME, self, {speed = 1.0, alpha = 0}, "in-quad", function()
 			self:remove()
 		end)
 	end)
@@ -59,6 +61,21 @@ function PurityBall:update(dt, rt)
 	end
 end
 
+function PurityBall:trigger()
+	for i,v in ipairs(self:getScene():getEntities()) do
+		if v:isInstanceOf(EnemyBullet) then
+			local dist = math.sqrt(math.pow(v.x - self.x, 2) + math.pow(v.y - self.y, 2))
+			if dist <= self.radius then
+				v:kill()
+				self:getScene():add(Gem(v.x, v.y))
+			end
+		end
+	end
+
+	if self.timer then prox.timer.cancel(self.timer) end
+	self:remove()
+end
+
 function PurityBall:draw()
 	love.graphics.setColor(255, 255, 255, self.alpha)
 	love.graphics.circle("line", self.x, self.y, self.radius, 64)
@@ -72,6 +89,7 @@ function PurityBall:onRemove()
 		end
 	end
 
+	if self.timer then prox.timer.cancel(self.timer) end
 	prox.window.setShader()
 end
 

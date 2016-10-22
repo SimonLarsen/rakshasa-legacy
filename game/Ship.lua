@@ -87,6 +87,10 @@ end
 function Ship:update(dt, rt)
 	self.cooldown = self.cooldown - dt
 
+	if self.purity_ball and not self.purity_ball:isAlive() then
+		self.purity_ball = nil
+	end
+
 	if self.state == Ship.static.STATE_ACTIVE then
 		-- Move ship
 		local shooting = self.cooldown > 0
@@ -148,10 +152,12 @@ function Ship:setPowerLevel(level)
 end
 
 function Ship:purityBall()
-	if self:getScene():find(PurityBall) then return end
-
-	if self.controller:usePurityBall() then
-		self:getScene():add(PurityBall(self.x, self.y))
+	if self.purity_ball and self.purity_ball:isAlive() then
+		self.purity_ball:trigger()
+	else
+		if self.controller:usePurityBall() then
+			self.purity_ball = self:getScene():add(PurityBall(self.x, self.y))
+		end
 	end
 end
 

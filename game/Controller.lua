@@ -30,7 +30,7 @@ local TRANSITION_TIME = 9
 
 local MAX_GEMS =  12
 local PURITY_BALL_COST = 6
-local PURITY_WAVE_COST = 12
+local PURITY_WAVE_COST = 20
 
 Controller.static.STATE_WARMUP     = 1
 Controller.static.STATE_ACTIVE     = 2
