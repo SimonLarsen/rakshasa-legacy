@@ -10,7 +10,7 @@ local MOVE_SPEED = 20
 local BULLET_COOLDOWN = 3
 
 function Temple:enter(x)
-	dt, rt = Enemy.enter(self, MAX_HEALTH, true)
+	Enemy.enter(self, MAX_HEALTH, true)
 
 	self.x = x
 	self.y = -30
@@ -25,7 +25,7 @@ function Temple:update(dt, rt)
 
 	self.y = self.y + MOVE_SPEED * dt
 
-	if self.y > prox.window.getHeight()+30 then
+	if self.y > prox.window.getHeight()+40 then
 		self:remove()
 	end
 

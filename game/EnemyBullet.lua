@@ -41,7 +41,6 @@ local rotation_speed = {
 
 function EnemyBullet:enter(x, y, dir, type)
 	Slowable.enter(self)
-	self:setName("enemy_bullet")
 	self.x = x
 	self.y = y
 	self.z = -1

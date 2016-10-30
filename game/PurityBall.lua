@@ -12,8 +12,9 @@ local RADIUS = 80
 local TARGET_SPEED = 0.20
 local TOTAL_TIME = 3.75
 local IN_TIME = 0.25
-local GROW_TIME = 0.4
 local OUT_TIME = 0.5
+local GROW_TIME = 0.4
+local SHRINK_TIME = 0.3
 
 function PurityBall:enter(x, y)
 	self.x = x
@@ -26,10 +27,14 @@ function PurityBall:enter(x, y)
 	prox.timer.tween(IN_TIME, self, {speed = TARGET_SPEED}, "out-quad")
 	prox.timer.tween(GROW_TIME, self, {radius = RADIUS}, "in-out-cubic")
 
-	self.timer = prox.timer.after(TOTAL_TIME-IN_TIME-OUT_TIME, function()
-		self.timer = prox.timer.tween(OUT_TIME, self, {speed = 1.0, alpha = 0}, "in-quad", function()
+	prox.timer.after(TOTAL_TIME-OUT_TIME, function()
+		prox.timer.tween(OUT_TIME, self, {speed = 1.0}, "in-quad", function()
 			self:remove()
 		end)
+	end)
+
+	prox.timer.after(TOTAL_TIME-SHRINK_TIME, function()
+		prox.timer.tween(OUT_TIME, self, {radius = 0, alpha = 0}, "in-quad")
 	end)
 
 	self.shader = shaders.getShader("data/shaders/purity_ball.lua")
@@ -72,11 +77,11 @@ function PurityBall:trigger()
 		end
 	end
 
-	if self.timer then prox.timer.cancel(self.timer) end
 	self:remove()
 end
 
 function PurityBall:draw()
+	love.graphics.setLineWidth(1)
 	love.graphics.setColor(255, 255, 255, self.alpha)
 	love.graphics.circle("line", self.x, self.y, self.radius, 64)
 	love.graphics.setColor(255, 255, 255, 255)
@@ -89,7 +94,6 @@ function PurityBall:onRemove()
 		end
 	end
 
-	if self.timer then prox.timer.cancel(self.timer) end
 	prox.window.setShader()
 end
 

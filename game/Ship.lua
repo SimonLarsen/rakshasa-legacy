@@ -154,6 +154,7 @@ end
 function Ship:purityBall()
 	if self.purity_ball and self.purity_ball:isAlive() then
 		self.purity_ball:trigger()
+		self.purity_ball = nil
 	else
 		if self.controller:usePurityBall() then
 			self.purity_ball = self:getScene():add(PurityBall(self.x, self.y))

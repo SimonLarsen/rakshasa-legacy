@@ -9,7 +9,7 @@ PlayerBullet.static.TYPE_ULTRA  = 3
 local SPEED = 500
 
 local damage = {
-	[PlayerBullet.static.TYPE_NORMAL] = 1.0,
+	[PlayerBullet.static.TYPE_NORMAL] = 1,
 	[PlayerBullet.static.TYPE_SUPER]  = 2.6,
 	[PlayerBullet.static.TYPE_ULTRA]  = 4.8
 }

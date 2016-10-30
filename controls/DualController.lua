@@ -11,7 +11,7 @@ function DualController:enter(binding, ship_left, ship_right, chain, switch)
 
 	self.switch = switch or false
 	self.switch_cooldown = 0
-	self.old_triggerright = 0
+	self.trigger_down = false
 end
 
 function DualController:update(dt, rt)
@@ -31,11 +31,15 @@ function DualController:update(dt, rt)
 	if self.binding:wasPressed("rightpurity") then
 		self.ship_right:purityBall()
 	end
-	if self.binding:getAxis("triggerright") >= 0.8 and self.old_trigger_right < 0.5 then
+
+	local old_trigger_down = self.trigger_down
+	local trigger = self.binding:getAxis("triggerright")
+	if trigger >= 0.6 then self.trigger_down = true
+	elseif trigger < 0.5 then self.trigger_down = false end
+
+	if self.trigger_down and not old_trigger_down then
 		self.chain:purityWave()
 	end
-
-	self.old_trigger_right = self.binding:getAxis("triggerright")
 
 	local leftsp = math.sqrt(self.ship_left.xspeed^2 + self.ship_left.yspeed^2)
 	local rightsp = math.sqrt(self.ship_right.xspeed^2 + self.ship_right.yspeed^2)

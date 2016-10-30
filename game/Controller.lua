@@ -19,6 +19,8 @@ local constructors = {
 	temple = require("game.enemies.Temple"),
 	mine = require("game.enemies.Mine"),
 	turret = require("game.enemies.Turret"),
+	silo = require("game.enemies.Silo"),
+	laser = require("game.enemies.Laser"),
 	-- bosses
 	durga = require("game.BossDurga"),
 	shiva = require("game.BossShiva"),

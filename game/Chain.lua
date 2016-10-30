@@ -1,12 +1,13 @@
 local shaders = require("shaders")
 local PurityWave = require("game.PurityWave")
 local BallFlash = require("game.BallFlash")
+local EnemyBullet = require("game.EnemyBullet")
 
 local Chain = class("game.Chain", prox.Entity)
 
 local MIN_DIST = 86
 local SUPER_THRESHOLD = 0.1
-local INVULNERABLE_TIME = 2
+local INVULNERABLE_TIME = 3
 local FORCE = 4500
 
 local POWER_LEVEL1_DIST = 0
@@ -97,7 +98,7 @@ function Chain:update(dt, rt)
 	hc_rect:moveTo(self.x, self.y)
 	hc_rect:setRotation(self.direction)
 
-	for i,v in ipairs(self:getScene():findAll("enemy_bullet")) do
+	for i,v in ipairs(self:getScene():findAll(EnemyBullet)) do
 		if hc_rect:collidesWith(v:getHCShape()) then
 			if self.state == Chain.static.STATE_ACTIVE and self.invulnerable <= 0 then
 				self.invulnerable = INVULNERABLE_TIME
@@ -155,8 +156,13 @@ function Chain:draw()
 end
 
 function Chain:purityWave()
-	if self.controller:usePurityWave() then
-		self:getScene():add(PurityWave(self.ship1.x, self.ship1.y-28, self.ship2.x, self.ship2.y-28))
+	if self.purity_wave and self.purity_wave:isAlive() then
+		self.purity_wave:trigger()
+		self.purity_wave = nil
+	else
+		if self.controller:usePurityWave() then
+			self.purity_wave = self:getScene():add(PurityWave(self.ship1.x, self.ship1.y-28, self.ship2.x, self.ship2.y-28))
+		end
 	end
 end
 

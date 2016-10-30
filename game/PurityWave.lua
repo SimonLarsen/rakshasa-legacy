@@ -2,6 +2,8 @@ local shaders = require("shaders")
 local Slowable = require("game.Slowable")
 local PurityDrone = require("game.PurityDrone")
 local Purifier = require("game.Purifier")
+local Gem = require("game.Gem")
+local EnemyBullet = require("game.EnemyBullet")
 
 local PurityWave = class("game.PurityWave", Purifier)
 
@@ -65,6 +67,19 @@ function PurityWave:update(dt, rt)
 			end
 		end
 	end
+end
+
+function PurityWave:trigger()
+	for i,v in ipairs(self:getScene():getEntities()) do
+		if v:isInstanceOf(EnemyBullet) then
+			if v.x >= self.leftx and v.x <= self.rightx and v.y > 0 then
+				v:kill()
+				self:getScene():add(Gem(v.x, v.y))
+			end
+		end
+	end
+
+	self:remove()
 end
 
 function PurityWave:draw()
