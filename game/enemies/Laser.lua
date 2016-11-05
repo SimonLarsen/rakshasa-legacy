@@ -36,7 +36,7 @@ function Laser:update(dt, rt)
 	self.y = self.y + MOVE_SPEED * dt
 	self.hc_rect:moveTo(self.x, self.y)
 
-	if self.y > prox.window.getHeight()-math.abs(self.dir)*dist-20 then
+	if self.y > prox.window.getHeight()-math.abs(self.dir)*self.dist-20 then
 		self:remove()
 	end
 end

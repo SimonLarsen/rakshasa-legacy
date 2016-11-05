@@ -1,6 +1,6 @@
 local Background = class("game.Background", prox.Entity)
 
-local SCROLL_SPEED = 10
+local SCROLL_SPEED = 20
 
 local files = {
 	"data/images/backgrounds/background1.png",

@@ -1,8 +1,8 @@
 {
 	image = "data/images/enemies/laser_turret.png",
-	fw = 31,
+	fw = 26,
 	fh = 31,
-	ox = 25,
+	ox = 20,
 	oy = 15,
 	delay = 0.08
 }

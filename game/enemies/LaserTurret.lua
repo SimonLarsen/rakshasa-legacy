@@ -13,8 +13,4 @@ function LaserTurret:enter(x, y, dir, beam)
 	self:getRenderer().r = self.dir
 end
 
-function fname()
-	
-end
-
 return LaserTurret
