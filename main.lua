@@ -1,8 +1,6 @@
 prox = require("prox")
 HC = require("HC")
 
-local Background = require("game.Background")
-
 settings = {
 	screen_width = 320,
 	screen_height = 480,
@@ -69,8 +67,8 @@ function prox.load()
 
 	prox.gamestate.switch({
 		require("title.Controller")(),
-		require("game.HexGrid")(),
-		Background(1),
-		require("game.ScreenBorder")()
+		require("bg.HexGrid")(),
+		require("bg.Background")(1),
+		require("bg.ScreenBorder")()
 	})
 end

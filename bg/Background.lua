@@ -1,4 +1,4 @@
-local Background = class("game.Background", prox.Entity)
+local Background = class("bg.Background", prox.Entity)
 
 local SCROLL_SPEED = 20
 

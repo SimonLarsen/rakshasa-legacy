@@ -4,7 +4,7 @@ local EnemyBullet = require("game.EnemyBullet")
 local PlayerBullet = require("game.PlayerBullet")
 local Gem = require("game.Gem")
 
-local HexGrid = class("game.HexGrid", prox.Entity)
+local HexGrid = class("bg.HexGrid", prox.Entity)
 
 local UPDATE_DELAY = 0.5
 local SCROLL_SPEED = 20

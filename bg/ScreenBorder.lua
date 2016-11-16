@@ -1,4 +1,4 @@
-local ScreenBorder = class("game.ScreenBorder", prox.Entity)
+local ScreenBorder = class("bg.ScreenBorder", prox.Entity)
 
 function ScreenBorder:enter()
 	self.alpha = 0
