@@ -1,4 +1,3 @@
-local shaders = require("shaders")
 local Slowable = require("game.Slowable")
 local EnemyBullet = require("game.EnemyBullet")
 local PurityDrone = require("game.PurityDrone")
@@ -37,7 +36,7 @@ function PurityBall:enter(x, y)
 		prox.timer.tween(OUT_TIME, self, {radius = 0, alpha = 0}, "in-quad")
 	end)
 
-	self.shader = shaders.getShader("data/shaders/purity_ball.lua")
+	self.shader = prox.resources.getShader("data/shaders/purity_ball.glsl")
 	self.shader:send("cx", self.x)
 	self.shader:send("cy", self.y)
 	self.shader:send("time", prox.time.getTime())

@@ -1,4 +1,3 @@
-local shaders = require("shaders")
 local Explosion = require("game.Explosion")
 local Gem = require("game.Gem")
 local Slowable = require("game.Slowable")
@@ -13,7 +12,7 @@ function Enemy:enter(health, large)
 	self.large = large or false
 	self.invulnerable = 0
 
-	self.white_shader = shaders.getShader("data/shaders/whiteout.lua")
+	self.white_shader = prox.resources.getShader("data/shaders/whiteout.glsl")
 
 	self.sfx_explosion1 = prox.resources.getSound("data/sounds/explosion1.wav")
 	self.sfx_explosion3 = prox.resources.getSound("data/sounds/explosion3.wav")

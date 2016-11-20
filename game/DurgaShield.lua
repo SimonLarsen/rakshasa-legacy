@@ -1,4 +1,3 @@
-local shaders = require("shaders")
 local EnemyBullet = require("game.EnemyBullet")
 local Flash = require("game.Flash")
 
@@ -25,7 +24,7 @@ function DurgaShield:enter(side)
 	end
 
 	self.player_chain = self:getScene():find("chain")
-	self.white_shader = shaders.getShader("data/shaders/whiteout.lua")
+	self.white_shader = prox.resources.getShader("data/shaders/whiteout.glsl")
 end
 
 function DurgaShield:update(dt, rt)

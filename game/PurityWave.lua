@@ -1,4 +1,3 @@
-local shaders = require("shaders")
 local Slowable = require("game.Slowable")
 local PurityDrone = require("game.PurityDrone")
 local Purifier = require("game.Purifier")
@@ -41,7 +40,7 @@ function PurityWave:enter(x1, y1, x2, y2)
 		end)
 	end)
 
-	self.shader = shaders.getShader("data/shaders/purity_wave.lua")
+	self.shader = prox.resources.getShader("data/shaders/purity_wave.glsl")
 	self.shader:send("left", self.leftx)
 	self.shader:send("right", self.rightx)
 	self.shader:send("time", prox.time.getTime())

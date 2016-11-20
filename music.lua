@@ -11,6 +11,7 @@ function music.playFile(path)
 	local source = love.audio.newSource(path, "stream")
 	instance = love.audio.play(source)
 	instance:setVolume(volume)
+	instance:setLooping(true)
 end
 
 function music.stop()

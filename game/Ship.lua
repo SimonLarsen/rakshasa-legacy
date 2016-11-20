@@ -1,4 +1,3 @@
-local shaders = require("shaders")
 local PlayerBullet = require("game.PlayerBullet")
 local Explosion = require("game.Explosion")
 local Flash = require("game.Flash")
@@ -70,7 +69,7 @@ function Ship:enter(side)
 		end
 	)
 
-	self.white_shader = shaders.getShader("data/shaders/whiteout.lua")
+	self.white_shader = prox.resources.getShader("data/shaders/whiteout.glsl")
 
 	self.sfx_blip = prox.resources.getSound("data/sounds/blip.wav")
 	self.sfx_blip:setVolume(0.5)

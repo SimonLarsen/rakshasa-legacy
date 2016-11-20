@@ -1,4 +1,3 @@
-local shaders = require("shaders")
 local PurityWave = require("game.PurityWave")
 local BallFlash = require("game.BallFlash")
 local EnemyBullet = require("game.EnemyBullet")
@@ -39,7 +38,7 @@ function Chain:enter(ship1, ship2)
 	self.link2 = prox.Sprite("data/images/link2.png", 3, 3)
 	self.center_flash_alpha = 0
 
-	self.dissolve_shader = shaders.getShader("data/shaders/dissolve.lua")
+	self.dissolve_shader = prox.resources.getShader("data/shaders/dissolve.glsl")
 	local filter_image = prox.resources.getImage("data/images/textures/dissolve.png")
 	filter_image:setWrap("repeat","repeat")
 	self.dissolve_edge = 1.2
