@@ -19,6 +19,11 @@ local toggle_fullscreen = function()
 	return true
 end
 
+local toggle_auto_switch = function()
+	settings.ship_switch = not settings.ship_switch
+	return true
+end
+
 local prev_fs_mode = function()
 	local id = fullscreen_mode_id[prox.window.getFullscreenMode()]
 	local mode = fullscreen_modes[prox.math.wrap(id-1, 1, #fullscreen_modes)]
@@ -67,6 +72,15 @@ local options = {
 		end
 	},
 	{
+		label = "AUTO SWITCH",
+		action=toggle_auto_switch,
+		right=toggle_auto_switch,
+		left=toggle_auto_switch,
+		value=function()
+			return bool_to_onoff(settings.ship_switch)
+		end
+	},
+	{
 		label = "BACK",
 		action=function(o)
 			o:hide()
@@ -90,7 +104,6 @@ function OptionsMenu:enter(binding)
 	end)
 
 	prox.timer.after(2.0, function() self.ready = true end)
-
 	self.sans_font = prox.resources.getImageFont("data/fonts/large_sans.png")
 
 	self.sfx_blip = prox.resources.getSound("data/sounds/blip.wav")
