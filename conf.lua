@@ -1,6 +1,6 @@
 function love.conf(t)
     t.identity = "dk.tangramgames.rakshasa"
-    t.version = "0.10.1"
+    t.version = "0.10.2"
     t.console = true
     t.accelerometerjoystick = false
     t.externalstorage = false
