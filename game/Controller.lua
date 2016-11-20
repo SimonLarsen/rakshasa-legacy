@@ -22,9 +22,9 @@ local constructors = {
 	silo = require("game.enemies.Silo"),
 	laser = require("game.enemies.Laser"),
 	-- bosses
-	durga = require("game.BossDurga"),
-	shiva = require("game.BossShiva"),
-	agni = require("game.BossAgni")
+	durga = require("game.bosses.Durga"),
+	shiva = require("game.bosses.Shiva"),
+	agni = require("game.bosses.Agni")
 }
 
 local WARMUP_TIME = 3

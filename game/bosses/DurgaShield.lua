@@ -14,11 +14,11 @@ function DurgaShield:enter(side)
 	self.invulnerable = 0
 
 	if self.side == DurgaShield.static.SIDE_LEFT then
-		self:setRenderer(prox.Animator("data/animators/durga_shield_left.lua"))
+		self:setRenderer(prox.Animator("data/animators/bosses/durga_shield_left.lua"))
 		self.offset_scale = -1
 		self:setCollider(prox.BoxCollider(66, 26, 8, 12))
 	else
-		self:setRenderer(prox.Animator("data/animators/durga_shield_right.lua"))
+		self:setRenderer(prox.Animator("data/animators/bosses/durga_shield_right.lua"))
 		self.offset_scale = 1
 		self:setCollider(prox.BoxCollider(66, 26, -8, 12))
 	end

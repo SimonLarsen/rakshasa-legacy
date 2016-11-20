@@ -1,7 +1,7 @@
 local EnemyBullet = require("game.EnemyBullet")
 local Flash = require("game.Flash")
 
-local ShivaArm = class("game.ShivaArm", prox.Entity)
+local ShivaArm = class("game.bosses.ShivaArm", prox.Entity)
 
 local ENTER_TIME = 3
 
@@ -34,7 +34,7 @@ function ShivaArm:enter(side)
 	self.step = 1
 	self.phase = 1
 
-	self:setRenderer(prox.Sprite("data/images/shiva_arm_left.png", 18, 23))
+	self:setRenderer(prox.Sprite("data/images/bosses/shiva_arm_left.png", 18, 23))
 
 	if self.side == ShivaArm.static.SIDE_LEFT then
 		self.x = 25

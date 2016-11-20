@@ -1,4 +1,4 @@
-local ShivaChain = class("game.ShivaChain", prox.Entity)
+local ShivaChain = class("game.bosses.ShivaChain", prox.Entity)
 
 local ENTER_TIME = 3
 
@@ -12,8 +12,8 @@ function ShivaChain:enter()
 	self.arm_left_y = -80
 	self.arm_right_y = -80
 
-	self.hinge_left = prox.Animation("data/animations/shiva_hinge_left.lua")
-	self.hinge_right = prox.Animation("data/animations/shiva_hinge_right.lua")
+	self.hinge_left = prox.Animation("data/animations/bosses/shiva_hinge_left.lua")
+	self.hinge_right = prox.Animation("data/animations/bosses/shiva_hinge_right.lua")
 
 	self.gear = prox.Sprite("data/images/ship_gear.png", 19, 19)
 	self.small_gear = prox.Sprite("data/images/small_gear.png")

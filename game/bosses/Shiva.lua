@@ -2,19 +2,19 @@ local Boss = require("game.Boss")
 local EnemyBullet = require("game.EnemyBullet")
 local Flash = require("game.Flash")
 local Explosion = require("game.Explosion")
-local ShivaChain = require("game.ShivaChain")
-local ShivaArm = require("game.ShivaArm")
+local ShivaChain = require("game.bosses.ShivaChain")
+local ShivaArm = require("game.bosses.ShivaArm")
 
-local BossShiva = class("game.BossShiva", Boss)
+local Shiva = class("game.bosses.Shiva", Boss)
 
 local MAX_HEALTH = 300
 local ENTER_TIME = 3
 local EXPLOSION_DELAY = 0.5
 
-BossShiva.static.STATE_ENTER     = 1
-BossShiva.static.STATE_CALM      = 2
-BossShiva.static.STATE_RAGE      = 3
-BossShiva.static.STATE_EXPLODING = 4
+Shiva.static.STATE_ENTER     = 1
+Shiva.static.STATE_CALM      = 2
+Shiva.static.STATE_RAGE      = 3
+Shiva.static.STATE_EXPLODING = 4
 
 local patterns = {
 	[1] = {
@@ -28,7 +28,7 @@ local positions = {
 	160, 110, 160, 210
 }
 
-function BossShiva:enter()
+function Shiva:enter()
 	Boss.enter(self, "shiva", MAX_HEALTH)
 	self:setName("shiva")
 
@@ -41,7 +41,7 @@ function BossShiva:enter()
 	self.step = 1
 	self.phase = 1
 
-	self.state = BossShiva.static.STATE_ENTER
+	self.state = Shiva.static.STATE_ENTER
 
 	self.chain = self:getScene():add(ShivaChain())
 	self.arm_left = self:getScene():add(ShivaArm(ShivaArm.static.SIDE_LEFT))
@@ -49,14 +49,14 @@ function BossShiva:enter()
 
 	prox.timer.tween(ENTER_TIME, self, {y = 120}, "out-sine",
 		function()
-			self.state = BossShiva.static.STATE_CALM
+			self.state = Shiva.static.STATE_CALM
 			self.active = true
 			self:getScene():find("hexgrid"):fillAll(0.4)
 			self:getScene():find("screenshaker"):shake(0.5, 4, 60)
 		end
 	)
 
-	self:setRenderer(prox.Animation("data/animations/shiva_base.lua"))
+	self:setRenderer(prox.Animation("data/animations/bosses/shiva_base.lua"))
 	self:setCollider(prox.BoxCollider(54, 54))
 
 	self.player_chain = self:getScene():find("chain")
@@ -64,10 +64,10 @@ function BossShiva:enter()
 	self.sfx_explosion1 = prox.resources.getSound("data/sounds/explosion1.wav")
 end
 
-function BossShiva:update(dt, rt)
+function Shiva:update(dt, rt)
 	Boss.update(self, dt, rt)
 	
-	if self.state == BossShiva.static.STATE_CALM then
+	if self.state == Shiva.static.STATE_CALM then
 		if self.moving == false then
 			self.moving = true
 			self.position = self.position % #positions + 1
@@ -76,7 +76,7 @@ function BossShiva:update(dt, rt)
 		end
 
 		if self.health < self.max_health/2 then
-			self.state = BossShiva.static.STATE_RAGE
+			self.state = Shiva.static.STATE_RAGE
 
 			self.pattern_time = -ENTER_TIME
 			self.step = 1
@@ -90,7 +90,7 @@ function BossShiva:update(dt, rt)
 			self.arm_left.position = self.arm_left.position % 4 + 1
 		end
 
-	elseif self.state == BossShiva.static.STATE_RAGE then
+	elseif self.state == Shiva.static.STATE_RAGE then
 		if self.moving == false then
 			self.moving = true
 			self.position = self.position % #positions + 1
@@ -98,7 +98,7 @@ function BossShiva:update(dt, rt)
 			self.head_tween = prox.timer.tween(1.5, self, {x = destx}, "out-linear", function() self.moving = false end)
 		end
 	
-	elseif self.state == BossShiva.static.STATE_EXPLODING then
+	elseif self.state == Shiva.static.STATE_EXPLODING then
 		if self.moving == false then
 			self.moving = true
 			local x = love.math.random(self.x - 60, self.x + 60)
@@ -134,7 +134,7 @@ function BossShiva:update(dt, rt)
 	self.chain.arm_right_y = self.arm_right.y
 end
 
-function BossShiva:shoot()
+function Shiva:shoot()
 	local gunx, guny, xdist, ydist, dir
 
 	gunx = self.x + 25
@@ -154,12 +154,12 @@ function BossShiva:shoot()
 	self:getScene():add(Flash(gunx, guny))
 end
 
-function BossShiva:kill()
+function Shiva:kill()
 	Boss.kill(self)
 
 	self.active = false
 	self.moving = false
-	self.state = BossShiva.static.STATE_EXPLODING
+	self.state = Shiva.static.STATE_EXPLODING
 	self.arm_left:kill()
 	self.arm_right:kill()
 	self:getScene():find("screenshaker"):shake(4, 3, 60)
@@ -173,8 +173,8 @@ function BossShiva:kill()
 	end)
 end
 
-function BossShiva:getGems()
+function Shiva:getGems()
 	return 30
 end
 
-return BossShiva
+return Shiva

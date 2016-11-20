@@ -2,8 +2,8 @@
 	default = "invulnerable",
 
 	states = {
-		["invulnerable"] = "data/animations/durga_shield_right_invulnerable.lua",
-		["vulnerable"] = "data/animations/durga_shield_right.lua"
+		["invulnerable"] = "data/animations/bosses/durga_shield_right_invulnerable.lua",
+		["vulnerable"] = "data/animations/bosses/durga_shield_right.lua"
 	},
 
 	properties = {

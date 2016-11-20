@@ -1,4 +1,4 @@
-local AgniGears = class("game.AgniGears", prox.Entity)
+local AgniGears = class("game.bosses.AgniGears", prox.Entity)
 
 function AgniGears:enter()
 	self.z = 2

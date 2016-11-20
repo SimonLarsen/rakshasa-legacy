@@ -1,5 +1,5 @@
 {
-	image = "data/images/durga_shield_right.png",
+	image = "data/images/bosses/durga_shield_right.png",
 	fw = 87,
 	fh = 122,
 	ox = 42,

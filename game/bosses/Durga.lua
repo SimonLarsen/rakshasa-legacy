@@ -1,11 +1,11 @@
 local Boss = require("game.Boss")
-local DurgaShield = require("game.DurgaShield")
-local DurgaChain = require("game.DurgaChain")
+local DurgaShield = require("game.bosses.DurgaShield")
+local DurgaChain = require("game.bosses.DurgaChain")
 local EnemyBullet = require("game.EnemyBullet")
 local Explosion = require("game.Explosion")
 local Flash = require("game.Flash")
 
-local BossDurga = class("game.BossDurga", Boss)
+local Durga = class("game.bosses.Durga", Boss)
 
 local MAX_HEALTH = 300
 local ENTER_TIME = 2
@@ -14,10 +14,10 @@ local EXPLOSION_DELAY = 0.5
 local SHIELD_OFFSET_CLOSED = 42
 local SHIELD_OFFSET_OPEN = 86
 
-BossDurga.static.STATE_ENTER     = 1
-BossDurga.static.STATE_CLOSED    = 2
-BossDurga.static.STATE_OPEN      = 3
-BossDurga.static.STATE_EXPLODING = 4
+Durga.static.STATE_ENTER     = 1
+Durga.static.STATE_CLOSED    = 2
+Durga.static.STATE_OPEN      = 3
+Durga.static.STATE_EXPLODING = 4
 
 local patterns = {
 	[1] = {
@@ -45,7 +45,7 @@ local head_positions = {
 	0, -48, 0, 48
 }
 
-function BossDurga:enter()
+function Durga:enter()
 	Boss.enter(self, "durga", MAX_HEALTH)
 	self:setName("durga")
 
@@ -58,9 +58,9 @@ function BossDurga:enter()
 	self.step = 1
 	self.phase = 1
 
-	self.state = BossDurga.static.STATE_ENTER
+	self.state = Durga.static.STATE_ENTER
 
-	self:setRenderer(prox.Sprite("data/images/durga_head_idle.png"))
+	self:setRenderer(prox.Sprite("data/images/bosses/durga_head_idle.png"))
 	self:setCollider(prox.BoxCollider(54, 54))
 
 	self.head_offset = 0
@@ -72,7 +72,7 @@ function BossDurga:enter()
 
 	prox.timer.tween(ENTER_TIME, self, {y = 140}, "out-sine",
 		function()
-			self.state = BossDurga.static.STATE_CLOSED
+			self.state = Durga.static.STATE_CLOSED
 			self.active = true
 			self:getScene():find("hexgrid"):fillAll(0.4)
 			self:getScene():find("screenshaker"):shake(0.5, 4, 60)
@@ -90,10 +90,10 @@ function BossDurga:enter()
 	self.sfx_explosion3 = prox.resources.getSound("data/sounds/explosion3.wav")
 end
 
-function BossDurga:update(dt, rt)
+function Durga:update(dt, rt)
 	Boss.update(self, dt, rt)
 
-	if self.state == BossDurga.static.STATE_CLOSED then
+	if self.state == Durga.static.STATE_CLOSED then
 		if self.moving == false then
 			self.moving = true
 			local destx = self.x < 160 and 235 or 85
@@ -104,7 +104,7 @@ function BossDurga:update(dt, rt)
 
 		if self.phase == 1 and self.health < 3*self.max_health/4
 		or self.phase == 3 and self.health < self.max_health/4 then
-			self.state = BossDurga.static.STATE_OPEN
+			self.state = Durga.static.STATE_OPEN
 			self.phase = self.phase + 1
 			self.pattern_time = 0
 			self.step = 1
@@ -119,7 +119,7 @@ function BossDurga:update(dt, rt)
 			self.shield_tween = prox.timer.tween(2, self, {shield_offset = SHIELD_OFFSET_OPEN}, "linear")
 		end
 
-	elseif self.state == BossDurga.static.STATE_OPEN then
+	elseif self.state == Durga.static.STATE_OPEN then
 		if self.moving == false then
 			self.moving = true
 			local destx = self.x < 160 and 180 or 140
@@ -135,7 +135,7 @@ function BossDurga:update(dt, rt)
 		end
 
 		if self.phase == 2 and self.health < self.max_health/2 then
-			self.state = BossDurga.static.STATE_CLOSED
+			self.state = Durga.static.STATE_CLOSED
 			self.phase = self.phase + 1
 			self.pattern_time = 0
 			self.step = 1
@@ -152,7 +152,7 @@ function BossDurga:update(dt, rt)
 			)
 		end
 	
-	elseif self.state == BossDurga.static.STATE_EXPLODING then
+	elseif self.state == Durga.static.STATE_EXPLODING then
 		if self.moving == false then
 			self.moving = true
 			local x = love.math.random(self.x - 100, self.x + 100)
@@ -201,12 +201,12 @@ function BossDurga:update(dt, rt)
 	self:getCollider().ox = self.head_offset
 end
 
-function BossDurga:shoot()
+function Durga:shoot()
 	self:getScene():add(EnemyBullet(self.x+self.head_offset, self.y+24, math.pi/2, EnemyBullet.static.TYPE_SALVO))
 	self:getScene():add(Flash(self.x+self.head_offset, self.y+24))
 end
 
-function BossDurga:kill()
+function Durga:kill()
 	Boss.kill(self)
 
 	if self.shield_tween then
@@ -217,7 +217,7 @@ function BossDurga:kill()
 	end
 
 	self.active = false
-	self.state = BossDurga.static.STATE_EXPLODING
+	self.state = Durga.static.STATE_EXPLODING
 	self.moving = false
 	self:getScene():find("screenshaker"):shake(4, 3, 60)
 
@@ -229,8 +229,8 @@ function BossDurga:kill()
 	end)
 end
 
-function BossDurga:getGems()
+function Durga:getGems()
 	return 20
 end
 
-return BossDurga
+return Durga

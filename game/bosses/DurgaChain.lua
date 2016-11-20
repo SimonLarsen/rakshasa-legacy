@@ -1,4 +1,4 @@
-local DurgaChain = class("game.DurgaChain", prox.Entity)
+local DurgaChain = class("game.bosses.DurgaChain", prox.Entity)
 
 function DurgaChain:enter(x, y, shield_offset, head_offset)
 	self.z = 1

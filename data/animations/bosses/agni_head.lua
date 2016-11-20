@@ -1,5 +1,5 @@
 {
-	image = "data/images/agni_head.png",
+	image = "data/images/bosses/agni_head.png",
 	fw = 108,
 	fh = 92,
 	ox = 54,

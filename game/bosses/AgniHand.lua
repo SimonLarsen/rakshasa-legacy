@@ -1,7 +1,7 @@
 local EnemyBullet = require("game.EnemyBullet")
 local Flash = require("game.Flash")
 
-local AgniHand = class("game.AgniHand", prox.Entity)
+local AgniHand = class("game.bosses.AgniHand", prox.Entity)
 
 local ENTER_TIME = 3
 local SHOT_COUNT = 6
@@ -44,17 +44,17 @@ function AgniHand:enter(side)
 	self.position = 1
 	self.y = -30
 
-	self.pattern_time = 0
 	self.step = 1
 	self.phase = 1
 
-	self:setRenderer(prox.Sprite("data/images/agni_hand.png", 22, 26))
+	self:setRenderer(prox.Sprite("data/images/bosses/agni_hand.png", 22, 26))
 
 	if self.side == AgniHand.static.SIDE_LEFT then
 		self.x = settings.screen_width/2 - 75
-		self.pattern_time = -1.0
+		self.pattern_time = -2.0
 	else
 		self.x = settings.screen_width/2 + 75
+		self.pattern_time = -1.0
 		self:getRenderer():setScale(-1, 1)
 	end
 

@@ -1,5 +1,5 @@
 {
-	image = "data/images/shiva.png",
+	image = "data/images/bosses/shiva.png",
 	fw = 124,
 	fh = 75,
 	ox = 62,

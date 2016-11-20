@@ -1,30 +1,30 @@
 local Boss = require("game.Boss")
 local Explosion = require("game.Explosion")
-local AgniHand = require("game.AgniHand")
-local AgniGears = require("game.AgniGears")
+local AgniHand = require("game.bosses.AgniHand")
+local AgniGears = require("game.bosses.AgniGears")
 
-local BossAgni = class("game.BossAgni", Boss)
+local Agni = class("game.bosses.Agni", Boss)
 
 local MAX_HEALTH = 400
 local ENTER_TIME = 3
 local EXPLOSION_DELAY = 0.5
 
-BossAgni.static.STATE_ENTER     = 1
-BossAgni.static.STATE_CALM      = 2
-BossAgni.static.STATE_RAGE      = 3
-BossAgni.static.STATE_EXPLODING = 4
+Agni.static.STATE_ENTER     = 1
+Agni.static.STATE_CALM      = 2
+Agni.static.STATE_RAGE      = 3
+Agni.static.STATE_EXPLODING = 4
 
 local positions = {
 	120, 200
 }
 
-function BossAgni:enter()
+function Agni:enter()
 	Boss.enter(self, "agni", MAX_HEALTH)
 	self:setName("agni")
 
 	self.x = settings.screen_width / 2
 	self.y = -40
-	self.state = BossAgni.static.STATE_ENTER
+	self.state = Agni.static.STATE_ENTER
 
 	self.moving = false
 	self.position = 1
@@ -35,24 +35,24 @@ function BossAgni:enter()
 
 	prox.timer.tween(ENTER_TIME, self, {y = 140}, "out-sine",
 		function()
-			self.state = BossAgni.static.STATE_CALM
+			self.state = Agni.static.STATE_CALM
 			self.active = true
 			self:getScene():find("hexgrid"):fillAll(0.4)
 			self:getScene():find("screenshaker"):shake(0.5, 4, 60)
 		end
 	)
 
-	self:setRenderer(prox.Animation("data/animations/agni_head.lua"))
+	self:setRenderer(prox.Animation("data/animations/bosses/agni_head.lua"))
 	self:setCollider(prox.BoxCollider(54, 54))
 
 	self.player_chain = self:getScene():find("chain")
 	self.sfx_explosion1 = prox.resources.getSound("data/sounds/explosion1.wav")
 end
 
-function BossAgni:update(dt, rt)
+function Agni:update(dt, rt)
 	Boss.update(self, dt, rt)
 
-	if self.state == BossAgni.static.STATE_CALM then
+	if self.state == Agni.static.STATE_CALM then
 		if self.moving == false then
 			self.moving = true
 			self.position = self.position % #positions + 1
@@ -61,7 +61,7 @@ function BossAgni:update(dt, rt)
 		end
 
 		if self.health < 0.75*self.max_health then
-			self.state = BossAgni.static.STATE_RAGE
+			self.state = Agni.static.STATE_RAGE
 
 			self.pattern_time = -ENTER_TIME
 			self.step = 1
@@ -77,7 +77,7 @@ function BossAgni:update(dt, rt)
 		self.hand_left.x = self.x - 75
 		self.hand_right.x = self.x + 75
 
-	elseif self.state == BossAgni.static.STATE_RAGE then
+	elseif self.state == Agni.static.STATE_RAGE then
 		if self.moving == false then
 			self.moving = true
 			self.position = self.position % #positions + 1
@@ -85,7 +85,7 @@ function BossAgni:update(dt, rt)
 			self.head_tween = prox.timer.tween(4, self, {x = destx}, "in-out-quad", function() self.moving = false end)
 		end
 
-	elseif self.state == BossAgni.static.STATE_EXPLODING then
+	elseif self.state == Agni.static.STATE_EXPLODING then
 		if self.moving == false then
 			self.moving = true
 			local x = love.math.random(self.x - 60, self.x + 60)
@@ -104,12 +104,12 @@ function BossAgni:update(dt, rt)
 	self.gears.agni_hand_right_y = self.hand_right.y
 end
 
-function BossAgni:kill()
+function Agni:kill()
 	Boss.kill(self)
 
 	self.active = false
 	self.moving = false
-	self.state = BossAgni.static.STATE_EXPLODING
+	self.state = Agni.static.STATE_EXPLODING
 	self.hand_left:kill()
 	self.hand_right:kill()
 
@@ -124,8 +124,8 @@ function BossAgni:kill()
 	end)
 end
 
-function BossAgni:getGems()
+function Agni:getGems()
 	return 50
 end
 
-return BossAgni
+return Agni
