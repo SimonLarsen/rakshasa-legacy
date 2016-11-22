@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objecttypes>
+ <objecttype name="ship" color="#ff007f"/>
+ <objecttype name="drone" color="#00aa00"/>
+ <objecttype name="drone_spawner" color="#005500">
+  <property name="count" type="int" default="0"/>
+  <property name="delay" type="float" default="0.2"/>
+ </objecttype>
+ <objecttype name="temple" color="#ff5500"/>
+ <objecttype name="mine" color="#aa5500"/>
+ <objecttype name="turret" color="#00aaff"/>
+ <objecttype name="silo" color="#00007f"/>
+ <objecttype name="laser" color="#ff557f">
+  <property name="speed" type="float" default="300"/>
+ </objecttype>
+ <objecttype name="durga" color="#ffffff"/>
+ <objecttype name="shiva" color="#ffffff"/>
+ <objecttype name="agni" color="#ffffff"/>
+</objecttypes>
