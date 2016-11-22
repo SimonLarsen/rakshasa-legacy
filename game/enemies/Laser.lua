@@ -41,7 +41,7 @@ function Laser:update(dt, rt)
 	self.y = self.y + self.speed * dt
 	self.hc_rect:moveTo(self.x, self.y)
 
-	if self.y > prox.window.getHeight()+math.sin(self.dir)*self.dist+32 then
+	if self.y > settings.screen_height+math.sin(self.dir)*self.dist+32 then
 		self:remove()
 	end
 end

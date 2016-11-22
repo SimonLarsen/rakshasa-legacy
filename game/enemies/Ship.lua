@@ -13,7 +13,7 @@ local MAX_HEALTH = 2
 local BULLET_COOLDOWN = 2.5
 
 local SPEED = {
-	[Ship.static.STATE_ENTER] = 400,
+	[Ship.static.STATE_ENTER] = 300,
 	[Ship.static.STATE_IDLE]  = 30,
 	[Ship.static.STATE_EXIT]  = 200
 }
@@ -34,7 +34,7 @@ function Ship:enter(properties)
 
 	self.state = Ship.static.STATE_ENTER
 	self.time = 0
-	self.speed = 50
+	self.speed = 100
 	self.cooldown = 1.0
 
 	self.player_chain = self:getScene():find("chain")
@@ -46,7 +46,8 @@ end
 function Ship:update(dt, rt)
 	dt, rt = Enemy.update(self, dt, rt)
 
-	local destx = self.points[self.state+1].x
+	--local destx = self.points[self.state+1].x
+	local destx = self.x
 	local desty = self.points[self.state+1].y
 
 	self.speed = prox.math.movetowards(self.speed, SPEED[self.state], ACCELERATION[self.state]*dt)
