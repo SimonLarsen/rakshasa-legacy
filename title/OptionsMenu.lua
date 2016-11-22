@@ -100,7 +100,7 @@ function OptionsMenu:enter(binding)
 	self.ready = false
 	self.alpha = 0
 	prox.timer.after(1, function()
-		prox.timer.tween(1.8, self, {alpha = 255 + #options*80}, "out-quad")
+		prox.timer.tween(1.8, self, {alpha = 255 + (#options-1)*80}, "out-quad")
 	end)
 
 	prox.timer.after(2.0, function() self.ready = true end)

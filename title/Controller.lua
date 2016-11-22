@@ -12,8 +12,6 @@ function Controller:enter()
 	self:setName("titlecontroller")
 	self:reset()
 
-	self:getScene():getCamera():setPosition(settings.screen_width/2, settings.screen_height/2)
-
 	self.ready = false
 	self.selection = 1
 
@@ -121,7 +119,7 @@ function Controller:reset(keep_music)
 
 	self.menu_alpha = 0
 	prox.timer.after(2, function()
-		prox.timer.tween(2, self, {menu_alpha = 415}, "out-quad")
+		prox.timer.tween(2, self, {menu_alpha = 255 + (#options-1)*80}, "out-quad")
 	end)
 
 	prox.timer.after(3, function() self.ready = true end)

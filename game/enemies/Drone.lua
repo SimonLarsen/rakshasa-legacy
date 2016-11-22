@@ -6,16 +6,16 @@ local Drone = class("game.Drone", Enemy)
 
 local MAX_HEALTH = 1
 
-local MOVE_SPEED = 90
+local MOVE_SPEED = 180
 local BULLET_COOLDOWN = 2.0
 
-function Drone:enter(points)
+function Drone:enter(properties)
 	Enemy.enter(self, MAX_HEALTH)
 
-	assert(#points >= 2, "Drone needs at least two points.")
-	self.points = points
-	self.x = self.points[1][1]
-	self.y = self.points[1][2]
+	assert(#properties.points >= 2, "Drone needs at least two points.")
+	self.points = properties.points
+	self.x = self.points[1].x
+	self.y = self.points[1].y
 	self.target = 2
 
 	self.cooldown = 2
@@ -28,29 +28,26 @@ end
 function Drone:update(dt, rt)
 	dt, rt = Enemy.update(self, dt, rt)
 
-	local xdist = self.points[self.target][1] - self.x
-	local ydist = self.points[self.target][2] - self.y
-	local dist = math.sqrt(xdist^2 + ydist^2)
+	local destx, desty = self.points[self.target].x, self.points[self.target].y
+	self.x, self.y = prox.math.movetowards2(self.x, self.y, destx, desty, MOVE_SPEED*dt)
+	local dist = math.sqrt((self.x - destx)^2 + (self.y - desty)^2)
 
-	if dist < MOVE_SPEED*dt then
-		self.x = self.points[self.target][1]
-		self.y = self.points[self.target][2]
-
+	if dist < 0.5 then
 		if self.target == #self.points then
 			self:remove()
 		else
 			self.target = self.target + 1
 		end
-	else
-		self.x = prox.math.movetowards(self.x, self.points[self.target][1], MOVE_SPEED*dt)
-		self.y = prox.math.movetowards(self.y, self.points[self.target][2], MOVE_SPEED*dt)
 	end
 
+	-- shooting disabled
+	--[[
 	self.cooldown = self.cooldown - dt
 	if self.cooldown <= 0 then
 		self.cooldown = BULLET_COOLDOWN
 		self:shoot()
 	end
+	]]
 
 	local rot = self:getRenderer().r
 	self:getRenderer().r = rot - 2*dt

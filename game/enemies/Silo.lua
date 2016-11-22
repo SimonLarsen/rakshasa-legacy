@@ -5,10 +5,10 @@ local Silo = class("game.Silo", Enemy)
 local MAX_HEALTH = 30
 local MOVE_SPEED = 30
 
-function Silo:enter(x)
+function Silo:enter(properties)
 	Enemy.enter(self, MAX_HEALTH, true)
 
-	self.x = x
+	self.x = properties.x
 	self.y = -30
 
 	self:setRenderer(prox.Animation("data/animations/enemies/silo.lua"))

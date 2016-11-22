@@ -1,4 +1,3 @@
-local serialize = require("prox.serialize")
 local music = require("music")
 local Ship = require("game.Ship")
 local Chain = require("game.Chain")
@@ -6,6 +5,7 @@ local Enemy = require("game.Enemy")
 local ScreenShaker = require("game.ScreenShaker")
 local EndText = require("game.EndText")
 local Heart = require("game.Heart")
+local Level = require("game.Level")
 
 local DualController = require("controls.DualController")
 
@@ -113,9 +113,9 @@ function Controller:update(dt, rt)
 				self.time = 0
 			end
 		else
-			if self.time >= self:currentStep()[1] then
-				local args = prox.table.sub(self:currentStep(), 3, #self:currentStep())
-				self:getScene():add(constructors[self:currentStep()[2]](unpack(args)))
+			if self.time >= self:currentStep().time then
+				local properties = self:currentStep().properties
+				self:getScene():add(constructors[self:currentStep().type](properties))
 				self.step = self.step + 1
 				self.time = 0
 			end
@@ -263,7 +263,9 @@ function Controller:progressLevel()
 end
 
 function Controller:loadLevel()
-	self.events = serialize.read(levels[self.level])
+	local level = Level()
+	level:parse(levels[self.level])
+	self.events = level:getEvents()
 	self.wave = 1
 	self.step = 1
 	self.time = 0

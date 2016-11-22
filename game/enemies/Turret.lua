@@ -7,10 +7,10 @@ local MAX_HEALTH = 15
 local MOVE_SPEED = 15
 local BULLET_COOLDOWN = 2.0
 
-function Turret:enter(x)
+function Turret:enter(properties)
 	Enemy.enter(self, MAX_HEALTH)
 
-	self.x = x
+	self.x = properties.x
 	self.y = -30
 	self.cooldown = 2.5
 

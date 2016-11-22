@@ -7,12 +7,12 @@ local Mine = class("game.Mine", Enemy)
 local MAX_HEALTH = 10
 local MOVE_SPEED = 45
 
-function Mine:enter(x, ylimit)
+function Mine:enter(properties)
 	Enemy.enter(self, MAX_HEALTH)
 
-	self.x = x
+	self.x = properties.x
 	self.y = -16
-	self.ylimit = ylimit
+	self.ylimit = properties.y
 
 	self:setRenderer(prox.Animator("data/animators/enemies/mine.lua"))
 	self:setCollider(prox.BoxCollider(28, 26))

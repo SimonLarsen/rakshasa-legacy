@@ -9,10 +9,10 @@ local MAX_HEALTH = 50
 local MOVE_SPEED = 20
 local BULLET_COOLDOWN = 3
 
-function Temple:enter(x)
+function Temple:enter(properties)
 	Enemy.enter(self, MAX_HEALTH, true)
 
-	self.x = x
+	self.x = properties.x
 	self.y = -30
 	self.cooldown = 4
 
