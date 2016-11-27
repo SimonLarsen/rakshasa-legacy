@@ -8,14 +8,94 @@ return {
   height = 30,
   tilewidth = 16,
   tileheight = 16,
-  nextobjectid = 83,
+  nextobjectid = 103,
   properties = {},
   tilesets = {},
   layers = {
     {
       type = "objectgroup",
-      name = "wave1",
+      name = "Object Layer 4",
       visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      draworder = "index",
+      properties = {},
+      objects = {
+        {
+          id = 99,
+          name = "0",
+          type = "laser",
+          shape = "polyline",
+          x = 145,
+          y = 463.5,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polyline = {
+            { x = 0, y = 0 },
+            { x = 128, y = -128 }
+          },
+          properties = {}
+        },
+        {
+          id = 97,
+          name = "2",
+          type = "laser",
+          shape = "polyline",
+          x = 41.5,
+          y = 219.5,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polyline = {
+            { x = 0, y = 0 },
+            { x = 112, y = 112 }
+          },
+          properties = {}
+        },
+        {
+          id = 101,
+          name = "2",
+          type = "laser",
+          shape = "polyline",
+          x = 272,
+          y = 144,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polyline = {
+            { x = 0, y = 0 },
+            { x = -112, y = 0 }
+          },
+          properties = {}
+        },
+        {
+          id = 102,
+          name = "2",
+          type = "laser",
+          shape = "polyline",
+          x = 32,
+          y = 64,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polyline = {
+            { x = 0, y = 0 },
+            { x = 144, y = 0 }
+          },
+          properties = {}
+        }
+      }
+    },
+    {
+      type = "objectgroup",
+      name = "wave1",
+      visible = false,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -32,7 +112,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
-          visible = false,
+          visible = true,
           polyline = {
             { x = 0, y = 0 },
             { x = 1.33333, y = 207.334 },
@@ -51,7 +131,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
-          visible = false,
+          visible = true,
           polyline = {
             { x = 0, y = 0 },
             { x = -0.666667, y = 228.667 },
@@ -70,7 +150,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
-          visible = false,
+          visible = true,
           polyline = {
             { x = 0, y = 0 },
             { x = 2.84217e-14, y = 182.667 },
@@ -89,7 +169,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
-          visible = false,
+          visible = true,
           polyline = {
             { x = 0, y = 0 },
             { x = -0.666667, y = 254.667 },
@@ -108,7 +188,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
-          visible = false,
+          visible = true,
           polyline = {
             { x = 0, y = 0 },
             { x = -1.33333, y = 153.333 },
@@ -127,7 +207,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
-          visible = false,
+          visible = true,
           polyline = {
             { x = 0, y = 0 },
             { x = 372, y = 0 }
@@ -147,7 +227,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
-          visible = false,
+          visible = true,
           polyline = {
             { x = 0, y = 0 },
             { x = 0, y = 544 }
@@ -164,7 +244,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
-          visible = false,
+          visible = true,
           polyline = {
             { x = 0, y = 0 },
             { x = 0, y = 259.333 },
@@ -183,7 +263,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
-          visible = false,
+          visible = true,
           polyline = {
             { x = 0, y = 0 },
             { x = -1.33333, y = 222 },
@@ -202,7 +282,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
-          visible = false,
+          visible = true,
           polyline = {
             { x = 0, y = 0 },
             { x = -128, y = 0 },
@@ -219,7 +299,7 @@ return {
     {
       type = "objectgroup",
       name = "wave2",
-      visible = true,
+      visible = false,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -231,8 +311,8 @@ return {
           name = "0",
           type = "laser",
           shape = "polyline",
-          x = 50,
-          y = 43.3333,
+          x = 27,
+          y = 69,
           width = 0,
           height = 0,
           rotation = 0,
@@ -240,23 +320,6 @@ return {
           polyline = {
             { x = 0, y = 0 },
             { x = 80, y = 80 }
-          },
-          properties = {}
-        },
-        {
-          id = 76,
-          name = "2",
-          type = "laser",
-          shape = "polyline",
-          x = 190,
-          y = 185.333,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          visible = true,
-          polyline = {
-            { x = 0, y = 0 },
-            { x = 80, y = -80 }
           },
           properties = {}
         },
@@ -276,6 +339,23 @@ return {
             { x = -0.666667, y = 204.667 },
             { x = -0.666667, y = 318.667 },
             { x = -1.33333, y = 530.667 }
+          },
+          properties = {}
+        },
+        {
+          id = 76,
+          name = "2",
+          type = "laser",
+          shape = "polyline",
+          x = 216,
+          y = 186,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polyline = {
+            { x = 0, y = 0 },
+            { x = 80, y = -80 }
           },
           properties = {}
         },

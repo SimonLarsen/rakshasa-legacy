@@ -2,6 +2,7 @@ local music = require("music")
 local Ship = require("game.Ship")
 local Chain = require("game.Chain")
 local Enemy = require("game.Enemy")
+local EnemyBullet = require("game.EnemyBullet")
 local ScreenShaker = require("game.ScreenShaker")
 local EndText = require("game.EndText")
 local Heart = require("game.Heart")
@@ -17,7 +18,8 @@ local constructors = {
 	drone = require("game.enemies.Drone"),
 	drone_spawner = require("game.enemies.DroneSpawner"),
 	temple = require("game.enemies.Temple"),
-	mine = require("game.enemies.Mine"),
+	mine_ortho = require("game.enemies.MineOrthogonal"),
+	mine_diag = require("game.enemies.MineDiagonal"),
 	turret = require("game.enemies.Turret"),
 	silo = require("game.enemies.Silo"),
 	laser = require("game.enemies.Laser"),
@@ -107,7 +109,9 @@ function Controller:update(dt, rt)
 				self.time = 0
 			end
 		elseif self.step > #self.events[self.wave] then
-			if self:getScene():find(Enemy) == nil and self:getScene():find(Heart) == nil then
+			if self:getScene():find(Enemy) == nil
+			and self:getScene():find(EnemyBullet) == nil
+			and self:getScene():find(Heart) == nil then
 				self.step = 1
 				self.wave = self.wave + 1
 				self.time = 0

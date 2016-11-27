@@ -9,7 +9,6 @@ function DroneSpawner:enter(properties)
 	self.count = properties.count
 	self.delay = properties.delay or 0.5
 	self.points = properties.points
-	print(self.count, self.delay)
 
 	self.spawned = 0
 	self.time = 0

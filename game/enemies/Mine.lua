@@ -1,8 +1,7 @@
 local Enemy = require("game.Enemy")
-local EnemyBullet = require("game.EnemyBullet")
 local Explosion = require("game.Explosion")
 
-local Mine = class("game.Mine", Enemy)
+local Mine = class("game.enemies.Mine", Enemy)
 
 local MAX_HEALTH = 10
 local MOVE_SPEED = 45
@@ -13,9 +12,6 @@ function Mine:enter(properties)
 	self.x = properties.x
 	self.y = -16
 	self.ylimit = properties.y
-
-	self:setRenderer(prox.Animator("data/animators/enemies/mine.lua"))
-	self:setCollider(prox.BoxCollider(28, 26))
 end
 
 function Mine:update(dt, rt)
@@ -29,9 +25,7 @@ function Mine:update(dt, rt)
 	elseif self.y > self.ylimit then
 		self:getScene():add(Explosion(self.x, self.y, Explosion.static.SIZE_MEDIUM))
 		self:getScene():find("screenshaker"):shake(0.4, 2, 60)
-		for i=0,3 do
-			self:getScene():add(EnemyBullet(self.x, self.y, i*math.pi/2, EnemyBullet.static.TYPE_LASER))
-		end
+		self:shoot()
 		self:remove()
 		local sfx = prox.resources.getSound("data/sounds/explosion3.wav")
 		sfx:play()

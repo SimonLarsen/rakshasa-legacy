@@ -2,8 +2,8 @@
 	default = "idle",
 
 	states = {
-		["idle"] = "data/animations/enemies/mine.lua",
-		["detonate"] = "data/animations/enemies/mine_detonate.lua"
+		["idle"] = "data/animations/enemies/mine_diagonal.lua",
+		["detonate"] = "data/animations/enemies/mine_diagonal_detonate.lua"
 	},
 
 	properties = {

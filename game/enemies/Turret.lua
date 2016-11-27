@@ -16,8 +16,8 @@ function Turret:enter(properties)
 
 	self.player_chain = self:getScene():find("chain")
 
-	self:setRenderer(prox.Sprite("data/images/enemies/turret.png", 22, 15))
-	self:setCollider(prox.BoxCollider(40, 26))
+	self:setRenderer(prox.Sprite("data/images/enemies/turret.png", 19, 19))
+	self:setCollider(prox.BoxCollider(30, 30))
 end
 
 function Turret:update(dt, rt)
@@ -29,7 +29,7 @@ function Turret:update(dt, rt)
 	end
 
 	self.cooldown = self.cooldown - dt
-	if self.cooldown <= 0 then
+	if self.y > 16 and self.cooldown <= 0 then
 		self.cooldown = BULLET_COOLDOWN
 		self:shoot()
 	end

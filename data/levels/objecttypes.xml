@@ -7,13 +7,14 @@
   <property name="delay" type="float" default="0.2"/>
  </objecttype>
  <objecttype name="temple" color="#ff5500"/>
- <objecttype name="mine" color="#aa5500"/>
+ <objecttype name="mine_ortho" color="#ffaa00"/>
  <objecttype name="turret" color="#00aaff"/>
  <objecttype name="silo" color="#00007f"/>
- <objecttype name="laser" color="#ff557f">
+ <objecttype name="laser" color="#55007f">
   <property name="speed" type="float" default="300"/>
  </objecttype>
  <objecttype name="durga" color="#ffffff"/>
  <objecttype name="shiva" color="#ffffff"/>
  <objecttype name="agni" color="#ffffff"/>
+ <objecttype name="mine_diag" color="#ffaa00"/>
 </objecttypes>
