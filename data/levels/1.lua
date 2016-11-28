@@ -8,7 +8,7 @@ return {
   height = 30,
   tilewidth = 16,
   tileheight = 16,
-  nextobjectid = 103,
+  nextobjectid = 138,
   properties = {},
   tilesets = {},
   layers = {
@@ -23,70 +23,70 @@ return {
       properties = {},
       objects = {
         {
-          id = 99,
+          id = 133,
           name = "0",
           type = "laser",
           shape = "polyline",
-          x = 145,
-          y = 463.5,
+          x = 32,
+          y = 432,
           width = 0,
           height = 0,
           rotation = 0,
           visible = true,
           polyline = {
             { x = 0, y = 0 },
-            { x = 128, y = -128 }
+            { x = 96, y = -96 }
           },
           properties = {}
         },
         {
-          id = 97,
+          id = 135,
+          name = "0",
+          type = "laser",
+          shape = "polyline",
+          x = 269.5,
+          y = 334.5,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polyline = {
+            { x = 0, y = 0 },
+            { x = -96, y = 96 }
+          },
+          properties = {}
+        },
+        {
+          id = 136,
           name = "2",
           type = "laser",
           shape = "polyline",
-          x = 41.5,
-          y = 219.5,
+          x = 48,
+          y = 224,
           width = 0,
           height = 0,
           rotation = 0,
           visible = true,
           polyline = {
             { x = 0, y = 0 },
-            { x = 112, y = 112 }
+            { x = 80, y = 80 }
           },
           properties = {}
         },
         {
-          id = 101,
+          id = 137,
           name = "2",
           type = "laser",
           shape = "polyline",
           x = 272,
-          y = 144,
+          y = 304,
           width = 0,
           height = 0,
           rotation = 0,
           visible = true,
           polyline = {
             { x = 0, y = 0 },
-            { x = -112, y = 0 }
-          },
-          properties = {}
-        },
-        {
-          id = 102,
-          name = "2",
-          type = "laser",
-          shape = "polyline",
-          x = 32,
-          y = 64,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          visible = true,
-          polyline = {
-            { x = 0, y = 0 },
-            { x = 144, y = 0 }
+            { x = -96, y = -96 }
           },
           properties = {}
         }

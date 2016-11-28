@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="20" height="30" tilewidth="16" tileheight="16" nextobjectid="103">
- <objectgroup draworder="index" name="Object Layer 4" visible="0">
-  <object id="99" name="0" type="laser" x="145" y="463.5">
-   <polyline points="0,0 128,-128"/>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="20" height="30" tilewidth="16" tileheight="16" nextobjectid="138">
+ <objectgroup draworder="index" name="Object Layer 4">
+  <object id="133" name="0" type="laser" x="32" y="432">
+   <polyline points="0,0 96,-96"/>
   </object>
-  <object id="97" name="2" type="laser" x="41.5" y="219.5">
-   <polyline points="0,0 112,112"/>
+  <object id="135" name="0" type="laser" x="269.5" y="334.5">
+   <polyline points="0,0 -96,96"/>
   </object>
-  <object id="101" name="2" type="laser" x="272" y="144">
-   <polyline points="0,0 -112,0"/>
+  <object id="136" name="2" type="laser" x="48" y="224">
+   <polyline points="0,0 80,80"/>
   </object>
-  <object id="102" name="2" type="laser" x="32" y="64">
-   <polyline points="0,0 144,0"/>
+  <object id="137" name="2" type="laser" x="272" y="304">
+   <polyline points="0,0 -96,-96"/>
   </object>
  </objectgroup>
  <objectgroup draworder="index" name="wave1" visible="0">
@@ -54,7 +54,7 @@
    <polyline points="0,0 -128,0 -208,80 -384,80"/>
   </object>
  </objectgroup>
- <objectgroup draworder="index" name="wave2">
+ <objectgroup draworder="index" name="wave2" visible="0">
   <object id="75" name="0" type="laser" x="27" y="69">
    <polyline points="0,0 80,80"/>
   </object>
