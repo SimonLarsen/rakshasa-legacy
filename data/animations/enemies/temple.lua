@@ -1,8 +1,8 @@
 {
 	image = "data/images/enemies/temple.png",
 	fw = 91,
-	fh = 56,
+	fh = 59,
 	ox = 45,
-	oy = 36,
+	oy = 40,
 	delay = 0.1
 }

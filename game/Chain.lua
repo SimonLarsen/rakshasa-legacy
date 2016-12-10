@@ -74,8 +74,8 @@ function Chain:update(dt, rt)
 	-- Update power level based on ship distance
 	self.center_flash_alpha = self.center_flash_alpha - math.max(0, 2000*dt)
 	local power_level = 1
-	if dist >= POWER_LEVEL3_DIST then power_level = 3
-	elseif dist >= POWER_LEVEL2_DIST then power_level = 2 end
+	--if dist >= POWER_LEVEL3_DIST then power_level = 3
+	--elseif dist >= POWER_LEVEL2_DIST then power_level = 2 end
 	self.ship1:setPowerLevel(power_level)
 	self.ship2:setPowerLevel(power_level)
 	if power_level ~= self.power_level then

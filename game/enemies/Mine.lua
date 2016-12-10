@@ -1,49 +1,19 @@
-local Enemy = require("game.Enemy")
-local Explosion = require("game.Explosion")
+local BaseMine = require("game.enemies.BaseMine")
+local EnemyBullet = require("game.EnemyBullet")
 
-local Mine = class("game.enemies.Mine", Enemy)
-
-local MAX_HEALTH = 10
-local MOVE_SPEED = 45
+local Mine = class("game.enemies.Mine", BaseMine)
 
 function Mine:enter(properties)
-	Enemy.enter(self, MAX_HEALTH)
+	BaseMine.enter(self, properties)
 
-	self.x = properties.x
-	self.y = -16
-	self.ylimit = properties.y
+	self:setRenderer(prox.Animator("data/animators/enemies/mine_orthogonal.lua"))
+	self:setCollider(prox.BoxCollider(28, 28))
 end
 
-function Mine:update(dt, rt)
-	dt, rt = Enemy.update(self, dt, rt)
-
-	self.y = self.y + MOVE_SPEED * dt
-
-	if self.y > prox.window.getHeight() + 16 then
-		self:remove()
-
-	elseif self.y > self.ylimit then
-		self:getScene():add(Explosion(self.x, self.y, Explosion.static.SIZE_MEDIUM))
-		self:getScene():find("screenshaker"):shake(0.4, 2, 60)
-		self:shoot()
-		self:remove()
-		local sfx = prox.resources.getSound("data/sounds/explosion3.wav")
-		sfx:play()
+function Mine:shoot()
+	for i=0,3 do
+		self:getScene():add(EnemyBullet(self.x, self.y, i*math.pi/2, EnemyBullet.static.TYPE_LASER))
 	end
-
-	local ydist = self.ylimit - self.y
-	if ydist < 50 then
-		self:getRenderer():setProperty("detonate", true)
-	end
-
-	if ydist < 150 and ydist > 50 and prox.time.getTime() % 0.5 < 0.25 
-	or ydist < 50  and prox.time.getTime() % 0.25 < 0.125 then
-		self:getRenderer():setShader(self.white_shader)
-	end
-end
-
-function Mine:getGems()
-	return 3
 end
 
 return Mine

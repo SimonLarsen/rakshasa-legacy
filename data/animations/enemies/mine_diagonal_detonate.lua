@@ -4,5 +4,5 @@
 	fh = 57,
 	ox = 28,
 	oy = 28,
-	delay = 0.6
+	delay = 0.1
 }

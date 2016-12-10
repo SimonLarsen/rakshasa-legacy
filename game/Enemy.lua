@@ -32,15 +32,19 @@ function Enemy:onCollide(o, dt, rt)
 			self:damage(o:getDamage())
 		end
 		o:kill()
+
+		if self.health <= 0 then
+			self:kill()
+		end
 	elseif o:getName() == "player_powerball" then
 		if self.invulnerable <= 0 then
 			self:damage(o:getDamage())
 			self.invulnerable = 1.0
 		end
-	end
 
-	if self.health <= 0 then
-		self:kill()
+		if self.health <= 0 then
+			self:kill()
+		end
 	end
 end
 

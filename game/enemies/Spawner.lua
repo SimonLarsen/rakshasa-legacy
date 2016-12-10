@@ -1,25 +1,26 @@
 local Enemy = require("game.Enemy")
-local Drone = require("game.enemies.Drone")
 
-local DroneSpawner = class("game.enemies.DroneSpawner", Enemy)
+local Spawner = class("game.enemies.Spawner", Enemy)
 
-function DroneSpawner:enter(properties)
+function Spawner:enter(properties)
 	Enemy.enter(self, 0)
 
 	self.count = properties.count
-	self.delay = properties.delay or 0.5
+	self.delay = properties.delay or 0.15
 	self.points = properties.points
+	self.properties = properties
+	self.const = require("game.enemies." .. properties.type)
 
 	self.spawned = 0
 	self.time = 0
 end
 
-function DroneSpawner:update(dt, rt)
+function Spawner:update(dt, rt)
 	self.time = self.time - dt
 	if self.time <= 0 then
 		self.time = self.delay
 		self.spawned = self.spawned + 1
-		self:getScene():add(Drone({points = self.points}))
+		self:getScene():add(self.const(self.properties))
 	end
 
 	if self.spawned == self.count then
@@ -27,8 +28,8 @@ function DroneSpawner:update(dt, rt)
 	end
 end
 
-function DroneSpawner:getGems()
+function Spawner:getGems()
 	return 0
 end
 
-return DroneSpawner
+return Spawner

@@ -3,7 +3,7 @@ local EnemyBullet = require("game.EnemyBullet")
 local Laser = class("game.Laser", EnemyBullet)
 
 local MAX_HEALTH = 1
-local MOVE_SPEED = 50
+local MOVE_SPEED = 60
 
 function Laser:enter(properties)
 	assert(#properties.points == 2, "Laser needs two points.")
@@ -26,16 +26,15 @@ function Laser:enter(properties)
 
 	self:setRenderer(prox.MultiRenderer())
 
-	local turret_anim1, turret_anim2
-
 	if ortho then
 		local beam_anim = prox.Animation("data/animations/enemies/laser_beam_orthogonal.lua")
 		self:getRenderer():addRenderer(beam_anim, 0, 0)
 		beam_anim.sx = self.dist
 		beam_anim.r = self.dir
 
-		turret_anim1 = prox.Animation("data/animations/enemies/laser_turret_orthogonal.lua")
-		turret_anim2 = prox.Animation("data/animations/enemies/laser_turret_orthogonal.lua")
+		local turret_anim1 = prox.Animation("data/animations/enemies/laser_turret_orthogonal.lua")
+		local turret_anim2 = prox.Animation("data/animations/enemies/laser_turret_orthogonal.lua")
+
 		turret_anim1.r = self.dir
 		turret_anim2.r = self.dir
 		turret_anim2.sx = -1
@@ -61,14 +60,14 @@ function Laser:enter(properties)
 			end
 		end
 
-		turret_anim1 = prox.Animation("data/animations/enemies/laser_turret_diagonal.lua")
-		turret_anim2 = prox.Animation("data/animations/enemies/laser_turret_diagonal.lua")
+		local turret_anim1 = prox.Animation("data/animations/enemies/laser_turret_diagonal.lua")
+		local turret_anim2 = prox.Animation("data/animations/enemies/laser_turret_diagonal.lua")
 		turret_anim1.r = self.dir - math.pi/4
 		turret_anim2.r = self.dir - math.pi/4 + math.pi
-	end
 
-	self:getRenderer():addRenderer(turret_anim1, math.floor(-math.cos(self.dir)*odist/2), math.floor(-math.sin(self.dir)*odist/2))
-	self:getRenderer():addRenderer(turret_anim2, math.floor( math.cos(self.dir)*odist/2), math.floor( math.sin(self.dir)*odist/2))
+		self:getRenderer():addRenderer(turret_anim1, math.floor(-math.cos(self.dir)*odist/2), math.floor(-math.sin(self.dir)*odist/2))
+		self:getRenderer():addRenderer(turret_anim2, math.floor( math.cos(self.dir)*odist/2), math.floor( math.sin(self.dir)*odist/2))
+	end
 
 	self.hc_rect = HC.rectangle(0, 0, odist, 16)
 	self.hc_rect:setRotation(self.dir)

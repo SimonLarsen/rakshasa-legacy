@@ -14,19 +14,30 @@ local Controller = class("game.Controller", prox.Entity)
 
 local constructors = {
 	-- enemies
-	ship = require("game.enemies.Ship"),
-	drone = require("game.enemies.Drone"),
-	drone_spawner = require("game.enemies.DroneSpawner"),
-	temple = require("game.enemies.Temple"),
-	mine_ortho = require("game.enemies.MineOrthogonal"),
-	mine_diag = require("game.enemies.MineDiagonal"),
-	turret = require("game.enemies.Turret"),
-	silo = require("game.enemies.Silo"),
-	laser = require("game.enemies.Laser"),
-	-- bosses
-	durga = require("game.bosses.Durga"),
-	shiva = require("game.bosses.Shiva"),
-	agni = require("game.bosses.Agni")
+	--- fighter types
+	Fighter = require("game.enemies.Fighter"),
+	Viper = require("game.enemies.Viper"),
+	Bomber = require("game.enemies.Bomber"),
+	--- drone types
+	Scout = require("game.enemies.Scout"),
+	Drone = require("game.enemies.Drone"),
+	--- tank types
+	Temple = require("game.enemies.Temple"),
+	--- mines
+	Mine = require("game.enemies.Mine"),
+	SuperMine = require("game.enemies.SuperMine"),
+	--- turret types
+	Turret = require("game.enemies.Turret"),
+	--- silo types
+	Silo = require("game.enemies.Silo"),
+	--- laser types
+	Laser = require("game.enemies.Laser"),
+	--- meta types
+	Spawner = require("game.enemies.Spawner"),
+	--- bosses
+	Durga = require("game.bosses.Durga"),
+	Shiva = require("game.bosses.Shiva"),
+	Agni = require("game.bosses.Agni")
 }
 
 local WARMUP_TIME = 3

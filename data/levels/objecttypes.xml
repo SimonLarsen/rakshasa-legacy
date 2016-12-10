@@ -1,20 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <objecttypes>
- <objecttype name="ship" color="#ff007f"/>
- <objecttype name="drone" color="#00aa00"/>
- <objecttype name="drone_spawner" color="#005500">
+ <objecttype name="Fighter" color="#ff007f"/>
+ <objecttype name="Drone" color="#00aa00"/>
+ <objecttype name="Spawner" color="#005500">
   <property name="count" type="int" default="0"/>
-  <property name="delay" type="float" default="0.2"/>
+  <property name="delay" type="float" default="0.15"/>
+  <property name="type" type="string"/>
  </objecttype>
- <objecttype name="temple" color="#ff5500"/>
- <objecttype name="mine_ortho" color="#ffaa00"/>
- <objecttype name="turret" color="#00aaff"/>
- <objecttype name="silo" color="#00007f"/>
- <objecttype name="laser" color="#55007f">
-  <property name="speed" type="float" default="300"/>
+ <objecttype name="Temple" color="#ff5500"/>
+ <objecttype name="Mine" color="#ffaa00"/>
+ <objecttype name="Turret" color="#00aaff"/>
+ <objecttype name="Silo" color="#00007f"/>
+ <objecttype name="Laser" color="#55007f">
+  <property name="speed" type="float" default="60"/>
  </objecttype>
- <objecttype name="durga" color="#ffffff"/>
- <objecttype name="shiva" color="#ffffff"/>
- <objecttype name="agni" color="#ffffff"/>
- <objecttype name="mine_diag" color="#ffaa00"/>
+ <objecttype name="Durga" color="#ffffff"/>
+ <objecttype name="Shiva" color="#ffffff"/>
+ <objecttype name="Agni" color="#ffffff"/>
+ <objecttype name="SuperMine" color="#a0a0a4"/>
+ <objecttype name="Mine" color="#a0a0a4"/>
+ <objecttype name="Viper" color="#a0a0a4"/>
+ <objecttype name="Bomber" color="#a0a0a4"/>
 </objecttypes>

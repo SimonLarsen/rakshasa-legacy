@@ -1,29 +1,41 @@
-{
-	{
-		{0, "ship", 100, 180},
-		{1, "ship", 220, 160},
-		{1, "ship", 160, 140},
-
-		{2, "drone_spawner", 4, 0.5, {{60, -20},{60, 500}}},
-		{0, "drone_spawner", 4, 0.5, {{200, -20},{200, 500}}},
-		{1.5, "silo", 280},
-
-		{2.5, "temple", 140},
-		{3, "ship", 60, 130},
-		{1, "ship", 280, 130},
-
-		{5, "mine", 160, 200},
-		{1, "mine", 80, 240},
-		{0, "mine", 240, 200},
-		{1, "temple", 160},
-
-		{1, "ship", 40, 200},
-		{0, "ship", 280, 200},
-
-		{4, "ship", 80, 200},
-		{0, "ship", 240, 200}
-	},
-	{
-		{2, "durga"}
-	}
+return {
+  version = "1.1",
+  luaversion = "5.1",
+  tiledversion = "0.17.1",
+  orientation = "orthogonal",
+  renderorder = "right-down",
+  width = 20,
+  height = 30,
+  tilewidth = 16,
+  tileheight = 16,
+  nextobjectid = 2,
+  properties = {},
+  tilesets = {},
+  layers = {
+    {
+      type = "objectgroup",
+      name = "boss",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      draworder = "topdown",
+      properties = {},
+      objects = {
+        {
+          id = 1,
+          name = "2",
+          type = "shiva",
+          shape = "rectangle",
+          x = 156,
+          y = 89,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        }
+      }
+    }
+  }
 }
