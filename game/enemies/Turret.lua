@@ -34,7 +34,7 @@ function Turret:update(dt, rt)
 	end
 
 	self.salve_cooldown = self.salve_cooldown - dt
-	if self.y > 16 and self.salve_cooldown <= 0 then
+	if self.salve_cooldown <= 0 then
 		self.salve_cooldown = SALVE_COOLDOWN
 		self.salve = SALVE
 		local xdist = self.player_chain.x - self.x

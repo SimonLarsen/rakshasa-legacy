@@ -2,9 +2,9 @@ local Enemy = require("game.Enemy")
 local EnemyChargeBullet = require("game.EnemyChargeBullet")
 local Flash = require("game.Flash")
 
-local Temple = class("game.Temple", Enemy)
+local Temple = class("game.enemies.Temple", Enemy)
 
-local MAX_HEALTH = 60
+local MAX_HEALTH = 40
 
 local ENTER_TIME = 2
 local MOVE_SPEED = 25

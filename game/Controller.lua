@@ -23,6 +23,7 @@ local constructors = {
 	Drone = require("game.enemies.Drone"),
 	--- tank types
 	Temple = require("game.enemies.Temple"),
+	Fortress = require("game.enemies.Fortress"),
 	--- mines
 	Mine = require("game.enemies.Mine"),
 	SuperMine = require("game.enemies.SuperMine"),
