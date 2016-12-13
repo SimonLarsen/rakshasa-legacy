@@ -1,5 +1,7 @@
 local Enemy = require("game.Enemy")
 local EnemyBullet = require("game.EnemyBullet")
+local BasePattern = require("game.bullets.BasePattern")
+local PatternManager = require("game.bullets.PatternManager")
 
 local Fortress = class("game.enemies.Fortress", Enemy)
 
@@ -15,6 +17,30 @@ function Fortress:enter(properties)
 	self.x = self.destx
 	self.y = -44
 	self.entered = false
+
+	self.pattern = PatternManager()
+
+	self.pattern:add(BasePattern(self, {
+		salvo_delay = 100,
+		salvo_size = 10,
+		shot_delay = 0.1,
+		shot_count = 4,
+		shot_rotation_offset = math.pi / 2,
+		rotation_speed = 1.5,
+		bullet_type = EnemyBullet.static.TYPE_BALL,
+		reset_rotation = true
+	}), 2.5)
+
+	self.pattern:add(BasePattern(self, {
+		salvo_delay = 1,
+		salvo_size = 5,
+		shot_delay = 0.15,
+		shot_count = 4,
+		shot_rotation_offset = math.pi / 2,
+		salvo_rotation_offset = math.pi / 4,
+		bullet_type = EnemyBullet.static.TYPE_LASER
+	}), 1.99)
+
 	self.cooldown = 0
 	self.shoot_dir = 0
 
@@ -29,17 +55,7 @@ function Fortress:update(dt, rt)
 
 	if not self.entered then return end
 
-	self.shoot_dir = self.shoot_dir + dt*1.5
-	self.cooldown = self.cooldown - dt
-	if self.cooldown <= 0 then
-		self.cooldown = COOLDOWN
-		prox.timer.every(0.1, function()
-			for i=0, 3 do
-				local bdir = i*math.pi/2 + self.shoot_dir
-				self:getScene():add(EnemyBullet(self.x, self.y, bdir, EnemyBullet.static.TYPE_BALL))
-			end
-		end, 10)
-	end
+	self.pattern:update(dt)
 end
 
 function Fortress:onRemove()
@@ -47,7 +63,7 @@ function Fortress:onRemove()
 end
 
 function Fortress:getGems()
-	return 10
+	return 15
 end
 
 return Fortress
