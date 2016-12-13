@@ -6,7 +6,7 @@ local Temple = class("game.enemies.Temple", Enemy)
 
 local MAX_HEALTH = 40
 
-local ENTER_TIME = 2
+local ENTER_TIME = 1.5
 local MOVE_SPEED = 25
 local BULLET_COOLDOWN = ENTER_TIME + 0.5
 
@@ -38,11 +38,11 @@ function Temple:update(dt, rt)
 		self:shoot()
 	end
 
-	if self.entered then
-		self.entered_time = self.entered_time + dt
-		self.x = self.destx + math.sin(self.entered_time)*8
-		self.y = self.desty + math.sin(self.entered_time*1.1)*6
-	end
+	if not self.entered then return end
+	self.entered_time = self.entered_time + dt
+
+	self.x = self.destx + math.sin(self.entered_time)*8
+	self.y = self.desty + math.sin(self.entered_time*1.1)*6
 end
 
 function Temple:shoot()
@@ -55,7 +55,9 @@ function Temple:shoot()
 		local outdir = 1.5*math.pi + i*0.4
 		local offx = math.cos(outdir) * 40
 		local offy = math.sin(outdir) * 40
-		self:getScene():add(EnemyChargeBullet(self.x, self.y, self.x+offx, self.y+offy, dir, 1.0))
+
+		local sdir = dir + i*0.1
+		self:getScene():add(EnemyChargeBullet(self.x, self.y, self.x+offx, self.y+offy, sdir, 1.0))
 	end
 end
 

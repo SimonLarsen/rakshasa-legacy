@@ -8,7 +8,7 @@ return {
   height = 30,
   tilewidth = 16,
   tileheight = 16,
-  nextobjectid = 215,
+  nextobjectid = 220,
   properties = {},
   tilesets = {},
   layers = {
@@ -23,12 +23,12 @@ return {
       properties = {},
       objects = {
         {
-          id = 214,
+          id = 218,
           name = "0",
           type = "Fortress",
           shape = "rectangle",
-          x = 160.667,
-          y = 100.667,
+          x = 168.667,
+          y = 72.6667,
           width = 0,
           height = 0,
           rotation = 0,

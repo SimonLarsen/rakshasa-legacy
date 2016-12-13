@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="20" height="30" tilewidth="16" tileheight="16" nextobjectid="215">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="20" height="30" tilewidth="16" tileheight="16" nextobjectid="220">
  <objectgroup draworder="index" name="wave1">
-  <object id="214" name="0" type="Fortress" x="160.667" y="100.667"/>
+  <object id="218" name="0" type="Fortress" x="168.667" y="72.6667"/>
  </objectgroup>
 </map>

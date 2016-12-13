@@ -17,6 +17,7 @@ function Fortress:enter(properties)
 	self.x = self.destx
 	self.y = -44
 	self.entered = false
+	self.entered_time = 0
 
 	self.pattern = PatternManager()
 
@@ -54,7 +55,10 @@ function Fortress:update(dt, rt)
 	dt, rt = Enemy.update(self, dt, rt)
 
 	if not self.entered then return end
+	self.entered_time = self.entered_time + dt
 
+	self.x = self.destx + math.sin(self.entered_time*0.4)*50
+	self.y = self.desty + math.sin(self.entered_time*1.1)*4
 	self.pattern:update(dt)
 end
 
