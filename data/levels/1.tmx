@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="20" height="30" tilewidth="16" tileheight="16" nextobjectid="252">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="20" height="30" tilewidth="16" tileheight="16" nextobjectid="260">
  <objectgroup draworder="index" name="wave1">
-  <object id="251" name="0" type="Dropship" x="-48" y="128">
-   <polyline points="0,0 208,0 400,0"/>
+  <object id="258" name="0" type="Dropship" x="-32" y="112">
+   <polyline points="-16,0 208,0 400,0"/>
   </object>
+  <object id="259" name="2" type="Falcon" x="169.333" y="129.333"/>
  </objectgroup>
 </map>

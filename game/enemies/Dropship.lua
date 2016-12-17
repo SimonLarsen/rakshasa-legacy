@@ -20,7 +20,8 @@ function Dropship:enter(properties)
 	assert(#properties.points == 3, "Dropship needs three point coordinates.")
 	self.points = properties.points
 	self.x = self.points[1].x
-	self.y = self.points[1].y
+	self.desty = self.points[1].y
+	self.y = self.desty
 	self.time = 0
 
 	self.state = Dropship.static.STATE_ENTER
@@ -28,7 +29,7 @@ function Dropship:enter(properties)
 	self:setRenderer(prox.Animation("data/animations/enemies/dropship.lua"))
 	self:setCollider(prox.BoxCollider(40, 32))
 
-	self.timer = prox.timer.tween(ENTER_TIME, self, {x = self.points[2].x, y = self.points[2].y}, "out-quad",
+	self.timer = prox.timer.tween(ENTER_TIME, self, {x = self.points[2].x, desty = self.points[2].y}, "out-quad",
 		function()
 			self.state = Dropship.static.STATE_IDLE
 			self:shoot()
@@ -37,11 +38,15 @@ function Dropship:enter(properties)
 end
 
 function Dropship:update(dt, rt)
+	if self.state == Dropship.static.STATE_ENTER then return end
+
+	self.time = self.time + dt
+	self.y = self.desty + math.sin(self.time*1.5)*4
+
 	if self.state == Dropship.static.STATE_IDLE then
-		self.time = self.time + dt
 		if self.time >= IDLE_TIME then
 			self.state = Dropship.static.STATE_EXIT
-			self.timer = prox.timer.tween(EXIT_TIME, self, {x = self.points[3].x, y = self.points[3].y}, "in-quad",
+			self.timer = prox.timer.tween(EXIT_TIME, self, {x = self.points[3].x, desty = self.points[3].y}, "in-quad",
 				function()
 					self:remove()
 				end

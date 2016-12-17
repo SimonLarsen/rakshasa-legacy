@@ -22,7 +22,7 @@ function Fortress:enter(properties)
 	self.pattern = PatternManager()
 
 	self.pattern:add(BasePattern(self, {
-		salvo_delay = 100,
+		salvo_delay = 999,
 		salvo_size = 10,
 		shot_delay = 0.1,
 		shot_count = 4,

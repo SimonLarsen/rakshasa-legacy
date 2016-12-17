@@ -17,6 +17,11 @@ function BasePattern:initialize(parent, params)
 	self.start_rotation = params.start_rotation or 0
 	self.bullet_type = params.bullet_type or EnemyBullet.static.TYPE_LASER
 	self.reset_rotation = params.reset_rotation or false
+	self.target_player = params.target_player or false
+
+	if self.target_player then
+		self.player_chain = self.parent:getScene():find("chain")
+	end
 
 	self:reset()
 end
@@ -56,6 +61,11 @@ end
 function BasePattern:shoot(x, y)
 	local dir = self.rotation
 	for i=1,self.shot_count do
+		if self.target_player then
+			local xdist = self.player_chain.x - self.parent.x
+			local ydist = self.player_chain.y - self.parent.y
+			dir = math.atan2(ydist, xdist)
+		end
 		local bullet = EnemyBullet(self.parent.x, self.parent.y, dir, self.bullet_type)
 		self.parent:getScene():add(bullet)
 		dir = dir + self.shot_rotation_offset
