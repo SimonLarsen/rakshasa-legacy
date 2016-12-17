@@ -21,9 +21,11 @@ local constructors = {
 	--- drone types
 	Scout = require("game.enemies.Scout"),
 	Drone = require("game.enemies.Drone"),
+	Dropship = require("game.enemies.Dropship"),
 	--- tank types
 	Temple = require("game.enemies.Temple"),
 	Fortress = require("game.enemies.Fortress"),
+	Falcon = require("game.enemies.Falcon"),
 	--- mines
 	Mine = require("game.enemies.Mine"),
 	SuperMine = require("game.enemies.SuperMine"),
@@ -130,6 +132,7 @@ function Controller:update(dt, rt)
 			end
 		else
 			if self.time >= self:currentStep().time then
+				assert(constructors[self:currentStep().type], "Unknown entity type")
 				local properties = self:currentStep().properties
 				self:getScene():add(constructors[self:currentStep().type](properties))
 				self.step = self.step + 1

@@ -8,7 +8,7 @@ return {
   height = 30,
   tilewidth = 16,
   tileheight = 16,
-  nextobjectid = 220,
+  nextobjectid = 252,
   properties = {},
   tilesets = {},
   layers = {
@@ -23,16 +23,21 @@ return {
       properties = {},
       objects = {
         {
-          id = 218,
+          id = 251,
           name = "0",
-          type = "Fortress",
-          shape = "rectangle",
-          x = 168.667,
-          y = 72.6667,
+          type = "Dropship",
+          shape = "polyline",
+          x = -48,
+          y = 128,
           width = 0,
           height = 0,
           rotation = 0,
           visible = true,
+          polyline = {
+            { x = 0, y = 0 },
+            { x = 208, y = 0 },
+            { x = 400, y = 0 }
+          },
           properties = {}
         }
       }

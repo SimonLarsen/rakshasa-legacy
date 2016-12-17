@@ -7,7 +7,7 @@ local Fortress = class("game.enemies.Fortress", Enemy)
 
 local MAX_HEALTH = 40
 local ENTER_TIME = 2.5
-local COOLDOWN = 3.0
+local COOLDOWN = 2.5
 
 function Fortress:enter(properties)
 	Enemy.enter(self, MAX_HEALTH, true)
@@ -63,6 +63,7 @@ function Fortress:update(dt, rt)
 end
 
 function Fortress:onRemove()
+	Enemy.onRemove(self)
 	prox.timer.cancel(self.enter_timer)
 end
 

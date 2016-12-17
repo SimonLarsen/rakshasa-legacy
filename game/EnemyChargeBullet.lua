@@ -1,4 +1,5 @@
 local EnemyBullet = require("game.EnemyBullet")
+local Slowable = require("game.Slowable")
 
 local EnemyChargeBullet = class("game.EnemyChargeBullet", EnemyBullet)
 
@@ -10,12 +11,16 @@ function EnemyChargeBullet:enter(x, y, chargex, chargey, dir, charge_time)
 end
 
 function EnemyChargeBullet:update(dt, rt)
+	dt, rt = Slowable.update(self, dt, rt)
+
 	if not self.charging then
 		EnemyBullet.update(self, dt, rt)
 	end
 end
 
 function EnemyChargeBullet:onRemove()
+	EnemyBullet.onRemove(self)
+
 	if self.timer then
 		prox.timer.cancel(self.timer)
 	end
