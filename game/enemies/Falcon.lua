@@ -6,8 +6,8 @@ local BasePattern = require("game.bullets.BasePattern")
 local Falcon = class("game.enemies.Falcon", Enemy)
 
 local MAX_HEALTH = 50
-local IDLE_TIME = 1.5
-local MOVE_TIME = 2
+local IDLE_TIME = 1.0
+local MOVE_TIME = 1.5
 
 local POSITIONS = {
 	80, 160, 240, 160
@@ -48,7 +48,7 @@ function Falcon:enter(properties)
 		shot_delay = 0.13,
 		bullet_type = EnemyBullet.static.TYPE_LASER,
 		target_player = true
-	}), 1.5)
+	}), 2.5)
 
 	self.pattern:add(BasePattern(self, {
 		salvo_delay = 999,
@@ -58,7 +58,7 @@ function Falcon:enter(properties)
 		start_rotation = math.pi/2-0.9,
 		shot_rotation_offset = 0.6,
 		bullet_type = EnemyBullet.static.TYPE_BALL
-	}), 2.0)
+	}), 2.5)
 
 	self.position = 1
 	local min_dist = 100000
