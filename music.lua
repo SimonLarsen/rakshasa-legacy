@@ -4,6 +4,8 @@ local instance = nil
 local volume = 1
 
 function music.playFile(path)
+	if true then return end
+
 	if current then
 		current:stop()
 	end

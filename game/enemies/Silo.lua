@@ -8,8 +8,11 @@ local MOVE_SPEED = 30
 function Silo:enter(properties)
 	Enemy.enter(self, MAX_HEALTH, true)
 
-	self.x = properties.x
-	self.y = -30
+	self.x = properties.points[1].x
+	self.y = properties.points[1].y
+
+	self.destx = properties.points[2].x
+	self.desty = properties.points[2].y
 
 	self.sparkle = prox.Animation("data/animations/sparkle.lua")
 
@@ -22,17 +25,18 @@ end
 function Silo:update(dt, rt)
 	dt, rt = Enemy.update(self, dt, rt)
 
-	self.y = self.y + MOVE_SPEED * dt
+	self.x, self.y = prox.math.movetowards2(self.x, self.y, self.destx, self.desty, MOVE_SPEED*dt)
+	local dist = math.sqrt((self.x - self.destx)^2 + (self.y - self.desty)^2)
+
+	if dist < 0.5 then
+		self:remove()
+	end
 
 	if self.sparkle:isFinished() then
 		local ox = love.math.random(-23, 23)
 		local oy = love.math.random(-23, 23)
 		self:getRenderer():setOffset(2, ox, oy)
 		self.sparkle:reset()
-	end
-
-	if self.y > prox.window.getHeight()+30 then
-		self:remove()
 	end
 end
 

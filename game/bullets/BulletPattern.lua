@@ -6,7 +6,7 @@ function BulletPattern:initialize(parent)
 end
 
 function BulletPattern:update(dt) end
-
 function BulletPattern:reset() end
+function BulletPattern:shoot(x, y) end
 
 return BulletPattern

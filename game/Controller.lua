@@ -17,7 +17,7 @@ local constructors = {
 	--- fighter types
 	Fighter = require("game.enemies.Fighter"),
 	Viper = require("game.enemies.Viper"),
-	Bomber = require("game.enemies.Bomber"),
+	Striker = require("game.enemies.Striker"),
 	--- drone types
 	Scout = require("game.enemies.Scout"),
 	Drone = require("game.enemies.Drone"),
@@ -26,6 +26,8 @@ local constructors = {
 	Temple = require("game.enemies.Temple"),
 	Fortress = require("game.enemies.Fortress"),
 	Falcon = require("game.enemies.Falcon"),
+	Bomber = require("game.enemies.Bomber"),
+	Vortex = require("game.enemies.Vortex"),
 	--- mines
 	Mine = require("game.enemies.Mine"),
 	SuperMine = require("game.enemies.SuperMine"),

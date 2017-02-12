@@ -42,13 +42,34 @@ function Fortress:enter(properties)
 		bullet_type = EnemyBullet.static.TYPE_LASER
 	}), 1.99)
 
+	self.pattern:add(BasePattern(self, {
+		salvo_delay = 999,
+		salvo_size = 10,
+		shot_delay = 0.1,
+		shot_count = 4,
+		shot_rotation_offset = math.pi / 2,
+		rotation_speed = -1.5,
+		bullet_type = EnemyBullet.static.TYPE_BALL,
+		reset_rotation = true
+	}), 2.5)
+
+	self.pattern:add(BasePattern(self, {
+		salvo_delay = 1,
+		salvo_size = 5,
+		shot_delay = 0.15,
+		shot_count = 4,
+		shot_rotation_offset = math.pi / 2,
+		salvo_rotation_offset = math.pi / 4,
+		bullet_type = EnemyBullet.static.TYPE_LASER
+	}), 1.99)
+
 	self.cooldown = 0
 	self.shoot_dir = 0
 
 	self:setRenderer(prox.Sprite("data/images/enemies/fortress.png"))
 	self:setCollider(prox.BoxCollider(58, 58))
 
-	self.enter_timer = prox.timer.tween(ENTER_TIME, self, {y=self.desty}, "out-quad", function() self.entered = true end)
+	self.timer = prox.timer.tween(ENTER_TIME, self, {y=self.desty}, "out-quad", function() self.entered = true end)
 end
 
 function Fortress:update(dt, rt)
@@ -64,7 +85,7 @@ end
 
 function Fortress:onRemove()
 	Enemy.onRemove(self)
-	prox.timer.cancel(self.enter_timer)
+	prox.timer.cancel(self.timer)
 end
 
 function Fortress:getGems()

@@ -1,24 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="20" height="30" tilewidth="16" tileheight="16" nextobjectid="270">
- <objectgroup name="wave0">
-  <object id="269" name="0" type="Falcon" x="170.184" y="103.853"/>
- </objectgroup>
- <objectgroup draworder="index" name="wave1" visible="0">
-  <object id="260" name="0" type="Viper" x="79.4908" y="-17.34">
-   <polyline points="0,-16 -1.34003,122.399 -1.34003,240.509 0,528"/>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="20" height="30" tilewidth="16" tileheight="16" nextobjectid="301">
+ <objectgroup draworder="index" name="wave1">
+  <object id="299" name="0" type="Scout" x="96" y="-32">
+   <polyline points="0,0 0,144 0,256 0,544"/>
   </object>
-  <object id="261" name="1" type="Viper" x="246.566" y="-18.7605">
-   <polyline points="0,-16 -1.34003,122.399 -1.34003,240.509 0,528"/>
+  <object id="300" name="1" type="Scout" x="240" y="-32">
+   <polyline points="0,0 0,128 0,272 0,544"/>
   </object>
-  <object id="262" name="1" type="Spawner" x="-35.5109" y="124.623">
-   <properties>
-    <property name="count" type="int" value="10"/>
-    <property name="type" value="Scout"/>
-   </properties>
-   <polyline points="0,0 143.384,0 251.256,94.4724 391.29,94.4724"/>
-  </object>
-  <object id="264" name="1" type="Temple" x="174.874" y="141.374"/>
-  <object id="267" name="2" type="Turret" x="45.5611" y="191.625"/>
-  <object id="268" name="1" type="Turret" x="263.987" y="143.384"/>
  </objectgroup>
 </map>

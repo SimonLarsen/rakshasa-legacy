@@ -1,24 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <objecttypes>
- <objecttype name="Fighter" color="#ff007f"/>
- <objecttype name="Drone" color="#00aa00"/>
- <objecttype name="Spawner" color="#005500">
-  <property name="count" type="int" default="0"/>
-  <property name="delay" type="float" default="0.15"/>
-  <property name="type" type="string"/>
- </objecttype>
- <objecttype name="Temple" color="#ff5500"/>
- <objecttype name="Mine" color="#ffaa00"/>
- <objecttype name="Turret" color="#00aaff"/>
- <objecttype name="Silo" color="#00007f"/>
- <objecttype name="Laser" color="#55007f">
-  <property name="speed" type="float" default="60"/>
- </objecttype>
- <objecttype name="Durga" color="#ffffff"/>
- <objecttype name="Shiva" color="#ffffff"/>
- <objecttype name="Agni" color="#ffffff"/>
- <objecttype name="SuperMine" color="#a0a0a4"/>
- <objecttype name="Mine" color="#a0a0a4"/>
- <objecttype name="Viper" color="#a0a0a4"/>
- <objecttype name="Bomber" color="#a0a0a4"/>
+	<!-- fighter types -->
+	<objecttype name="Fighter" color="#ff0000"/>
+	<objecttype name="Viper" color="#ff0000"/>
+	<objecttype name="Striker" color="#ff0000"/>
+	<!-- drone types -->
+	<objecttype name="Scout" color="#00ff00"/>
+	<objecttype name="Drone" color="#00ff00"/>
+	<objecttype name="Dropship" color="#00ff00"/>
+	<!-- tank types -->
+	<objecttype name="Temple" color="#0000ff"/>
+	<objecttype name="Fortress" color="#0000ff"/>
+	<objecttype name="Falcon" color="#0000ff"/>
+	<objecttype name="Bomber" color="#0000ff"/>
+	<objecttype name="Vortex" color="#0000ff"/>
+	<!-- mines -->
+	<objecttype name="Mine" color="#ffff00"/>
+	<objecttype name="SuperMine" color="#ffff00"/>
+	<!-- turret types -->
+	<objecttype name="Turret" color="#00ffff"/>
+	<!-- silo types -->
+	<objecttype name="Silo" color="#ffffff"/>
+	<!-- laser types -->
+	<objecttype name="Laser" color="#ff00ff">
+		<property name="speed" type="float" default="60"/>
+	</objecttype>
+	<!-- meta types -->
+	<objecttype name="Spawner" color="#000000">
+		<property name="type" type="string"/>
+		<property name="count" type="int" default="10"/>
+		<property name="delay" type="float" default="0.15"/>
+	</objecttype>
+	<!-- bosses -->
+	<objecttype name="Durga" color="#ffffff"/>
+	<objecttype name="Shiva" color="#ffffff"/>
+	<objecttype name="Agni " color="#ffffff"/>
 </objecttypes>

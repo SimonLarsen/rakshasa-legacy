@@ -4,7 +4,7 @@ local Flash = require("game.Flash")
 
 local Dropship = class("game.enemies.Dropship", Enemy)
 
-local MAX_HEALTH = 5
+local MAX_HEALTH = 8
 
 local ENTER_TIME = 2
 local IDLE_TIME = 1
@@ -29,9 +29,10 @@ function Dropship:enter(properties)
 	self:setRenderer(prox.Animation("data/animations/enemies/dropship.lua"))
 	self:setCollider(prox.BoxCollider(40, 32))
 
-	self.timer = prox.timer.tween(ENTER_TIME, self, {x = self.points[2].x, desty = self.points[2].y}, "out-quad",
+	self.timer = prox.timer.tween(ENTER_TIME, self, {x = self.points[2].x, y = self.points[2].y}, "out-quad",
 		function()
 			self.state = Dropship.static.STATE_IDLE
+			self.desty = self.y
 			self:shoot()
 		end
 	)
@@ -56,9 +57,9 @@ function Dropship:update(dt, rt)
 end
 
 function Dropship:shoot()
-	self:getScene():add(EnemyRainBullet(self.x, self.y-6, -70, -130))
-	self:getScene():add(EnemyRainBullet(self.x, self.y-6,   0, -130))
-	self:getScene():add(EnemyRainBullet(self.x, self.y-6,  70, -130))
+	self:getScene():add(EnemyRainBullet(self.x, self.y-6, -70, -140))
+	self:getScene():add(EnemyRainBullet(self.x, self.y-6,   0, -140))
+	self:getScene():add(EnemyRainBullet(self.x, self.y-6,  70, -140))
 	self:getScene():add(Flash(self.x, self.y-6))
 end
 
