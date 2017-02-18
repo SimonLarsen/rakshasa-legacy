@@ -6,7 +6,7 @@ local EnemyBulletBomb = require("game.EnemyBulletBomb")
 local Bomber = class("game.enemies.Bomber", Enemy)
 
 local MAX_HEALTH = 20
-local ENTER_TIME = 2.5
+local ENTER_TIME = 2.0
 local COOLDOWN = 6.0
 
 function Bomber:enter(properties)
@@ -22,8 +22,8 @@ function Bomber:enter(properties)
 
 	self.bomb_desty = properties.points[2].y
 
-	self:setRenderer(prox.Sprite("data/images/enemies/fortress.png"))
-	self:setCollider(prox.BoxCollider(58, 58))
+	self:setRenderer(prox.Animation("data/animations/enemies/bomber.lua"))
+	self:setCollider(prox.BoxCollider(66, 38))
 
 	self.pattern = {
 		shot_count = 4,
@@ -41,6 +41,7 @@ function Bomber:update(dt, rt)
 	self.entered_time = self.entered_time + dt
 
 	self.y = self.desty + math.sin(self.entered_time)*4
+	self.x = self.destx + math.sin(self.entered_time*1.2)*8
 
 	self.cooldown = self.cooldown - dt
 	if self.cooldown <= 0 then

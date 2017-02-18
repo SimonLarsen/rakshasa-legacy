@@ -12,12 +12,13 @@ function BaseMine:enter(properties)
 	self.x = properties.x
 	self.y = -16
 	self.ylimit = properties.y
+	self.speed = properties.speed or MOVE_SPEED
 end
 
 function BaseMine:update(dt, rt)
 	dt, rt = Enemy.update(self, dt, rt)
 
-	self.y = self.y + MOVE_SPEED * dt
+	self.y = self.y + self.speed * dt
 
 	if self.y > prox.window.getHeight() + 16 then
 		self:remove()

@@ -14,31 +14,32 @@ local Controller = class("game.Controller", prox.Entity)
 
 local constructors = {
 	-- enemies
+	--- meta types
+	Spawner = require("game.enemies.Spawner"),
+	--- drone types
+	Scout = require("game.enemies.Scout"),
+	Drone = require("game.enemies.Drone"),
 	--- fighter types
 	Fighter = require("game.enemies.Fighter"),
 	Viper = require("game.enemies.Viper"),
 	Striker = require("game.enemies.Striker"),
-	--- drone types
-	Scout = require("game.enemies.Scout"),
-	Drone = require("game.enemies.Drone"),
-	Dropship = require("game.enemies.Dropship"),
-	--- tank types
-	Temple = require("game.enemies.Temple"),
-	Fortress = require("game.enemies.Fortress"),
-	Falcon = require("game.enemies.Falcon"),
+	--- bomber types
 	Bomber = require("game.enemies.Bomber"),
-	Vortex = require("game.enemies.Vortex"),
+	Dropship = require("game.enemies.Dropship"),
 	--- mines
 	Mine = require("game.enemies.Mine"),
 	SuperMine = require("game.enemies.SuperMine"),
 	--- turret types
 	Turret = require("game.enemies.Turret"),
-	--- silo types
-	Silo = require("game.enemies.Silo"),
 	--- laser types
 	Laser = require("game.enemies.Laser"),
-	--- meta types
-	Spawner = require("game.enemies.Spawner"),
+	--- tank types
+	Temple = require("game.enemies.Temple"),
+	Fortress = require("game.enemies.Fortress"),
+	Falcon = require("game.enemies.Falcon"),
+	Vortex = require("game.enemies.Vortex"),
+	--- silo types
+	Silo = require("game.enemies.Silo"),
 	--- bosses
 	Durga = require("game.bosses.Durga"),
 	Shiva = require("game.bosses.Shiva"),

@@ -1,11 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="20" height="30" tilewidth="16" tileheight="16" nextobjectid="301">
- <objectgroup draworder="index" name="wave1">
-  <object id="299" name="0" type="Scout" x="96" y="-32">
-   <polyline points="0,0 0,144 0,256 0,544"/>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="20" height="30" tilewidth="16" tileheight="16" nextobjectid="339">
+ <objectgroup draworder="index" name="wave1" visible="0">
+  <object id="299" name="0" type="Fighter" x="96" y="-32">
+   <polyline points="0,0 0.666667,99.3333 0,244.667 0,544"/>
   </object>
-  <object id="300" name="1" type="Scout" x="240" y="-32">
-   <polyline points="0,0 0,128 0,272 0,544"/>
+  <object id="302" name="0.5" type="Spawner" x="-32" y="80">
+   <properties>
+    <property name="count" type="int" value="10"/>
+    <property name="type" value="Scout"/>
+   </properties>
+   <polyline points="0,0 192,0 192,112 384,112"/>
   </object>
+  <object id="300" name="0" type="Fighter" x="240" y="-32">
+   <polyline points="0,0 0,132.667 0,276.667 0,544"/>
+  </object>
+  <object id="303" name="1" type="Turret" x="80" y="208"/>
+  <object id="305" name="0" type="Turret" x="256" y="208"/>
+  <object id="307" name="2" type="Temple" x="175.333" y="82.6667"/>
+ </objectgroup>
+ <objectgroup draworder="index" name="wave2" visible="0">
+  <object id="315" name="0" type="Laser" x="289.333" y="167.333">
+   <polyline points="0,0 -144,0"/>
+  </object>
+  <object id="322" name="1.5" type="SuperMine" x="86.8333" y="214.333">
+   <properties>
+    <property name="speed" type="float" value="60"/>
+   </properties>
+  </object>
+  <object id="319" name="2.5" type="Laser" x="177.333" y="199.333">
+   <polyline points="0,0 -144,0"/>
+  </object>
+  <object id="323" name="1.5" type="SuperMine" x="236.833" y="216.667">
+   <properties>
+    <property name="speed" type="float" value="60"/>
+   </properties>
+  </object>
+  <object id="320" name="2.5" type="Laser" x="292.333" y="230.667">
+   <polyline points="0,0 -144,0"/>
+  </object>
+  <object id="324" name="1.5" type="SuperMine" x="86.5" y="214.333">
+   <properties>
+    <property name="speed" type="float" value="60"/>
+   </properties>
+  </object>
+  <object id="325" name="0" type="SuperMine" x="237.667" y="216.167">
+   <properties>
+    <property name="speed" type="float" value="60"/>
+   </properties>
+  </object>
+  <object id="321" name="2.5" type="Laser" x="177.333" y="263.333">
+   <polyline points="0,0 -144,0"/>
+  </object>
+  <object id="333" name="1" type="Dropship" x="-39.3333" y="26">
+   <polyline points="0,0 147.333,40.6667 387.333,124"/>
+  </object>
+  <object id="334" name="1" type="Dropship" x="344" y="42.6667">
+   <polyline points="0,0 -145.333,32 -386,110"/>
+  </object>
+ </objectgroup>
+ <objectgroup name="wave3">
+  <object id="338" name="0" type="Vortex" x="168" y="222.667"/>
  </objectgroup>
 </map>

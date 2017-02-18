@@ -8,7 +8,7 @@ local MAX_HEALTH = 40
 
 local ENTER_TIME = 1.5
 local MOVE_SPEED = 25
-local BULLET_COOLDOWN = ENTER_TIME + 0.5
+local BULLET_COOLDOWN = ENTER_TIME + 0.0
 
 function Temple:enter(properties)
 	Enemy.enter(self, MAX_HEALTH, true)

@@ -15,8 +15,7 @@ function Fortress:enter(properties)
 	self.destx = properties.x
 	self.desty = properties.y
 	self.x = self.destx
-	self.y = -44
-	self.entered = false
+	self.y = -44 self.entered = false
 	self.entered_time = 0
 
 	self.pattern = PatternManager()
@@ -66,8 +65,8 @@ function Fortress:enter(properties)
 	self.cooldown = 0
 	self.shoot_dir = 0
 
-	self:setRenderer(prox.Sprite("data/images/enemies/fortress.png"))
-	self:setCollider(prox.BoxCollider(58, 58))
+	self:setRenderer(prox.Animation("data/animations/enemies/fortress.lua"))
+	self:setCollider(prox.BoxCollider(62, 62))
 
 	self.timer = prox.timer.tween(ENTER_TIME, self, {y=self.desty}, "out-quad", function() self.entered = true end)
 end

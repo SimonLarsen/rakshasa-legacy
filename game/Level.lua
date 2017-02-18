@@ -14,7 +14,7 @@ function Level:parse(path)
 
 	for i,v in ipairs(data.layers) do
 		local layer = {}
-		if v.type == "objectgroup" then
+		if v.type == "objectgroup" and v.visible then
 			for j, o in ipairs(v.objects) do
 				local e = {}
 				e.type = o.type
