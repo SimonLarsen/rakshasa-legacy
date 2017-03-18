@@ -44,7 +44,7 @@ function Vortex:enter(properties)
 		salvo_delay = 999,
 		shot_delay = 0.2,
 		salvo_size = 8,
-		bullet_type = EnemyBullet.static.TYPE_SALVO,
+		bullet_type = EnemyBullet.static.TYPE_BALL,
 		target_player = true
 	}), 2.0)
 

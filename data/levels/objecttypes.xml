@@ -30,4 +30,5 @@
  <objecttype name="Durga" color="#ffffff"/>
  <objecttype name="Shiva" color="#ffffff"/>
  <objecttype name="Agni " color="#ffffff"/>
+ <objecttype name="LaserTurret" color="#55aaff"/>
 </objecttypes>

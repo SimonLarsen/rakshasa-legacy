@@ -202,7 +202,7 @@ function Durga:update(dt, rt)
 end
 
 function Durga:shoot()
-	self:getScene():add(EnemyBullet(self.x+self.head_offset, self.y+24, math.pi/2, EnemyBullet.static.TYPE_SALVO))
+	self:getScene():add(EnemyBullet(self.x+self.head_offset, self.y+24, math.pi/2, EnemyBullet.static.TYPE_BALL))
 	self:getScene():add(Flash(self.x+self.head_offset, self.y+24))
 end
 

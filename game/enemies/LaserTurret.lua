@@ -16,7 +16,7 @@ function LaserTurret:enter(properties)
 	
 	self.player_chain = self:getScene():find("chain")
 
-	self:setRenderer(prox.Sprite("data/images/enemies/turret.png", 19, 19))
+	self:setRenderer(prox.Sprite("data/images/enemies/laser_turret.png", 19, 19))
 	self:setCollider(prox.BoxCollider(30, 30))
 end
 

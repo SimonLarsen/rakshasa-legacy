@@ -5,14 +5,12 @@ local EnemyBullet = class("game.EnemyBullet", Slowable)
 
 EnemyBullet.static.TYPE_LASER  = 1
 EnemyBullet.static.TYPE_BALL   = 2
-EnemyBullet.static.TYPE_SALVO  = 3
-EnemyBullet.static.TYPE_CHARGE = 4
-EnemyBullet.static.TYPE_RAIN   = 5
+EnemyBullet.static.TYPE_CHARGE = 3
+EnemyBullet.static.TYPE_RAIN   = 4
 
 local animations = {
 	[EnemyBullet.static.TYPE_LASER]  = "data/animations/bullets/enemy_laser.lua",
 	[EnemyBullet.static.TYPE_BALL]   = "data/animations/bullets/enemy_ball.lua",
-	[EnemyBullet.static.TYPE_SALVO]  = "data/animations/bullets/enemy_salvo.lua",
 	[EnemyBullet.static.TYPE_CHARGE] = "data/animations/bullets/enemy_ball.lua",
 	[EnemyBullet.static.TYPE_RAIN]   = "data/animations/bullets/enemy_rain.lua"
 }
@@ -20,32 +18,28 @@ local animations = {
 local hitboxes = {
 	[EnemyBullet.static.TYPE_LASER]  = {w = 6, h = 16},
 	[EnemyBullet.static.TYPE_BALL]   = {w = 8, h = 8},
-	[EnemyBullet.static.TYPE_SALVO]  = {w = 10, h = 10},
 	[EnemyBullet.static.TYPE_CHARGE] = {w = 8, h = 8},
 	[EnemyBullet.static.TYPE_RAIN]   = {w = 8, h = 8}
 }
 
 local randomize_start_rotation = {
 	[EnemyBullet.static.TYPE_LASER]  = false,
-	[EnemyBullet.static.TYPE_BALL]   = true,
-	[EnemyBullet.static.TYPE_SALVO]  = false,
-	[EnemyBullet.static.TYPE_CHARGE] = true,
+	[EnemyBullet.static.TYPE_BALL]   = false,
+	[EnemyBullet.static.TYPE_CHARGE] = false,
 	[EnemyBullet.static.TYPE_RAIN]   = true
 }
 
 local speed = {
 	[EnemyBullet.static.TYPE_LASER]  = 150,
 	[EnemyBullet.static.TYPE_BALL]   = 120,
-	[EnemyBullet.static.TYPE_SALVO]  = 130,
 	[EnemyBullet.static.TYPE_CHARGE] = 120,
 	[EnemyBullet.static.TYPE_RAIN]   = 120
 }
 
 local rotation_speed = {
 	[EnemyBullet.static.TYPE_LASER]  = 0,
-	[EnemyBullet.static.TYPE_BALL]   = 8,
-	[EnemyBullet.static.TYPE_SALVO]  = 0,
-	[EnemyBullet.static.TYPE_CHARGE] = 8,
+	[EnemyBullet.static.TYPE_BALL]   = 0,
+	[EnemyBullet.static.TYPE_CHARGE] = 0,
 	[EnemyBullet.static.TYPE_RAIN]   = 8
 }
 
