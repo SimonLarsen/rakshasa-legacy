@@ -98,7 +98,7 @@ function Chain:update(dt, rt)
 	hc_rect:setRotation(self.direction)
 
 	for i,v in ipairs(self:getScene():findAll(EnemyBullet)) do
-		if hc_rect:collidesWith(v:getHCShape()) then
+		if v:getHCShape() and hc_rect:collidesWith(v:getHCShape()) then
 			if self.state == Chain.static.STATE_ACTIVE and self.invulnerable <= 0 then
 				self.invulnerable = INVULNERABLE_TIME
 				self:getScene():find("screenshaker"):shake(0.5, 8, 60)

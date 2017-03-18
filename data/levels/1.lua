@@ -8,7 +8,7 @@ return {
   height = 30,
   tilewidth = 16,
   tileheight = 16,
-  nextobjectid = 339,
+  nextobjectid = 340,
   properties = {},
   tilesets = {},
   layers = {
@@ -310,17 +310,23 @@ return {
       properties = {},
       objects = {
         {
-          id = 338,
+          id = 339,
           name = "0",
-          type = "Vortex",
-          shape = "rectangle",
-          x = 168,
-          y = 222.667,
+          type = "Laser",
+          shape = "polyline",
+          x = 224,
+          y = 32,
           width = 0,
           height = 0,
           rotation = 0,
           visible = true,
-          properties = {}
+          polyline = {
+            { x = 48, y = 96 },
+            { x = -96, y = 96 }
+          },
+          properties = {
+            ["intervals"] = "1,1"
+          }
         }
       }
     }

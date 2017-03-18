@@ -20,7 +20,20 @@ function Laser:enter(properties)
 	self.dir = math.floor(math.atan2(ydist, xdist) / (math.pi/4) + 0.5) * (math.pi/4)
 	self.dist = math.sqrt(xdist^2 + ydist^2)
 	self.speed = properties.speed or MOVE_SPEED
+	self.beam_sprites = {}
+	self.on = true
+	self.time = 0
 
+	if properties.intervals then
+		self.on = false
+		self.interval = 1
+		parts = prox.string.split(properties.intervals, ",")
+		self.intervals = {}
+		for i,v in ipairs(parts) do
+			table.insert(self.intervals, tonumber(v))
+		end
+	end
+	
 	local ortho = math.floor(self.dir / (math.pi/4) + 0.5) % 2 == 0
 	local odist = self.dist+12
 
@@ -28,19 +41,25 @@ function Laser:enter(properties)
 
 	if ortho then
 		local beam_anim = prox.Animation("data/animations/enemies/laser_beam_orthogonal.lua")
+		table.insert(self.beam_sprites, beam_anim)
 		self:getRenderer():addRenderer(beam_anim, 0, 0)
-		beam_anim.sx = self.dist
-		beam_anim.r = self.dir
+		beam_anim:setScale(self.dist, 1)
+		beam_anim:setRotation(self.dir)
 
-		local turret_anim1 = prox.Animation("data/animations/enemies/laser_turret_orthogonal.lua")
-		local turret_anim2 = prox.Animation("data/animations/enemies/laser_turret_orthogonal.lua")
+		if self.intervals then
+			self.turret_anim1 = prox.Animator("data/animators/enemies/laser_turret_switch_orthogonal.lua")
+			self.turret_anim2 = prox.Animator("data/animators/enemies/laser_turret_switch_orthogonal.lua")
+		else
+			self.turret_anim1 = prox.Animation("data/animations/enemies/laser_turret_static_orthogonal.lua")
+			self.turret_anim2 = prox.Animation("data/animations/enemies/laser_turret_static_orthogonal.lua")
+		end
 
-		turret_anim1.r = self.dir
-		turret_anim2.r = self.dir
-		turret_anim2.sx = -1
+		self.turret_anim1:setRotation(self.dir)
+		self.turret_anim2:setRotation(self.dir)
+		self.turret_anim2:setScale(-1, 1)
 
-		self:getRenderer():addRenderer(turret_anim1, math.floor(-math.cos(self.dir)*odist/2), math.floor(-math.sin(self.dir)*odist/2))
-		self:getRenderer():addRenderer(turret_anim2, math.floor( math.cos(self.dir)*odist/2), math.floor( math.sin(self.dir)*odist/2))
+		self:getRenderer():addRenderer(self.turret_anim1, math.floor(-math.cos(self.dir)*odist/2), math.floor(-math.sin(self.dir)*odist/2))
+		self:getRenderer():addRenderer(self.turret_anim2, math.floor( math.cos(self.dir)*odist/2), math.floor( math.sin(self.dir)*odist/2))
 	else
 		local beams = math.ceil(xdist / 7)
 		local sgnx = prox.math.sign(xdist)
@@ -51,7 +70,8 @@ function Laser:enter(properties)
 
 		for i=1, beams do
 			local spr = prox.Animation("data/animations/enemies/laser_part_diagonal.lua")
-			spr.r = self.dir - math.pi/4
+			table.insert(self.beam_sprites, spr)
+			spr:setRotation(self.dir - math.pi/4)
 
 			if self.dir < 0 then
 				self:getRenderer():addRenderer(spr, ox+i*7*sgnx-1, oy+i*7*sgny)
@@ -60,13 +80,25 @@ function Laser:enter(properties)
 			end
 		end
 
-		local turret_anim1 = prox.Animation("data/animations/enemies/laser_turret_diagonal.lua")
-		local turret_anim2 = prox.Animation("data/animations/enemies/laser_turret_diagonal.lua")
-		turret_anim1.r = self.dir - math.pi/4
-		turret_anim2.r = self.dir - math.pi/4 + math.pi
+		if self.intervals then
+			self.turret_anim1 = prox.Animator("data/animators/enemies/laser_turret_switch_diagonal.lua")
+			self.turret_anim2 = prox.Animator("data/animators/enemies/laser_turret_switch_diagonal.lua")
+		else
+			self.turret_anim1 = prox.Animation("data/animations/enemies/laser_turret_static_diagonal.lua")
+			self.turret_anim2 = prox.Animation("data/animations/enemies/laser_turret_static_diagonal.lua")
+		end
 
-		self:getRenderer():addRenderer(turret_anim1, math.floor(-math.cos(self.dir)*odist/2), math.floor(-math.sin(self.dir)*odist/2))
-		self:getRenderer():addRenderer(turret_anim2, math.floor( math.cos(self.dir)*odist/2), math.floor( math.sin(self.dir)*odist/2))
+		self.turret_anim1:setRotation(self.dir - math.pi/4)
+		self.turret_anim2:setRotation(self.dir - math.pi/4 + math.pi)
+
+		self:getRenderer():addRenderer(self.turret_anim1, math.floor(-math.cos(self.dir)*odist/2), math.floor(-math.sin(self.dir)*odist/2))
+		self:getRenderer():addRenderer(self.turret_anim2, math.floor( math.cos(self.dir)*odist/2), math.floor( math.sin(self.dir)*odist/2))
+	end
+
+	if self.intervals then
+		for i,v in ipairs(self.beam_sprites) do
+			v:setVisible(false)
+		end
 	end
 
 	self.hc_rect = HC.rectangle(0, 0, odist, 16)
@@ -76,6 +108,20 @@ end
 function Laser:update(dt, rt)
 	self.y = self.y + self.speed * dt
 	self.hc_rect:moveTo(self.x, self.y)
+	
+	self.time = self.time + dt
+	if self.intervals and self.time >= self.intervals[self.interval] then
+		self.on = not self.on
+		self.time = 0
+		self.interval = self.interval % #self.intervals + 1
+
+		for i,v in ipairs(self.beam_sprites) do
+			v:setVisible(self.on)
+			v:reset()
+			self.turret_anim1:setProperty("state", self.on)
+			self.turret_anim2:setProperty("state", self.on)
+		end
+	end
 
 	if self.y > settings.screen_height+math.abs(math.sin(self.dir))*(self.dist+12)+32 then
 		self:remove()
@@ -83,7 +129,9 @@ function Laser:update(dt, rt)
 end
 
 function Laser:getHCShape()
-	return self.hc_rect
+	if self.on then
+		return self.hc_rect
+	end
 end
 
 function Laser:kill()
