@@ -31,6 +31,7 @@ local constructors = {
 	SuperMine = require("game.enemies.SuperMine"),
 	--- turret types
 	Turret = require("game.enemies.Turret"),
+	LaserTurret = require("game.enemies.LaserTurret"),
 	--- laser types
 	Laser = require("game.enemies.Laser"),
 	--- tank types

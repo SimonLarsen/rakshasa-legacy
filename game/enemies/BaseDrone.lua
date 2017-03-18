@@ -45,8 +45,8 @@ function BaseDrone:update(dt, rt)
 		self:shoot()
 	end
 
-	local rot = self:getRenderer().r
-	self:getRenderer().r = rot - 2*dt
+	local rot = self:getRenderer():getRotation()
+	self:getRenderer():setRotation(rot - 2*dt)
 end
 
 function BaseDrone:onRemove()

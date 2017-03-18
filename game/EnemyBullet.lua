@@ -70,8 +70,8 @@ end
 
 function EnemyBullet:update(dt, rt)
 	dt, rt = Slowable.update(self, dt, rt)
-	local rot = self:getRenderer().r
-	self:getRenderer().r = rot + rotation_speed[self.type] * dt
+	local rot = self:getRenderer():getRotation()
+	self:getRenderer():setRotation(rot + rotation_speed[self.type] * dt)
 
 	self.x = self.x + math.cos(self.dir) * speed[self.type] * dt
 	self.y = self.y + math.sin(self.dir) * speed[self.type] * dt

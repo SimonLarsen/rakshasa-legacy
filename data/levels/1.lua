@@ -8,7 +8,7 @@ return {
   height = 30,
   tilewidth = 16,
   tileheight = 16,
-  nextobjectid = 340,
+  nextobjectid = 341,
   properties = {},
   tilesets = {},
   layers = {
@@ -310,23 +310,17 @@ return {
       properties = {},
       objects = {
         {
-          id = 339,
+          id = 340,
           name = "0",
-          type = "Laser",
-          shape = "polyline",
-          x = 224,
-          y = 32,
+          type = "LaserTurret",
+          shape = "rectangle",
+          x = 170,
+          y = 74,
           width = 0,
           height = 0,
           rotation = 0,
           visible = true,
-          polyline = {
-            { x = 48, y = 96 },
-            { x = -96, y = 96 }
-          },
-          properties = {
-            ["intervals"] = "1,1"
-          }
+          properties = {}
         }
       }
     }
