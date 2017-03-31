@@ -74,7 +74,6 @@ function Durga:enter()
 		function()
 			self.state = Durga.static.STATE_CLOSED
 			self.active = true
-			self:getScene():find("hexgrid"):fillAll(0.4)
 			self:getScene():find("screenshaker"):shake(0.5, 4, 60)
 
 			local destx = love.math.random(0,1) == 0 and 85 or 235

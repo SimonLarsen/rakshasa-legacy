@@ -51,7 +51,6 @@ function Shiva:enter()
 		function()
 			self.state = Shiva.static.STATE_CALM
 			self.active = true
-			self:getScene():find("hexgrid"):fillAll(0.4)
 			self:getScene():find("screenshaker"):shake(0.5, 4, 60)
 		end
 	)
@@ -82,7 +81,6 @@ function Shiva:update(dt, rt)
 			self.step = 1
 			self.phase = 1
 
-			self:getScene():find("hexgrid"):fillAll(0.3)
 			self:getScene():find("screenshaker"):shake(0.4, 4, 60)
 
 			self.arm_left.rage = true

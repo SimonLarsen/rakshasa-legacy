@@ -37,7 +37,6 @@ function Agni:enter()
 		function()
 			self.state = Agni.static.STATE_CALM
 			self.active = true
-			self:getScene():find("hexgrid"):fillAll(0.4)
 			self:getScene():find("screenshaker"):shake(0.5, 4, 60)
 		end
 	)
@@ -67,7 +66,6 @@ function Agni:update(dt, rt)
 			self.step = 1
 			self.phase = 1
 
-			self:getScene():find("hexgrid"):fillAll(0.3)
 			self:getScene():find("screenshaker"):shake(0.4, 4, 60)
 
 			self.hand_left:onRage()

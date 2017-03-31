@@ -67,7 +67,6 @@ function prox.load()
 
 	prox.gamestate.switch({
 		require("title.Controller")(),
-		require("bg.HexGrid")(),
 		require("bg.Background")(3),
 		require("bg.ScreenBorder")()
 	})
