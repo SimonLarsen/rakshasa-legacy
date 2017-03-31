@@ -15,7 +15,7 @@ return {
     {
       type = "objectgroup",
       name = "wave1",
-      visible = false,
+      visible = true,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -126,7 +126,7 @@ return {
     {
       type = "objectgroup",
       name = "wave2",
-      visible = false,
+      visible = true,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -302,7 +302,7 @@ return {
     {
       type = "objectgroup",
       name = "wave3",
-      visible = true,
+      visible = false,
       opacity = 1,
       offsetx = 0,
       offsety = 0,

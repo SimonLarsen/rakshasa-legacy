@@ -12,7 +12,7 @@ local animations = {
 	[EnemyBullet.static.TYPE_LASER]  = "data/animations/bullets/enemy_laser.lua",
 	[EnemyBullet.static.TYPE_BALL]   = "data/animations/bullets/enemy_ball.lua",
 	[EnemyBullet.static.TYPE_CHARGE] = "data/animations/bullets/enemy_ball.lua",
-	[EnemyBullet.static.TYPE_RAIN]   = "data/animations/bullets/enemy_rain.lua"
+	[EnemyBullet.static.TYPE_RAIN]   = "data/animations/bullets/enemy_ball.lua"
 }
 
 local hitboxes = {
@@ -26,7 +26,7 @@ local randomize_start_rotation = {
 	[EnemyBullet.static.TYPE_LASER]  = false,
 	[EnemyBullet.static.TYPE_BALL]   = false,
 	[EnemyBullet.static.TYPE_CHARGE] = false,
-	[EnemyBullet.static.TYPE_RAIN]   = true
+	[EnemyBullet.static.TYPE_RAIN]   = false
 }
 
 local speed = {
@@ -40,7 +40,7 @@ local rotation_speed = {
 	[EnemyBullet.static.TYPE_LASER]  = 0,
 	[EnemyBullet.static.TYPE_BALL]   = 0,
 	[EnemyBullet.static.TYPE_CHARGE] = 0,
-	[EnemyBullet.static.TYPE_RAIN]   = 8
+	[EnemyBullet.static.TYPE_RAIN]   = 0
 }
 
 function EnemyBullet:enter(x, y, dir, type)
