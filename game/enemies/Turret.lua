@@ -3,7 +3,7 @@ local EnemyBullet = require("game.EnemyBullet")
 
 local Turret = class("game.Turret", Enemy)
 
-local MAX_HEALTH = 15
+local MAX_HEALTH = 12
 local MOVE_SPEED = 40
 local SALVE_COOLDOWN = 2.0
 local BULLET_COOLDOWN = 0.18

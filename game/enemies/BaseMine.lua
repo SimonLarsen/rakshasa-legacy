@@ -3,7 +3,7 @@ local Explosion = require("game.Explosion")
 
 local BaseMine = class("game.enemies.BaseMine", Enemy)
 
-local MAX_HEALTH = 16
+local MAX_HEALTH = 12
 local MOVE_SPEED = 45
 
 function BaseMine:enter(properties)

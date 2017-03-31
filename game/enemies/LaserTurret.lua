@@ -3,7 +3,7 @@ local EnemyLaser = require("game.EnemyLaser")
 
 local LaserTurret = class("game.LaserTurret", Enemy)
 
-local MAX_HEALTH = 15
+local MAX_HEALTH = 12
 local MOVE_SPEED = 35
 local COOLDOWN = 4.0
 
