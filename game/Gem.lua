@@ -21,11 +21,9 @@ function Gem:enter(x, y)
 	self.xspeed = love.math.random(-10, 10)
 	self.yspeed = -150 + love.math.random(-15, 15)
 
-	self.ships = self:getScene():findAll("ship")
+	self.targets = self:getScene():findAll("ship")
+	table.insert(self.targets, self:getScene():find("chain"))
 
-	--[[
-	self:setRenderer(prox.Sprite("data/images/gems/gem" .. love.math.random(1,5) .. ".png"))
-	]]
 	local anim = prox.Animation("data/animations/gem.lua")
 	anim._frame = love.math.random(1, anim._frames)
 	anim._time = love.math.random() * 0.04
@@ -45,7 +43,7 @@ function Gem:update(dt, rt)
 
 		local min_dist = 100000
 		local closest_ship = nil
-		for i,v in ipairs(self.ships) do
+		for i,v in ipairs(self.targets) do
 			local xdist = v.x - self.x
 			local ydist = v.y - self.y
 			local dist = math.sqrt(xdist^2 + ydist^2)
