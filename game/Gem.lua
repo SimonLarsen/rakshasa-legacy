@@ -1,4 +1,5 @@
 local Slowable = require("game.Slowable")
+local GemPickup = require("game.GemPickup")
 
 local Gem = class("game.Gem", Slowable)
 
@@ -70,6 +71,14 @@ function Gem:update(dt, rt)
 	if self.y > prox.window.getHeight()+18 then
 		self:remove()
 	end
+end
+
+function Gem:pickup()
+	self:getScene():add(GemPickup(self.x, self.y))
+	sfx_blip = prox.resources.getSound("data/sounds/blip.wav")
+	sfx_blip:setVolume(0.5)
+	sfx_blip:play()
+	self:remove()
 end
 
 function Gem:getGems()

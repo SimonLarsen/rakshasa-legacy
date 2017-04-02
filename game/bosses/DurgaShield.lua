@@ -41,13 +41,6 @@ function DurgaShield:onCollide(o, dt, rt)
 			self.hit = 0.05
 		end
 		o:kill()
-	elseif o:getName() == "player_powerball" then
-		if self.vulnerable and self.invulnerable <= 0 then
-			self:damage(o:getDamage())
-			self.hit = 0.05
-			self.invulnerable = 1.0
-		end
-		o:kill()
 	end
 end
 

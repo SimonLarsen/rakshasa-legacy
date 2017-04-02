@@ -38,12 +38,6 @@ function Boss:onCollide(o, dt, rt)
 			self:damage(o:getDamage())
 		end
 		o:kill()
-	elseif o:getName() == "player_powerball" then
-		if self.invulnerable <= 0 then
-			self:damage(o:getDamage())
-			self.invulnerable = 1.0
-		end
-		o:kill()
 	end
 end
 

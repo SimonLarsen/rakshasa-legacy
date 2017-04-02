@@ -25,20 +25,13 @@ function DualController:update(dt, rt)
 		self.ship_right:shoot()
 	end
 
-	if self.binding:wasPressed("leftpurity") then
-		self.ship_left:purityBall()
-	end
-	if self.binding:wasPressed("rightpurity") then
-		self.ship_right:purityBall()
-	end
-
-	local old_trigger_down = self.trigger_down
-	local trigger = self.binding:getAxis("triggerright")
-	if trigger >= 0.6 then self.trigger_down = true
-	elseif trigger < 0.5 then self.trigger_down = false end
-
-	if self.trigger_down and not old_trigger_down then
-		self.chain:purityWave()
+	if self.binding:getAxis("triggerright") > 0.6 then
+		if not self.trigger_down then
+			self.chain:sword()
+		end
+		self.trigger_down = true
+	elseif self.binding:getAxis("triggerright") < 0.4 then
+		self.trigger_down = false
 	end
 
 	local leftsp = math.sqrt(self.ship_left.xspeed^2 + self.ship_left.yspeed^2)

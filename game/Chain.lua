@@ -1,6 +1,6 @@
-local PurityWave = require("game.PurityWave")
 local BallFlash = require("game.BallFlash")
 local EnemyBullet = require("game.EnemyBullet")
+local Sword = require("game.Sword")
 
 local Chain = class("game.Chain", prox.Entity)
 
@@ -9,9 +9,7 @@ local SUPER_THRESHOLD = 0.1
 local INVULNERABLE_TIME = 3
 local FORCE = 4500
 
-local POWER_LEVEL1_DIST = 0
-local POWER_LEVEL2_DIST = 140
-local POWER_LEVEL3_DIST = 220
+local SWORD_COST = 10
 
 Chain.static.STATE_ACTIVE = 1
 Chain.static.STATE_DEAD  = 2
@@ -49,7 +47,7 @@ function Chain:enter(ship1, ship2)
 	self:setCollider(prox.BoxCollider(26, 26))
 
 	prox.timer.after(0.7, function()
-		prox.timer.tween(1.5, self, {dissolve_edge = -0.5}, "in-linear")
+		prox.timer.tween(1.0, self, {dissolve_edge = -0.5}, "in-linear")
 	end)
 end
 
@@ -73,15 +71,6 @@ function Chain:update(dt, rt)
 
 	-- Update power level based on ship distance
 	self.center_flash_alpha = self.center_flash_alpha - math.max(0, 2000*dt)
-	local power_level = 1
-	--if dist >= POWER_LEVEL3_DIST then power_level = 3
-	--elseif dist >= POWER_LEVEL2_DIST then power_level = 2 end
-	self.ship1:setPowerLevel(power_level)
-	self.ship2:setPowerLevel(power_level)
-	if power_level ~= self.power_level then
-		self.power_level = power_level
-		self.center_flash_alpha = 255
-	end
 
 	-- Rotate center and gears
 	self.direction = math.atan2(ydist, xdist)
@@ -145,7 +134,7 @@ function Chain:draw()
 	end
 
 	self.center_ring:draw(self.x, self.y)
-	self.center_sprites[self.power_level]:draw(self.x, self.y)
+	self.center_sprites[1]:draw(self.x, self.y)
 
 	if self.center_flash_alpha > 0 then
 		love.graphics.setColor(255, 255, 255, math.max(0, self.center_flash_alpha))
@@ -154,14 +143,14 @@ function Chain:draw()
 	end
 end
 
-function Chain:purityWave()
-	if self.purity_wave and self.purity_wave:isAlive() then
-		self.purity_wave:trigger()
-		self.purity_wave = nil
-	else
-		if self.controller:usePurityWave() then
-			self.purity_wave = self:getScene():add(PurityWave(self.ship1.x, self.ship1.y-28, self.ship2.x, self.ship2.y-28))
-		end
+function Chain:sword()
+	if self.controller:useGems(SWORD_COST) then
+		local xdist = (self.ship2.x - self.ship1.x) / 2
+		local ydist = (self.ship2.y - self.ship1.y) / 2
+		local dist = math.sqrt(xdist^2 + ydist^2)
+		local offx = math.cos(self.direction-math.pi/2)*20
+		local offy = math.sin(self.direction-math.pi/2)*20
+		self:getScene():add(Sword(self.x+offx, self.y+offy, self.direction-math.pi/2, dist))
 	end
 end
 
@@ -173,6 +162,13 @@ end
 
 function Chain:onCollide(o)
 	if o:getName() == "heart" then
+		self.controller:addHeart()
+		o:remove()
+	elseif o:getName() == "gem" then
+		self.controller:addGems(o:getGems())
+		self.flash = 0.05
+		o:pickup()
+	elseif o:getName() == "heart" then
 		self.controller:addHeart()
 		o:remove()
 	end

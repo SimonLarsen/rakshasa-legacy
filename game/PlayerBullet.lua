@@ -8,11 +8,7 @@ PlayerBullet.static.TYPE_ULTRA  = 3
 
 local SPEED = 500
 
-local damage = {
-	[PlayerBullet.static.TYPE_NORMAL] = 1,
-	[PlayerBullet.static.TYPE_SUPER]  = 2.6,
-	[PlayerBullet.static.TYPE_ULTRA]  = 4.8
-}
+local DAMAGE = 1
 
 function PlayerBullet:enter(x, y, dir, type)
 	self:setName("player_bullet")
@@ -22,19 +18,9 @@ function PlayerBullet:enter(x, y, dir, type)
 	self.dir = dir or 1.5*math.pi
 	self.type = type
 
-	if self.type == PlayerBullet.static.TYPE_NORMAL then
-		self:setRenderer(prox.Sprite("data/images/bullets/player1.png", 12, 4))
-		self:setCollider(prox.BoxCollider(2, 2))
-		self:getRenderer():setRotation(self.dir)
-	elseif self.type == PlayerBullet.static.TYPE_SUPER then
-		self:setRenderer(prox.Sprite("data/images/bullets/player2.png", 8, 7))
-		self:setCollider(prox.BoxCollider(4, 4))
-		self:getRenderer():setRotation(self.dir)
-	elseif self.type == PlayerBullet.static.TYPE_ULTRA then
-		self:setRenderer(prox.Sprite("data/images/bullets/player3.png", 11, 11))
-		self:setCollider(prox.BoxCollider(4, 4))
-		self:getRenderer():setRotation(self.dir)
-	end
+	self:setRenderer(prox.Sprite("data/images/bullets/player2.png", 8, 7))
+	self:setCollider(prox.BoxCollider(4, 4))
+	self:getRenderer():setRotation(self.dir)
 end
 
 function PlayerBullet:update(dt, rt)
@@ -48,7 +34,7 @@ function PlayerBullet:update(dt, rt)
 end
 
 function PlayerBullet:getDamage()
-	return damage[self.type]
+	return DAMAGE
 end
 
 function PlayerBullet:kill()

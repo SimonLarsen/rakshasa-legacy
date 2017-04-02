@@ -1,8 +1,6 @@
 local PlayerBullet = require("game.PlayerBullet")
 local Explosion = require("game.Explosion")
 local Flash = require("game.Flash")
-local GemPickup = require("game.GemPickup")
-local PurityBall = require("game.PurityBall")
 
 local Ship = class("game.Ship", prox.Entity)
 
@@ -15,7 +13,7 @@ local DECELLERATION = 1200
 local SLOW_MAX_SPEED = 150
 local FAST_MAX_SPEED = 250
 
-local BULLET_COOLDOWN = 0.12
+local BULLET_COOLDOWN = 0.1
 local DEADZONE_THRESHOLD = 0.20
 
 local ENTER_TIME = 1.0
@@ -24,10 +22,6 @@ local POWER_TRIGGER_TIME = 0.1
 Ship.static.STATE_ENTER  = 1
 Ship.static.STATE_ACTIVE = 2
 Ship.static.STATE_DEAD   = 3
-
-local BULLET_COOLDOWN = {
-	0.1, 0.13, 0.16
-}
 
 function Ship:enter(side)
 	self:setName("ship")
@@ -41,7 +35,6 @@ function Ship:enter(side)
 	self.cooldown = 0
 	self.direction = 0
 	self.state = Ship.static.STATE_ENTER
-	self.power_level = 1
 	self.flash = 0
 	self.controller = self:getScene():find("controller")
 
@@ -71,13 +64,7 @@ function Ship:enter(side)
 
 	self.white_shader = prox.resources.getShader("data/shaders/whiteout.glsl")
 
-	self.sfx_blip = prox.resources.getSound("data/sounds/blip.wav")
-	self.sfx_blip:setVolume(0.5)
-	self.sfx_laser = {
-		[1] = prox.resources.getSound("data/sounds/laser1.wav"),
-		[2] = prox.resources.getSound("data/sounds/laser2.wav"),
-		[3] = prox.resources.getSound("data/sounds/laser3.wav")
-	}
+	self.sfx_laser = prox.resources.getSound("data/sounds/laser2.wav")
 	for i,v in ipairs(self.sfx_laser) do
 		v:setVolume(0.8)
 	end
@@ -118,18 +105,10 @@ end
 
 function Ship:shoot()
 	if self.cooldown <= 0 then
-		if self.power_level == 1 then
-			self:getScene():add(PlayerBullet(self.x, self.y-20, 1.5*math.pi, PlayerBullet.static.TYPE_NORMAL))
-		elseif self.power_level == 2 then
-			self:getScene():add(PlayerBullet(self.x, self.y-32, 1.5*math.pi, PlayerBullet.static.TYPE_SUPER))
-		elseif self.power_level == 3 then
-			self:getScene():add(PlayerBullet(self.x, self.y-32, 1.5*math.pi, PlayerBullet.static.TYPE_ULTRA))
-		else
-			error("Player power levels must be >= 1 and <= 3.")
-		end
+		self:getScene():add(PlayerBullet(self.x, self.y-32, 1.5*math.pi, PlayerBullet.static.TYPE_SUPER))
 		self:getScene():add(Flash(self.x, self.y-24, 2))
-		self.sfx_laser[self.power_level]:play()
-		self.cooldown = BULLET_COOLDOWN[self.power_level]
+		self.sfx_laser:play()
+		self.cooldown = BULLET_COOLDOWN
 	end
 end
 
@@ -146,21 +125,6 @@ function Ship:setDirection(direction)
 	self.direction = direction
 end
 
-function Ship:setPowerLevel(level)
-	self.power_level = level
-end
-
-function Ship:purityBall()
-	if self.purity_ball and self.purity_ball:isAlive() then
-		self.purity_ball:trigger()
-		self.purity_ball = nil
-	else
-		if self.controller:usePurityBall() then
-			self.purity_ball = self:getScene():add(PurityBall(self.x, self.y))
-		end
-	end
-end
-
 function Ship:setSide(side)
 	self.side = side
 	if self.side == Ship.static.SIDE_LEFT then
@@ -174,13 +138,8 @@ end
 function Ship:onCollide(o, dt, rt)
 	if o:getName() == "gem" then
 		self.controller:addGems(o:getGems())
-		self:getScene():add(GemPickup(o.x, o.y))
-		o:remove()
 		self.flash = 0.05
-		self.sfx_blip:play()
-	elseif o:getName() == "heart" then
-		self.controller:addHeart()
-		o:remove()
+		o:pickup()
 	elseif o:getName() == "player_bullet" then
 		o:kill()
 	end

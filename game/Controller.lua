@@ -51,8 +51,6 @@ local WARMUP_TIME = 3
 local TRANSITION_TIME = 9
 
 local MAX_GEMS =  20
-local PURITY_BALL_COST = 10
-local PURITY_WAVE_COST = 20
 
 Controller.static.STATE_WARMUP     = 1
 Controller.static.STATE_ACTIVE     = 2
@@ -241,29 +239,14 @@ function Controller:addGems(count)
 	self:addScore(count * 100)
 end
 
-function Controller:useGems()
-	self.gems = 0
-	self.gems_display = 0
-end
-
-function Controller:usePurityBall()
-	if self.gems >= PURITY_BALL_COST then
-		self.gems = self.gems - PURITY_BALL_COST
-		self.gems_display = self.gems
-		return true
-	else
+function Controller:useGems(cost)
+	if self.gems < cost then
 		return false
 	end
-end
 
-function Controller:usePurityWave()
-	if self.gems >= PURITY_WAVE_COST then
-		self.gems = self.gems - PURITY_WAVE_COST
-		self.gems_display = self.gems
-		return true
-	else
-		return false
-	end
+	self.gems = self.gems - cost
+	self.gems_display = self.gems
+	return true
 end
 
 function Controller:addLives(lives)
