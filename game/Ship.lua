@@ -109,6 +109,7 @@ function Ship:shoot()
 		self:getScene():add(Flash(self.x, self.y-24, 2))
 		self.sfx_laser:play()
 		self.cooldown = BULLET_COOLDOWN
+		self:getScene():find("painting"):addSplatter(self.x, self.y, 2, true)
 	end
 end
 

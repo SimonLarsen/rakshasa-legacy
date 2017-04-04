@@ -67,8 +67,9 @@ function prox.load()
 
 	prox.gamestate.switch({
 		require("title.Controller")(),
-		require("bg.Background")(3),
-		require("bg.ScreenBorder")()
+		require("bg.Background")(1),
+		require("bg.ScreenBorder")(),
+		require("bg.Painting")()
 	})
 
 	prox.gamestate.current():getCamera():setPosition(settings.screen_width/2, settings.screen_height/2)

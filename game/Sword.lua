@@ -42,7 +42,7 @@ function Sword:update(dt, rt)
 end
 
 function Sword:trigger()
-	self:getScene():find("screenshaker"):shake(0.3, 3, 60)
+	self:getScene():find("screenshaker"):shake(0.2, 5, 60)
 
 	for i,v in ipairs(self:getScene():findAll(EnemyBullet)) do
 		if v:getHCShape() and self.hc_shape:collidesWith(v:getHCShape()) then

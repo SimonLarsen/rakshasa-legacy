@@ -263,7 +263,7 @@ end
 function Controller:progressLevel()
 	self.level = self.level+1
 	self:loadLevel(self.level)
-	self:getScene():find("background"):set(self.level)
+	--self:getScene():find("background"):set(self.level)
 	self.state = Controller.static.STATE_TRANSITION
 	self.time = 0
 end
