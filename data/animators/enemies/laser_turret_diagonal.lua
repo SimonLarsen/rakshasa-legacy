@@ -2,12 +2,12 @@
 	default = "off",
 
 	states = {
-		["off"] = "data/animations/enemies/laser_turret_switch_diagonal_off.lua",
-		["on"]  = "data/animations/enemies/laser_turret_switch_diagonal_on.lua"
+		["off"] = "data/animations/enemies/laser_turret_diagonal_off.lua",
+		["on"]  = "data/animations/enemies/laser_turret_diagonal_on.lua"
 	},
 
 	properties = {
-		["state"] = { value = false }
+		["state"] = { value = true }
 	},
 
 	transitions = {

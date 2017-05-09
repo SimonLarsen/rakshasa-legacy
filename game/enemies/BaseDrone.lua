@@ -3,7 +3,7 @@ local Enemy = require("game.Enemy")
 local BaseDrone = class("game.enemies.BaseDrone", Enemy)
 
 local MOVE_SPEED = 180
-local BULLET_COOLDOWN = 3.0
+local BULLET_COOLDOWN = 2.0
 
 function BaseDrone:enter(properties, MAX_HEALTH)
 	Enemy.enter(self, MAX_HEALTH)

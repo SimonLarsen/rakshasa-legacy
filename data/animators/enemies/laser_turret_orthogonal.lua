@@ -2,8 +2,8 @@
 	default = "off",
 
 	states = {
-		["off"] = "data/animations/enemies/laser_turret_switch_orthogonal_off.lua",
-		["on"]  = "data/animations/enemies/laser_turret_switch_orthogonal_on.lua"
+		["off"] = "data/animations/enemies/laser_turret_orthogonal_off.lua",
+		["on"]  = "data/animations/enemies/laser_turret_orthogonal_on.lua"
 	},
 
 	properties = {

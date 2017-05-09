@@ -6,6 +6,7 @@ local LaserTurret = class("game.LaserTurret", Enemy)
 local MAX_HEALTH = 12
 local MOVE_SPEED = 35
 local COOLDOWN = 4.0
+local LASER_DELAY = 1.2
 
 function LaserTurret:enter(properties)
 	Enemy.enter(self, MAX_HEALTH)
@@ -13,11 +14,12 @@ function LaserTurret:enter(properties)
 	self.x = properties.x
 	self.y = -30
 	self.cooldown = 2.5
+	self.laser_delay = properties.laser_delay or LASER_DELAY
 	
 	self.player_chain = self:getScene():find("chain")
 
-	self:setRenderer(prox.Sprite("data/images/enemies/laser_turret.png", 19, 19))
-	self:setCollider(prox.BoxCollider(30, 30))
+	self:setRenderer(prox.Animation("data/animations/enemies/laser_turret.lua"))
+	self:setCollider(prox.BoxCollider(32, 32))
 end
 
 function LaserTurret:update(dt, rt)
@@ -39,7 +41,7 @@ function LaserTurret:shoot()
 	local xdist = self.player_chain.x - self.x
 	local ydist = self.player_chain.y - self.y
 	local dir = math.atan2(ydist, xdist)
-	self:getScene():add(EnemyLaser(self, 0, 0, dir, 1.0))
+	self:getScene():add(EnemyLaser(self, 0, 0, dir, self.laser_delay))
 end
 
 function LaserTurret:getGems()

@@ -29,6 +29,13 @@ local randomize_start_rotation = {
 	[EnemyBullet.static.TYPE_RAIN]   = false
 }
 
+local allow_rotation = {
+	[EnemyBullet.static.TYPE_LASER]  = true,
+	[EnemyBullet.static.TYPE_BALL]   = false,
+	[EnemyBullet.static.TYPE_CHARGE] = false,
+	[EnemyBullet.static.TYPE_RAIN]   = false
+}
+
 local speed = {
 	[EnemyBullet.static.TYPE_LASER]  = 150,
 	[EnemyBullet.static.TYPE_BALL]   = 120,
@@ -57,7 +64,7 @@ function EnemyBullet:enter(x, y, dir, type)
 
 	if randomize_start_rotation[self.type] then
 		self:getRenderer():setRotation(love.math.random()*2*math.pi)
-	else
+	elseif allow_rotation[self.type] then
 		self:getRenderer():setRotation(self.dir - math.pi/2)
 	end
 end

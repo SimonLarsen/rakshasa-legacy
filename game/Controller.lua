@@ -23,6 +23,7 @@ local constructors = {
 	Fighter = require("game.enemies.Fighter"),
 	Viper = require("game.enemies.Viper"),
 	Striker = require("game.enemies.Striker"),
+	Chaser = require("game.enemies.Chaser"),
 	--- bomber types
 	Bomber = require("game.enemies.Bomber"),
 	Dropship = require("game.enemies.Dropship"),
@@ -34,6 +35,7 @@ local constructors = {
 	LaserTurret = require("game.enemies.LaserTurret"),
 	--- laser types
 	Laser = require("game.enemies.Laser"),
+	LaserSwitch = require("game.enemies.LaserSwitch"),
 	--- tank types
 	Temple = require("game.enemies.Temple"),
 	Fortress = require("game.enemies.Fortress"),
@@ -51,6 +53,7 @@ local WARMUP_TIME = 3
 local TRANSITION_TIME = 9
 
 local MAX_GEMS =  20
+local POWER_BAR_LENGTH = 125
 
 Controller.static.STATE_WARMUP     = 1
 Controller.static.STATE_ACTIVE     = 2
@@ -183,12 +186,17 @@ function Controller:gui()
 	
 	-- power bar
 	love.graphics.setColor(211, 80, 80)
-	local power_width = math.floor(self.gems_display / MAX_GEMS * 125 + 0.5)
+	local power_width = math.floor(self.gems_display / MAX_GEMS * POWER_BAR_LENGTH + 0.5)
 	love.graphics.rectangle("fill", prox.window.getWidth()/2-303, 88, power_width, 33)
-	if self.gems >= MAX_GEMS then
+	if self.gems_display >= MAX_GEMS/2 then
 		local alpha = math.sqrt((-prox.time.getTime() % 1)) * 255
 		love.graphics.setColor(255, 255, 255, alpha)
-		love.graphics.rectangle("fill", prox.window.getWidth()/2-303, 88, power_width, 33)
+		love.graphics.rectangle("fill", prox.window.getWidth()/2-303, 88, POWER_BAR_LENGTH/2, 33)
+	end
+	if self.gems_display >= MAX_GEMS then
+		local alpha = math.sqrt((-prox.time.getTime() % 1)) * 255
+		love.graphics.setColor(255, 255, 255, alpha)
+		love.graphics.rectangle("fill", prox.window.getWidth()/2-303+POWER_BAR_LENGTH/2, 88, POWER_BAR_LENGTH/2, 33)
 	end
 	love.graphics.setColor(255, 255, 255)
 	love.graphics.draw(self.power_overlay, prox.window.getWidth()/2-318, 80)
@@ -262,8 +270,7 @@ end
 
 function Controller:progressLevel()
 	self.level = self.level+1
-	self:loadLevel(self.level)
-	--self:getScene():find("background"):set(self.level)
+	self:loadLevel()
 	self.state = Controller.static.STATE_TRANSITION
 	self.time = 0
 end

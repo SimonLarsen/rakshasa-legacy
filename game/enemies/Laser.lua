@@ -1,6 +1,6 @@
 local EnemyBullet = require("game.EnemyBullet")
 
-local Laser = class("game.Laser", EnemyBullet)
+local Laser = class("game.enemies.Laser", EnemyBullet)
 
 local MAX_HEALTH = 1
 local MOVE_SPEED = 60
@@ -46,13 +46,8 @@ function Laser:enter(properties)
 		beam_anim:setScale(self.dist, 1)
 		beam_anim:setRotation(self.dir)
 
-		if self.intervals then
-			self.turret_anim1 = prox.Animator("data/animators/enemies/laser_turret_switch_orthogonal.lua")
-			self.turret_anim2 = prox.Animator("data/animators/enemies/laser_turret_switch_orthogonal.lua")
-		else
-			self.turret_anim1 = prox.Animation("data/animations/enemies/laser_turret_static_orthogonal.lua")
-			self.turret_anim2 = prox.Animation("data/animations/enemies/laser_turret_static_orthogonal.lua")
-		end
+		self.turret_anim1 = prox.Animator("data/animators/enemies/laser_turret_orthogonal.lua")
+		self.turret_anim2 = prox.Animator("data/animators/enemies/laser_turret_orthogonal.lua")
 
 		self.turret_anim1:setRotation(self.dir)
 		self.turret_anim2:setRotation(self.dir)
@@ -80,13 +75,8 @@ function Laser:enter(properties)
 			end
 		end
 
-		if self.intervals then
-			self.turret_anim1 = prox.Animator("data/animators/enemies/laser_turret_switch_diagonal.lua")
-			self.turret_anim2 = prox.Animator("data/animators/enemies/laser_turret_switch_diagonal.lua")
-		else
-			self.turret_anim1 = prox.Animation("data/animations/enemies/laser_turret_static_diagonal.lua")
-			self.turret_anim2 = prox.Animation("data/animations/enemies/laser_turret_static_diagonal.lua")
-		end
+		self.turret_anim1 = prox.Animator("data/animators/enemies/laser_turret_diagonal.lua")
+		self.turret_anim2 = prox.Animator("data/animators/enemies/laser_turret_diagonal.lua")
 
 		self.turret_anim1:setRotation(self.dir - math.pi/4)
 		self.turret_anim2:setRotation(self.dir - math.pi/4 + math.pi)
@@ -94,6 +84,9 @@ function Laser:enter(properties)
 		self:getRenderer():addRenderer(self.turret_anim1, math.floor(-math.cos(self.dir)*odist/2), math.floor(-math.sin(self.dir)*odist/2))
 		self:getRenderer():addRenderer(self.turret_anim2, math.floor( math.cos(self.dir)*odist/2), math.floor( math.sin(self.dir)*odist/2))
 	end
+
+	self.turret_anim1:setProperty("state", self.on)
+	self.turret_anim2:setProperty("state", self.on)
 
 	if self.intervals then
 		for i,v in ipairs(self.beam_sprites) do

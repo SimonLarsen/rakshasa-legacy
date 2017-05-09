@@ -35,6 +35,7 @@ function EnemyLaser:update(dt, rt)
 		if self.time >= PAUSE_TIME then
 			self.state = EnemyLaser.static.STATE_SHOOT
 			self.time = 0
+			self:getScene():find("screenshaker"):shake(0.3, 1, 60)
 		end
 	elseif self.state == EnemyLaser.static.STATE_SHOOT then
 		if self.time >= SHOOT_TIME then

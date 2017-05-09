@@ -10,7 +10,7 @@ function BaseMine:enter(properties)
 	Enemy.enter(self, MAX_HEALTH)
 
 	self.x = properties.x
-	self.y = -16
+	self.y = -25
 	self.ylimit = properties.y
 	self.speed = properties.speed or MOVE_SPEED
 end
@@ -20,7 +20,7 @@ function BaseMine:update(dt, rt)
 
 	self.y = self.y + self.speed * dt
 
-	if self.y > prox.window.getHeight() + 16 then
+	if self.y > prox.window.getHeight() + 25 then
 		self:remove()
 
 	elseif self.y > self.ylimit then

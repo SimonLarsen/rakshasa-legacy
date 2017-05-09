@@ -27,7 +27,7 @@ function Dropship:enter(properties)
 	self.state = Dropship.static.STATE_ENTER
 
 	self:setRenderer(prox.Animation("data/animations/enemies/dropship.lua"))
-	self:setCollider(prox.BoxCollider(40, 32))
+	self:setCollider(prox.BoxCollider(70, 32))
 
 	self.timer = prox.timer.tween(ENTER_TIME, self, {x = self.points[2].x, y = self.points[2].y}, "out-quad",
 		function()

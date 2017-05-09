@@ -8,14 +8,14 @@ return {
   height = 30,
   tilewidth = 16,
   tileheight = 16,
-  nextobjectid = 341,
+  nextobjectid = 57,
   properties = {},
   tilesets = {},
   layers = {
     {
       type = "objectgroup",
       name = "wave1",
-      visible = true,
+      visible = false,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -23,40 +23,57 @@ return {
       properties = {},
       objects = {
         {
-          id = 299,
+          id = 3,
           name = "0",
           type = "Fighter",
           shape = "polyline",
-          x = 96,
-          y = -32,
+          x = 224,
+          y = -48,
           width = 0,
           height = 0,
           rotation = 0,
           visible = true,
           polyline = {
             { x = 0, y = 0 },
-            { x = 0.666667, y = 99.3333 },
-            { x = 0, y = 244.667 },
-            { x = 0, y = 544 }
+            { x = -1.33333, y = 128 },
+            { x = 0, y = 272 },
+            { x = 0, y = 560 }
           },
           properties = {}
         },
         {
-          id = 302,
-          name = "0.5",
-          type = "Spawner",
+          id = 4,
+          name = "2",
+          type = "Fighter",
           shape = "polyline",
-          x = -32,
-          y = 80,
+          x = 90,
+          y = -46.6667,
           width = 0,
           height = 0,
           rotation = 0,
           visible = true,
           polyline = {
             { x = 0, y = 0 },
-            { x = 192, y = 0 },
-            { x = 192, y = 112 },
-            { x = 384, y = 112 }
+            { x = -1.33333, y = 128 },
+            { x = 0, y = 272 },
+            { x = 0, y = 560 }
+          },
+          properties = {}
+        },
+        {
+          id = 6,
+          name = "2",
+          type = "Spawner",
+          shape = "polyline",
+          x = -32,
+          y = 176,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polyline = {
+            { x = 0, y = 0 },
+            { x = 384, y = 0 }
           },
           properties = {
             ["count"] = 10,
@@ -64,31 +81,12 @@ return {
           }
         },
         {
-          id = 300,
-          name = "0",
-          type = "Fighter",
-          shape = "polyline",
-          x = 240,
-          y = -32,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          visible = true,
-          polyline = {
-            { x = 0, y = 0 },
-            { x = 0, y = 132.667 },
-            { x = 0, y = 276.667 },
-            { x = 0, y = 544 }
-          },
-          properties = {}
-        },
-        {
-          id = 303,
+          id = 9,
           name = "1",
           type = "Turret",
           shape = "rectangle",
-          x = 80,
-          y = 208,
+          x = 162,
+          y = 142,
           width = 0,
           height = 0,
           rotation = 0,
@@ -96,12 +94,12 @@ return {
           properties = {}
         },
         {
-          id = 305,
-          name = "0",
+          id = 10,
+          name = "3",
           type = "Turret",
           shape = "rectangle",
-          x = 256,
-          y = 208,
+          x = 54,
+          y = 63.3333,
           width = 0,
           height = 0,
           rotation = 0,
@@ -109,12 +107,12 @@ return {
           properties = {}
         },
         {
-          id = 307,
-          name = "2",
-          type = "Temple",
+          id = 11,
+          name = "3",
+          type = "Turret",
           shape = "rectangle",
-          x = 175.333,
-          y = 82.6667,
+          x = 273.333,
+          y = 60,
           width = 0,
           height = 0,
           rotation = 0,
@@ -126,7 +124,7 @@ return {
     {
       type = "objectgroup",
       name = "wave2",
-      visible = true,
+      visible = false,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -134,166 +132,127 @@ return {
       properties = {},
       objects = {
         {
-          id = 315,
+          id = 22,
           name = "0",
-          type = "Laser",
+          type = "Fighter",
           shape = "polyline",
-          x = 289.333,
-          y = 167.333,
+          x = 164,
+          y = -26.6667,
           width = 0,
           height = 0,
           rotation = 0,
           visible = true,
           polyline = {
             { x = 0, y = 0 },
-            { x = -144, y = 0 }
+            { x = -0.666667, y = 74 },
+            { x = -1.33333, y = 236 },
+            { x = 0, y = 560 }
           },
           properties = {}
         },
         {
-          id = 322,
-          name = "1.5",
-          type = "SuperMine",
-          shape = "rectangle",
-          x = 86.8333,
-          y = 214.333,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["speed"] = 60
-          }
-        },
-        {
-          id = 319,
-          name = "2.5",
-          type = "Laser",
-          shape = "polyline",
-          x = 177.333,
-          y = 199.333,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          visible = true,
-          polyline = {
-            { x = 0, y = 0 },
-            { x = -144, y = 0 }
-          },
-          properties = {}
-        },
-        {
-          id = 323,
-          name = "1.5",
-          type = "SuperMine",
-          shape = "rectangle",
-          x = 236.833,
-          y = 216.667,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["speed"] = 60
-          }
-        },
-        {
-          id = 320,
-          name = "2.5",
-          type = "Laser",
-          shape = "polyline",
-          x = 292.333,
-          y = 230.667,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          visible = true,
-          polyline = {
-            { x = 0, y = 0 },
-            { x = -144, y = 0 }
-          },
-          properties = {}
-        },
-        {
-          id = 324,
-          name = "1.5",
-          type = "SuperMine",
-          shape = "rectangle",
-          x = 86.5,
-          y = 214.333,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["speed"] = 60
-          }
-        },
-        {
-          id = 325,
-          name = "0",
-          type = "SuperMine",
-          shape = "rectangle",
-          x = 237.667,
-          y = 216.167,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["speed"] = 60
-          }
-        },
-        {
-          id = 321,
-          name = "2.5",
-          type = "Laser",
-          shape = "polyline",
-          x = 177.333,
-          y = 263.333,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          visible = true,
-          polyline = {
-            { x = 0, y = 0 },
-            { x = -144, y = 0 }
-          },
-          properties = {}
-        },
-        {
-          id = 333,
+          id = 15,
           name = "1",
-          type = "Dropship",
+          type = "Fighter",
           shape = "polyline",
-          x = -39.3333,
-          y = 26,
+          x = 86,
+          y = -25.3333,
           width = 0,
           height = 0,
           rotation = 0,
           visible = true,
           polyline = {
             { x = 0, y = 0 },
-            { x = 147.333, y = 40.6667 },
-            { x = 387.333, y = 124 }
+            { x = -0.666667, y = 74 },
+            { x = -1.33333, y = 236 },
+            { x = 0, y = 560 }
           },
           properties = {}
         },
         {
-          id = 334,
+          id = 21,
           name = "1",
-          type = "Dropship",
+          type = "Fighter",
           shape = "polyline",
-          x = 344,
-          y = 42.6667,
+          x = 239.333,
+          y = -26,
           width = 0,
           height = 0,
           rotation = 0,
           visible = true,
           polyline = {
             { x = 0, y = 0 },
-            { x = -145.333, y = 32 },
-            { x = -386, y = 110 }
+            { x = -0.666667, y = 74 },
+            { x = -1.33333, y = 236 },
+            { x = 0, y = 560 }
+          },
+          properties = {}
+        },
+        {
+          id = 23,
+          name = "3",
+          type = "Mine",
+          shape = "rectangle",
+          x = 162,
+          y = 190.667,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 30,
+          name = "3",
+          type = "Drone",
+          shape = "polyline",
+          x = -35.3333,
+          y = 51.3333,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polyline = {
+            { x = 0, y = 0 },
+            { x = 386.667, y = 122 }
+          },
+          properties = {}
+        },
+        {
+          id = 32,
+          name = "1",
+          type = "Drone",
+          shape = "polyline",
+          x = 345.333,
+          y = 98.6667,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polyline = {
+            { x = 0, y = 0 },
+            { x = -364.667, y = 56.6667 }
+          },
+          properties = {}
+        },
+        {
+          id = 36,
+          name = "1",
+          type = "Drone",
+          shape = "polyline",
+          x = -32,
+          y = 192,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polyline = {
+            { x = 0, y = -32 },
+            { x = 128, y = -32 },
+            { x = 128, y = -128 },
+            { x = 256, y = -128 },
+            { x = 256, y = -32 },
+            { x = 384, y = -32 }
           },
           properties = {}
         }
@@ -310,16 +269,184 @@ return {
       properties = {},
       objects = {
         {
-          id = 340,
+          id = 38,
           name = "0",
-          type = "LaserTurret",
+          type = "Falcon",
           shape = "rectangle",
-          x = 170,
-          y = 74,
+          x = 160,
+          y = 94,
           width = 0,
           height = 0,
           rotation = 0,
           visible = true,
+          properties = {}
+        }
+      }
+    },
+    {
+      type = "objectgroup",
+      name = "wave4",
+      visible = false,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      draworder = "topdown",
+      properties = {},
+      objects = {
+        {
+          id = 43,
+          name = "0",
+          type = "Spawner",
+          shape = "polyline",
+          x = -40,
+          y = 29.3333,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polyline = {
+            { x = 0, y = 0 },
+            { x = 311.333, y = 0.666667 },
+            { x = 311.333, y = 67.3333 },
+            { x = 88, y = 67.3333 },
+            { x = 88, y = 131.333 },
+            { x = 392, y = 130.667 }
+          },
+          properties = {
+            ["count"] = 4,
+            ["delay"] = 0.7,
+            ["type"] = "Drone"
+          }
+        },
+        {
+          id = 44,
+          name = "5",
+          type = "Turret",
+          shape = "rectangle",
+          x = 107.333,
+          y = 132.667,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 45,
+          name = "3",
+          type = "Turret",
+          shape = "rectangle",
+          x = 228,
+          y = 132,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 48,
+          name = "0",
+          type = "Fighter",
+          shape = "polyline",
+          x = 164,
+          y = -42.6667,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polyline = {
+            { x = 0, y = 0 },
+            { x = 0, y = 88.6667 },
+            { x = 0.666667, y = 248 },
+            { x = 0, y = 540 }
+          },
+          properties = {}
+        },
+        {
+          id = 49,
+          name = "1",
+          type = "Fighter",
+          shape = "polyline",
+          x = 70.6667,
+          y = -44,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polyline = {
+            { x = 0, y = 0 },
+            { x = 0, y = 88.6667 },
+            { x = 0.666667, y = 248 },
+            { x = 0, y = 540 }
+          },
+          properties = {}
+        }
+      }
+    },
+    {
+      type = "objectgroup",
+      name = "wave5",
+      visible = false,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      draworder = "topdown",
+      properties = {},
+      objects = {
+        {
+          id = 50,
+          name = "0",
+          type = "Falcon",
+          shape = "rectangle",
+          x = 167.333,
+          y = 64,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 51,
+          name = "0",
+          type = "Falcon",
+          shape = "rectangle",
+          x = 248,
+          y = 63.3333,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        }
+      }
+    },
+    {
+      type = "objectgroup",
+      name = "wave6",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      draworder = "index",
+      properties = {},
+      objects = {
+        {
+          id = 56,
+          name = "0",
+          type = "LaserSwitch",
+          shape = "polyline",
+          x = 86,
+          y = 80,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polyline = {
+            { x = -78, y = 0 },
+            { x = 226, y = 0 }
+          },
           properties = {}
         }
       }
