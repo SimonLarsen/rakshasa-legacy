@@ -36,6 +36,7 @@ local constructors = {
 	--- laser types
 	Laser = require("game.enemies.Laser"),
 	LaserSwitch = require("game.enemies.LaserSwitch"),
+	LaserFan = require("game.enemies.LaserFan"),
 	--- tank types
 	Temple = require("game.enemies.Temple"),
 	Fortress = require("game.enemies.Fortress"),

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="20" height="30" tilewidth="16" tileheight="16" nextobjectid="57">
- <objectgroup draworder="index" name="wave1" visible="0">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="20" height="30" tilewidth="16" tileheight="16" nextobjectid="74">
+ <objectgroup draworder="index" name="wave1">
   <object id="3" name="0" type="Fighter" x="224" y="-48">
    <polyline points="0,0 -1.33333,128 0,272 0,560"/>
   </object>
@@ -18,7 +18,7 @@
   <object id="10" name="3" type="Turret" x="54" y="63.3333"/>
   <object id="11" name="3" type="Turret" x="273.333" y="60"/>
  </objectgroup>
- <objectgroup draworder="index" name="wave2" visible="0">
+ <objectgroup draworder="index" name="wave2">
   <object id="22" name="0" type="Fighter" x="164" y="-26.6667">
    <polyline points="0,0 -0.666667,74 -1.33333,236 0,560"/>
   </object>
@@ -39,10 +39,10 @@
    <polyline points="0,-32 128,-32 128,-128 256,-128 256,-32 384,-32"/>
   </object>
  </objectgroup>
- <objectgroup name="wave3" visible="0">
+ <objectgroup name="wave3">
   <object id="38" name="0" type="Falcon" x="160" y="94"/>
  </objectgroup>
- <objectgroup name="wave4" visible="0">
+ <objectgroup name="wave4">
   <object id="43" name="0" type="Spawner" x="-40" y="29.3333">
    <properties>
     <property name="count" type="int" value="4"/>
@@ -60,13 +60,8 @@
    <polyline points="0,0 0,88.6667 0.666667,248 0,540"/>
   </object>
  </objectgroup>
- <objectgroup name="wave5" visible="0">
+ <objectgroup name="wave5">
   <object id="50" name="0" type="Falcon" x="167.333" y="64"/>
   <object id="51" name="0" type="Falcon" x="248" y="63.3333"/>
- </objectgroup>
- <objectgroup draworder="index" name="wave6">
-  <object id="56" name="0" type="LaserSwitch" x="86" y="80">
-   <polyline points="-78,0 226,0"/>
-  </object>
  </objectgroup>
 </map>

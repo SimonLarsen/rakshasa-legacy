@@ -8,14 +8,14 @@ return {
   height = 30,
   tilewidth = 16,
   tileheight = 16,
-  nextobjectid = 57,
+  nextobjectid = 74,
   properties = {},
   tilesets = {},
   layers = {
     {
       type = "objectgroup",
       name = "wave1",
-      visible = false,
+      visible = true,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -124,7 +124,7 @@ return {
     {
       type = "objectgroup",
       name = "wave2",
-      visible = false,
+      visible = true,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -261,7 +261,7 @@ return {
     {
       type = "objectgroup",
       name = "wave3",
-      visible = false,
+      visible = true,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -286,7 +286,7 @@ return {
     {
       type = "objectgroup",
       name = "wave4",
-      visible = false,
+      visible = true,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -387,7 +387,7 @@ return {
     {
       type = "objectgroup",
       name = "wave5",
-      visible = false,
+      visible = true,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -418,35 +418,6 @@ return {
           height = 0,
           rotation = 0,
           visible = true,
-          properties = {}
-        }
-      }
-    },
-    {
-      type = "objectgroup",
-      name = "wave6",
-      visible = true,
-      opacity = 1,
-      offsetx = 0,
-      offsety = 0,
-      draworder = "index",
-      properties = {},
-      objects = {
-        {
-          id = 56,
-          name = "0",
-          type = "LaserSwitch",
-          shape = "polyline",
-          x = 86,
-          y = 80,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          visible = true,
-          polyline = {
-            { x = -78, y = 0 },
-            { x = 226, y = 0 }
-          },
           properties = {}
         }
       }

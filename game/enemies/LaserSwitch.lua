@@ -39,7 +39,6 @@ function LaserSwitch:update(dt, rt)
 		self:remove()
 		self.turret_left:remove()
 		self.turret_right:remove()
-		print("blammo")
 	end
 end
 
