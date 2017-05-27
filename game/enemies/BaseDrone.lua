@@ -14,7 +14,7 @@ function BaseDrone:enter(properties, MAX_HEALTH)
 	self.y = self.points[1].y
 	self.target = 2
 
-	self.cooldown = 0
+	self.cooldown = 0.8
 	self.player_chain = self:getScene():find("chain")
 
 	self:setRenderer(self:getAnimation())

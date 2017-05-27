@@ -105,7 +105,7 @@ function Falcon:onRemove()
 end
 
 function Falcon:getGems()
-	return 15
+	return 12
 end
 
 return Falcon

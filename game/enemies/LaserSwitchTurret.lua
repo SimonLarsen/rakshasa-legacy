@@ -6,7 +6,7 @@ local LaserSwitchTurret = class("game.enemies.LaserSwitchTurret", Enemy)
 
 local MAX_HEALTH = 4
 
-function LaserSwitchTurret:enter(x, y, speed)
+function LaserSwitchTurret:enter(x, y, dir, speed)
 	Enemy.enter(self, MAX_HEALTH)
 	self.x = x
 	self.y = y
@@ -14,7 +14,8 @@ function LaserSwitchTurret:enter(x, y, speed)
 	self.destroyed = false
 
 	self:setRenderer(prox.Animator("data/animators/enemies/laser_switch_turret.lua"))
-	self:setCollider(prox.BoxCollider(32, 32))
+	self:getRenderer():setScale(dir, 1)
+	self:setCollider(prox.BoxCollider(28, 28))
 end
 
 function LaserSwitchTurret:update(dt, rt)

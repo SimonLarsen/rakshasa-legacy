@@ -31,6 +31,7 @@ local constructors = {
 	Mine = require("game.enemies.Mine"),
 	SuperMine = require("game.enemies.SuperMine"),
 	--- turret types
+	Bunker = require("game.enemies.Bunker"),
 	Turret = require("game.enemies.Turret"),
 	LaserTurret = require("game.enemies.LaserTurret"),
 	--- laser types
@@ -63,8 +64,7 @@ Controller.static.STATE_GAMEOVER   = 4
 
 local levels = {
 	"data/levels/1.lua",
-	"data/levels/2.lua",
-	"data/levels/3.lua"
+	"data/levels/2.lua"
 }
 
 function Controller:enter(level, binding)

@@ -19,21 +19,29 @@ function LaserFan:enter(properties)
 
 	self.x = math.floor((p1.x + p2.x) / 2 + 0.5)
 	self.y = math.floor((p1.y + p2.y) / 2 + 0.5)
-	self.dir = math.atan2(xdist, -ydist)
+	self.dir = math.atan2(ydist, xdist)
 	self.speed = MOVE_SPEED or properties.speed
 	self.rotation_speed = ROTATION_SPEED or properties.rotation_speed
 
 	self.hc_rect = HC.rectangle(0, 0, self.dist, 16)
 	self.hc_rect:setRotation(self.dir)
 
-	self.beam_anim = prox.Animation("data/animations/enemies/laser_beam_orthogonal.lua")
-	self.beam_anim:setScale(self.dist, 1)
+	self.turret_anim = prox.Animation("data/animations/enemies/laser_fan.lua")
 
-	self.turret_anim = prox.Animator("data/animators/enemies/laser_switch_turret.lua")
-	self.turret_anim:setProperty("state", false)
+	self.beamw = (self.dist - 39) / 2
+	self.beam_anim1 = prox.Animation("data/animations/enemies/laser_beam_orthogonal.lua")
+	self.beam_anim1:setScale(self.beamw, 1)
+	self.beam_anim2 = prox.Animation("data/animations/enemies/laser_beam_orthogonal.lua")
+	self.beam_anim2:setScale(self.beamw, 1)
+
+	self.beam_tip1 = prox.Animation("data/animations/enemies/laser_tip.lua")
+	self.beam_tip2 = prox.Animation("data/animations/enemies/laser_tip.lua")
 
 	self:setRenderer(prox.MultiRenderer())
-	self:getRenderer():addRenderer(self.beam_anim)
+	self:getRenderer():addRenderer(self.beam_anim1)
+	self:getRenderer():addRenderer(self.beam_anim2)
+	self:getRenderer():addRenderer(self.beam_tip1)
+	self:getRenderer():addRenderer(self.beam_tip2)
 	self:getRenderer():addRenderer(self.turret_anim)
 end
 
@@ -43,7 +51,21 @@ function LaserFan:update(dt, rt)
 
 	self.hc_rect:moveTo(self.x, self.y)
 	self.hc_rect:setRotation(self.dir)
-	self.beam_anim:setRotation(self.dir)
+	self.turret_anim:setRotation(self.dir+math.pi/2)
+
+	self.beam_anim1:setRotation(self.dir)
+	self.beam_anim2:setRotation(self.dir)
+	self.beam_tip1:setRotation(self.dir+math.pi)
+	self.beam_tip2:setRotation(self.dir)
+
+	local ox = math.cos(self.dir) * (18 + self.beamw / 2)
+	local oy = math.sin(self.dir) * (18 + self.beamw / 2)
+	self:getRenderer():setOffset(1, -ox, -oy)
+	self:getRenderer():setOffset(2, ox, oy)
+	ox = math.cos(self.dir) * (17 + self.beamw)
+	oy = math.sin(self.dir) * (17 + self.beamw)
+	self:getRenderer():setOffset(3, -ox, -oy)
+	self:getRenderer():setOffset(4, ox, oy)
 
 	if self.y > prox.window.getHeight() + self.dist / 2 + 16 then
 		self:remove()

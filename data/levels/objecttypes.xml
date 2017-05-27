@@ -31,4 +31,5 @@
  <objecttype name="Shiva" color="#ffffff"/>
  <objecttype name="Agni " color="#ffffff"/>
  <objecttype name="LaserTurret" color="#55aaff"/>
+ <objecttype name="LaserSwitch" color="#5500ff"/>
 </objecttypes>

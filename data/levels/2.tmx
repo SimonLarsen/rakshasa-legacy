@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="20" height="30" tilewidth="16" tileheight="16" nextobjectid="11">
+ <objectgroup name="1">
+  <object id="8" name="0" type="Laser" x="16" y="80">
+   <polyline points="0,0 176,0"/>
+  </object>
+  <object id="9" name="2" type="Laser" x="304.5" y="81">
+   <polyline points="0,0 -112.5,111"/>
+  </object>
+ </objectgroup>
+</map>

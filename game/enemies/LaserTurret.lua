@@ -5,8 +5,8 @@ local LaserTurret = class("game.LaserTurret", Enemy)
 
 local MAX_HEALTH = 12
 local MOVE_SPEED = 35
-local COOLDOWN = 4.0
-local LASER_DELAY = 1.2
+local COOLDOWN = 4.2
+local LASER_DELAY = 1.4
 
 function LaserTurret:enter(properties)
 	Enemy.enter(self, MAX_HEALTH)
@@ -31,7 +31,7 @@ function LaserTurret:update(dt, rt)
 	end
 
 	self.cooldown = self.cooldown - dt
-	if self.cooldown <= 0 then
+	if self.cooldown <= 0 and self.y < prox.window.getHeight()-32 then
 		self:shoot()
 		self.cooldown = COOLDOWN
 	end

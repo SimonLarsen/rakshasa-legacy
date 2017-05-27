@@ -22,7 +22,7 @@ function Vortex:enter(properties)
 	self.entered_time = 0
 	self.phase = 1
 
-	self:setRenderer(prox.Animation("data/animations/enemies/barrier.lua"))
+	self:setRenderer(prox.Animation("data/animations/enemies/vortex.lua"))
 	self:setCollider(prox.BoxCollider(78, 78))
 
 	self.timer = prox.timer.tween(ENTER_TIME, self, {y=self.desty}, "out-quad", function() self.entered = true end)
