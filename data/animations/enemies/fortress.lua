@@ -1,8 +1,8 @@
 {
 	image = "data/images/enemies/fortress.png",
-	fw = 122,
-	fh = 122,
-	ox = 61,
-	oy = 61,
+	fw = 112,
+	fh = 112,
+	ox = 56,
+	oy = 56,
 	delay = 0.1
 }

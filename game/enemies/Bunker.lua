@@ -17,7 +17,7 @@ function Bunker:enter(properties)
 	self.has_shot = false
 
 	self.player_chain = self:getScene():find("chain")
-	self:setRenderer(prox.Sprite("data/images/enemies/bunker.png", 16, 16))
+	self:setRenderer(prox.Animation("data/animations/enemies/bunker.lua"))
 	self:setCollider(prox.BoxCollider(30, 30))
 end
 

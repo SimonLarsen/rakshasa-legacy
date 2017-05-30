@@ -1,4 +1,5 @@
 local Explosion = require("game.Explosion")
+local Plink = require("game.Plink")
 
 local PlayerBullet = class("game.PlayerBullet", prox.Entity)
 
@@ -21,6 +22,8 @@ function PlayerBullet:enter(x, y, dir, type)
 	self:setRenderer(prox.Sprite("data/images/bullets/player2.png", 8, 7))
 	self:setCollider(prox.BoxCollider(4, 4))
 	self:getRenderer():setRotation(self.dir)
+
+	self.hc_rect = HC.rectangle(0, 0, 4, 4)
 end
 
 function PlayerBullet:update(dt, rt)
@@ -31,15 +34,25 @@ function PlayerBullet:update(dt, rt)
 	or self.y < -16 or self.y > settings.screen_height+16 then
 		self:remove()
 	end
+
+	self.hc_rect:moveTo(self.x, self.y)
 end
 
 function PlayerBullet:getDamage()
 	return DAMAGE
 end
 
-function PlayerBullet:kill()
-	self:getScene():add(Explosion(self.x, self.y, Explosion.static.SIZE_SMALL))
+function PlayerBullet:kill(plink)
+	if plink then
+		self:getScene():add(Plink(self.x, self.y))
+	else
+		self:getScene():add(Explosion(self.x, self.y, Explosion.static.SIZE_SMALL))
+	end
 	self:remove()
+end
+
+function PlayerBullet:getHCShape()
+	return self.hc_rect
 end
 
 return PlayerBullet

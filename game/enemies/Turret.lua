@@ -22,7 +22,7 @@ function Turret:enter(properties)
 
 	self.player_chain = self:getScene():find("chain")
 
-	self:setRenderer(prox.Sprite("data/images/enemies/turret.png", 19, 19))
+	self:setRenderer(prox.Animation("data/animations/enemies/turret.lua"))
 	self:setCollider(prox.BoxCollider(30, 30))
 end
 

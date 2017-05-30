@@ -1,4 +1,5 @@
 local EnemyBullet = require("game.EnemyBullet")
+local PlayerBullet = require("game.PlayerBullet")
 local LaserSwitchTurret = require("game.enemies.LaserSwitchTurret")
 
 local LaserSwitch = class("game.enemies.LaserSwitch", EnemyBullet)
@@ -6,7 +7,7 @@ local LaserSwitch = class("game.enemies.LaserSwitch", EnemyBullet)
 local MOVE_SPEED = 40
 
 function LaserSwitch:enter(properties)
-	assert(#properties.points == 2, "Laser needs two points.")
+	assert(#properties.points == 2, "LaserSwitch needs two points.")
 
 	local p1, p2 = properties.points[1], properties.points[2]
 	if p1.x > p2.x then
@@ -44,10 +45,17 @@ function LaserSwitch:update(dt, rt)
 		r2._animations[r2._state]:reset()
 		self.anim_reset = true
 	end
+
 	if self.turret_left:isDestroyed() and self.turret_right:isDestroyed() then
 		self:remove()
 		self.turret_left:remove()
 		self.turret_right:remove()
+	else
+		for i,v in ipairs(self:getScene():findAll(PlayerBullet)) do
+			if self.hc_rect:collidesWith(v:getHCShape()) then
+				v:kill(true)
+			end
+		end
 	end
 end
 

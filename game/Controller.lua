@@ -166,6 +166,7 @@ function Controller:currentStep()
 end
 
 function Controller:gui()
+	love.graphics.setFont(self.sans_font)
 	love.graphics.setColor(255, 255, 255, self.hud_alpha)
 	love.graphics.draw(self.scorebox_image, prox.window.getWidth()/2+163, 16)
 	love.graphics.printf(math.floor(self.score_display), prox.window.getWidth()/2+177, 69, 130, "center")

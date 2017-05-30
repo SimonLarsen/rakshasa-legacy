@@ -1,4 +1,6 @@
 local EnemyBullet = require("game.EnemyBullet")
+local PlayerBullet = require("game.PlayerBullet")
+local Flash = require("game.Flash")
 
 local Laser = class("game.enemies.Laser", EnemyBullet)
 
@@ -50,13 +52,14 @@ function Laser:enter(properties)
 		self.turret_anim2 = prox.Animator("data/animators/enemies/laser_turret_orthogonal.lua")
 
 		self.turret_anim1:setRotation(self.dir)
+		self.turret_anim1:setOrigin(0,-1)
 		self.turret_anim2:setRotation(self.dir)
 		self.turret_anim2:setScale(-1, 1)
 
 		self:getRenderer():addRenderer(self.turret_anim1, math.floor(-math.cos(self.dir)*odist/2), math.floor(-math.sin(self.dir)*odist/2))
 		self:getRenderer():addRenderer(self.turret_anim2, math.floor( math.cos(self.dir)*odist/2), math.floor( math.sin(self.dir)*odist/2))
 	else
-		local beams = math.ceil(xdist / 7)
+		local beams = math.ceil(xdist / 7)-2
 		local sgnx = prox.math.sign(xdist)
 		local sgny = prox.math.sign(ydist)
 
@@ -81,8 +84,8 @@ function Laser:enter(properties)
 		self.turret_anim1:setRotation(self.dir - math.pi/4)
 		self.turret_anim2:setRotation(self.dir - math.pi/4 + math.pi)
 
-		self:getRenderer():addRenderer(self.turret_anim1, math.floor(-math.cos(self.dir)*odist/2), math.floor(-math.sin(self.dir)*odist/2))
-		self:getRenderer():addRenderer(self.turret_anim2, math.floor( math.cos(self.dir)*odist/2), math.floor( math.sin(self.dir)*odist/2))
+		self:getRenderer():addRenderer(self.turret_anim1, math.floor(-math.cos(self.dir)*beams*5), math.floor(-math.sin(self.dir)*beams*5))
+		self:getRenderer():addRenderer(self.turret_anim2, math.floor( math.cos(self.dir)*beams*5), math.floor( math.sin(self.dir)*beams*5))
 	end
 
 	self.turret_anim1:setProperty("state", self.on)
@@ -113,6 +116,14 @@ function Laser:update(dt, rt)
 			v:reset()
 			self.turret_anim1:setProperty("state", self.on)
 			self.turret_anim2:setProperty("state", self.on)
+		end
+	end
+
+	if self.on then
+		for i,v in ipairs(self:getScene():findAll(PlayerBullet)) do
+			if self.hc_rect:collidesWith(v:getHCShape()) then
+				v:kill(true)
+			end
 		end
 	end
 

@@ -142,7 +142,7 @@ function Ship:onCollide(o, dt, rt)
 		self.flash = 0.05
 		o:pickup()
 	elseif o:getName() == "player_bullet" then
-		o:kill()
+		o:kill(true)
 	end
 end
 

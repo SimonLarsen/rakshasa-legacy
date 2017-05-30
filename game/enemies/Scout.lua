@@ -11,11 +11,11 @@ function Scout:enter(properties)
 end
 
 function Scout:getAnimation()
-	return prox.Animation("data/animations/enemies/drone.lua")
+	return prox.Animation("data/animations/enemies/scout.lua")
 end
 
 function Scout:getCollider()
-	return prox.BoxCollider(26, 26)
+	return prox.BoxCollider(25, 25)
 end
 
 function Scout:shoot()

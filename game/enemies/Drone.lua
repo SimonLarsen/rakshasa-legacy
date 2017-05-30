@@ -15,7 +15,7 @@ function Drone:getAnimation()
 end
 
 function Drone:getCollider()
-	return prox.BoxCollider(26, 26)
+	return prox.BoxCollider(25, 25)
 end
 
 function Drone:shoot()

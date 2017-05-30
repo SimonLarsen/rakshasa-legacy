@@ -6,9 +6,9 @@ local Temple = class("game.enemies.Temple", Enemy)
 
 local MAX_HEALTH = 40
 
-local ENTER_TIME = 1.5
 local MOVE_SPEED = 25
-local BULLET_COOLDOWN = ENTER_TIME + 0.0
+local BULLET_COOLDOWN = 1.5
+local ENTER_TIME = 1.5
 
 function Temple:enter(properties)
 	Enemy.enter(self, MAX_HEALTH, true)
@@ -17,7 +17,7 @@ function Temple:enter(properties)
 	self.desty = properties.y
 	self.x = self.destx
 	self.y = -30
-	self.cooldown = 4
+	self.cooldown = 2.5
 	self.entered = false
 	self.entered_time = 0
 

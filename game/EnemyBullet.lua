@@ -82,11 +82,12 @@ function EnemyBullet:update(dt, rt)
 		self:remove()
 	end
 
+	self.hc_rect:moveTo(self.x, self.y)
+
 	return dt, rt
 end
 
 function EnemyBullet:getHCShape()
-	self.hc_rect:moveTo(self.x, self.y)
 	return self.hc_rect
 end
 
