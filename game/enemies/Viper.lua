@@ -11,7 +11,7 @@ function Viper:enter(properties)
 end
 
 function Viper:getAnimation()
-	return prox.Animation("data/animations/enemies/fighter.lua")
+	return prox.Animation("data/animations/enemies/viper.lua")
 end
 
 function Viper:getCollider()

@@ -8,7 +8,7 @@ return {
   height = 30,
   tilewidth = 16,
   tileheight = 16,
-  nextobjectid = 98,
+  nextobjectid = 103,
   properties = {},
   tilesets = {},
   layers = {
@@ -598,36 +598,59 @@ return {
       properties = {},
       objects = {
         {
-          id = 96,
+          id = 99,
           name = "0",
-          type = "LaserSwitch",
+          type = "Fighter",
           shape = "polyline",
-          x = 16,
-          y = 208,
+          x = 80.6667,
+          y = -26.6667,
           width = 0,
           height = 0,
           rotation = 0,
           visible = true,
           polyline = {
             { x = 0, y = 0 },
-            { x = 288, y = 0 }
+            { x = -0.666667, y = 90.6667 },
+            { x = -0.666667, y = 266.667 },
+            { x = -0.666667, y = 538.667 }
           },
           properties = {}
         },
         {
-          id = 97,
-          name = "10",
-          type = "LaserSwitch",
+          id = 100,
+          name = "2",
+          type = "Viper",
           shape = "polyline",
-          x = 16,
-          y = 64,
+          x = 161.333,
+          y = -27.3333,
           width = 0,
           height = 0,
           rotation = 0,
           visible = true,
           polyline = {
             { x = 0, y = 0 },
-            { x = 288, y = 0 }
+            { x = -0.666667, y = 90.6667 },
+            { x = -0.666667, y = 266.667 },
+            { x = -0.666667, y = 538.667 }
+          },
+          properties = {}
+        },
+        {
+          id = 102,
+          name = "2",
+          type = "Striker",
+          shape = "polyline",
+          x = 244.667,
+          y = -32,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polyline = {
+            { x = 0, y = 0 },
+            { x = -0.666667, y = 90.6667 },
+            { x = -0.666667, y = 266.667 },
+            { x = -0.666667, y = 538.667 }
           },
           properties = {}
         }

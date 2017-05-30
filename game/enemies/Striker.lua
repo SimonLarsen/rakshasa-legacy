@@ -11,7 +11,7 @@ function Striker:enter(properties)
 end
 
 function Striker:getAnimation()
-	return prox.Animation("data/animations/enemies/fighter.lua")
+	return prox.Animation("data/animations/enemies/striker.lua")
 end
 
 function Striker:getCollider()
