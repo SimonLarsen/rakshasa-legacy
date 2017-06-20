@@ -8,7 +8,7 @@ return {
   height = 30,
   tilewidth = 16,
   tileheight = 16,
-  nextobjectid = 103,
+  nextobjectid = 104,
   properties = {},
   tilesets = {},
   layers = {
@@ -435,7 +435,7 @@ return {
     {
       type = "objectgroup",
       name = "5",
-      visible = false,
+      visible = true,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -590,71 +590,13 @@ return {
     {
       type = "objectgroup",
       name = "6",
-      visible = true,
+      visible = false,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
       draworder = "topdown",
       properties = {},
-      objects = {
-        {
-          id = 99,
-          name = "0",
-          type = "Fighter",
-          shape = "polyline",
-          x = 80.6667,
-          y = -26.6667,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          visible = true,
-          polyline = {
-            { x = 0, y = 0 },
-            { x = -0.666667, y = 90.6667 },
-            { x = -0.666667, y = 266.667 },
-            { x = -0.666667, y = 538.667 }
-          },
-          properties = {}
-        },
-        {
-          id = 100,
-          name = "2",
-          type = "Viper",
-          shape = "polyline",
-          x = 161.333,
-          y = -27.3333,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          visible = true,
-          polyline = {
-            { x = 0, y = 0 },
-            { x = -0.666667, y = 90.6667 },
-            { x = -0.666667, y = 266.667 },
-            { x = -0.666667, y = 538.667 }
-          },
-          properties = {}
-        },
-        {
-          id = 102,
-          name = "2",
-          type = "Striker",
-          shape = "polyline",
-          x = 244.667,
-          y = -32,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          visible = true,
-          polyline = {
-            { x = 0, y = 0 },
-            { x = -0.666667, y = 90.6667 },
-            { x = -0.666667, y = 266.667 },
-            { x = -0.666667, y = 538.667 }
-          },
-          properties = {}
-        }
-      }
+      objects = {}
     }
   }
 }

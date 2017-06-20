@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="20" height="30" tilewidth="16" tileheight="16" nextobjectid="103">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="20" height="30" tilewidth="16" tileheight="16" nextobjectid="104">
  <objectgroup name="1" visible="0">
   <object id="13" name="0" type="Temple" x="159.333" y="78.6667"/>
  </objectgroup>
@@ -67,7 +67,7 @@
    <polyline points="0,0 0,106 1.33333,248 -0.666667,514"/>
   </object>
  </objectgroup>
- <objectgroup draworder="index" name="5" visible="0">
+ <objectgroup draworder="index" name="5">
   <object id="66" name="0" type="Bunker" x="64" y="288"/>
   <object id="67" name="0" type="Bunker" x="112" y="288"/>
   <object id="68" name="0" type="Bunker" x="160" y="288"/>
@@ -80,15 +80,5 @@
   <object id="83" name="0" type="Bunker" x="112" y="192"/>
   <object id="85" name="0" type="Bunker" x="160" y="192"/>
  </objectgroup>
- <objectgroup name="6">
-  <object id="99" name="0" type="Fighter" x="80.6667" y="-26.6667">
-   <polyline points="0,0 -0.666667,90.6667 -0.666667,266.667 -0.666667,538.667"/>
-  </object>
-  <object id="100" name="2" type="Viper" x="161.333" y="-27.3333">
-   <polyline points="0,0 -0.666667,90.6667 -0.666667,266.667 -0.666667,538.667"/>
-  </object>
-  <object id="102" name="2" type="Striker" x="244.667" y="-32">
-   <polyline points="0,0 -0.666667,90.6667 -0.666667,266.667 -0.666667,538.667"/>
-  </object>
- </objectgroup>
+ <objectgroup name="6" visible="0"/>
 </map>

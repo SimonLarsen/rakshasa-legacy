@@ -30,7 +30,6 @@ end
 
 function Background:draw()
 	local alpha = self.alpha * (20 + 5*math.cos(prox.time.getTime()*4))
-	--love.graphics.setColor(211, 80, 80, alpha)
 	love.graphics.setColor(255, 255, 255, alpha)
 	love.graphics.draw(self.image, 0, self.y)
 	love.graphics.draw(self.image, 0, self.y-self.image:getHeight())
