@@ -1,5 +1,5 @@
 {
-	image = "data/images/ship_thrust.png",
+	image = "data/images/ship_idle.png",
 	fw = 46,
 	fh = 63,
 	ox = 23,

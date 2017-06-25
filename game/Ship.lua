@@ -44,15 +44,14 @@ function Ship:enter(side)
 	self:setRenderer(prox.MultiRenderer())
 	self:getRenderer():addRenderer(self.gear_sprite, 0, 1)
 
-	self.animator_left = prox.Animator("data/animators/ship_left.lua")
-	self.animator_right = prox.Animator("data/animators/ship_right.lua")
+	self.ship_renderer = prox.Animator("data/animators/ship.lua")
+	self:getRenderer():addRenderer(self.ship_renderer)
 
 	if self.side == Ship.static.SIDE_LEFT then
 		self.x = settings.screen_width/2 - 40
-		self.animator = self.animator_left
 	else
 		self.x = settings.screen_width/2 + 40
-		self.animator = self.animator_right
+		self.ship_renderer:setScale(-1, 1)
 	end
 	self:getRenderer():addRenderer(self.animator)
 
@@ -101,6 +100,12 @@ function Ship:update(dt, rt)
 
 	self:getRenderer():setShader(self.flash > 0 and self.white_shader or nil)
 	self.flash = self.flash - dt
+
+	if self.side == Ship.static.SIDE_LEFT then
+		self.ship_renderer:setProperty("xspeed", self.xspeed)
+	else
+		self.ship_renderer:setProperty("xspeed", -self.xspeed)
+	end
 end
 
 function Ship:shoot()
@@ -129,11 +134,10 @@ end
 function Ship:setSide(side)
 	self.side = side
 	if self.side == Ship.static.SIDE_LEFT then
-		self.animator = self.animator_left
+		self.ship_renderer:setScale(1, 1)
 	else
-		self.animator = self.animator_right
+		self.ship_renderer:setScale(-1, 1)
 	end
-	self:getRenderer():addRenderer(self.animator)
 end
 
 function Ship:onCollide(o, dt, rt)
