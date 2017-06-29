@@ -13,7 +13,9 @@ end
 function EnemyChargeBullet:update(dt, rt)
 	dt, rt = Slowable.update(self, dt, rt)
 
-	if not self.charging then
+	if self.charging then
+		self.hc_rect:moveTo(self.x, self.y)
+	else
 		EnemyBullet.update(self, dt, rt)
 	end
 end

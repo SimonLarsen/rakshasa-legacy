@@ -7,7 +7,6 @@ local ScreenShaker = require("game.ScreenShaker")
 local EndText = require("game.EndText")
 local Heart = require("game.Heart")
 local Level = require("game.Level")
-local WireModel = require("bg.WireModel")
 
 local DualController = require("controls.DualController")
 
@@ -106,8 +105,8 @@ function Controller:enter(level, binding)
 	self.small_font = prox.resources.getImageFont("data/fonts/small.png")
 	self.sans_font = prox.resources.getImageFont("data/fonts/large_sans.png")
 
-	local monkey = self:getScene():add(WireModel("data/models/box.edges", -0.5, 0, -5))
-	self:getScene():find("wireframe"):addModel(monkey)
+	--self:getScene():add(require("bg.models.CubeSpawner")())
+	self:getScene():find("wireframe"):addModel(self:getScene():add(require("bg.models.Pipe")()))
 end
 
 function Controller:update(dt, rt)
