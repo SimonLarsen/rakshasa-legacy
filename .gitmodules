@@ -7,3 +7,6 @@
 [submodule "cpml"]
 	path = cpml
 	url = https://github.com/excessive/cpml.git
+[submodule "lua-obj"]
+	path = lua-obj
+	url = https://github.com/karai17/lua-obj.git

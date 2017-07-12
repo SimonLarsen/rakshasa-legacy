@@ -7,6 +7,7 @@ local ScreenShaker = require("game.ScreenShaker")
 local EndText = require("game.EndText")
 local Heart = require("game.Heart")
 local Level = require("game.Level")
+local cpml = require("cpml")
 
 local DualController = require("controls.DualController")
 
@@ -104,9 +105,6 @@ function Controller:enter(level, binding)
 
 	self.small_font = prox.resources.getImageFont("data/fonts/small.png")
 	self.sans_font = prox.resources.getImageFont("data/fonts/large_sans.png")
-
-	--self:getScene():add(require("bg.models.CubeSpawner")())
-	self:getScene():find("wireframe"):addModel(self:getScene():add(require("bg.models.Pipe")()))
 end
 
 function Controller:update(dt, rt)

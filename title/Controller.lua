@@ -48,6 +48,19 @@ function Controller:enter()
 
 	self.sfx_blip = prox.resources.getSound("data/sounds/blip.wav")
 	self.sfx_confirm = prox.resources.getSound("data/sounds/weird_bang.wav")
+
+	local AnimatedModel = require("bg.AnimatedModel")
+	prox.timer.every(1, function()
+		local c = AnimatedModel("data/models/cube.obj", {
+			x = 4*love.math.random()-2, y = -5, z = 8,
+			desty = 5,
+			rx = 0.5,
+			ry = 0.5,
+			speed = 2
+		})
+		self:getScene():add(c)
+		c:setRotation(love.math.random(), love.math.random())
+	end)
 end
 
 function Controller:update(dt, rt)
