@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="20" height="30" tilewidth="16" tileheight="16" nextobjectid="104">
- <objectgroup name="1">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="20" height="30" tilewidth="16" tileheight="16" nextobjectid="106">
+ <objectgroup name="1" visible="0">
   <object id="13" name="0" type="Temple" x="159.333" y="78.6667"/>
  </objectgroup>
- <objectgroup draworder="index" name="2">
+ <objectgroup draworder="index" name="2" visible="0">
   <object id="15" name="0" type="Spawner" x="342.667" y="130">
    <properties>
     <property name="count" type="int" value="4"/>
@@ -33,7 +33,7 @@
    <polyline points="0,0 0,112 0,336 0,512"/>
   </object>
  </objectgroup>
- <objectgroup name="3">
+ <objectgroup name="3" visible="0">
   <object id="25" name="0" type="Drone" x="335.333" y="178">
    <polyline points="0,0 -350,-0.666667"/>
   </object>
@@ -50,7 +50,7 @@
   <object id="32" name="1" type="Turret" x="71.3333" y="168"/>
   <object id="33" name="1" type="Turret" x="247.333" y="167.333"/>
  </objectgroup>
- <objectgroup name="4">
+ <objectgroup name="4" visible="0">
   <object id="38" name="0" type="Laser" x="16" y="256">
    <polyline points="0,0 144,0"/>
   </object>
@@ -67,7 +67,7 @@
    <polyline points="0,0 0,106 1.33333,248 -0.666667,514"/>
   </object>
  </objectgroup>
- <objectgroup draworder="index" name="5">
+ <objectgroup draworder="index" name="5" visible="0">
   <object id="66" name="0" type="Bunker" x="64" y="288"/>
   <object id="67" name="0" type="Bunker" x="112" y="288"/>
   <object id="68" name="0" type="Bunker" x="160" y="288"/>
@@ -80,5 +80,7 @@
   <object id="83" name="0" type="Bunker" x="112" y="192"/>
   <object id="85" name="0" type="Bunker" x="160" y="192"/>
  </objectgroup>
- <objectgroup name="6"/>
+ <objectgroup name="6">
+  <object id="104" name="0" type="Fear" x="160" y="81"/>
+ </objectgroup>
 </map>

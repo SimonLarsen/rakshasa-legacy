@@ -9,7 +9,7 @@ function EnemyBulletBomb:enter(x, y, destx, desty, enter_time, detonation_time, 
 	self.x = x
 	self.y = y
 	self.time = detonation_time
-	self.pattern = BasePattern(self, pattern)
+	self.pattern = BasePattern(self, 0, 0, pattern)
 
 	self:setRenderer(prox.Animation("data/animations/bullets/bomb.lua"))
 	self:getRenderer():setSpeed(4)

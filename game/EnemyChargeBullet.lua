@@ -7,7 +7,7 @@ function EnemyChargeBullet:enter(x, y, chargex, chargey, dir, charge_time)
 	EnemyBullet.enter(self, x, y, dir, EnemyBullet.TYPE_CHARGE)
 	self.charging = true
 
-	self.timer = prox.timer.tween(charge_time, self, {x = chargex, y=chargey}, "out-back", function() self.charging = false end)
+	self.timer = prox.timer.tween(charge_time or 1, self, {x = chargex, y=chargey}, "out-back", function() self.charging = false end)
 end
 
 function EnemyChargeBullet:update(dt, rt)

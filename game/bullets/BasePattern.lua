@@ -4,8 +4,8 @@ local Flash = require("game.Flash")
 
 local BasePattern = class("game.bullets.BasePattern", BulletPattern)
 
-function BasePattern:initialize(parent, params)
-	BulletPattern.initialize(self, parent)
+function BasePattern:initialize(parent, ox, oy, params)
+	BulletPattern.initialize(self, parent, ox, oy)
 	self.salvo_delay = params.salvo_delay or 0.1
 	self.salvo_size = params.salvo_size or 1
 	self.salvo_rotation_offset = params.salvo_rotation_offset or 0
@@ -14,7 +14,7 @@ function BasePattern:initialize(parent, params)
 	self.shot_rotation_offset = params.shot_rotation_offset or 0
 	self.rotation_speed = params.rotation_speed or 0
 	self.warmup = params.warmup or 0
-	self.start_rotation = params.start_rotation or 0
+	self.start_rotation = params.start_rotation or math.pi/2
 	self.bullet_type = params.bullet_type or EnemyBullet.static.TYPE_LASER
 	self.reset_rotation = params.reset_rotation or false
 	self.target_player = params.target_player or false
@@ -59,18 +59,20 @@ function BasePattern:update(dt)
 end
 
 function BasePattern:shoot(x, y)
+	local posx, posy = self:getPosition()
+
 	local dir = self.rotation
 	for i=1,self.shot_count do
 		if self.target_player then
-			local xdist = self.player_chain.x - self.parent.x
-			local ydist = self.player_chain.y - self.parent.y
+			local xdist = self.player_chain.x - posx
+			local ydist = self.player_chain.y - posy
 			dir = math.atan2(ydist, xdist)
 		end
-		local bullet = EnemyBullet(self.parent.x, self.parent.y, dir, self.bullet_type)
+		local bullet = EnemyBullet(posx, posy, dir, self.bullet_type)
 		self.parent:getScene():add(bullet)
 		dir = dir + self.shot_rotation_offset
 	end
-	self.parent:getScene():add(Flash(self.parent.x, self.parent.y))
+	self.parent:getScene():add(Flash(posx, posy))
 end
 
 return BasePattern

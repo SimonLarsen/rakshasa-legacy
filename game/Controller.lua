@@ -47,9 +47,7 @@ local constructors = {
 	--- silo types
 	Silo = require("game.enemies.Silo"),
 	--- bosses
-	Durga = require("game.bosses.Durga"),
-	Shiva = require("game.bosses.Shiva"),
-	Agni = require("game.bosses.Agni")
+	Fear = require("game.bosses.Fear")
 }
 
 local WARMUP_TIME = 3
@@ -105,6 +103,19 @@ function Controller:enter(level, binding)
 
 	self.small_font = prox.resources.getImageFont("data/fonts/small.png")
 	self.sans_font = prox.resources.getImageFont("data/fonts/large_sans.png")
+
+	local AnimatedModel = require("bg.AnimatedModel")
+	prox.timer.every(1, function()
+		local c = AnimatedModel("data/models/cube.obj", {
+			x = 4*love.math.random()-2, y = -5, z = 8,
+			desty = 5,
+			rx = 0.5,
+			ry = 0.5,
+			speed = 2
+		})
+		self:getScene():add(c)
+		c:setRotation(love.math.random(), love.math.random())
+	end)
 end
 
 function Controller:update(dt, rt)

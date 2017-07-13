@@ -4,13 +4,17 @@ function PatternManager:initialize()
 	self.patterns = {}
 	self.delays = {}
 
-	self.index = 1
-	self.time = 0
+	self:reset()
 end
 
 function PatternManager:add(pattern, delay)
 	table.insert(self.patterns, pattern)
 	table.insert(self.delays, delay)
+end
+
+function PatternManager:reset()
+	self.index = 1
+	self.time = 0
 end
 
 function PatternManager:update(dt)

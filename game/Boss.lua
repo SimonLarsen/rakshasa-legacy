@@ -1,4 +1,5 @@
 local Enemy = require("game.Enemy")
+local EnemyBullet = require("game.EnemyBullet")
 local Gem = require("game.Gem")
 local Heart = require("game.Heart")
 local WhiteFlash = require("game.WhiteFlash")
@@ -18,7 +19,6 @@ function Boss:enter(boss_id, health)
 	self.invulnerable = 0
 
 	self.boss_healthbar = prox.resources.getImage("data/images/boss_healthbar.png")
-	self.name_text = prox.resources.getImage("data/images/text/boss_" .. self.boss_id .. ".png")
 end
 
 function Boss:update(dt, rt)
@@ -55,7 +55,7 @@ function Boss:damage(damage)
 end
 
 function Boss:kill()
-	for i,v in ipairs(self:getScene():findAll("enemy_bullet")) do
+	for i,v in ipairs(self:getScene():findAll(EnemyBullet)) do
 		v:kill()
 	end
 end
@@ -86,23 +86,21 @@ function Boss:gui()
 
 	local midx = prox.window.getWidth()/2
 
-	-- Boss name
-	local textx = midx - math.floor(self.name_text:getWidth() / 2)
-	love.graphics.draw(self.name_text, textx, 15)
-
 	-- Health bar
 	local bar_width = math.max(0, math.ceil(self.healthbar / self.max_health * 150))
-	love.graphics.draw(self.boss_healthbar, midx, 52, 0, 1, 1, 95, 18)
+	love.graphics.draw(self.boss_healthbar, midx, 26, 0, 1, 1, 95, 18)
 
 	love.graphics.setColor(0, 0, 0)
-	love.graphics.rectangle("fill", midx-76, 39, bar_width+2, 27)
-
-	love.graphics.setColor(211, 80, 80)
-	love.graphics.rectangle("fill", midx-75, 40, bar_width, 25)
+	love.graphics.rectangle("fill", midx-76, 13, bar_width+2, 27)
 
 	love.graphics.setColor(255, 255, 255)
-	local bar_width = math.max(0, math.floor(self.health / self.max_health * 150))
-	love.graphics.rectangle("fill", midx-75, 40, bar_width, 25)
+	love.graphics.rectangle("fill", midx-75, 14, bar_width, 25)
+
+	love.graphics.setColor(211, 80, 80)
+	local bar_width = math.max(0, math.ceil(self.health / self.max_health * 150))
+	love.graphics.rectangle("fill", midx-75, 14, bar_width, 25)
+
+	love.graphics.setColor(255, 255, 255)
 end
 
 return Boss

@@ -8,14 +8,14 @@ return {
   height = 30,
   tilewidth = 16,
   tileheight = 16,
-  nextobjectid = 104,
+  nextobjectid = 106,
   properties = {},
   tilesets = {},
   layers = {
     {
       type = "objectgroup",
       name = "1",
-      visible = true,
+      visible = false,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -40,7 +40,7 @@ return {
     {
       type = "objectgroup",
       name = "2",
-      visible = true,
+      visible = false,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -213,7 +213,7 @@ return {
     {
       type = "objectgroup",
       name = "3",
-      visible = true,
+      visible = false,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -332,7 +332,7 @@ return {
     {
       type = "objectgroup",
       name = "4",
-      visible = true,
+      visible = false,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -435,7 +435,7 @@ return {
     {
       type = "objectgroup",
       name = "5",
-      visible = true,
+      visible = false,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -596,7 +596,21 @@ return {
       offsety = 0,
       draworder = "topdown",
       properties = {},
-      objects = {}
+      objects = {
+        {
+          id = 104,
+          name = "0",
+          type = "Fear",
+          shape = "rectangle",
+          x = 160,
+          y = 81,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        }
+      }
     }
   }
 }
