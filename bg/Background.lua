@@ -83,8 +83,9 @@ function Background:draw()
 				table.insert(poly, vs[e.v].y * 320 + 240)
 			end
 
-			local r = 32 - math.min(math.log(o[2])*4, 32)
-			love.graphics.setColor(r, r, r, 255)
+			--local r = 32 - math.min(math.log(o[2])*4, 32)
+			--love.graphics.setColor(r, r, r, 255)
+			love.graphics.setColor(0, 0, 0)
 			love.graphics.polygon("fill", poly)
 
 			love.graphics.setColor(255, 255, 255, 255)

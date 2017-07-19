@@ -17,6 +17,12 @@ function PatternManager:reset()
 	self.time = 0
 end
 
+function PatternManager:setPattern(index)
+	assert(self.index >= 1 and self.index <= #self.patterns)
+	self.time = 0
+	self.index = index
+end
+
 function PatternManager:update(dt)
 	self.time = self.time + dt
 	if self.time >= self.delays[self.index] then

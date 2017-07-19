@@ -6,10 +6,12 @@ local BasePattern = require("game.bullets.BasePattern")
 local MultiPattern = require("game.bullets.MultiPattern")
 local LambdaPattern = require("game.bullets.LambdaPattern")
 local ChargeFanPattern = require("game.bullets.ChargeFanPattern")
+local Turret = require("game.enemies.Turret")
+local FearBubble = require("game.bosses.FearBubble")
 
 local Fear = class("game.bosses.Fear", Boss)
 
-local MAX_HEALTH = 400
+local MAX_HEALTH = 600
 local ENTER_TIME = 2
 
 Fear.static.STATE_ENTER = 1
@@ -35,8 +37,7 @@ function Fear:enter()
 
 	prox.timer.tween(ENTER_TIME, self, {y = self.desty}, "out-sine", function()
 		self.active = true
-		self.state = Fear.static.STATE_PHASE3
-		self:getScene():find("screenshaker"):shake(0.5, 4, 60)
+		self.state = Fear.static.STATE_PHASE1
 	end)
 
 	self:initPatterns()
@@ -55,6 +56,9 @@ function Fear:update(dt, rt)
 		self.state = Fear.static.STATE_PHASE3
 	end
 
+	if self.left_turret and not self.left_turret:isAlive() then self.left_turret = nil end
+	if self.right_turret and not self.right_turret:isAlive() then self.right_turret = nil end
+
 	self.entered_time = self.entered_time + dt
 	self.x = self.destx + math.sin(self.entered_time)*8
 	self.y = self.desty + math.sin(self.entered_time*1.1)*6
@@ -65,26 +69,37 @@ end
 function Fear:initPatterns()
 	self.patterns = {}
 
+	local ptn_spawn_turret_left = LambdaPattern(self, 0, 0,
+		function(o)
+			if not self.left_turret then
+				self:getScene():add(FearBubble(self.x, self.y+32, 48, 148, 2, function()
+					self.left_turret = Turret({x = 48, speed = 0, salvo_size = 1})
+					self:getScene():add(self.left_turret)
+					self.left_turret.y = 148
+				end))
+			end
+		end,
+		{ delay = 999 }
+	)
+
+	local ptn_spawn_turret_right = LambdaPattern(self, 0, 0,
+		function(o)
+			if not self.right_turret then
+				self:getScene():add(FearBubble(self.x, self.y+32, 272, 148, 2, function()
+					self.right_turret = Turret({x = 272, speed = 0, salvo_size = 1})
+					self:getScene():add(self.right_turret)
+					self.right_turret.y = 148
+				end))
+			end
+		end,
+		{ delay = 999 }
+	)
+
 	local ptn_down = BasePattern(self, 0, 37, {
 		start_rotation = math.pi/2,
 		shot_delay = 0.13,
 		salvo_size = 4,
 		salvo_delay = 999
-	})
-	
-	local ptn_leftright = MultiPattern({
-		BasePattern(self, -52, 8, {
-			start_rotation = math.pi/2+0.3,
-			shot_delay = 0.13,
-			salvo_size = 4,
-			salvo_delay = 999,
-		}),
-		BasePattern(self, 52, 8, {
-			start_rotation = math.pi/2-0.3,
-			shot_delay = 0.13,
-			salvo_size = 4,
-			salvo_delay = 999,
-		})
 	})
 
 	local ptn_target = MultiPattern({
@@ -111,11 +126,13 @@ function Fear:initPatterns()
 	-- PHASE 1 patterns
 	local man1 = PatternManager()
 	self.patterns[Fear.static.STATE_PHASE1] = man1
-	man1:add(ptn_down, 1.25)
-	man1:add(ptn_leftright, 1.25)
-	man1:add(ptn_down, 1.35)
-	for i=1,4 do
-		man1:add(ptn_target, 1.6)
+	man1:add(ptn_spawn_turret_left, 1.5)
+	man1:add(ptn_spawn_turret_right, 3)
+	for i=1,2 do
+		man1:add(ptn_down, 1.60)
+		for j=1,2 do
+			man1:add(ptn_target, 1.6)
+		end
 	end
 
 	-- PHASE 2 patterns
