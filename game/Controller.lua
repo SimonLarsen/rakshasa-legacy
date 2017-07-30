@@ -31,6 +31,7 @@ local constructors = {
 	--- mines
 	Mine = require("game.enemies.Mine"),
 	SuperMine = require("game.enemies.SuperMine"),
+	ProximityMine = require("game.enemies.ProximityMine"),
 	--- turret types
 	Bunker = require("game.enemies.Bunker"),
 	Turret = require("game.enemies.Turret"),

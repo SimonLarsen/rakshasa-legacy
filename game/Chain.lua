@@ -46,6 +46,10 @@ function Chain:enter(ship1, ship2)
 
 	self:setCollider(prox.BoxCollider(26, 26))
 
+	self.hc_rect = HC.rectangle(0, 0, 32, 8)
+	self.hc_rect:moveTo(self.x, self.y)
+	self.hc_rect:setRotation(self.direction)
+
 	prox.timer.after(0.7, function()
 		prox.timer.tween(1.0, self, {dissolve_edge = -0.5}, "in-linear")
 	end)
@@ -82,12 +86,12 @@ function Chain:update(dt, rt)
 
 	-- Check collision with bullets
 	self.invulnerable = self.invulnerable - dt
-	hc_rect = HC.rectangle(0, 0, dist, 8)
-	hc_rect:moveTo(self.x, self.y)
-	hc_rect:setRotation(self.direction)
+	self.hc_rect = HC.rectangle(0, 0, dist, 8)
+	self.hc_rect:moveTo(self.x, self.y)
+	self.hc_rect:setRotation(self.direction)
 
 	for i,v in ipairs(self:getScene():findAll(EnemyBullet)) do
-		if v:getHCShape() and hc_rect:collidesWith(v:getHCShape()) then
+		if v:getHCShape() and self.hc_rect:collidesWith(v:getHCShape()) then
 			if self.state == Chain.static.STATE_ACTIVE and self.invulnerable <= 0 then
 				self.invulnerable = INVULNERABLE_TIME
 				self:getScene():find("screenshaker"):shake(0.5, 8, 60)
@@ -172,6 +176,10 @@ function Chain:onCollide(o)
 		self.controller:addHeart()
 		o:remove()
 	end
+end
+
+function Chain:getHCRect()
+	return self.hc_rect
 end
 
 return Chain
