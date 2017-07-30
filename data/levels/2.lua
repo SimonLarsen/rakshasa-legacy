@@ -8,7 +8,7 @@ return {
   height = 30,
   tilewidth = 16,
   tileheight = 16,
-  nextobjectid = 106,
+  nextobjectid = 118,
   properties = {},
   tilesets = {},
   layers = {
@@ -59,8 +59,8 @@ return {
           rotation = 0,
           visible = true,
           polyline = {
-            { x = 0, y = 0 },
-            { x = -366, y = 0.666667 }
+            { x = -6.667, y = -2 },
+            { x = -358.667, y = -2 }
           },
           properties = {
             ["count"] = 4,
@@ -119,7 +119,7 @@ return {
           type = "Fighter",
           shape = "polyline",
           x = 296,
-          y = -18.6667,
+          y = -17.3334,
           width = 0,
           height = 0,
           rotation = 0,
@@ -137,8 +137,8 @@ return {
           name = "2",
           type = "Fighter",
           shape = "polyline",
-          x = 76.6667,
-          y = -16.6667,
+          x = 80,
+          y = -20,
           width = 0,
           height = 0,
           rotation = 0,
@@ -194,8 +194,8 @@ return {
           name = "0",
           type = "Fighter",
           shape = "polyline",
-          x = 184.667,
-          y = -18,
+          x = 192.167,
+          y = -15.5,
           width = 0,
           height = 0,
           rotation = 0,
@@ -336,7 +336,7 @@ return {
       opacity = 1,
       offsetx = 0,
       offsety = 0,
-      draworder = "topdown",
+      draworder = "index",
       properties = {},
       objects = {
         {
@@ -357,8 +357,25 @@ return {
           properties = {}
         },
         {
-          id = 39,
+          id = 108,
           name = "3",
+          type = "Drone",
+          shape = "polyline",
+          x = 352,
+          y = 144,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polyline = {
+            { x = -384, y = 0 },
+            { x = 0, y = 0 }
+          },
+          properties = {}
+        },
+        {
+          id = 39,
+          name = "0",
           type = "Laser",
           shape = "polyline",
           x = 176,
@@ -374,21 +391,19 @@ return {
           properties = {}
         },
         {
-          id = 43,
-          name = "4",
-          type = "Fighter",
+          id = 110,
+          name = "3",
+          type = "Drone",
           shape = "polyline",
-          x = 62.6667,
-          y = -18,
+          x = 352,
+          y = 162,
           width = 0,
           height = 0,
           rotation = 0,
           visible = true,
           polyline = {
-            { x = 0, y = 0 },
-            { x = 0, y = 106 },
-            { x = 1.33333, y = 248 },
-            { x = -0.666667, y = 514 }
+            { x = 0, y = -26.6667 },
+            { x = -384, y = -26.6667 }
           },
           properties = {}
         },
@@ -590,6 +605,102 @@ return {
     {
       type = "objectgroup",
       name = "6",
+      visible = false,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      draworder = "index",
+      properties = {},
+      objects = {
+        {
+          id = 113,
+          name = "0",
+          type = "LaserFan",
+          shape = "polyline",
+          x = 8,
+          y = -23.3333,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polyline = {
+            { x = 0, y = 0 },
+            { x = 144, y = 0 }
+          },
+          properties = {
+            ["rotation_speed"] = -1
+          }
+        },
+        {
+          id = 115,
+          name = "0",
+          type = "LaserFan",
+          shape = "polyline",
+          x = 151.333,
+          y = -23.3333,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polyline = {
+            { x = 16, y = 0 },
+            { x = 160, y = 0 }
+          },
+          properties = {
+            ["rotation_speed"] = 1
+          }
+        },
+        {
+          id = 116,
+          name = "5",
+          type = "Viper",
+          shape = "polyline",
+          x = 160,
+          y = -32,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polyline = {
+            { x = 0, y = 0 },
+            { x = 0.666667, y = 90.6667 },
+            { x = -0.666667, y = 232 },
+            { x = 0.666667, y = 526 }
+          },
+          properties = {}
+        }
+      }
+    },
+    {
+      type = "objectgroup",
+      name = "7",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      draworder = "topdown",
+      properties = {},
+      objects = {
+        {
+          id = 117,
+          name = "0",
+          type = "ProximityMine",
+          shape = "rectangle",
+          x = 170.667,
+          y = 90.6667,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["radius"] = 64
+          }
+        }
+      }
+    },
+    {
+      type = "objectgroup",
+      name = "boss",
       visible = true,
       opacity = 1,
       offsetx = 0,

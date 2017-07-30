@@ -146,26 +146,8 @@ function Fear:initPatterns()
 	man2:add(ptn_down, 1.25)
 
 	-- PHASE 3 patterns
-	local egg_ptn = {
-		salvo_delay = 2,
-		salvo_size = 1,
-		shot_count = 4,
-		shot_delay = 0.1,
-		start_rotation = 0,
-		shot_rotation_offset = math.pi/2,
-		reset_rotation = true,
-		warmup = 2
-	}
-
 	local man3 = PatternManager()
 	self.patterns[Fear.static.STATE_PHASE3] = man3
-	man3:add(LambdaPattern(self, 0, 18,
-		function(o)
-			local posx, posy = o:getPosition()
-			self:getScene():add(EnemyBulletEgg(posx, posy, egg_ptn))
-		end,
-		{ delay = 999 }
-	), 10)
 end
 
 function Fear:kill()

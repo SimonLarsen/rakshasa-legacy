@@ -20,8 +20,8 @@ function LaserFan:enter(properties)
 	self.x = math.floor((p1.x + p2.x) / 2 + 0.5)
 	self.y = math.floor((p1.y + p2.y) / 2 + 0.5)
 	self.dir = math.atan2(ydist, xdist)
-	self.speed = MOVE_SPEED or properties.speed
-	self.rotation_speed = ROTATION_SPEED or properties.rotation_speed
+	self.speed = properties.speed or MOVE_SPEED
+	self.rotation_speed = properties.rotation_speed or ROTATION_SPEED
 
 	self.hc_rect = HC.rectangle(0, 0, self.dist, 16)
 	self.hc_rect:setRotation(self.dir)
