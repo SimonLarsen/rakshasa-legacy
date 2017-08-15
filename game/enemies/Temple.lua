@@ -56,7 +56,7 @@ function Temple:shoot()
 		local offx = math.cos(outdir) * 40
 		local offy = math.sin(outdir) * 40
 
-		local sdir = dir + i*0.1
+		local sdir = dir + i*0.075
 		self:getScene():add(EnemyChargeBullet(self.x, self.y, self.x+offx, self.y+offy, sdir, 1.0))
 	end
 end

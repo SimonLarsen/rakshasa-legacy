@@ -6,7 +6,7 @@ local Flash = require("game.Flash")
 
 local Bomber = class("game.enemies.Bomber", Enemy)
 
-local MAX_HEALTH = 20
+local MAX_HEALTH = 30
 local ENTER_TIME = 2.0
 local COOLDOWN = 6.0
 

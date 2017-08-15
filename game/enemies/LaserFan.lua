@@ -1,3 +1,4 @@
+local PlayerBullet = require("game.PlayerBullet")
 local EnemyBullet = require("game.EnemyBullet")
 
 local LaserFan = class("game.enemies.LaserFan", EnemyBullet)
@@ -66,6 +67,12 @@ function LaserFan:update(dt, rt)
 	oy = math.sin(self.dir) * (17 + self.beamw)
 	self:getRenderer():setOffset(3, -ox, -oy)
 	self:getRenderer():setOffset(4, ox, oy)
+
+	for i,v in ipairs(self:getScene():findAll(PlayerBullet)) do
+		if self.hc_rect:collidesWith(v:getHCShape()) then
+			v:kill(true)
+		end
+	end
 
 	if self.y > prox.window.getHeight() + self.dist / 2 + 16 then
 		self:remove()

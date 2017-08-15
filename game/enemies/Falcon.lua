@@ -38,11 +38,11 @@ function Falcon:enter(properties)
 	)
 
 	self:setRenderer(prox.Animation("data/animations/enemies/falcon.lua"))
-	self:setCollider(prox.BoxCollider(80, 32))
+	self:setCollider(prox.BoxCollider(74, 38))
 
 	self.pattern = PatternManager()
 
-	self.pattern:add(BasePattern(self, {
+	self.pattern:add(BasePattern(self, 0, 0, {
 		salvo_delay = 999,
 		salvo_size = 4,
 		shot_delay = 0.13,
@@ -50,7 +50,7 @@ function Falcon:enter(properties)
 		target_player = true
 	}), 2.5)
 
-	self.pattern:add(BasePattern(self, {
+	self.pattern:add(BasePattern(self, 0, 0, {
 		salvo_delay = 999,
 		salvo_size = 8,
 		shot_delay = 0.13,

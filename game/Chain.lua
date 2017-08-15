@@ -50,8 +50,8 @@ function Chain:enter(ship1, ship2)
 	self.hc_rect:moveTo(self.x, self.y)
 	self.hc_rect:setRotation(self.direction)
 
-	prox.timer.after(0.7, function()
-		prox.timer.tween(1.0, self, {dissolve_edge = -0.5}, "in-linear")
+	prox.timer.after(1.2, function()
+		prox.timer.tween(0.4, self, {dissolve_edge = -0.5}, "in-linear")
 	end)
 end
 

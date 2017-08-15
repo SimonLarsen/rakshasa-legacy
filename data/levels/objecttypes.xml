@@ -1,25 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <objecttypes>
  <objecttype name="Fighter" color="#ff0000"/>
- <objecttype name="Viper" color="#ff0000"/>
- <objecttype name="Striker" color="#ff0000"/>
+ <objecttype name="Viper" color="#aa0000"/>
+ <objecttype name="Striker" color="#aa557f"/>
  <objecttype name="Scout" color="#00ff00"/>
- <objecttype name="Drone" color="#00ff00"/>
- <objecttype name="Dropship" color="#00ff00"/>
+ <objecttype name="Drone" color="#00ff7f"/>
+ <objecttype name="Dropship" color="#55ff7f"/>
  <objecttype name="Temple" color="#0000ff"/>
- <objecttype name="Fortress" color="#0000ff"/>
- <objecttype name="Falcon" color="#0000ff"/>
+ <objecttype name="Fortress" color="#21b9ff"/>
+ <objecttype name="Falcon" color="#5410ff"/>
  <objecttype name="Bomber" color="#0000ff"/>
- <objecttype name="Vortex" color="#0000ff"/>
- <objecttype name="Mine" color="#ffff00">
-  <property name="speed" type="float" default="45"/>
- </objecttype>
+ <objecttype name="Vortex" color="#ff20e2"/>
+ <objecttype name="Mine" color="#aaff00"/>
  <objecttype name="SuperMine" color="#ffff00">
   <property name="speed" type="float" default="45"/>
  </objecttype>
  <objecttype name="Turret" color="#00ffff"/>
  <objecttype name="Silo" color="#ffffff"/>
- <objecttype name="Laser" color="#ff00ff">
+ <objecttype name="Laser" color="#b854ff">
   <property name="speed" type="float" default="60"/>
  </objecttype>
  <objecttype name="Spawner" color="#000000">
@@ -33,4 +31,5 @@
  <objecttype name="LaserTurret" color="#55aaff"/>
  <objecttype name="LaserSwitch" color="#5500ff"/>
  <objecttype name="ProximityMine" color="#55ff00"/>
+ <objecttype name="Bunker" color="#ff7559"/>
 </objecttypes>

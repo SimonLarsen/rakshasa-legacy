@@ -34,11 +34,24 @@ function Debugging:draw()
 	love.graphics.setColor(255, 255, 255)
 end
 
+local round_dec = function(x, d)
+	local e = 10^d
+	return math.floor(x*e + 0.5) / e
+end
+
 function Debugging:gui()
 	if not self.on then return end
 
 	love.graphics.setFont(self.font)
-	love.graphics.printf("FPS: " .. math.floor(love.timer.getFPS()+0.5), prox.window.getWidth()-100, prox.window.getHeight()-16, 90, "right")
+	love.graphics.printf("FPS: " .. math.floor(love.timer.getFPS()+0.5), prox.window.getWidth()-160, prox.window.getHeight()-16, 152, "right")
+
+	local controller = self:getScene():find("controller")
+	if not controller then return end
+
+	love.graphics.printf(string.format("ENTITIES: %d", #self:getScene():getEntities()), prox.window.getWidth()-160, prox.window.getHeight()-80, 152, "right")
+	love.graphics.printf(string.format("LEVEL: %d", controller.level), prox.window.getWidth()-160, prox.window.getHeight()-64, 152, "right")
+	love.graphics.printf(string.format("WAVE: %d", controller.wave), prox.window.getWidth()-160, prox.window.getHeight()-48, 152, "right")
+	love.graphics.printf(string.format("WARMUP: %.2f", controller.warmup), prox.window.getWidth()-160, prox.window.getHeight()-32, 152, "right")
 end
 
 return Debugging

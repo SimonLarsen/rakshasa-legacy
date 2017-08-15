@@ -13,8 +13,8 @@ function Level:parse(path)
 	local data = loadstring(datastr)()
 
 	for i,v in ipairs(data.layers) do
-		local layer = {}
-		if v.type == "objectgroup" and v.visible then
+		if v.type == "objectgroup" and v.visible and #v.objects > 0 then
+			local layer = {}
 			for j, o in ipairs(v.objects) do
 				local e = {}
 				e.type = o.type
@@ -33,8 +33,8 @@ function Level:parse(path)
 				end
 				table.insert(layer, e)
 			end
+			table.insert(self.events, layer)
 		end
-		table.insert(self.events, layer)
 	end
 end
 

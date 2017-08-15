@@ -20,6 +20,7 @@ local constructors = {
 	--- drone types
 	Scout = require("game.enemies.Scout"),
 	Drone = require("game.enemies.Drone"),
+	AimedDrone = require("game.enemies.AimedDrone"),
 	--- fighter types
 	Fighter = require("game.enemies.Fighter"),
 	Viper = require("game.enemies.Viper"),
@@ -51,7 +52,8 @@ local constructors = {
 	Fear = require("game.bosses.Fear")
 }
 
-local WARMUP_TIME = 3
+local WARMUP_TIME = 2
+local WAVE_PAUSE_TIME = 3
 local TRANSITION_TIME = 9
 
 local MAX_GEMS =  20
@@ -81,6 +83,7 @@ function Controller:enter(level, binding)
 	self.binding = binding
 	self.state = Controller.static.STATE_WARMUP
 	self.time = 0
+	self.warmup = WARMUP_TIME
 
 	self.hud_alpha = 0
 	prox.timer.tween(1, self, {hud_alpha = 255}, "out-quad")
@@ -104,19 +107,6 @@ function Controller:enter(level, binding)
 
 	self.small_font = prox.resources.getImageFont("data/fonts/small.png")
 	self.sans_font = prox.resources.getImageFont("data/fonts/large_sans.png")
-
-	local AnimatedModel = require("bg.AnimatedModel")
-	prox.timer.every(1, function()
-		local c = AnimatedModel("data/models/cube.obj", {
-			x = 4*love.math.random()-2, y = -5, z = 8,
-			desty = 5,
-			rx = 0.5,
-			ry = 0.5,
-			speed = 2
-		})
-		self:getScene():add(c)
-		c:setRotation(love.math.random(), love.math.random())
-	end)
 end
 
 function Controller:update(dt, rt)
@@ -126,9 +116,11 @@ function Controller:update(dt, rt)
 	self.gems_display = prox.math.movetowards(self.gems_display, self.gems, 20*dt)
 
 	if self.state == Controller.static.STATE_WARMUP then
-		if self.time >= WARMUP_TIME then
+		self.warmup = self.warmup - dt
+		if self.warmup <= 0 then
 			self.state = Controller.static.STATE_ACTIVE
 			self.time = 0
+			self.warmup = WAVE_PAUSE_TIME
 		end
 
 	elseif self.state == Controller.static.STATE_ACTIVE then
@@ -140,14 +132,19 @@ function Controller:update(dt, rt)
 				self.step = 1
 				self.wave = self.wave + 1
 				self.time = 0
+				self.warmup = WAVE_PAUSE_TIME
 			end
 		elseif self.step > #self.events[self.wave] then
 			if self:getScene():find(Enemy) == nil
-			and self:getScene():find(EnemyBullet) == nil
 			and self:getScene():find(Heart) == nil then
-				self.step = 1
-				self.wave = self.wave + 1
-				self.time = 0
+				self.warmup = self.warmup - dt
+
+				if self.warmup <= 0 then
+					self.step = 1
+					self.wave = self.wave + 1
+					self.time = 0
+					self.warmup = WAVE_PAUSE_TIME
+				end
 			end
 		else
 			if self.time >= self:currentStep().time then

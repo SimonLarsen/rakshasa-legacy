@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="20" height="30" tilewidth="16" tileheight="16" nextobjectid="210">
+ <objectgroup draworder="index" name="1">
+  <object id="3" name="0" type="Fighter" x="224" y="-48">
+   <polyline points="0,0 -1.33333,128 0,272 0,560"/>
+  </object>
+  <object id="4" name="2" type="Fighter" x="90" y="-46.6667">
+   <polyline points="0,0 -1.33333,128 0,272 0,560"/>
+  </object>
+  <object id="6" name="2" type="Spawner" x="-32" y="176">
+   <properties>
+    <property name="count" type="int" value="10"/>
+    <property name="type" value="Scout"/>
+   </properties>
+   <polyline points="0,0 384,0"/>
+  </object>
+  <object id="9" name="1" type="Turret" x="162" y="142"/>
+  <object id="10" name="3" type="Turret" x="54" y="63.3333"/>
+  <object id="11" name="3" type="Turret" x="273.333" y="60"/>
+ </objectgroup>
+ <objectgroup draworder="index" name="2">
+  <object id="141" name="0.8" type="Bunker" x="159.667" y="363.667"/>
+  <object id="153" name="0.8" type="Bunker" x="90" y="310.667"/>
+  <object id="154" name="0" type="Bunker" x="232" y="308.667"/>
+  <object id="155" name="0.8" type="Bunker" x="48" y="261.333"/>
+  <object id="156" name="0" type="Bunker" x="127.333" y="262.667"/>
+  <object id="157" name="0" type="Bunker" x="207.333" y="260"/>
+  <object id="158" name="0" type="Bunker" x="272.667" y="262.667"/>
+  <object id="159" name="0.8" type="Bunker" x="163.333" y="210"/>
+  <object id="160" name="0.8" type="Bunker" x="244" y="176"/>
+  <object id="161" name="0.8" type="Bunker" x="85.3333" y="176"/>
+  <object id="162" name="0.8" type="Bunker" x="134" y="154"/>
+  <object id="163" name="0.8" type="Bunker" x="282.667" y="146.667"/>
+  <object id="164" name="0.8" type="Bunker" x="44.6667" y="129.333"/>
+  <object id="165" name="0.8" type="Bunker" x="213.333" y="133.333"/>
+  <object id="166" name="0.8" type="Bunker" x="26" y="62"/>
+  <object id="167" name="0" type="Bunker" x="90" y="62.6667"/>
+  <object id="168" name="0" type="Bunker" x="158.667" y="62"/>
+  <object id="169" name="0" type="Bunker" x="290" y="64"/>
+  <object id="170" name="0" type="Bunker" x="222.667" y="64"/>
+ </objectgroup>
+ <objectgroup name="3">
+  <object id="209" name="0" type="Mine" x="160" y="216"/>
+ </objectgroup>
+ <objectgroup draworder="index" name="4">
+  <object id="30" name="4" type="Drone" x="-35.3333" y="51.3333">
+   <polyline points="0,0 386.667,122"/>
+  </object>
+  <object id="32" name="1" type="Drone" x="345.333" y="98.6667">
+   <polyline points="0,0 -364.667,56.6667"/>
+  </object>
+  <object id="36" name="1" type="Drone" x="-32" y="192">
+   <polyline points="0,-32 128,-32 128,-128 256,-128 256,-32 384,-32"/>
+  </object>
+  <object id="177" name="0" type="Turret" x="160" y="234"/>
+  <object id="187" name="2" type="Bunker" x="112.667" y="337.333"/>
+  <object id="193" name="0" type="Bunker" x="208.667" y="335.333"/>
+  <object id="197" name="2" type="Fighter" x="58" y="-33.3333">
+   <polyline points="0,0 -2,77.3333 -2,254.667 -2.66667,534.667"/>
+  </object>
+  <object id="201" name="2" type="Fighter" x="267.333" y="-32">
+   <polyline points="0,0 -2,77.3333 -2,254.667 -2.66667,534.667"/>
+  </object>
+  <object id="205" name="0" type="Drone" x="-14.6667" y="118.667">
+   <polyline points="2,-6.66667 350.667,-6.66667"/>
+  </object>
+  <object id="208" name="1" type="Drone" x="159.333" y="-20.6667">
+   <polyline points="0,0 0.666667,256 178.667,256.667"/>
+  </object>
+ </objectgroup>
+ <objectgroup draworder="index" name="5">
+  <object id="38" name="0" type="Falcon" x="160" y="94"/>
+ </objectgroup>
+ <objectgroup draworder="index" name="6">
+  <object id="127" name="0" type="Spawner" x="-34" y="46">
+   <properties>
+    <property name="count" type="int" value="4"/>
+    <property name="delay" type="float" value="0.7"/>
+    <property name="type" value="Drone"/>
+   </properties>
+   <polyline points="0,0 311.333,0.666667 311.333,67.3333 88,67.3333 88,131.333 392,130.667"/>
+  </object>
+  <object id="85" name="5" type="Fighter" x="60.6667" y="-20.6667">
+   <polyline points="0,0 0.666667,69.3333 -0.666667,284 -2,521.333"/>
+  </object>
+  <object id="86" name="1" type="Fighter" x="196" y="-18.6667">
+   <polyline points="0,0 0.666667,69.3333 -0.666667,284 -2,521.333"/>
+  </object>
+  <object id="87" name="1" type="Fighter" x="124.667" y="-15.3333">
+   <polyline points="0,0 0.666667,69.3333 -0.666667,284 -2,521.333"/>
+  </object>
+  <object id="88" name="1" type="Fighter" x="261.333" y="-19.3333">
+   <polyline points="0,0 0.666667,69.3333 -0.666667,284 -2,521.333"/>
+  </object>
+  <object id="89" name="1" type="Fighter" x="106.667" y="-15.3333">
+   <polyline points="0,0 0.666667,69.3333 -0.666667,284 -2,521.333"/>
+  </object>
+  <object id="90" name="1" type="Fighter" x="228.667" y="-18">
+   <polyline points="0,0 0.666667,69.3333 -0.666667,284 -2,521.333"/>
+  </object>
+  <object id="76" name="1" type="Drone" x="339.5" y="14">
+   <polyline points="-1.33333,18.6667 -356.833,114.833"/>
+  </object>
+  <object id="77" name="1" type="Drone" x="-12" y="55.5">
+   <polyline points="-8.66667,-8.66667 353.667,80.1667"/>
+  </object>
+  <object id="120" name="1" type="Bunker" x="159.333" y="143.333"/>
+  <object id="121" name="1" type="Bunker" x="98.6667" y="111.333"/>
+  <object id="122" name="0" type="Bunker" x="225.333" y="111.333"/>
+  <object id="123" name="1" type="Bunker" x="34.6667" y="76.6667"/>
+  <object id="124" name="0" type="Bunker" x="281.333" y="82.6667"/>
+  <object id="125" name="0" type="Fighter" x="159.333" y="-20">
+   <polyline points="0,0 0.666667,69.3333 -0.666667,284 -2,521.333"/>
+  </object>
+ </objectgroup>
+ <objectgroup draworder="index" name="7">
+  <object id="50" name="0" type="Falcon" x="160" y="62"/>
+  <object id="51" name="0" type="Falcon" x="240" y="62"/>
+ </objectgroup>
+</map>

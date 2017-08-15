@@ -8,6 +8,8 @@ local options = {
 	"QUIT"
 }
 
+local START_LEVEL = 1
+
 function Controller:enter()
 	self:setName("titlecontroller")
 	self:reset()
@@ -15,14 +17,20 @@ function Controller:enter()
 	self.ready = false
 	self.selection = 1
 
-	local joystick = prox.JoystickBinding(1)
-	joystick:add("confirm", "a")
-	joystick:add("up", "dpup")
-	joystick:add("down", "dpdown")
-	joystick:add("left", "dpleft")
-	joystick:add("right", "dpright")
-	joystick:add("leftshoot", "leftshoulder")
-	joystick:add("rightshoot", "rightshoulder")
+	local bindings = {}
+	for i,v in ipairs(love.joystick.getJoysticks()) do
+		if v:isGamepad() then
+			local joystick = prox.JoystickBinding(i)
+			joystick:add("confirm", "a")
+			joystick:add("up", "dpup")
+			joystick:add("down", "dpdown")
+			joystick:add("left", "dpleft")
+			joystick:add("right", "dpright")
+			joystick:add("leftshoot", "leftshoulder")
+			joystick:add("rightshoot", "rightshoulder")
+			table.insert(bindings, joystick)
+		end
+	end
 
 	local keyboard = prox.KeyboardBinding()
 	keyboard:add("confirm", "return")
@@ -38,8 +46,9 @@ function Controller:enter()
 	keyboard:addAxis("righty", "i", "k")
 	keyboard:addAxis("triggerleft", nil, "e")
 	keyboard:addAxis("triggerright", nil, "u")
+	table.insert(bindings, keyboard)
 
-	self.binding = prox.MultiBinding({joystick,keyboard})
+	self.binding = prox.MultiBinding(bindings)
 
 	self.title_image = prox.resources.getImage("data/images/title.png")
 
@@ -68,7 +77,7 @@ function Controller:update(dt, rt)
 		if options[self.selection] == "START" then
 			self:hide()
 			music.stop()
-			self:getScene():add(require("game.Controller")(2, self.binding))
+			self:getScene():add(require("game.Controller")(START_LEVEL, self.binding))
 		elseif options[self.selection] == "CONFIG" then
 			self:hide()
 			self:getScene():add(require("title.OptionsMenu")(self.binding))

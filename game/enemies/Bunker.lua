@@ -2,7 +2,7 @@ local Enemy = require("game.Enemy")
 local EnemyBullet = require("game.EnemyBullet")
 local Flash = require("game.Flash")
 
-local MAX_HEALTH = 2
+local MAX_HEALTH = 3
 local MOVE_SPEED = 50
 
 local Bunker = class("game.enemies.Bunker", Enemy)
@@ -12,7 +12,7 @@ function Bunker:enter(properties)
 
 	self.x = properties.x
 	self.y = -30
-	self.trigger_y = properties.trigger or 120
+	self.trigger_y = properties.y
 	self.speed = properties.speed or MOVE_SPEED
 	self.has_shot = false
 
