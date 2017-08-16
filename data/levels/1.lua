@@ -8,7 +8,7 @@ return {
   height = 30,
   tilewidth = 16,
   tileheight = 16,
-  nextobjectid = 159,
+  nextobjectid = 225,
   properties = {},
   tilesets = {},
   layers = {
@@ -1150,6 +1150,363 @@ return {
           properties = {
             ["start_cooldown"] = 1.6
           }
+        },
+        {
+          id = 160,
+          name = "2",
+          type = "AimedDrone",
+          shape = "polyline",
+          x = -58,
+          y = 14,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polyline = {
+            { x = 0, y = 0 },
+            { x = 183.333, y = 98 },
+            { x = 166.667, y = 180.667 }
+          },
+          properties = {}
+        },
+        {
+          id = 161,
+          name = "1",
+          type = "AimedDrone",
+          shape = "polyline",
+          x = 365.333,
+          y = 19.3333,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polyline = {
+            { x = 0, y = 0 },
+            { x = -172.667, y = 92.6667 },
+            { x = -156.667, y = 176 }
+          },
+          properties = {}
+        },
+        {
+          id = 162,
+          name = "2",
+          type = "AimedDrone",
+          shape = "polyline",
+          x = 160,
+          y = -32,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polyline = {
+            { x = 0, y = 0 },
+            { x = 0, y = 176 },
+            { x = 0, y = 240 }
+          },
+          properties = {}
+        },
+        {
+          id = 163,
+          name = "0",
+          type = "AimedDrone",
+          shape = "polyline",
+          x = 160,
+          y = -32,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polyline = {
+            { x = 0, y = 0 },
+            { x = -64, y = 176 },
+            { x = 0, y = 448 }
+          },
+          properties = {}
+        },
+        {
+          id = 165,
+          name = "0",
+          type = "AimedDrone",
+          shape = "polyline",
+          x = 208,
+          y = -32,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polyline = {
+            { x = -48, y = 0 },
+            { x = 16, y = 176 },
+            { x = -48, y = 448 }
+          },
+          properties = {}
+        }
+      }
+    },
+    {
+      type = "objectgroup",
+      name = "8",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      draworder = "topdown",
+      properties = {},
+      objects = {
+        {
+          id = 198,
+          name = "0",
+          type = "AimedDrone",
+          shape = "polyline",
+          x = 320,
+          y = 16,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polyline = {
+            { x = 32, y = -16 },
+            { x = -32, y = 16 },
+            { x = -32, y = 48 }
+          },
+          properties = {}
+        },
+        {
+          id = 199,
+          name = "0",
+          type = "AimedDrone",
+          shape = "polyline",
+          x = 32,
+          y = 16,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polyline = {
+            { x = -64, y = -16 },
+            { x = 0, y = 16 },
+            { x = 0, y = 48 }
+          },
+          properties = {}
+        },
+        {
+          id = 200,
+          name = "1",
+          type = "AimedDrone",
+          shape = "polyline",
+          x = 32,
+          y = 96,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polyline = {
+            { x = -64, y = -16 },
+            { x = 32, y = 32 },
+            { x = 32, y = 64 }
+          },
+          properties = {}
+        },
+        {
+          id = 201,
+          name = "0",
+          type = "AimedDrone",
+          shape = "polyline",
+          x = 320,
+          y = 96,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polyline = {
+            { x = 32, y = -16 },
+            { x = -64, y = 32 },
+            { x = -64, y = 64 }
+          },
+          properties = {}
+        },
+        {
+          id = 202,
+          name = "1",
+          type = "AimedDrone",
+          shape = "polyline",
+          x = 32,
+          y = 176,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polyline = {
+            { x = -64, y = -16 },
+            { x = 64, y = 48 },
+            { x = 64, y = 80 }
+          },
+          properties = {}
+        },
+        {
+          id = 203,
+          name = "0",
+          type = "AimedDrone",
+          shape = "polyline",
+          x = 320,
+          y = 176,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polyline = {
+            { x = 32, y = -16 },
+            { x = -96, y = 48 },
+            { x = -96, y = 80 }
+          },
+          properties = {}
+        },
+        {
+          id = 208,
+          name = "1",
+          type = "Fighter",
+          shape = "polyline",
+          x = 160,
+          y = -32,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polyline = {
+            { x = 0, y = 0 },
+            { x = 0, y = 96 },
+            { x = 0, y = 224 },
+            { x = 0, y = 544 }
+          },
+          properties = {}
+        },
+        {
+          id = 217,
+          name = "1",
+          type = "Mine",
+          shape = "rectangle",
+          x = 44,
+          y = 164,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 218,
+          name = "2",
+          type = "Mine",
+          shape = "rectangle",
+          x = 202,
+          y = 160.667,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 219,
+          name = "2",
+          type = "Mine",
+          shape = "rectangle",
+          x = 115.333,
+          y = 161.333,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 220,
+          name = "2",
+          type = "Mine",
+          shape = "rectangle",
+          x = 275.333,
+          y = 160.667,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 221,
+          name = "3",
+          type = "Fighter",
+          shape = "polyline",
+          x = 48,
+          y = -32,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polyline = {
+            { x = 0, y = 0 },
+            { x = 0, y = 96 },
+            { x = 0, y = 224 },
+            { x = 0, y = 544 }
+          },
+          properties = {}
+        },
+        {
+          id = 222,
+          name = "1.5",
+          type = "Fighter",
+          shape = "polyline",
+          x = 112,
+          y = -32,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polyline = {
+            { x = 0, y = 0 },
+            { x = 0, y = 96 },
+            { x = 0, y = 224 },
+            { x = 0, y = 544 }
+          },
+          properties = {}
+        },
+        {
+          id = 223,
+          name = "1.5",
+          type = "Fighter",
+          shape = "polyline",
+          x = 208,
+          y = -32,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polyline = {
+            { x = 0, y = 0 },
+            { x = 0, y = 96 },
+            { x = 0, y = 224 },
+            { x = 0, y = 544 }
+          },
+          properties = {}
+        },
+        {
+          id = 224,
+          name = "1.5",
+          type = "Fighter",
+          shape = "polyline",
+          x = 272,
+          y = -32,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polyline = {
+            { x = 0, y = 0 },
+            { x = 0, y = 96 },
+            { x = 0, y = 224 },
+            { x = 0, y = 544 }
+          },
+          properties = {}
         }
       }
     }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="20" height="30" tilewidth="16" tileheight="16" nextobjectid="159">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="20" height="30" tilewidth="16" tileheight="16" nextobjectid="225">
  <objectgroup name="1">
   <object id="8" name="0" type="Spawner" x="355.333" y="126">
    <properties>
@@ -189,6 +189,60 @@
     <property name="start_cooldown" type="float" value="1.6"/>
    </properties>
    <polyline points="0,0 0,-544"/>
+  </object>
+  <object id="160" name="2" type="AimedDrone" x="-58" y="14">
+   <polyline points="0,0 183.333,98 166.667,180.667"/>
+  </object>
+  <object id="161" name="1" type="AimedDrone" x="365.333" y="19.3333">
+   <polyline points="0,0 -172.667,92.6667 -156.667,176"/>
+  </object>
+  <object id="162" name="2" type="AimedDrone" x="160" y="-32">
+   <polyline points="0,0 0,176 0,240"/>
+  </object>
+  <object id="163" name="0" type="AimedDrone" x="160" y="-32">
+   <polyline points="0,0 -64,176 0,448"/>
+  </object>
+  <object id="165" name="0" type="AimedDrone" x="208" y="-32">
+   <polyline points="-48,0 16,176 -48,448"/>
+  </object>
+ </objectgroup>
+ <objectgroup name="8">
+  <object id="198" name="0" type="AimedDrone" x="320" y="16">
+   <polyline points="32,-16 -32,16 -32,48"/>
+  </object>
+  <object id="199" name="0" type="AimedDrone" x="32" y="16">
+   <polyline points="-64,-16 0,16 0,48"/>
+  </object>
+  <object id="200" name="1" type="AimedDrone" x="32" y="96">
+   <polyline points="-64,-16 32,32 32,64"/>
+  </object>
+  <object id="201" name="0" type="AimedDrone" x="320" y="96">
+   <polyline points="32,-16 -64,32 -64,64"/>
+  </object>
+  <object id="202" name="1" type="AimedDrone" x="32" y="176">
+   <polyline points="-64,-16 64,48 64,80"/>
+  </object>
+  <object id="203" name="0" type="AimedDrone" x="320" y="176">
+   <polyline points="32,-16 -96,48 -96,80"/>
+  </object>
+  <object id="208" name="1" type="Fighter" x="160" y="-32">
+   <polyline points="0,0 0,96 0,224 0,544"/>
+  </object>
+  <object id="217" name="1" type="Mine" x="44" y="164"/>
+  <object id="218" name="2" type="Mine" x="202" y="160.667"/>
+  <object id="219" name="2" type="Mine" x="115.333" y="161.333"/>
+  <object id="220" name="2" type="Mine" x="275.333" y="160.667"/>
+  <object id="221" name="3" type="Fighter" x="48" y="-32">
+   <polyline points="0,0 0,96 0,224 0,544"/>
+  </object>
+  <object id="222" name="1.5" type="Fighter" x="112" y="-32">
+   <polyline points="0,0 0,96 0,224 0,544"/>
+  </object>
+  <object id="223" name="1.5" type="Fighter" x="208" y="-32">
+   <polyline points="0,0 0,96 0,224 0,544"/>
+  </object>
+  <object id="224" name="1.5" type="Fighter" x="272" y="-32">
+   <polyline points="0,0 0,96 0,224 0,544"/>
   </object>
  </objectgroup>
 </map>

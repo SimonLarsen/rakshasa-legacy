@@ -56,7 +56,7 @@ local WARMUP_TIME = 2
 local WAVE_PAUSE_TIME = 3
 local TRANSITION_TIME = 9
 
-local MAX_GEMS =  20
+local MAX_GEMS = 40
 local POWER_BAR_LENGTH = 125
 
 Controller.static.STATE_WARMUP     = 1

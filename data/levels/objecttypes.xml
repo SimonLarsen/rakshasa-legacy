@@ -32,4 +32,5 @@
  <objecttype name="LaserSwitch" color="#5500ff"/>
  <objecttype name="ProximityMine" color="#55ff00"/>
  <objecttype name="Bunker" color="#ff7559"/>
+ <objecttype name="AimedDrone" color="#15a413"/>
 </objecttypes>
