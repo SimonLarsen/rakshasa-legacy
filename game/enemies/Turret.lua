@@ -4,7 +4,7 @@ local Flash = require("game.Flash")
 
 local Turret = class("game.enemies.Turret", Enemy)
 
-local MAX_HEALTH = 9
+local MAX_HEALTH = 12
 local MOVE_SPEED = 40
 local SALVO_COOLDOWN = 2.0
 local BULLET_COOLDOWN = 0.18

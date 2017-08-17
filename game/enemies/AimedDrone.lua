@@ -5,7 +5,7 @@ local Flash = require("game.Flash")
 local AimedDrone = class("game.enemies.AimedDrone", Enemy)
 
 local MOVE_SPEED = 180
-local MAX_HEALTH = 1
+local MAX_HEALTH = 2
 
 function AimedDrone:enter(properties)
 	Enemy.enter(self, MAX_HEALTH)
