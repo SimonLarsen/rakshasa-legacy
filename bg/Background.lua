@@ -83,20 +83,21 @@ function Background:draw()
 				table.insert(poly, vs[e.v].y * 320 + 240)
 			end
 
-			--local r = 32 - math.min(math.log(o[2])*4, 32)
-			--love.graphics.setColor(r, r, r, 255)
 			love.graphics.setColor(0, 0, 0)
 			love.graphics.polygon("fill", poly)
 
-			love.graphics.setColor(255, 255, 255, 255)
+			local c = math.max(255 - o[2] * 14, 0)
+			love.graphics.setColor(c, c, c, 255)
 			j = 1
 			while j <= #poly-3 do
 				love.graphics.line(poly[j], poly[j+1], poly[j+2], poly[j+3])
 				j = j + 2
 			end
 			love.graphics.line(poly[#poly-1], poly[#poly], poly[1], poly[2])
+
 		end
 	end
+	love.graphics.setColor(255, 255, 255, 255)
 end
 
 function Background:keepAlive()
