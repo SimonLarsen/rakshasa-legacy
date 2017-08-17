@@ -16,7 +16,7 @@ function ScreenBorder:gui()
 
 	love.graphics.setColor(0, 0, 0)
 	love.graphics.rectangle("fill", 0, 0, bx1, prox.window.getHeight())
-	love.graphics.rectangle("fill", bx2, 0, bx1, prox.window.getHeight())
+	love.graphics.rectangle("fill", bx2, 0, bx1+1, prox.window.getHeight())
 
 	love.graphics.setColor(255, 255, 255, self.alpha)
 	love.graphics.draw(self.border_image, bx1, 0, 0, 1, prox.window.getHeight())
