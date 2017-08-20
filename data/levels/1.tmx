@@ -23,13 +23,13 @@
   <object id="6" name="2" type="Fighter" x="232.334" y="-21.8333">
    <polyline points="0,0 -3.33333e-7,98.6666 0.666667,260.666 -1.33333,515.333"/>
   </object>
-  <object id="13" name="1" type="Bunker" x="161" y="276.667"/>
-  <object id="15" name="1" type="Bunker" x="119.167" y="277.667"/>
-  <object id="16" name="0" type="Bunker" x="202.167" y="278.167"/>
-  <object id="17" name="1" type="Bunker" x="74.1667" y="277.167"/>
-  <object id="18" name="0" type="Bunker" x="248.667" y="276.667"/>
-  <object id="17" name="1" type="Bunker" x="27.6667" y="278.167"/>
-  <object id="18" name="0" type="Bunker" x="292.667" y="277.667"/>
+  <object id="13" name="1" type="Bunker" x="161" y="209.27"/>
+  <object id="15" name="1" type="Bunker" x="119.167" y="210.27"/>
+  <object id="16" name="0" type="Bunker" x="202.167" y="210.77"/>
+  <object id="17" name="1" type="Bunker" x="74.1667" y="209.77"/>
+  <object id="18" name="0" type="Bunker" x="248.667" y="209.27"/>
+  <object id="17" name="1" type="Bunker" x="27.6667" y="210.77"/>
+  <object id="18" name="0" type="Bunker" x="292.667" y="210.27"/>
  </objectgroup>
  <objectgroup name="2">
   <object id="32" name="1" type="AimedDrone" x="350.667" y="168.667">
@@ -44,10 +44,10 @@
   <object id="38" name="2" type="Fighter" x="160.667" y="-32.6667">
    <polyline points="0,0 -0.666667,132 -0.666667,293.333 -1.33333,535.333"/>
   </object>
-  <object id="40" name="2" type="Drone" x="34.6667" y="-31.3333">
+  <object id="40" name="0" type="AimedDrone" x="34.6667" y="-31.3333">
    <polyline points="-85.3333,22 99.3333,250.667 62.6667,361.333"/>
   </object>
-  <object id="41" name="0" type="Drone" x="284" y="-28.6667">
+  <object id="41" name="0" type="AimedDrone" x="284" y="-28.6667">
    <polyline points="73.3333,14.6667 -87.3333,249.333 -52.6667,356"/>
   </object>
   <object id="43" name="1" type="Spawner" x="-56" y="65.3333">
@@ -65,11 +65,11 @@
  <objectgroup name="4">
   <object id="78" name="0" type="Mine" x="96" y="240"/>
   <object id="79" name="0" type="Mine" x="224" y="240"/>
-  <object id="80" name="4" type="Bunker" x="160" y="288"/>
-  <object id="89" name="1" type="Bunker" x="32" y="288"/>
-  <object id="90" name="0" type="Bunker" x="288" y="288"/>
-  <object id="91" name="1" type="Bunker" x="96" y="272"/>
-  <object id="92" name="0" type="Bunker" x="224" y="272"/>
+  <object id="80" name="4" type="Bunker" x="161.139" y="179.242"/>
+  <object id="89" name="1" type="Bunker" x="33.1388" y="179.242"/>
+  <object id="90" name="0" type="Bunker" x="289.139" y="179.242"/>
+  <object id="91" name="1" type="Bunker" x="97.1388" y="163.242"/>
+  <object id="92" name="0" type="Bunker" x="225.139" y="163.242"/>
   <object id="93" name="4" type="Drone" x="358" y="21.3333">
    <polyline points="0,0 -380,240.667"/>
   </object>

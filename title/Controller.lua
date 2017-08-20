@@ -61,6 +61,10 @@ function Controller:enter()
 
 	self.sfx_blip = prox.resources.getSound("data/sounds/blip.wav")
 	self.sfx_confirm = prox.resources.getSound("data/sounds/weird_bang.wav")
+
+	local monkey1 = self:getScene():add(require("bg.models.Monkey")())
+	local monkey2 = self:getScene():add(require("bg.models.Monkey")())
+	monkey2:setRotation(0, math.pi, 0)
 end
 
 function Controller:update(dt, rt)
