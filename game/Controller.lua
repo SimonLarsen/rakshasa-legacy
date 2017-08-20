@@ -57,7 +57,8 @@ local WAVE_PAUSE_TIME = 3
 local TRANSITION_TIME = 9
 
 local MAX_GEMS = 60
-local POWER_BAR_LENGTH = 125
+local POWER_BAR_LENGTH = 135
+local POWER_BAR_OFFSET = 12
 
 Controller.static.STATE_WARMUP     = 1
 Controller.static.STATE_ACTIVE     = 2
@@ -99,10 +100,10 @@ function Controller:enter(level, binding)
 
 	self.gameover_dialog = prox.resources.getImage("data/images/gameover_dialog.png")
 
-	self.lives_bar = prox.resources.getImage("data/images/lives_bar.png")
 	self.diamond_image = prox.resources.getImage("data/images/diamond.png")
 	self.diamond_flash_image = prox.resources.getImage("data/images/diamond_flash.png")
-	self.scorebox_image = prox.resources.getImage("data/images/scorebox.png")
+	self.overlay_left = prox.resources.getImage("data/images/overlay_left.png")
+	self.overlay_right = prox.resources.getImage("data/images/overlay_right.png")
 	self.power_overlay = prox.resources.getImage("data/images/power_overlay.png")
 
 	self.small_font = prox.resources.getImageFont("data/fonts/small.png")
@@ -178,20 +179,21 @@ end
 function Controller:gui()
 	love.graphics.setFont(self.sans_font)
 	love.graphics.setColor(255, 255, 255, self.hud_alpha)
-	love.graphics.draw(self.scorebox_image, prox.window.getWidth()/2+163, 16)
-	love.graphics.printf(math.floor(self.score_display), prox.window.getWidth()/2+177, 69, 130, "center")
+	love.graphics.draw(self.overlay_left, prox.window.getWidth()/2-320, 0)
+	love.graphics.draw(self.overlay_right, prox.window.getWidth()/2+160, 0)
+
+	love.graphics.printf(math.floor(self.score_display), prox.window.getWidth()/2+177, 96, 130, "center")
 
 	-- draw lives
-	love.graphics.draw(self.lives_bar, prox.window.getWidth()/2-315, 16)
 	for i=1, self.lives do
-		love.graphics.draw(self.diamond_image, prox.window.getWidth()/2-289 + (i-1)*36, 22)
+		love.graphics.draw(self.diamond_image, prox.window.getWidth()/2-290 + (i-1)*36, 83)
 	end
 	if self.lives_display > self.lives then
 		love.graphics.setColor(255, 255, 255, (self.lives_display % 1)*255)
-		love.graphics.draw(self.diamond_flash_image, prox.window.getWidth()/2-294+math.floor(self.lives_display)*36, 17)
+		love.graphics.draw(self.diamond_flash_image, prox.window.getWidth()/2-295+math.floor(self.lives_display)*36, 80)
 	elseif self.lives_display < self.lives then
 		love.graphics.setColor(255, 255, 255, (1 - (self.lives_display % 1))*255)
-		love.graphics.draw(self.diamond_flash_image, prox.window.getWidth()/2-294+math.floor(self.lives_display)*36, 17)
+		love.graphics.draw(self.diamond_flash_image, prox.window.getWidth()/2-295+math.floor(self.lives_display)*36, 80)
 	end
 
 	love.graphics.setColor(255, 255, 255)
@@ -199,19 +201,19 @@ function Controller:gui()
 	-- power bar
 	love.graphics.setColor(211, 80, 80)
 	local power_width = math.floor(self.gems_display / MAX_GEMS * POWER_BAR_LENGTH + 0.5)
-	love.graphics.rectangle("fill", prox.window.getWidth()/2-303, 88, power_width, 33)
+	love.graphics.rectangle("fill", prox.window.getWidth()/2-320+POWER_BAR_OFFSET, 198, power_width, 33)
 	if self.gems_display >= MAX_GEMS/2 then
 		local alpha = math.sqrt((-prox.time.getTime() % 1)) * 255
 		love.graphics.setColor(255, 255, 255, alpha)
-		love.graphics.rectangle("fill", prox.window.getWidth()/2-303, 88, POWER_BAR_LENGTH/2, 33)
+		love.graphics.rectangle("fill", prox.window.getWidth()/2-320+POWER_BAR_OFFSET, 198, POWER_BAR_LENGTH/2, 33)
 	end
 	if self.gems_display >= MAX_GEMS then
 		local alpha = math.sqrt((-prox.time.getTime() % 1)) * 255
 		love.graphics.setColor(255, 255, 255, alpha)
-		love.graphics.rectangle("fill", prox.window.getWidth()/2-303+POWER_BAR_LENGTH/2, 88, POWER_BAR_LENGTH/2, 33)
+		love.graphics.rectangle("fill", prox.window.getWidth()/2-320+POWER_BAR_OFFSET+POWER_BAR_LENGTH/2, 198, POWER_BAR_LENGTH/2, 33)
 	end
-	love.graphics.setColor(255, 255, 255)
-	love.graphics.draw(self.power_overlay, prox.window.getWidth()/2-318, 80)
+	love.graphics.setColor(255, 255, 255, self.hud_alpha)
+	love.graphics.draw(self.power_overlay, prox.window.getWidth()/2-320, 197)
 
 	if self.state == Controller.static.STATE_GAMEOVER then
 		love.graphics.draw(self.gameover_dialog, prox.window.getWidth()/2, prox.window.getHeight()/2, 0, 1, 1, 160, 100)
@@ -226,6 +228,8 @@ function Controller:gui()
 		love.graphics.printf("YOUR BEST", midx-149, midy+30, 300, "center")
 		love.graphics.printf(highscore.score, midx-149, midy+50, 300, "center")
 	end
+
+	love.graphics.setColor(255, 255, 255, 255)
 end
 
 function Controller:playerHit()
