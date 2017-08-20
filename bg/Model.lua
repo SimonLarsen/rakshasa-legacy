@@ -1,5 +1,6 @@
 local cpml = require("cpml")
-local obj = require("lua-obj.obj_loader")
+local obj_reader = require("lua-obj-reader/obj-reader")
+local StaticModelData = require("bg.StaticModelData")
 
 local Model = class("bg.Model", prox.Entity)
 
@@ -17,7 +18,8 @@ function Model:enter(path, x, y, z, culling)
 end
 
 function Model:loadObj(path)
-	self._data = obj.load(path)
+	local data = obj_reader.read(path)
+	self._data = StaticModelData(data.v, data.f, data.vn)
 end
 
 function Model:setTranslation(x, y, z)

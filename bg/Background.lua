@@ -33,7 +33,7 @@ function Background:draw()
 
 		-- transform vertices
 		local vs = {}
-		for _, p in ipairs(d.v) do
+		for _, p in ipairs(d:getVertices()) do
 			local pp = cpml.mat4.mul_vec4(pp, M, {p.x, p.y, p.z, 1})
 			local ppp = cpml.vec3(pp[1]/pp[4], pp[2]/pp[4], pp[3])
 			table.insert(vs, ppp)
@@ -41,16 +41,16 @@ function Background:draw()
 
 		-- sort faces by distance
 		local order = {}
-		for i, f in ipairs(d.f) do
+		for i, f in ipairs(d:getFaces()) do
 			local visible = false
 
 			if model:getCulling() then
 				-- transform normal vector
-				local vn = d.vn[f[1].vn]
+				local vn = d:getNormals()[f[1].vn]
 				local vnp = cpml.mat4.mul_vec4(vnp, T, {vn.x, vn.y, vn.z, 0})
 
 				-- get reference vertex
-				local vref = d.v[f[1].v]
+				local vref = d:getVertices()[f[1].v]
 				local ref = cpml.mat4.mul_vec4(ref, T, {vref.x, vref.y, vref.z, 1})
 
 				local dot = cpml.vec3.dot(cpml.vec3(vnp[1], vnp[2], vnp[3]), cpml.vec3(ref[1], ref[2], ref[3]))
@@ -75,7 +75,7 @@ function Background:draw()
 		table.sort(order, function(a, b) return a[2] > b[2] end)
 
 		for _, o in ipairs(order) do
-			local f = d.f[o[1]]
+			local f = d:getFaces()[o[1]]
 
 			local poly = {}
 			for _, e in ipairs(f) do
