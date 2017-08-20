@@ -1,6 +1,6 @@
 local Painting = class("bg.Painting", prox.Entity)
 
-local DT = 1 / 60
+local DT = 1 / 40
 local SCROLL_SPEED = 200
 
 function Painting:enter()
