@@ -20,10 +20,10 @@ function PlayerBullet:enter(x, y, dir, type)
 	self.type = type
 
 	self:setRenderer(prox.Sprite("data/images/bullets/player2.png", 8, 7))
-	self:setCollider(prox.BoxCollider(4, 4))
+	self:setCollider(prox.BoxCollider(7, 7))
 	self:getRenderer():setRotation(self.dir)
 
-	self.hc_rect = HC.rectangle(0, 0, 4, 4)
+	self.hc_rect = HC.rectangle(0, 0, 7, 7)
 end
 
 function PlayerBullet:update(dt, rt)
