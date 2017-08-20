@@ -158,6 +158,14 @@ function Chain:sword()
 	end
 end
 
+function Chain:retract(side)
+	if side == 1 then
+		self.ship1:retract(self.x, self.y)
+	else
+		self.ship2:retract(self.x, self.y)
+	end
+end
+
 function Chain:kill()
 	self.state = Chain.static.STATE_DEAD
 	self.invulnerable = 1000000

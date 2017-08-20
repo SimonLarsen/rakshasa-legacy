@@ -25,6 +25,14 @@ function DualController:update(dt, rt)
 		self.ship_right:shoot()
 	end
 
+	if self.binding:wasPressed("leftretract") then
+		self.chain:retract(1)
+	end
+
+	if self.binding:wasPressed("rightretract") then
+		self.chain:retract(2)
+	end
+
 	if self.binding:getAxis("triggerright") > 0.6 then
 		if not self.trigger_down then
 			self.chain:sword()

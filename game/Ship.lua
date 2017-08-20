@@ -12,6 +12,7 @@ local SLOW_ACCELERATION = 2000
 local DECELLERATION = 1200
 local SLOW_MAX_SPEED = 150
 local FAST_MAX_SPEED = 250
+local RETRACT_SPEED = 800
 
 local BULLET_COOLDOWN = 0.1
 local DEADZONE_THRESHOLD = 0.20
@@ -19,9 +20,10 @@ local DEADZONE_THRESHOLD = 0.20
 local ENTER_TIME = 1.0
 local POWER_TRIGGER_TIME = 0.1
 
-Ship.static.STATE_ENTER  = 1
-Ship.static.STATE_ACTIVE = 2
-Ship.static.STATE_DEAD   = 3
+Ship.static.STATE_ENTER      = 1
+Ship.static.STATE_ACTIVE     = 2
+Ship.static.STATE_RETRACTING = 3
+Ship.static.STATE_DEAD       = 4
 
 function Ship:enter(side)
 	self:setName("ship")
@@ -96,6 +98,15 @@ function Ship:update(dt, rt)
 
 		self.xspeed = prox.math.movetowards(self.xspeed, 0, DECELLERATION*dt)
 		self.yspeed = prox.math.movetowards(self.yspeed, 0, DECELLERATION*dt)
+	elseif self.state == Ship.static.STATE_RETRACTING then
+		self.x = prox.math.movetowards(self.x, self.destx, math.abs(self.xspeed)*dt)
+		self.y = prox.math.movetowards(self.y, self.desty, math.abs(self.yspeed)*dt)
+
+		local xdist = self.destx - self.x
+		local ydist = self.desty - self.y
+		if xdist^2 + ydist^2 < 50^2 then
+			self.state = Ship.static.STATE_ACTIVE
+		end
 	end
 
 	self:getRenderer():setShader(self.flash > 0 and self.white_shader or nil)
@@ -116,6 +127,18 @@ function Ship:shoot()
 		self.cooldown = BULLET_COOLDOWN
 		self:getScene():find("painting"):addSplatter(self.x, self.y, 2, true)
 	end
+end
+
+function Ship:retract(destx, desty)
+	self.state = Ship.static.STATE_RETRACTING
+	self.destx = destx
+	self.desty = desty
+
+	local xdist = destx - self.x
+	local ydist = desty - self.y
+	local dist = math.sqrt(xdist^2 + ydist^2)
+	self.xspeed = xdist / dist * RETRACT_SPEED
+	self.yspeed = ydist / dist * RETRACT_SPEED
 end
 
 function Ship:setMovement(xmove, ymove)
