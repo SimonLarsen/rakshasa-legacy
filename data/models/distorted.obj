@@ -1,7 +1,5 @@
 # Blender v2.78 (sub 0) OBJ File: ''
 # www.blender.org
-mtllib distorted.mtl
-o Sphere_Sphere.001
 v -1.174698 -0.676021 0.486532
 v -1.335813 -0.592467 0.553243
 v -1.131148 -0.578007 0.455025

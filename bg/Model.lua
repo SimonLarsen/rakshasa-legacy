@@ -20,7 +20,7 @@ end
 
 function Model:loadObj(path)
 	local data = obj_reader.read(path)
-	self._data = StaticModelData(data.v, data.f, data.vn)
+	self._data = StaticModelData(data.v, data.f, data.vn, data.materials)
 end
 
 function Model:setTranslation(x, y, z)
