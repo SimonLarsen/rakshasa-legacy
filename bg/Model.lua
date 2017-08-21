@@ -4,13 +4,14 @@ local StaticModelData = require("bg.StaticModelData")
 
 local Model = class("bg.Model", prox.Entity)
 
-function Model:enter(path, x, y, z, culling)
+function Model:enter(path, x, y, z, culling, draw_edges)
 	self:loadObj(path)
 
 	self._m_pos = cpml.mat4()
 	self._m_rot = cpml.mat4()
 	self._m_scale = cpml.mat4()
 	self._culling = culling == true or culling == nil
+	self._draw_edges = draw_edges == true or draw_edges == nil
 
 	if x then
 		self:setTranslation(x, y or 0, z or 0)
@@ -77,6 +78,14 @@ end
 
 function Model:getCulling()
 	return self._culling
+end
+
+function Model:setDrawEdges(v)
+	self._draw_edges = v
+end
+
+function Model:getDrawEdges()
+	return self._draw_edges
 end
 
 return Model

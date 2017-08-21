@@ -77,24 +77,32 @@ function Background:draw()
 		for _, o in ipairs(order) do
 			local f = d:getFaces()[o[1]]
 
+			local fade = math.max(255 - o[2] * 14, 0)
+
 			local poly = {}
 			for _, e in ipairs(f) do
 				table.insert(poly, vs[e.v].x * 320 + 160)
 				table.insert(poly, vs[e.v].y * 320 + 240)
 			end
 
-			love.graphics.setColor(0, 0, 0)
+			if f.material then
+				local mat = d:getMaterials()[f.material]
+				love.graphics.setColor(mat.Kd[1]*fade, mat.Kd[2]*fade, mat.Kd[3]*fade, 255)
+			else
+				love.graphics.setColor(0, 0, 0, 255)
+			end
+
 			love.graphics.polygon("fill", poly)
 
-			local c = math.max(255 - o[2] * 14, 0)
-			love.graphics.setColor(c, c, c, 255)
-			j = 1
-			while j <= #poly-3 do
-				love.graphics.line(poly[j], poly[j+1], poly[j+2], poly[j+3])
-				j = j + 2
+			if model:getDrawEdges() then
+				love.graphics.setColor(fade, fade, fade, 255)
+				j = 1
+				while j <= #poly-3 do
+					love.graphics.line(poly[j], poly[j+1], poly[j+2], poly[j+3])
+					j = j + 2
+				end
+				love.graphics.line(poly[#poly-1], poly[#poly], poly[1], poly[2])
 			end
-			love.graphics.line(poly[#poly-1], poly[#poly], poly[1], poly[2])
-
 		end
 	end
 	love.graphics.setColor(255, 255, 255, 255)
