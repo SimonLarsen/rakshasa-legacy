@@ -13,12 +13,10 @@ function Painting:enter()
 	self.splatters = {}
 	self.squares = {}
 
-	local pattern = love.graphics.newImage("data/images/paintings/1.png")
-	self.shader:send("pattern", pattern)
-	self.shader:send("pattern_size", {pattern:getWidth(), pattern:getHeight()})
+	self.pattern = love.graphics.newImage("data/images/paintings/1.png")
 
-	self.height = pattern:getHeight()
-	self.inner_height = pattern:getHeight() / 2
+	self.height = self.pattern:getHeight()
+	self.inner_height = self.pattern:getHeight() / 2
 	self.offset = self.height/2 + self.inner_height / 2 - 240
 
 	self.canvas  = love.graphics.newCanvas(320, self.height)
@@ -95,9 +93,10 @@ function Painting:update(dt, rt)
 end
 
 function Painting:draw()
-	--love.graphics.setColor(211, 80, 80, 255)
+	self.shader:send("pattern", self.pattern)
+	self.shader:send("pattern_size", {self.pattern:getDimensions()})
+
 	love.graphics.setColor(150, 28, 28, 255)
-	--love.graphics.setColor(160, 160, 160, 255)
 	love.graphics.draw(self.canvas, 0, -self.offset)
 	love.graphics.setColor(255, 255, 255, 255)
 end

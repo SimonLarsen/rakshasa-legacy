@@ -40,8 +40,6 @@ function Chain:enter(ship1, ship2)
 	local filter_image = prox.resources.getImage("data/images/textures/dissolve.png")
 	filter_image:setWrap("repeat","repeat")
 	self.dissolve_edge = 1.2
-	self.dissolve_shader:send("filter", filter_image)
-	self.dissolve_shader:send("edge", self.dissolve_edge)
 	self.head_alpha = 0
 
 	self:setCollider(prox.BoxCollider(26, 26))
@@ -100,8 +98,6 @@ function Chain:update(dt, rt)
 			v:kill()
 		end
 	end
-
-	self.dissolve_shader:send("edge", self.dissolve_edge)
 end
 
 function Chain:draw()
@@ -117,6 +113,8 @@ function Chain:draw()
 	local count = dist / 10
 
 	if self.dissolve_edge > 0 then
+		self.dissolve_shader:send("filter", filter_image)
+		self.dissolve_shader:send("edge", self.dissolve_edge)
 		love.graphics.setShader(self.dissolve_shader)
 	end
 
