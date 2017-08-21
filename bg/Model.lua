@@ -1,11 +1,10 @@
 local cpml = require("cpml")
-local obj_reader = require("lua-obj-reader/obj-reader")
 local StaticModelData = require("bg.StaticModelData")
 
 local Model = class("bg.Model", prox.Entity)
 
 function Model:enter(path, x, y, z, culling, draw_edges)
-	self:loadObj(path)
+	self._data = StaticModelData(path)
 
 	self._m_pos = cpml.mat4()
 	self._m_rot = cpml.mat4()
@@ -16,11 +15,6 @@ function Model:enter(path, x, y, z, culling, draw_edges)
 	if x then
 		self:setTranslation(x, y or 0, z or 0)
 	end
-end
-
-function Model:loadObj(path)
-	local data = obj_reader.read(path)
-	self._data = StaticModelData(data.v, data.f, data.vn, data.materials)
 end
 
 function Model:setTranslation(x, y, z)
