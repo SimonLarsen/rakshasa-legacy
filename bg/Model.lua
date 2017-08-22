@@ -3,8 +3,12 @@ local StaticModelData = require("bg.StaticModelData")
 
 local Model = class("bg.Model", prox.Entity)
 
-function Model:enter(path, x, y, z, culling, draw_edges)
-	self._data = StaticModelData(path)
+function Model:enter(model, x, y, z, culling, draw_edges)
+	if type(model) == "string" then
+		self._data = StaticModelData(model)
+	else
+		self._data = model
+	end
 
 	self._m_pos = cpml.mat4()
 	self._m_rot = cpml.mat4()
@@ -15,6 +19,10 @@ function Model:enter(path, x, y, z, culling, draw_edges)
 	if x then
 		self:setTranslation(x, y or 0, z or 0)
 	end
+end
+
+function Model:update(dt, rt)
+	self._data:update(dt, rt)
 end
 
 function Model:setTranslation(x, y, z)

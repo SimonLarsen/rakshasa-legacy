@@ -37,8 +37,8 @@ function Chain:enter(ship1, ship2)
 	self.center_flash_alpha = 0
 
 	self.dissolve_shader = prox.resources.getShader("data/shaders/dissolve.glsl")
-	local filter_image = prox.resources.getImage("data/images/textures/dissolve.png")
-	filter_image:setWrap("repeat","repeat")
+	self.filter_image = prox.resources.getImage("data/images/textures/dissolve.png")
+	self.filter_image:setWrap("repeat","repeat")
 	self.dissolve_edge = 1.2
 	self.head_alpha = 0
 
@@ -113,7 +113,7 @@ function Chain:draw()
 	local count = dist / 10
 
 	if self.dissolve_edge > 0 then
-		self.dissolve_shader:send("filter", filter_image)
+		self.dissolve_shader:send("filter", self.filter_image)
 		self.dissolve_shader:send("edge", self.dissolve_edge)
 		love.graphics.setShader(self.dissolve_shader)
 	end
