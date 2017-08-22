@@ -33,4 +33,5 @@
  <objecttype name="ProximityMine" color="#55ff00"/>
  <objecttype name="Bunker" color="#ff7559"/>
  <objecttype name="AimedDrone" color="#15a413"/>
+ <objecttype name="LaserFan" color="#aa55ff"/>
 </objecttypes>

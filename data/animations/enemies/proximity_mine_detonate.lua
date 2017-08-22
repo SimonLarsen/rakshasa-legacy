@@ -1,8 +1,8 @@
 {
 	image = "data/images/enemies/proximity_mine_detonate.png",
-	fw = 47,
-	fh = 47,
-	ox = 23,
-	oy = 23,
+	fw = 55,
+	fh = 55,
+	ox = 27,
+	oy = 27,
 	delay = 1
 }

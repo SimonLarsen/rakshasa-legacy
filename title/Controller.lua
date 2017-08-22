@@ -8,7 +8,7 @@ local options = {
 	"QUIT"
 }
 
-local START_LEVEL = 1
+local START_LEVEL = 2
 
 function Controller:enter()
 	self:setName("titlecontroller")

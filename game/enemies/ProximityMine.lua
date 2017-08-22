@@ -44,7 +44,7 @@ function ProximityMine:update(dt, rt)
 	end
 
 	if self.triggered then
-		if self.detonation_delay < 0.3 then
+		if self.detonation_delay < 0.2 then
 			self:getRenderer():setProperty("detonate", true)
 		end
 		self:getRenderer():setShader(prox.time.getTime() % 0.2 < 0.1 and self.white_shader or nil)

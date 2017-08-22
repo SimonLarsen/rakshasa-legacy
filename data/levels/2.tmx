@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="20" height="30" tilewidth="16" tileheight="16" nextobjectid="2">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="20" height="30" tilewidth="16" tileheight="16" nextobjectid="7">
  <objectgroup name="1">
-  <object id="1" name="0" type="Turret" x="85" y="127"/>
+  <object id="2" name="0" type="LaserFan" x="53" y="-8">
+   <polyline points="0,0 218.5,-0.5"/>
+  </object>
+  <object id="5" name="3" type="Laser" x="47" y="-43">
+   <polyline points="0,0 224,0"/>
+  </object>
+  <object id="6" name="3" type="LaserSwitch" x="16" y="-64">
+   <polyline points="0,0 288,0"/>
+  </object>
  </objectgroup>
 </map>

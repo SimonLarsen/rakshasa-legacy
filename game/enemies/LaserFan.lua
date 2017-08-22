@@ -28,8 +28,9 @@ function LaserFan:enter(properties)
 	self.hc_rect:setRotation(self.dir)
 
 	self.turret_anim = prox.Animation("data/animations/enemies/laser_fan.lua")
+	self.orbit_anim = prox.Animation("data/animations/enemies/laser_fan_orbit.lua")
 
-	self.beamw = (self.dist - 39) / 2
+	self.beamw = (self.dist - 66) / 2
 	self.beam_anim1 = prox.Animation("data/animations/enemies/laser_beam_orthogonal.lua")
 	self.beam_anim1:setScale(self.beamw, 1)
 	self.beam_anim2 = prox.Animation("data/animations/enemies/laser_beam_orthogonal.lua")
@@ -41,9 +42,10 @@ function LaserFan:enter(properties)
 	self:setRenderer(prox.MultiRenderer())
 	self:getRenderer():addRenderer(self.beam_anim1)
 	self:getRenderer():addRenderer(self.beam_anim2)
+	self:getRenderer():addRenderer(self.turret_anim)
+	self:getRenderer():addRenderer(self.orbit_anim)
 	self:getRenderer():addRenderer(self.beam_tip1)
 	self:getRenderer():addRenderer(self.beam_tip2)
-	self:getRenderer():addRenderer(self.turret_anim)
 end
 
 function LaserFan:update(dt, rt)
@@ -52,21 +54,22 @@ function LaserFan:update(dt, rt)
 
 	self.hc_rect:moveTo(self.x, self.y)
 	self.hc_rect:setRotation(self.dir)
-	self.turret_anim:setRotation(self.dir+math.pi/2)
+	self.orbit_anim:setRotation(self.dir+math.pi/2)
 
 	self.beam_anim1:setRotation(self.dir)
 	self.beam_anim2:setRotation(self.dir)
-	self.beam_tip1:setRotation(self.dir+math.pi)
-	self.beam_tip2:setRotation(self.dir)
+	self.beam_tip1:setRotation(self.dir-math.pi/2)
+	self.beam_tip2:setRotation(self.dir+math.pi/2)
 
-	local ox = math.cos(self.dir) * (18 + self.beamw / 2)
-	local oy = math.sin(self.dir) * (18 + self.beamw / 2)
+	local ox = math.cos(self.dir) * (32 + self.beamw / 2)
+	local oy = math.sin(self.dir) * (32 + self.beamw / 2)
 	self:getRenderer():setOffset(1, -ox, -oy)
 	self:getRenderer():setOffset(2, ox, oy)
-	ox = math.cos(self.dir) * (17 + self.beamw)
-	oy = math.sin(self.dir) * (17 + self.beamw)
-	self:getRenderer():setOffset(3, -ox, -oy)
-	self:getRenderer():setOffset(4, ox, oy)
+
+	ox = math.cos(self.dir) * (32 + self.beamw)
+	oy = math.sin(self.dir) * (32 + self.beamw)
+	self:getRenderer():setOffset(5, -ox, -oy)
+	self:getRenderer():setOffset(6, ox, oy)
 
 	for i,v in ipairs(self:getScene():findAll(PlayerBullet)) do
 		if self.hc_rect:collidesWith(v:getHCShape()) then

@@ -1,8 +1,8 @@
 {
 	image = "data/images/enemies/laser_tip.png",
-	fw = 9,
-	fh = 27,
-	ox = 0,
-	oy = 13.5,
+	fw = 33,
+	fh = 33,
+	ox = 16,
+	oy = 8,
 	delay = 0.08
 }
