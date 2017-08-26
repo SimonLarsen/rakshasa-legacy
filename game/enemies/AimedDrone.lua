@@ -41,7 +41,7 @@ function AimedDrone:update(dt, rt)
 		self.has_shot = true
 	end
 
-	if self.has_shot and (self.x < -32 or self.x > settings.screen_width + 32 or self.y < 32 or self.y > settings.screen_height + 32) then
+	if self.has_shot and (self.x < -32 or self.x > settings.screen_width + 32 or self.y < -32 or self.y > settings.screen_height + 32) then
 		self:remove()
 	end
 
