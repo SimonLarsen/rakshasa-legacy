@@ -57,14 +57,8 @@
   <object id="105" name="0" type="Turret" x="64" y="192"/>
   <object id="106" name="0" type="Turret" x="256" y="192"/>
  </objectgroup>
- <objectgroup name="3" visible="0">
+ <objectgroup name="3">
   <object id="108" name="0" type="Temple" x="160" y="64"/>
  </objectgroup>
- <objectgroup name="4">
-  <object id="115" name="0" type="Mine" x="159.333" y="223.333"/>
-  <object id="116" name="5" type="AimedDrone" x="210" y="-38">
-   <polyline points="0,0 1.33333,193.333 -84,296.667"/>
-  </object>
-  <object id="117" name="100" type="Mine" x="483.333" y="446"/>
- </objectgroup>
+ <objectgroup name="4" visible="0"/>
 </map>

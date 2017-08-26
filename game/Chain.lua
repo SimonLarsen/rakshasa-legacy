@@ -8,6 +8,7 @@ local MIN_DIST = 86
 local SUPER_THRESHOLD = 0.1
 local INVULNERABLE_TIME = 3
 local FORCE = 4500
+local SHOOTING_COOLDOWN = 0.2
 
 local SWORD_COST = 10
 
@@ -37,8 +38,8 @@ function Chain:enter(ship1, ship2)
 	self.filter_image:setWrap("repeat","repeat")
 	self.dissolve_edge = 1.2
 	self.center_flash_alpha = 0
-	--self.next_blink = 2*love.math.random() + 5
-	self.next_blink = 3
+	self.next_blink = 2*love.math.random() + 5
+	self.shooting_cooldown = 0
 
 	self:setCollider(prox.BoxCollider(26, 26))
 
@@ -79,6 +80,12 @@ function Chain:update(dt, rt)
 		self.next_blink = 2*love.math.random() + 5
 		self.face_anim:setProperty("blink", true)
 	end
+
+	self.shooting_cooldown = self.shooting_cooldown - dt
+	if self.ship1.cooldown > 0 or self.ship2.cooldown > 0 then
+		self.shooting_cooldown = SHOOTING_COOLDOWN
+	end
+	self.face_anim:setProperty("shooting", self.shooting_cooldown > 0)
 
 	-- Rotate center and gears
 	self.direction = math.atan2(ydist, xdist)
