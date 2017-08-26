@@ -1,5 +1,6 @@
 local Slowable = require("game.Slowable")
 local Explosion = require("game.Explosion")
+local Plink = require("game.Plink")
 
 local EnemyBullet = class("game.EnemyBullet", Slowable)
 
@@ -51,8 +52,12 @@ function EnemyBullet:getHCShape()
 	return self.hc_rect
 end
 
-function EnemyBullet:kill()
-	self:getScene():add(Explosion(self.x, self.y, Explosion.static.SIZE_SMALL))
+function EnemyBullet:kill(plink)
+	if plink then
+		self:getScene():add(Plink(self.x, self.y))
+	else
+		self:getScene():add(Explosion(self.x, self.y, Explosion.static.SIZE_SMALL))
+	end
 	self:remove()
 end
 

@@ -79,7 +79,7 @@ function Controller:enter(level, binding)
 	self.lives_display = self.lives
 	self.score = 0
 	self.score_display = self.score
-	self.gems = 0
+	self.gems = MAX_GEMS
 	self.gems_display = self.gems
 	self.binding = binding
 	self.state = Controller.static.STATE_WARMUP

@@ -25,22 +25,20 @@ function Chain:enter(ship1, ship2)
 	self.direction = 0
 	self.controller = self:getScene():find("controller")
 
-	self.center_sprites = {
-		prox.Sprite("data/images/chain_center1.png"),
-		prox.Sprite("data/images/chain_center2.png"),
-		prox.Sprite("data/images/chain_center3.png")
-	}
 	self.center_ring = prox.Sprite("data/images/chain_ring.png")
 	self.center_flash = prox.Sprite("data/images/chain_center_flash.png")
 	self.link1 = prox.Sprite("data/images/link1.png", 5, 5)
 	self.link2 = prox.Sprite("data/images/link2.png", 3, 3)
-	self.center_flash_alpha = 0
+
+	self.face_anim = prox.Animator("data/animators/player_face.lua")
 
 	self.dissolve_shader = prox.resources.getShader("data/shaders/dissolve.glsl")
 	self.filter_image = prox.resources.getImage("data/images/textures/dissolve.png")
 	self.filter_image:setWrap("repeat","repeat")
 	self.dissolve_edge = 1.2
-	self.head_alpha = 0
+	self.center_flash_alpha = 0
+	--self.next_blink = 2*love.math.random() + 5
+	self.next_blink = 3
 
 	self:setCollider(prox.BoxCollider(26, 26))
 
@@ -74,9 +72,16 @@ function Chain:update(dt, rt)
 	-- Update power level based on ship distance
 	self.center_flash_alpha = self.center_flash_alpha - math.max(0, 2000*dt)
 
+	-- Update face animator
+	self.face_anim:update(dt, rt)
+	self.next_blink = self.next_blink - dt
+	if self.next_blink <= 0 then
+		self.next_blink = 2*love.math.random() + 5
+		self.face_anim:setProperty("blink", true)
+	end
+
 	-- Rotate center and gears
 	self.direction = math.atan2(ydist, xdist)
-	self.center_ring:setRotation(self.direction)
 	self.ship1:setDirection(self.direction)
 	self.ship2:setDirection(self.direction)
 	self.ship1:getGearSprite():setRotation(dist / 48)
@@ -90,23 +95,18 @@ function Chain:update(dt, rt)
 
 	for i,v in ipairs(self:getScene():findAll(EnemyBullet)) do
 		if v:getHCShape() and self.hc_rect:collidesWith(v:getHCShape()) then
-			if self.state == Chain.static.STATE_ACTIVE and self.invulnerable <= 0 then
+			if self.invulnerable <= 0 then
 				self.invulnerable = INVULNERABLE_TIME
 				self:getScene():find("screenshaker"):shake(0.5, 8, 60)
 				self.controller:playerHit()
+				self.face_anim:setProperty("hurt", true)
 			end
-			v:kill()
+			v:kill(self.invulnerable > 0)
 		end
 	end
 end
 
 function Chain:draw()
-	if self.state == Chain.static.STATE_ACTIVE
-	and self.invulnerable >= 0
-	and prox.time.getTime() % 0.15 < 0.075 then
-		return
-	end
-
 	local xdist = (self.ship2.x - self.ship1.x) / 2
 	local ydist = (self.ship2.y - self.ship1.y) / 2
 	local dist = math.sqrt(xdist^2 + ydist^2)
@@ -118,25 +118,29 @@ function Chain:draw()
 		love.graphics.setShader(self.dissolve_shader)
 	end
 
-	for i=0, count-1 do
-		self.link1:draw(self.x + xdist * i / count, self.y + ydist * i / count)
-		self.link1:draw(self.x - xdist * i / count, self.y - ydist * i / count)
-	end
+	if self.invulnerable <= 0 or prox.time.getTime() % 0.15 > 0.075 then
+		for i=0, count-1 do
+			self.link1:draw(self.x + xdist * i / count, self.y + ydist * i / count)
+			self.link1:draw(self.x - xdist * i / count, self.y - ydist * i / count)
+		end
 
-	for i=0, count-1 do
-		self.link2:draw(self.x + xdist * (i+0.5) / count, self.y + ydist * (i+0.5) / count)
-		self.link2:draw(self.x - xdist * (i+0.5) / count, self.y - ydist * (i+0.5) / count)
-	end
+		for i=0, count-1 do
+			self.link2:draw(self.x + xdist * (i+0.5) / count, self.y + ydist * (i+0.5) / count)
+			self.link2:draw(self.x - xdist * (i+0.5) / count, self.y - ydist * (i+0.5) / count)
+		end
 
+	end
 	love.graphics.setShader()
 
-	if self.invulnerable >= 0
-	and prox.time.getTime() % 0.15 < 0.075 then
-		return
-	end
-
 	self.center_ring:draw(self.x, self.y)
-	self.center_sprites[1]:draw(self.x, self.y)
+
+	if self.dissolve_edge > 0 then
+		self.dissolve_shader:send("filter", self.filter_image)
+		self.dissolve_shader:send("edge", self.dissolve_edge)
+		love.graphics.setShader(self.dissolve_shader)
+	end
+	self.face_anim:draw(self.x, self.y)
+	love.graphics.setShader()
 
 	if self.center_flash_alpha > 0 then
 		love.graphics.setColor(255, 255, 255, math.max(0, self.center_flash_alpha))
@@ -153,6 +157,7 @@ function Chain:sword()
 		local offx = math.cos(self.direction-math.pi/2)*20
 		local offy = math.sin(self.direction-math.pi/2)*20
 		self:getScene():add(Sword(self.x+offx, self.y+offy, self.direction-math.pi/2, dist))
+		self.face_anim:setProperty("sword", true)
 	end
 end
 
