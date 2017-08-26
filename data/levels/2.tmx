@@ -1,14 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="20" height="30" tilewidth="16" tileheight="16" nextobjectid="7">
- <objectgroup name="1">
-  <object id="2" name="0" type="LaserFan" x="53" y="-8">
-   <polyline points="0,0 218.5,-0.5"/>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="20" height="30" tilewidth="16" tileheight="16" nextobjectid="110">
+ <objectgroup name="1" visible="0">
+  <object id="28" name="0" type="Turret" x="160" y="144"/>
+  <object id="29" name="3" type="Bunker" x="80" y="176"/>
+  <object id="31" name="0" type="Bunker" x="240" y="176"/>
+  <object id="33" name="1" type="Bunker" x="48" y="160"/>
+  <object id="34" name="0" type="Bunker" x="272" y="160"/>
+  <object id="38" name="2" type="Mine" x="112" y="208"/>
+  <object id="39" name="0" type="Mine" x="208" y="208"/>
+  <object id="40" name="1" type="Mine" x="160" y="240"/>
+  <object id="41" name="2" type="Fighter" x="64" y="-32">
+   <polyline points="0,0 0,112 0,272 0,544"/>
   </object>
-  <object id="5" name="3" type="Laser" x="47" y="-43">
-   <polyline points="0,0 224,0"/>
+  <object id="43" name="0" type="Fighter" x="256" y="-32">
+   <polyline points="0,0 0,112 0,272 0,544"/>
   </object>
-  <object id="6" name="3" type="LaserSwitch" x="16" y="-64">
-   <polyline points="0,0 288,0"/>
+  <object id="44" name="2" type="Turret" x="112" y="64"/>
+  <object id="47" name="0" type="Turret" x="208" y="64"/>
+  <object id="52" name="3" type="AimedDrone" x="352" y="-32">
+   <polyline points="0,0 -272,112.667 -304,512"/>
   </object>
+  <object id="53" name="1" type="AimedDrone" x="256" y="-32">
+   <polyline points="-304,0 -32,112.667 0,512"/>
+  </object>
+ </objectgroup>
+ <objectgroup name="2" visible="0">
+  <object id="86" name="0" type="Spawner" x="352" y="0">
+   <properties>
+    <property name="count" type="int" value="6"/>
+    <property name="delay" type="float" value="0.25"/>
+    <property name="type" value="Scout"/>
+   </properties>
+   <polyline points="0,0 -384,384"/>
+  </object>
+  <object id="87" name="0" type="Spawner" x="352" y="0">
+   <properties>
+    <property name="count" type="int" value="6"/>
+    <property name="delay" type="float" value="0.25"/>
+    <property name="type" value="Scout"/>
+   </properties>
+   <polyline points="-384,0 0,384"/>
+  </object>
+  <object id="90" name="0" type="Turret" x="160" y="144"/>
+  <object id="95" name="5" type="AimedDrone" x="-28.6667" y="33.3333">
+   <polyline points="0,0 204,35.3333 176,244.667"/>
+  </object>
+  <object id="96" name="1" type="AimedDrone" x="342" y="125.333">
+   <polyline points="0,0 -184,-0.666667 -149.333,140"/>
+  </object>
+  <object id="98" name="3" type="AimedDrone" x="-32" y="167.333">
+   <polyline points="0,0 182,-80 182.667,24"/>
+  </object>
+  <object id="99" name="1" type="AimedDrone" x="348" y="232">
+   <polyline points="0,0 -184,-150.667 -175.333,-45.3333"/>
+  </object>
+  <object id="105" name="0" type="Turret" x="64" y="192"/>
+  <object id="106" name="0" type="Turret" x="256" y="192"/>
+ </objectgroup>
+ <objectgroup name="3">
+  <object id="108" name="0" type="Temple" x="160" y="64"/>
  </objectgroup>
 </map>
