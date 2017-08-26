@@ -6,7 +6,8 @@ local Turret = class("game.enemies.Turret", Enemy)
 
 local MAX_HEALTH = 12
 local MOVE_SPEED = 40
-local SALVO_COOLDOWN = 2.0
+local ENTER_SALVO_COOLDOWN = 2.5
+local SALVO_COOLDOWN = 3.0
 local BULLET_COOLDOWN = 0.18
 local SALVO_SIZE = 4
 
@@ -16,13 +17,13 @@ function Turret:enter(properties)
 	self.x = properties.x
 	self.y = -30
 	self.speed = properties.speed or MOVE_SPEED
-	self.salvo_cooldown = properties.salvo_cooldown or 2.5
-	self.next_salvo_cooldown = self.salvo_cooldown
+	self.salvo_cooldown = properties.salvo_cooldown or SALVO_COOLDOWN
+	self.next_salvo_cooldown = properties.enter_salvo_cooldown or ENTER_SALVO_COOLDOWN
 	self.bullet_cooldown = properties.bullet_cooldown or BULLET_COOLDOWN
 	self.next_bullet_cooldown = self.bullet_cooldown
+	self.salvo_size = properties.salvo_size or SALVO_SIZE
 	self.salvo = 0
 	self.shoot_dir = 0
-	self.salvo_size = properties.salvo_size or SALVO_SIZE
 
 	self.player_chain = self:getScene():find("chain")
 

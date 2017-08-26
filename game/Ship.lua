@@ -7,12 +7,12 @@ local Ship = class("game.Ship", prox.Entity)
 Ship.static.SIDE_LEFT = 1
 Ship.static.SIDE_RIGHT = 2
 
-local FAST_ACCELERATION = 2300
+local FAST_ACCELERATION = 2400
 local SLOW_ACCELERATION = 2000
 local DECELLERATION = 1200
 local SLOW_MAX_SPEED = 150
-local FAST_MAX_SPEED = 250
-local RETRACT_SPEED = 800
+local FAST_MAX_SPEED = 270
+local RETRACT_SPEED = 900
 
 local BULLET_COOLDOWN = 0.1
 local DEADZONE_THRESHOLD = 0.20
