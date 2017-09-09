@@ -10,7 +10,7 @@ local INVULNERABLE_TIME = 3
 local FORCE = 4500
 local SHOOTING_COOLDOWN = 0.2
 
-local SWORD_COST = 10
+local SWORD_COST = 30
 
 Chain.static.STATE_ACTIVE = 1
 Chain.static.STATE_DEAD  = 2
