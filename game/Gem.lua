@@ -19,8 +19,8 @@ function Gem:enter(x, y)
 	self.z = 5
 	self.state = Gem.static.STATE_FALL
 
-	self.xspeed = love.math.random(-10, 10)
-	self.yspeed = -150 + love.math.random(-15, 15)
+	self.xspeed = love.math.random(-50, 50)
+	self.yspeed = -150 + love.math.random(-20, 20)
 
 	self.targets = self:getScene():findAll("ship")
 	table.insert(self.targets, self:getScene():find("chain"))
@@ -36,7 +36,7 @@ function Gem:update(dt, rt)
 	dt, rt = Slowable.update(self, dt, rt)
 
 	if self.state == Gem.static.STATE_FALL then
-		self.xspeed = prox.math.movetowards(self.xspeed, 0, 10*dt)
+		self.xspeed = prox.math.movetowards(self.xspeed, 0, 200*dt)
 		self.yspeed = prox.math.cap(self.yspeed + ACCELERATION * dt, -1000, SCROLL_SPEED)
 
 		self.x = self.x + self.xspeed * dt
