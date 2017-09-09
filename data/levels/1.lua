@@ -1,14 +1,14 @@
 return {
   version = "1.1",
   luaversion = "5.1",
-  tiledversion = "0.17.1",
+  tiledversion = "1.0.3",
   orientation = "orthogonal",
   renderorder = "right-down",
   width = 20,
   height = 30,
   tilewidth = 16,
   tileheight = 16,
-  nextobjectid = 225,
+  nextobjectid = 237,
   properties = {},
   tilesets = {},
   layers = {
@@ -69,8 +69,8 @@ return {
           name = "3",
           type = "Fighter",
           shape = "polyline",
-          x = 88.6667,
-          y = -20.6667,
+          x = 78.6667,
+          y = -19.3334,
           width = 0,
           height = 0,
           rotation = 0,
@@ -88,8 +88,8 @@ return {
           name = "2",
           type = "Fighter",
           shape = "polyline",
-          x = 232.334,
-          y = -21.8333,
+          x = 243.425,
+          y = -22.0151,
           width = 0,
           height = 0,
           rotation = 0,
@@ -120,8 +120,8 @@ return {
           name = "1",
           type = "Bunker",
           shape = "rectangle",
-          x = 119.167,
-          y = 210.27,
+          x = 120.167,
+          y = 240.77,
           width = 0,
           height = 0,
           rotation = 0,
@@ -133,8 +133,8 @@ return {
           name = "0",
           type = "Bunker",
           shape = "rectangle",
-          x = 202.167,
-          y = 210.77,
+          x = 203.167,
+          y = 241.27,
           width = 0,
           height = 0,
           rotation = 0,
@@ -147,7 +147,7 @@ return {
           type = "Bunker",
           shape = "rectangle",
           x = 74.1667,
-          y = 209.77,
+          y = 270.77,
           width = 0,
           height = 0,
           rotation = 0,
@@ -160,7 +160,7 @@ return {
           type = "Bunker",
           shape = "rectangle",
           x = 248.667,
-          y = 209.27,
+          y = 270.27,
           width = 0,
           height = 0,
           rotation = 0,
@@ -172,8 +172,8 @@ return {
           name = "1",
           type = "Bunker",
           shape = "rectangle",
-          x = 27.6667,
-          y = 210.77,
+          x = 28.1667,
+          y = 308.27,
           width = 0,
           height = 0,
           rotation = 0,
@@ -185,8 +185,8 @@ return {
           name = "0",
           type = "Bunker",
           shape = "rectangle",
-          x = 292.667,
-          y = 210.27,
+          x = 293.167,
+          y = 307.77,
           width = 0,
           height = 0,
           rotation = 0,
@@ -224,24 +224,6 @@ return {
           properties = {}
         },
         {
-          id = 33,
-          name = "1",
-          type = "AimedDrone",
-          shape = "polyline",
-          x = -26,
-          y = 60,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          visible = true,
-          polyline = {
-            { x = 0, y = 0 },
-            { x = 185, y = -1.66667e-06 },
-            { x = 186, y = 75.3333 }
-          },
-          properties = {}
-        },
-        {
           id = 34,
           name = "1",
           type = "AimedDrone",
@@ -260,67 +242,48 @@ return {
           properties = {}
         },
         {
-          id = 38,
+          id = 229,
           name = "2",
-          type = "Fighter",
+          type = "AimedPatrol",
           shape = "polyline",
-          x = 160.667,
-          y = -32.6667,
+          x = 4.66667,
+          y = -48,
           width = 0,
           height = 0,
           rotation = 0,
           visible = true,
           polyline = {
             { x = 0, y = 0 },
-            { x = -0.666667, y = 132 },
-            { x = -0.666667, y = 293.333 },
-            { x = -1.33333, y = 535.333 }
+            { x = 75.3333, y = 136.667 },
+            { x = 74.6667, y = 241.333 }
           },
           properties = {}
         },
         {
-          id = 40,
+          id = 230,
           name = "0",
-          type = "AimedDrone",
+          type = "AimedPatrol",
           shape = "polyline",
-          x = 34.6667,
-          y = -31.3333,
+          x = 308.667,
+          y = -53.3333,
           width = 0,
           height = 0,
           rotation = 0,
           visible = true,
           polyline = {
-            { x = -85.3333, y = 22 },
-            { x = 99.3333, y = 250.667 },
-            { x = 62.6667, y = 361.333 }
+            { x = 0, y = 0 },
+            { x = -67.3333, y = 150 },
+            { x = -68.6667, y = 274 }
           },
           properties = {}
         },
         {
-          id = 41,
-          name = "0",
-          type = "AimedDrone",
-          shape = "polyline",
-          x = 284,
-          y = -28.6667,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          visible = true,
-          polyline = {
-            { x = 73.3333, y = 14.6667 },
-            { x = -87.3333, y = 249.333 },
-            { x = -52.6667, y = 356 }
-          },
-          properties = {}
-        },
-        {
-          id = 43,
-          name = "1",
+          id = 233,
+          name = "2",
           type = "Spawner",
           shape = "polyline",
-          x = -56,
-          y = 65.3333,
+          x = -37.3333,
+          y = 165.333,
           width = 0,
           height = 0,
           rotation = 0,
@@ -328,8 +291,8 @@ return {
           polyline = {
             { x = 0, y = 0 },
             { x = 214.667, y = 1.33333 },
-            { x = 215.333, y = 144.667 },
-            { x = 402, y = 145.333 }
+            { x = 212, y = 99.3337 },
+            { x = 398.667, y = 99.9997 }
           },
           properties = {
             ["count"] = 5,
@@ -406,7 +369,7 @@ return {
           type = "Bunker",
           shape = "rectangle",
           x = 161.139,
-          y = 179.242,
+          y = 218.742,
           width = 0,
           height = 0,
           rotation = 0,
@@ -419,7 +382,7 @@ return {
           type = "Bunker",
           shape = "rectangle",
           x = 33.1388,
-          y = 179.242,
+          y = 218.742,
           width = 0,
           height = 0,
           rotation = 0,
@@ -432,7 +395,7 @@ return {
           type = "Bunker",
           shape = "rectangle",
           x = 289.139,
-          y = 179.242,
+          y = 218.742,
           width = 0,
           height = 0,
           rotation = 0,
@@ -445,7 +408,7 @@ return {
           type = "Bunker",
           shape = "rectangle",
           x = 97.1388,
-          y = 163.242,
+          y = 202.742,
           width = 0,
           height = 0,
           rotation = 0,
@@ -458,7 +421,7 @@ return {
           type = "Bunker",
           shape = "rectangle",
           x = 225.139,
-          y = 163.242,
+          y = 202.742,
           width = 0,
           height = 0,
           rotation = 0,
@@ -468,7 +431,7 @@ return {
         {
           id = 93,
           name = "4",
-          type = "Drone",
+          type = "AimedDrone",
           shape = "polyline",
           x = 358,
           y = 21.3333,
@@ -478,14 +441,15 @@ return {
           visible = true,
           polyline = {
             { x = 0, y = 0 },
-            { x = -380, y = 240.667 }
+            { x = -259.333, y = 167.333 },
+            { x = -266, y = 258 }
           },
           properties = {}
         },
         {
           id = 94,
           name = "1",
-          type = "Drone",
+          type = "AimedDrone",
           shape = "polyline",
           x = -38,
           y = 22.6667,
@@ -495,7 +459,8 @@ return {
           visible = true,
           polyline = {
             { x = 0, y = 0 },
-            { x = 388.667, y = 236.667 }
+            { x = 272.667, y = 169.333 },
+            { x = 276, y = 252.667 }
           },
           properties = {}
         },
@@ -994,48 +959,8 @@ return {
       properties = {},
       objects = {
         {
-          id = 144,
-          name = "0",
-          type = "Spawner",
-          shape = "polyline",
-          x = 352,
-          y = 160,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          visible = true,
-          polyline = {
-            { x = 0, y = 0 },
-            { x = -384, y = 0 }
-          },
-          properties = {
-            ["count"] = 3,
-            ["type"] = "Scout"
-          }
-        },
-        {
-          id = 146,
-          name = "0.45",
-          type = "Drone",
-          shape = "polyline",
-          x = 352,
-          y = 160,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          visible = true,
-          polyline = {
-            { x = 0, y = 0 },
-            { x = -384, y = 0 }
-          },
-          properties = {
-            ["count"] = 4,
-            ["type"] = "Scout"
-          }
-        },
-        {
           id = 147,
-          name = "0.15",
+          name = "2",
           type = "Spawner",
           shape = "polyline",
           x = 352,
@@ -1049,47 +974,7 @@ return {
             { x = -384, y = 0 }
           },
           properties = {
-            ["count"] = 3,
-            ["type"] = "Scout"
-          }
-        },
-        {
-          id = 149,
-          name = "1",
-          type = "Spawner",
-          shape = "polyline",
-          x = 352,
-          y = 64,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          visible = true,
-          polyline = {
-            { x = -384, y = 0 },
-            { x = 0, y = 0 }
-          },
-          properties = {
-            ["count"] = 3,
-            ["type"] = "Scout"
-          }
-        },
-        {
-          id = 150,
-          name = "0.45",
-          type = "Drone",
-          shape = "polyline",
-          x = 352,
-          y = 64,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          visible = true,
-          polyline = {
-            { x = -384, y = 0 },
-            { x = 0, y = 0 }
-          },
-          properties = {
-            ["count"] = 4,
+            ["count"] = 5,
             ["type"] = "Scout"
           }
         },
@@ -1109,33 +994,14 @@ return {
             { x = 0, y = 0 }
           },
           properties = {
-            ["count"] = 3,
+            ["count"] = 5,
             ["type"] = "Scout"
           }
         },
         {
-          id = 152,
+          id = 236,
           name = "2",
-          type = "Drone",
-          shape = "polyline",
-          x = 48,
-          y = 512,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          visible = true,
-          polyline = {
-            { x = 0, y = 0 },
-            { x = 0, y = -544 }
-          },
-          properties = {
-            ["start_cooldown"] = 1.6
-          }
-        },
-        {
-          id = 157,
-          name = "2",
-          type = "Drone",
+          type = "AimedDrone",
           shape = "polyline",
           x = 272,
           y = 512,
@@ -1145,11 +1011,28 @@ return {
           visible = true,
           polyline = {
             { x = 0, y = 0 },
-            { x = 0, y = -544 }
+            { x = 0, y = -336 },
+            { x = -224, y = -80 }
           },
-          properties = {
-            ["start_cooldown"] = 1.6
-          }
+          properties = {}
+        },
+        {
+          id = 234,
+          name = "2",
+          type = "AimedDrone",
+          shape = "polyline",
+          x = 48,
+          y = 512,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polyline = {
+            { x = 0, y = 0 },
+            { x = 0, y = -336 },
+            { x = 224, y = -80 }
+          },
+          properties = {}
         },
         {
           id = 160,
