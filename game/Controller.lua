@@ -55,7 +55,7 @@ local constructors = {
 }
 
 local WARMUP_TIME = 2
-local WAVE_PAUSE_TIME = 3
+local WAVE_PAUSE_TIME = 2
 local TRANSITION_TIME = 9
 
 local MAX_GEMS = 60
@@ -81,7 +81,7 @@ function Controller:enter(level, binding)
 	self.lives_display = self.lives
 	self.score = 0
 	self.score_display = self.score
-	self.gems = MAX_GEMS
+	self.gems = 0
 	self.gems_display = self.gems
 	self.binding = binding
 	self.state = Controller.static.STATE_WARMUP
