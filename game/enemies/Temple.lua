@@ -8,7 +8,7 @@ local MAX_HEALTH = 40
 
 local MOVE_SPEED = 25
 local ENTER_COOLDOWN = 1.5
-local COOLDOWN = 2.5
+local SALVO_COOLDOWN = 2.5
 local ENTER_TIME = 1.5
 
 function Temple:enter(properties)
@@ -34,7 +34,7 @@ end
 function Temple:update(dt, rt)
 	dt, rt = Enemy.update(self, dt, rt)
 
-	self.nrxt_shot = self.next_shot - dt
+	self.next_shot = self.next_shot - dt
 	if self.next_shot <= 0 then
 		self.next_shot = self.cooldown
 		self:shoot()
