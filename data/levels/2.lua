@@ -8,7 +8,7 @@ return {
   height = 30,
   tilewidth = 16,
   tileheight = 16,
-  nextobjectid = 293,
+  nextobjectid = 328,
   properties = {},
   tilesets = {},
   layers = {
@@ -282,7 +282,7 @@ return {
         },
         {
           id = 154,
-          name = "3",
+          name = "2",
           type = "Fighter",
           shape = "polyline",
           x = 48,
@@ -836,13 +836,271 @@ return {
     {
       type = "objectgroup",
       name = "6",
+      visible = false,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      draworder = "topdown",
+      properties = {},
+      objects = {
+        {
+          id = 293,
+          name = "1",
+          type = "Fighter",
+          shape = "polyline",
+          x = 92,
+          y = -34,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polyline = {
+            { x = 0, y = 0 },
+            { x = 0, y = 112 },
+            { x = 0, y = 256 },
+            { x = 0, y = 544 }
+          },
+          properties = {}
+        },
+        {
+          id = 294,
+          name = "1",
+          type = "Fighter",
+          shape = "polyline",
+          x = 278,
+          y = -34,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polyline = {
+            { x = 0, y = 0 },
+            { x = 0, y = 112 },
+            { x = 0, y = 256 },
+            { x = 0, y = 544 }
+          },
+          properties = {}
+        },
+        {
+          id = 295,
+          name = "1",
+          type = "Fighter",
+          shape = "polyline",
+          x = 156,
+          y = -36,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polyline = {
+            { x = 0, y = 0 },
+            { x = 0, y = 112 },
+            { x = 0, y = 256 },
+            { x = 0, y = 544 }
+          },
+          properties = {}
+        },
+        {
+          id = 296,
+          name = "1",
+          type = "Fighter",
+          shape = "polyline",
+          x = 41.3333,
+          y = -34.6667,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polyline = {
+            { x = 0, y = 0 },
+            { x = 0, y = 112 },
+            { x = 0, y = 256 },
+            { x = 0, y = 544 }
+          },
+          properties = {}
+        },
+        {
+          id = 297,
+          name = "1",
+          type = "Fighter",
+          shape = "polyline",
+          x = 216,
+          y = -38,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polyline = {
+            { x = 0, y = 0 },
+            { x = 0, y = 112 },
+            { x = 0, y = 256 },
+            { x = 0, y = 544 }
+          },
+          properties = {}
+        },
+        {
+          id = 302,
+          name = "2",
+          type = "AimedDrone",
+          shape = "polyline",
+          x = 324,
+          y = 2,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polyline = {
+            { x = 28, y = -18 },
+            { x = -212, y = 110 },
+            { x = -228, y = 206 }
+          },
+          properties = {}
+        },
+        {
+          id = 303,
+          name = "1",
+          type = "AimedDrone",
+          shape = "polyline",
+          x = -28,
+          y = -14.6667,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polyline = {
+            { x = -4, y = -1.33333 },
+            { x = 236, y = 126.667 },
+            { x = 252, y = 222.667 }
+          },
+          properties = {}
+        },
+        {
+          id = 309,
+          name = "1",
+          type = "Turret",
+          shape = "rectangle",
+          x = 48,
+          y = 160,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 310,
+          name = "0",
+          type = "Turret",
+          shape = "rectangle",
+          x = 272,
+          y = 160,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 315,
+          name = "3",
+          type = "Bunker",
+          shape = "rectangle",
+          x = 160,
+          y = 186,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["speed"] = 50
+          }
+        },
+        {
+          id = 322,
+          name = "0.8",
+          type = "Mine",
+          shape = "rectangle",
+          x = 160,
+          y = 224,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["speed"] = 50
+          }
+        },
+        {
+          id = 316,
+          name = "0",
+          type = "Bunker",
+          shape = "rectangle",
+          x = 118,
+          y = 224,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["speed"] = 50
+          }
+        },
+        {
+          id = 317,
+          name = "0",
+          type = "Bunker",
+          shape = "rectangle",
+          x = 202,
+          y = 224,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["speed"] = 50
+          }
+        },
+        {
+          id = 318,
+          name = "0.8",
+          type = "Bunker",
+          shape = "rectangle",
+          x = 160,
+          y = 262,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["speed"] = 50
+          }
+        }
+      }
+    },
+    {
+      type = "objectgroup",
+      name = "7",
       visible = true,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
       draworder = "topdown",
       properties = {},
-      objects = {}
+      objects = {
+        {
+          id = 326,
+          name = "0",
+          type = "Temple",
+          shape = "rectangle",
+          x = 160,
+          y = 96,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        }
+      }
     }
   }
 }
