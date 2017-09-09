@@ -8,51 +8,15 @@ local options = {
 	"QUIT"
 }
 
-local START_LEVEL = 1
+local START_LEVEL = 2
 
-function Controller:enter()
+function Controller:enter(binding)
 	self:setName("titlecontroller")
 	self:reset()
 
 	self.ready = false
 	self.selection = 1
-
-	local bindings = {}
-	for i,v in ipairs(love.joystick.getJoysticks()) do
-		if v:isGamepad() then
-			local joystick = prox.JoystickBinding(i)
-			joystick:add("confirm", "a")
-			joystick:add("up", "dpup")
-			joystick:add("down", "dpdown")
-			joystick:add("left", "dpleft")
-			joystick:add("right", "dpright")
-			joystick:add("leftshoot", "leftshoulder")
-			joystick:add("rightshoot", "rightshoulder")
-			joystick:add("leftretract", "leftstick")
-			joystick:add("rightretract", "rightstick")
-			table.insert(bindings, joystick)
-		end
-	end
-
-	local keyboard = prox.KeyboardBinding()
-	keyboard:add("confirm", "return")
-	keyboard:add("up", "up")
-	keyboard:add("down", "down")
-	keyboard:add("left", "left")
-	keyboard:add("right", "right")
-	keyboard:add("leftshoot", "lshift")
-	keyboard:add("rightshoot", "-")
-	keyboard:add("leftretract", "e")
-	keyboard:add("rightretract", "u")
-	keyboard:addAxis("leftx", "a", "d")
-	keyboard:addAxis("lefty", "w", "s")
-	keyboard:addAxis("rightx", "j", "l")
-	keyboard:addAxis("righty", "i", "k")
-	keyboard:addAxis("triggerleft", nil, nil)
-	keyboard:addAxis("triggerright", nil, "space")
-	table.insert(bindings, keyboard)
-
-	self.binding = prox.MultiBinding(bindings)
+	self.binding = binding
 
 	self.title_image = prox.resources.getImage("data/images/title.png")
 
