@@ -26,6 +26,8 @@ local constructors = {
 	Viper = require("game.enemies.Viper"),
 	Striker = require("game.enemies.Striker"),
 	Chaser = require("game.enemies.Chaser"),
+	Patrol = require("game.enemies.Patrol"),
+	AimedPatrol = require("game.enemies.AimedPatrol"),
 	--- bomber types
 	Bomber = require("game.enemies.Bomber"),
 	Dropship = require("game.enemies.Dropship"),

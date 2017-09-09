@@ -34,4 +34,6 @@
  <objecttype name="Bunker" color="#ff7559"/>
  <objecttype name="AimedDrone" color="#15a413"/>
  <objecttype name="LaserFan" color="#aa55ff"/>
+ <objecttype name="Patrol" color="#ff007f"/>
+ <objecttype name="AimedPatrol" color="#ff00ff"/>
 </objecttypes>
