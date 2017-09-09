@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="20" height="30" tilewidth="16" tileheight="16" infinite="0" nextobjectid="291">
- <objectgroup name="1">
+<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="20" height="30" tilewidth="16" tileheight="16" infinite="0" nextobjectid="293">
+ <objectgroup name="1" visible="0">
   <object id="28" name="0" type="Turret" x="160" y="144"/>
   <object id="29" name="3" type="Bunker" x="80" y="208"/>
   <object id="31" name="0" type="Bunker" x="240" y="208"/>
@@ -23,7 +23,7 @@
    <polyline points="-304,32 -32,128 0,512"/>
   </object>
  </objectgroup>
- <objectgroup name="2">
+ <objectgroup name="2" visible="0">
   <object id="86" name="0" type="Spawner" x="352" y="-1">
    <properties>
     <property name="count" type="int" value="6"/>
@@ -51,7 +51,7 @@
    <polyline points="0,0 0,96 0,304 0,544"/>
   </object>
  </objectgroup>
- <objectgroup name="3">
+ <objectgroup name="3" visible="0">
   <object id="191" name="0" type="Patrol" x="288" y="-32">
    <polyline points="0,0 -48,96"/>
   </object>
@@ -72,7 +72,7 @@
    <polyline points="98,2.6667 162,130.667 130,290.667"/>
   </object>
  </objectgroup>
- <objectgroup name="4">
+ <objectgroup name="4" visible="0">
   <object id="261" name="0" type="Striker" x="160" y="-32">
    <polyline points="0,0 0,96 0,272 0,544"/>
   </object>
@@ -104,7 +104,7 @@
    <polyline points="0,0 -72.6667,128"/>
   </object>
  </objectgroup>
- <objectgroup name="5">
+ <objectgroup name="5" visible="0">
   <object id="274" name="0" type="Turret" x="224" y="192"/>
   <object id="281" name="1" type="Scout" x="-22.6667" y="49.3333">
    <polyline points="0,0 374,130"/>
@@ -127,4 +127,5 @@
    <polyline points="0,0 0,96 0,256 0,544"/>
   </object>
  </objectgroup>
+ <objectgroup name="6"/>
 </map>

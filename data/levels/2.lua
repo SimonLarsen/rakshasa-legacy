@@ -8,14 +8,14 @@ return {
   height = 30,
   tilewidth = 16,
   tileheight = 16,
-  nextobjectid = 291,
+  nextobjectid = 293,
   properties = {},
   tilesets = {},
   layers = {
     {
       type = "objectgroup",
       name = "1",
-      visible = true,
+      visible = false,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -218,7 +218,7 @@ return {
     {
       type = "objectgroup",
       name = "2",
-      visible = true,
+      visible = false,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -342,7 +342,7 @@ return {
     {
       type = "objectgroup",
       name = "3",
-      visible = true,
+      visible = false,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -441,7 +441,7 @@ return {
     {
       type = "objectgroup",
       name = "4",
-      visible = true,
+      visible = false,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -679,7 +679,7 @@ return {
     {
       type = "objectgroup",
       name = "5",
-      visible = true,
+      visible = false,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -832,6 +832,17 @@ return {
           properties = {}
         }
       }
+    },
+    {
+      type = "objectgroup",
+      name = "6",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      draworder = "topdown",
+      properties = {},
+      objects = {}
     }
   }
 }

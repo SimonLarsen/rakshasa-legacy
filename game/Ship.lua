@@ -33,6 +33,7 @@ function Ship:enter(side)
 	self.xmove = 0
 	self.ymove = 0
 	self.side = side
+	self.shooting = 0
 	self.cooldown = 0
 	self.direction = 0
 	self.state = Ship.static.STATE_ENTER
@@ -72,6 +73,7 @@ end
 
 function Ship:update(dt, rt)
 	self.cooldown = self.cooldown - dt
+	self.shooting = self.shooting - dt
 
 	if self.purity_ball and not self.purity_ball:isAlive() then
 		self.purity_ball = nil
@@ -79,9 +81,8 @@ function Ship:update(dt, rt)
 
 	if self.state == Ship.static.STATE_ACTIVE then
 		-- Move ship
-		local shooting = self.cooldown > 0
-		local acceleration = shooting and SLOW_ACCELERATION or FAST_ACCELERATION
-		local max_speed = shooting and SLOW_MAX_SPEED or FAST_MAX_SPEED
+		local acceleration = self.shooting > 0 and SLOW_ACCELERATION or FAST_ACCELERATION
+		local max_speed = self.shooting > 0 and SLOW_MAX_SPEED or FAST_MAX_SPEED
 
 		self.xspeed = self.xspeed + acceleration * dt * self.xmove
 		self.yspeed = self.yspeed + acceleration * dt * self.ymove
@@ -111,14 +112,11 @@ function Ship:update(dt, rt)
 	self:getRenderer():setShader(self.flash > 0 and self.white_shader or nil)
 	self.flash = self.flash - dt
 
-	if self.side == Ship.static.SIDE_LEFT then
-		self.ship_renderer:setProperty("xspeed", self.xspeed)
-	else
-		self.ship_renderer:setProperty("xspeed", -self.xspeed)
-	end
+	self.ship_renderer:setProperty("shooting", self.shooting > 0)
 end
 
 function Ship:shoot()
+	self.shooting = 0.1
 	if self.cooldown <= 0 then
 		self:getScene():add(PlayerBullet(self.x, self.y-32, 1.5*math.pi, PlayerBullet.static.TYPE_SUPER))
 		self:getScene():add(Flash(self.x, self.y-24, 2))

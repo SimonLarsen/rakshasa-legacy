@@ -1,8 +1,8 @@
 {
 	image = "data/images/ship_idle.png",
-	fw = 46,
-	fh = 63,
-	ox = 23,
-	oy = 24,
+	fw = 54,
+	fh = 50,
+	ox = 27,
+	oy = 27,
 	delay = 0.1
 }
