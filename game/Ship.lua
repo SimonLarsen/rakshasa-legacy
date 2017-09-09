@@ -46,6 +46,9 @@ function Ship:enter(side)
 	self:setRenderer(prox.MultiRenderer())
 	self:getRenderer():addRenderer(self.gear_sprite, 0, 1)
 
+	self.exhaust_renderer = prox.Animator("data/animators/ship_exhaust.lua")
+	self:getRenderer():addRenderer(self.exhaust_renderer, 0, 19)
+
 	self.ship_renderer = prox.Animator("data/animators/ship.lua")
 	self:getRenderer():addRenderer(self.ship_renderer)
 
@@ -112,6 +115,7 @@ function Ship:update(dt, rt)
 	self:getRenderer():setShader(self.flash > 0 and self.white_shader or nil)
 	self.flash = self.flash - dt
 
+	self.exhaust_renderer:setProperty("shooting", self.shooting > 0)
 	self.ship_renderer:setProperty("shooting", self.shooting > 0)
 end
 
