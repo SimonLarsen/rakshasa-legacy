@@ -7,8 +7,8 @@ local Temple = class("game.enemies.Temple", Enemy)
 local MAX_HEALTH = 40
 
 local MOVE_SPEED = 25
-local ENTER_SALVO_COOLDOWN = 2.5
-local SALVO_COOLDOWN = 2.5
+local ENTER_COOLDOWN = 1.5
+local COOLDOWN = 2.5
 local ENTER_TIME = 1.5
 
 function Temple:enter(properties)
@@ -18,10 +18,10 @@ function Temple:enter(properties)
 	self.desty = properties.y
 	self.x = self.destx
 	self.y = -30
-	self.cooldown = properties.enter_salvo_cooldown or ENTER_SALVO_COOLDOWN
+	self.next_shot = properties.enter_cooldown or ENTER_COOLDOWN
 	self.entered = false
 	self.entered_time = 0
-	self.salvo_cooldown = properties.salvo_cooldown or SALVO_COOLDOWN
+	self.cooldown = properties.cooldown or SALVO_COOLDOWN
 
 	self.player_chain = self:getScene():find("chain")
 
@@ -34,9 +34,9 @@ end
 function Temple:update(dt, rt)
 	dt, rt = Enemy.update(self, dt, rt)
 
-	self.cooldown = self.cooldown - dt
-	if self.cooldown <= 0 then
-		self.cooldown = self.salvo_cooldown
+	self.nrxt_shot = self.next_shot - dt
+	if self.next_shot <= 0 then
+		self.next_shot = self.cooldown
 		self:shoot()
 	end
 

@@ -20,6 +20,7 @@ function AimedDrone:enter(properties)
 
 	self.x = self.points[1].x
 	self.y = self.points[1].y
+	self.startx, self.starty = self.x, self.y
 	self.xspeed = xdist / dist * self.speed
 	self.yspeed = ydist / dist * self.speed
 	self.shoot_dist = dist

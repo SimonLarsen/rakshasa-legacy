@@ -16,7 +16,6 @@ function Bunker:enter(properties)
 	self.speed = properties.speed or MOVE_SPEED
 	self.has_shot = false
 
-	self.player_chain = self:getScene():find("chain")
 	self:setRenderer(prox.Animation("data/animations/enemies/bunker.lua"))
 	self:setCollider(prox.BoxCollider(30, 30))
 end
@@ -36,10 +35,7 @@ function Bunker:update(dt, rt)
 end
 
 function Bunker:shoot()
-	local xdist = self.player_chain.x - self.x
-	local ydist = self.player_chain.y - self.y
-	local dir = math.atan2(ydist, xdist)
-	self:getScene():add(EnemyBullet(self.x, self.y, dir, EnemyBullet.static.TYPE_LASER))
+	self:getScene():add(EnemyBullet(self.x, self.y, math.pi/2, EnemyBullet.static.TYPE_LASER))
 	self:getScene():add(Flash(self.x, self.y))
 end
 

@@ -3,8 +3,8 @@ local Enemy = require("game.Enemy")
 local BaseDrone = class("game.enemies.BaseDrone", Enemy)
 
 local MOVE_SPEED = 180
-local BULLET_COOLDOWN = 2.5
-local START_COOLDOWN = 1.1
+local ENTER_COOLDOWN = 1.1
+local COOLDOWN = 2.5
 
 function BaseDrone:enter(properties, max_health, speed)
 	Enemy.enter(self, max_health)
@@ -16,7 +16,8 @@ function BaseDrone:enter(properties, max_health, speed)
 	self.y = self.points[1].y
 	self.target = 2
 
-	self.cooldown = properties.start_cooldown or 1.1
+	self.next_shot = properties.enter_cooldown or ENTER_COOLDOWN
+	self.cooldown = properties.cooldown or COOLDOWN
 	self.player_chain = self:getScene():find("chain")
 
 	self:setRenderer(self:getAnimation())
@@ -39,11 +40,11 @@ function BaseDrone:update(dt, rt)
 	end
 
 	-- shooting disabled
-	self.cooldown = self.cooldown - dt
-	if self.cooldown <= 0
+	self.next_shot = self.next_shot - dt
+	if self.next_shot <= 0
 	and self.x > 16 and self.x < settings.screen_width-16
 	and self.y > 16 and self.y < settings.screen_height-16 then
-		self.cooldown = BULLET_COOLDOWN
+		self.next_shot = self.cooldown
 		self:shoot()
 	end
 

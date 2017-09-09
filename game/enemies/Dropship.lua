@@ -4,7 +4,7 @@ local Flash = require("game.Flash")
 
 local Dropship = class("game.enemies.Dropship", Enemy)
 
-local MAX_HEALTH = 8
+local MAX_HEALTH = 12
 
 local ENTER_TIME = 2
 local IDLE_TIME = 1

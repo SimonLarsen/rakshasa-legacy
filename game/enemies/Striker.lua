@@ -4,7 +4,7 @@ local Flash = require("game.Flash")
 
 local Striker = class("game.enemies.Striker", BaseFighter)
 
-local MAX_HEALTH = 4
+local MAX_HEALTH = 5
 
 function Striker:enter(properties)
 	BaseFighter.enter(self, properties, MAX_HEALTH)

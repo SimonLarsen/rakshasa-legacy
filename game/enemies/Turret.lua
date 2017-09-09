@@ -7,7 +7,7 @@ local Turret = class("game.enemies.Turret", Enemy)
 local MAX_HEALTH = 12
 local MOVE_SPEED = 40
 local ENTER_SALVO_COOLDOWN = 2.5
-local SALVO_COOLDOWN = 3.0
+local SALVO_COOLDOWN = 4.0
 local BULLET_COOLDOWN = 0.18
 local SALVO_SIZE = 4
 

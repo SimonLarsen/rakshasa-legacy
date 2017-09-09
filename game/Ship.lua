@@ -18,7 +18,6 @@ local BULLET_COOLDOWN = 0.1
 local DEADZONE_THRESHOLD = 0.20
 
 local ENTER_TIME = 1.0
-local POWER_TRIGGER_TIME = 0.1
 
 Ship.static.STATE_ENTER      = 1
 Ship.static.STATE_ACTIVE     = 2
