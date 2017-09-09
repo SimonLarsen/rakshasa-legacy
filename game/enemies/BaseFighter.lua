@@ -6,8 +6,6 @@ BaseFighter.static.STATE_ENTER = 1
 BaseFighter.static.STATE_IDLE  = 2
 BaseFighter.static.STATE_EXIT  = 3
 
-local BULLET_COOLDOWN = 2.5
-
 local SPEED = {
 	[BaseFighter.static.STATE_ENTER] = 275,
 	[BaseFighter.static.STATE_IDLE]  = 30,
@@ -20,8 +18,8 @@ local ACCELERATION = {
 	[BaseFighter.static.STATE_EXIT]  = 200
 }
 
-function BaseFighter:enter(properties, MAX_HEALTH)
-	Enemy.enter(self, MAX_HEALTH)
+function BaseFighter:enter(properties, max_health, salvo_cooldown)
+	Enemy.enter(self, max_health)
 
 	assert(#properties.points == 4, "BaseFighter needs four point coordinates")
 	self.points = properties.points
@@ -32,6 +30,7 @@ function BaseFighter:enter(properties, MAX_HEALTH)
 	self.time = 0
 	self.speed = 100
 	self.cooldown = 0.5
+	self.salvo_cooldown = salvo_cooldown
 
 	self.player_chain = self:getScene():find("chain")
 
@@ -61,7 +60,7 @@ function BaseFighter:update(dt, rt)
 	if self.state ~= BaseFighter.static.STATE_ENTER then
 		self.cooldown = self.cooldown - dt
 		if self.cooldown <= 0 then
-			self.cooldown = BULLET_COOLDOWN
+			self.cooldown = self.salvo_cooldown
 			self:shoot()
 		end
 	end

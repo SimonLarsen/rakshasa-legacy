@@ -5,9 +5,10 @@ local Flash = require("game.Flash")
 local Striker = class("game.enemies.Striker", BaseFighter)
 
 local MAX_HEALTH = 5
+local SALVO_COOLDOWN = 3.0
 
 function Striker:enter(properties)
-	BaseFighter.enter(self, properties, MAX_HEALTH)
+	BaseFighter.enter(self, properties, MAX_HEALTH, SALVO_COOLDOWN)
 end
 
 function Striker:getAnimation()

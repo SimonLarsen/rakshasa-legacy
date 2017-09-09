@@ -5,9 +5,10 @@ local Flash = require("game.Flash")
 local Viper = class("game.enemies.Viper", BaseFighter)
 
 local MAX_HEALTH = 4
+local SALVO_COOLDOWN = 3.5
 
 function Viper:enter(properties)
-	BaseFighter.enter(self, properties, MAX_HEALTH)
+	BaseFighter.enter(self, properties, MAX_HEALTH, SALVO_COOLDOWN)
 end
 
 function Viper:getAnimation()
