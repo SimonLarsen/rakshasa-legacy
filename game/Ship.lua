@@ -1,6 +1,7 @@
 local PlayerBullet = require("game.PlayerBullet")
 local Explosion = require("game.Explosion")
 local Flash = require("game.Flash")
+local ShipGhost = require("game.ShipGhost")
 
 local Ship = class("game.Ship", prox.Entity)
 
@@ -16,6 +17,7 @@ local RETRACT_SPEED = 900
 
 local BULLET_COOLDOWN = 0.1
 local DEADZONE_THRESHOLD = 0.20
+local GHOST_DELAY = 0.02
 
 local ENTER_TIME = 1.0
 
@@ -39,6 +41,7 @@ function Ship:enter(side)
 	self.state = Ship.static.STATE_ENTER
 	self.flash = 0
 	self.controller = self:getScene():find("controller")
+	self.next_ghost = 0
 
 	self:setCollider(prox.BoxCollider(18, 34))
 	self.gear_sprite = prox.Sprite("data/images/ship_gear.png", 19, 19)
@@ -54,9 +57,9 @@ function Ship:enter(side)
 
 	if self.side == Ship.static.SIDE_LEFT then
 		self.x = settings.screen_width/2 - 40
+		self.ship_renderer:setScale(-1, 1)
 	else
 		self.x = settings.screen_width/2 + 40
-		self.ship_renderer:setScale(-1, 1)
 	end
 	self:getRenderer():addRenderer(self.animator)
 
@@ -105,6 +108,12 @@ function Ship:update(dt, rt)
 		self.x = prox.math.movetowards(self.x, self.destx, math.abs(self.xspeed)*dt)
 		self.y = prox.math.movetowards(self.y, self.desty, math.abs(self.yspeed)*dt)
 
+		self.next_ghost = self.next_ghost - dt
+		if self.next_ghost <= 0 then
+			self:getScene():add(ShipGhost(self.x, self.y))
+			self.next_ghost = GHOST_DELAY
+		end
+
 		local xdist = self.destx - self.x
 		local ydist = self.desty - self.y
 		if xdist^2 + ydist^2 < 50^2 then
@@ -134,6 +143,7 @@ function Ship:retract(destx, desty)
 	self.state = Ship.static.STATE_RETRACTING
 	self.destx = destx
 	self.desty = desty
+	self.next_ghost = 0
 
 	local xdist = destx - self.x
 	local ydist = desty - self.y

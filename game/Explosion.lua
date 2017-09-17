@@ -10,7 +10,6 @@ local SPLATTER_COUNT = {
 	[Explosion.static.SIZE_LARGE]  = 30
 }
 
-local HEX_STEP_DELAY = 0.08
 function Explosion:enter(x, y, size)
 	self.x = x
 	self.y = y

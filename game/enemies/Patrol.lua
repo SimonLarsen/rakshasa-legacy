@@ -29,14 +29,17 @@ function Patrol:enter(properties)
 	self.destx = properties.points[2].x
 	self.desty = properties.points[2].y
 
-	self:setRenderer(prox.Animation("data/animations/enemies/fighter.lua"))
-	self:setCollider(prox.BoxCollider(32, 24))
+	self:setRenderer(prox.Animator("data/animators/enemies/patrol.lua"))
+	self:setCollider(prox.BoxCollider(32, 32))
 
 	self.enter_time = prox.timer.tween(
 		properties.enter_time or ENTER_TIME,
 		self, {x = self.destx, y = self.desty},
 		"out-quad",
-		function() self.state = Patrol.static.STATE_IDLE end
+		function()
+			self.state = Patrol.static.STATE_IDLE
+			self:getRenderer():setProperty("transform", true)
+		end
 	)
 end
 
