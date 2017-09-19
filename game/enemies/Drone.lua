@@ -23,7 +23,7 @@ function Drone:shoot()
 	local xdist = self.player_chain.x - self.x
 	local ydist = self.player_chain.y - self.y
 	local dir = math.atan2(ydist, xdist)
-	self:getScene():add(EnemyBullet(self.x, self.y, dir, EnemyBullet.static.TYPE_BALL))
+	self:getScene():add(EnemyBullet(self.x, self.y, dir))
 	self:getScene():add(Flash(self.x, self.y))
 end
 

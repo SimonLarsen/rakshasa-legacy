@@ -12,7 +12,7 @@ end
 
 function Mine:shoot()
 	for i=0,3 do
-		self:getScene():add(EnemyBullet(self.x, self.y, i*math.pi/2, EnemyBullet.static.TYPE_LASER))
+		self:getScene():add(EnemyBullet(self.x, self.y, i*math.pi/2))
 	end
 end
 

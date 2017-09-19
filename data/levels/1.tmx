@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="20" height="30" tilewidth="16" tileheight="16" infinite="0" nextobjectid="237">
+<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="20" height="30" tilewidth="16" tileheight="16" infinite="0" nextobjectid="238">
  <objectgroup name="1">
   <object id="8" name="0" type="Spawner" x="355.333" y="126">
    <properties>
@@ -38,10 +38,10 @@
   <object id="34" name="1" type="AimedDrone" x="342.003" y="195.333">
    <polyline points="-368.667,-50.6667 -92.3335,-51.6667 -91.3333,38.6667"/>
   </object>
-  <object id="229" name="2" type="AimedPatrol" x="4.66667" y="-48">
+  <object id="229" name="2" type="Patrol" x="4.66667" y="-48">
    <polyline points="0,0 75.3333,136.667 74.6667,241.333"/>
   </object>
-  <object id="230" name="0" type="AimedPatrol" x="308.667" y="-53.3333">
+  <object id="230" name="0" type="Patrol" x="308.667" y="-53.3333">
    <polyline points="0,0 -67.3333,150 -68.6667,274"/>
   </object>
   <object id="233" name="2" type="Spawner" x="-37.3333" y="165.333">

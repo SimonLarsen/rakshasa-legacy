@@ -46,7 +46,6 @@ function Falcon:enter(properties)
 		salvo_delay = 999,
 		salvo_size = 4,
 		shot_delay = 0.13,
-		bullet_type = EnemyBullet.static.TYPE_LASER,
 		target_player = true
 	}), 2.5)
 
@@ -56,8 +55,7 @@ function Falcon:enter(properties)
 		shot_delay = 0.13,
 		shot_count = 4,
 		start_rotation = math.pi/2-0.9,
-		shot_rotation_offset = 0.6,
-		bullet_type = EnemyBullet.static.TYPE_BALL
+		shot_rotation_offset = 0.6
 	}), 2.5)
 
 	self.position = 1

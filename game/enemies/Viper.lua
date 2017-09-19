@@ -20,9 +20,9 @@ function Viper:getCollider()
 end
 
 function Viper:shoot()
-	self:getScene():add(EnemyBullet(self.x, self.y, math.pi/2-0.5, EnemyBullet.static.TYPE_LASER))
-	self:getScene():add(EnemyBullet(self.x, self.y, math.pi/2, EnemyBullet.static.TYPE_LASER))
-	self:getScene():add(EnemyBullet(self.x, self.y, math.pi/2+0.5, EnemyBullet.static.TYPE_LASER))
+	self:getScene():add(EnemyBullet(self.x, self.y, math.pi/2-0.5))
+	self:getScene():add(EnemyBullet(self.x, self.y, math.pi/2))
+	self:getScene():add(EnemyBullet(self.x, self.y, math.pi/2+0.5))
 	self:getScene():add(Flash(self.x, self.y))
 end
 

@@ -27,7 +27,6 @@ function Fortress:enter(properties)
 		shot_count = 4,
 		shot_rotation_offset = math.pi / 2,
 		rotation_speed = 1.5,
-		bullet_type = EnemyBullet.static.TYPE_BALL,
 		reset_rotation = true
 	}), 2.5)
 
@@ -37,8 +36,7 @@ function Fortress:enter(properties)
 		shot_delay = 0.15,
 		shot_count = 4,
 		shot_rotation_offset = math.pi / 2,
-		salvo_rotation_offset = math.pi / 4,
-		bullet_type = EnemyBullet.static.TYPE_LASER
+		salvo_rotation_offset = math.pi / 4
 	}), 1.99)
 
 	self.pattern:add(BasePattern(self, {
@@ -48,7 +46,6 @@ function Fortress:enter(properties)
 		shot_count = 4,
 		shot_rotation_offset = math.pi / 2,
 		rotation_speed = -1.5,
-		bullet_type = EnemyBullet.static.TYPE_BALL,
 		reset_rotation = true
 	}), 2.5)
 
@@ -58,8 +55,7 @@ function Fortress:enter(properties)
 		shot_delay = 0.15,
 		shot_count = 4,
 		shot_rotation_offset = math.pi / 2,
-		salvo_rotation_offset = math.pi / 4,
-		bullet_type = EnemyBullet.static.TYPE_LASER
+		salvo_rotation_offset = math.pi / 4
 	}), 1.99)
 
 	self.cooldown = 0

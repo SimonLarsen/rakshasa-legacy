@@ -8,7 +8,7 @@ return {
   height = 30,
   tilewidth = 16,
   tileheight = 16,
-  nextobjectid = 237,
+  nextobjectid = 238,
   properties = {},
   tilesets = {},
   layers = {
@@ -244,7 +244,7 @@ return {
         {
           id = 229,
           name = "2",
-          type = "AimedPatrol",
+          type = "Patrol",
           shape = "polyline",
           x = 4.66667,
           y = -48,
@@ -262,7 +262,7 @@ return {
         {
           id = 230,
           name = "0",
-          type = "AimedPatrol",
+          type = "Patrol",
           shape = "polyline",
           x = 308.667,
           y = -53.3333,

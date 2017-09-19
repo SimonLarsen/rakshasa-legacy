@@ -28,8 +28,7 @@ function Bomber:enter(properties)
 
 	self.pattern = {
 		shot_count = 4,
-		shot_rotation_offset = math.pi/2,
-		bullet_type = EnemyBullet.static.TYPE_BALL
+		shot_rotation_offset = math.pi/2
 	}
 
 	self.timer = prox.timer.tween(ENTER_TIME, self, {y = self.desty}, "out-quad", function() self.entered = true end)

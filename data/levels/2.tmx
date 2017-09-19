@@ -59,13 +59,13 @@
    <polyline points="0,0 48,96"/>
   </object>
   <object id="219" name="2" type="Turret" x="160" y="112"/>
-  <object id="215" name="2" type="AimedPatrol" x="207.333" y="-34.6667">
+  <object id="215" name="2" type="Patrol" x="207.333" y="-34.6667">
    <properties>
     <property name="enter_time" type="float" value="2"/>
    </properties>
    <polyline points="-95.333,2.6667 -159.333,130.667 -127.333,290.667"/>
   </object>
-  <object id="216" name="0.5" type="AimedPatrol" x="110" y="-34.6667">
+  <object id="216" name="0.5" type="Patrol" x="110" y="-34.6667">
    <properties>
     <property name="enter_time" type="float" value="2"/>
    </properties>

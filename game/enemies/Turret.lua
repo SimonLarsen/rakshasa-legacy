@@ -57,7 +57,7 @@ function Turret:update(dt, rt)
 end
 
 function Turret:shoot()
-	self:getScene():add(EnemyBullet(self.x, self.y, self.shoot_dir, EnemyBullet.static.TYPE_LASER))
+	self:getScene():add(EnemyBullet(self.x, self.y, self.shoot_dir))
 	self:getScene():add(Flash(self.x, self.y))
 end
 

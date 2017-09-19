@@ -34,8 +34,7 @@ function Vortex:enter(properties)
 		salvo_size = 1,
 		shot_count = 2,
 		shot_rotation_offset = math.pi,
-		salvo_rotation_offset = 0.16,
-		bullet_type = EnemyBullet.static.TYPE_LASER
+		salvo_rotation_offset = 0.16
 	})
 
 	self.patterns[2] = PatternManager()
@@ -44,7 +43,6 @@ function Vortex:enter(properties)
 		salvo_delay = 999,
 		shot_delay = 0.2,
 		salvo_size = 8,
-		bullet_type = EnemyBullet.static.TYPE_BALL,
 		target_player = true
 	}), 2.0)
 
@@ -54,16 +52,14 @@ function Vortex:enter(properties)
 			shot_delay = 0.13,
 			salvo_size = 8,
 			start_rotation = math.pi/2+0.05,
-			rotation_speed = 0.7,
-			bullet_type = EnemyBullet.static.TYPE_LASER
+			rotation_speed = 0.7
 		}),
 		BasePattern(self, {
 			salvo_delay = 999,
 			shot_delay = 0.13,
 			salvo_size = 8,
 			start_rotation = math.pi/2-0.05,
-			rotation_speed = -0.7,
-			bullet_type = EnemyBullet.static.TYPE_LASER
+			rotation_speed = -0.7
 		})
 	}), 1.5)
 
@@ -73,16 +69,14 @@ function Vortex:enter(properties)
 			shot_delay = 0.13,
 			salvo_size = 8,
 			start_rotation = 0,
-			rotation_speed = 0.7,
-			bullet_type = EnemyBullet.static.TYPE_LASER
+			rotation_speed = 0.7
 		}),
 		BasePattern(self, {
 			salvo_delay = 999,
 			shot_delay = 0.13,
 			salvo_size = 8,
 			start_rotation = math.pi,
-			rotation_speed = -0.7,
-			bullet_type = EnemyBullet.static.TYPE_LASER
+			rotation_speed = -0.7
 		})
 	}), 2.0)
 end

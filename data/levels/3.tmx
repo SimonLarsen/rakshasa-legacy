@@ -1,6 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="20" height="30" tilewidth="16" tileheight="16" infinite="0" nextobjectid="4">
+<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="20" height="30" tilewidth="16" tileheight="16" infinite="0" nextobjectid="13">
  <objectgroup name="1">
-  <object id="3" name="0" type="Fear" x="156" y="96"/>
+  <object id="12" name="0" type="FanPatrol" x="158.667" y="-32.6667">
+   <polyline points="0,0 1.33333,114.667"/>
+  </object>
+  <object id="7" name="3" type="Spawner" x="94.6667" y="-28.6667">
+   <properties>
+    <property name="count" type="int" value="3"/>
+    <property name="delay" type="float" value="0.2"/>
+    <property name="type" value="Scout"/>
+   </properties>
+   <polyline points="0,0 -0.666667,533.333"/>
+  </object>
+  <object id="8" name="2" type="Spawner" x="224.667" y="-30">
+   <properties>
+    <property name="count" type="int" value="3"/>
+    <property name="delay" type="float" value="0.2"/>
+    <property name="type" value="Scout"/>
+   </properties>
+   <polyline points="0,0 -0.666667,533.333"/>
+  </object>
+  <object id="9" name="2" type="Spawner" x="44" y="-30">
+   <properties>
+    <property name="count" type="int" value="3"/>
+    <property name="delay" type="float" value="0.2"/>
+    <property name="type" value="Scout"/>
+   </properties>
+   <polyline points="0,0 -0.666667,533.333"/>
+  </object>
+  <object id="10" name="2" type="Spawner" x="275.333" y="-32">
+   <properties>
+    <property name="count" type="int" value="3"/>
+    <property name="delay" type="float" value="0.2"/>
+    <property name="type" value="Scout"/>
+   </properties>
+   <polyline points="0,0 -0.666667,533.333"/>
+  </object>
  </objectgroup>
 </map>

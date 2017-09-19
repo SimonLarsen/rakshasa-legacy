@@ -399,7 +399,7 @@ return {
         {
           id = 215,
           name = "2",
-          type = "AimedPatrol",
+          type = "Patrol",
           shape = "polyline",
           x = 207.333,
           y = -34.6667,
@@ -419,7 +419,7 @@ return {
         {
           id = 216,
           name = "0.5",
-          type = "AimedPatrol",
+          type = "Patrol",
           shape = "polyline",
           x = 110,
           y = -34.6667,

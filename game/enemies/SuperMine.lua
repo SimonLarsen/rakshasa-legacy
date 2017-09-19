@@ -12,9 +12,9 @@ end
 
 function SuperMine:shoot()
 	for i=0,7 do
-		self:getScene():add(EnemyBullet(self.x, self.y, i*math.pi/4-0.04, EnemyBullet.static.TYPE_LASER))
-		self:getScene():add(EnemyBullet(self.x, self.y, i*math.pi/4, EnemyBullet.static.TYPE_LASER))
-		self:getScene():add(EnemyBullet(self.x, self.y, i*math.pi/4+0.04, EnemyBullet.static.TYPE_LASER))
+		self:getScene():add(EnemyBullet(self.x, self.y, i*math.pi/4-0.04))
+		self:getScene():add(EnemyBullet(self.x, self.y, i*math.pi/4))
+		self:getScene():add(EnemyBullet(self.x, self.y, i*math.pi/4+0.04))
 	end
 end
 

@@ -11,22 +11,14 @@ EnemyBullet.static.TYPE_BALL   = 2
 EnemyBullet.static.TYPE_CHARGE = 3
 EnemyBullet.static.TYPE_RAIN   = 4
 
-local animations = {
-	[EnemyBullet.static.TYPE_LASER]  = "data/animations/bullets/enemy_ball.lua",
-	[EnemyBullet.static.TYPE_BALL]   = "data/animations/bullets/enemy_ball.lua",
-	[EnemyBullet.static.TYPE_CHARGE] = "data/animations/bullets/enemy_ball.lua",
-	[EnemyBullet.static.TYPE_RAIN]   = "data/animations/bullets/enemy_ball.lua"
-}
-
-function EnemyBullet:enter(x, y, dir, type)
+function EnemyBullet:enter(x, y, dir)
 	Slowable.enter(self)
 	self.x = x
 	self.y = y
 	self.z = -1
-	self.type = type
 	self.dir = dir
 
-	self:setRenderer(prox.Animation(animations[self.type]))
+	self:setRenderer(prox.Animation("data/animations/bullets/enemy_ball.lua"))
 	self:setCollider(prox.BoxCollider(8, 8))
 	self.hc_rect = HC.rectangle(0, 0, 8, 8)
 end

@@ -35,7 +35,7 @@ function Bunker:update(dt, rt)
 end
 
 function Bunker:shoot()
-	self:getScene():add(EnemyBullet(self.x, self.y, math.pi/2, EnemyBullet.static.TYPE_LASER))
+	self:getScene():add(EnemyBullet(self.x, self.y, math.pi/2))
 	self:getScene():add(Flash(self.x, self.y))
 end
 
