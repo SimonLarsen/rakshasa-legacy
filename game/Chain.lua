@@ -102,13 +102,13 @@ function Chain:update(dt, rt)
 
 	for i,v in ipairs(self:getScene():findAll(EnemyBullet)) do
 		if v:getHCShape() and self.hc_rect:collidesWith(v:getHCShape()) then
+			v:kill(self.invulnerable > 0)
 			if self.invulnerable <= 0 then
 				self.invulnerable = INVULNERABLE_TIME
 				self:getScene():find("screenshaker"):shake(0.5, 8, 60)
 				self.controller:playerHit()
 				self.face_anim:setProperty("hurt", true)
 			end
-			v:kill(self.invulnerable > 0)
 		end
 	end
 end
