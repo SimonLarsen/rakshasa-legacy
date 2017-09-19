@@ -64,7 +64,7 @@ function Temple:shoot()
 end
 
 function Temple:getGems()
-	return 5
+	return 10
 end
 
 function Temple:onRemove()

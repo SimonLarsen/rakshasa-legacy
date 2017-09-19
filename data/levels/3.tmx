@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="20" height="30" tilewidth="16" tileheight="16" infinite="0" nextobjectid="2">
+<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="20" height="30" tilewidth="16" tileheight="16" infinite="0" nextobjectid="4">
  <objectgroup name="1">
-  <object id="1" name="0" type="Patrol" x="64.6667" y="-32.6667">
-   <polyline points="0,0 103.333,118.667"/>
-  </object>
+  <object id="3" name="0" type="Fear" x="156" y="96"/>
  </objectgroup>
 </map>

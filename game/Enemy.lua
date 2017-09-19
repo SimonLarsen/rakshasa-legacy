@@ -66,11 +66,10 @@ function Enemy:kill()
 		self.sfx_explosion1:play()
 	end
 	
-	for i=1, self:getGems() do
-		self:getScene():add(Gem(
-			self.x + love.math.random(-8, 8),
-			self.y + love.math.random(-8, 8)
-		))
+	local num_gems = self:getGems()
+	local spread = math.max(20, num_gems) * 5
+	for i=1, num_gems do
+		self:getScene():add(Gem(self.x, self.y, spread))
 	end
 
 	self:remove()

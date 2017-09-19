@@ -41,7 +41,6 @@ end
 function BaseFighter:update(dt, rt)
 	dt, rt = Enemy.update(self, dt, rt)
 
-	--local destx = self.points[self.state+1].x
 	local destx = self.x
 	local desty = self.points[self.state+1].y
 

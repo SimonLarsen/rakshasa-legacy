@@ -8,7 +8,7 @@ return {
   height = 30,
   tilewidth = 16,
   tileheight = 16,
-  nextobjectid = 2,
+  nextobjectid = 4,
   properties = {},
   tilesets = {},
   layers = {
@@ -23,20 +23,16 @@ return {
       properties = {},
       objects = {
         {
-          id = 1,
+          id = 3,
           name = "0",
-          type = "Patrol",
-          shape = "polyline",
-          x = 64.6667,
-          y = -32.6667,
+          type = "Fear",
+          shape = "rectangle",
+          x = 156,
+          y = 96,
           width = 0,
           height = 0,
           rotation = 0,
           visible = true,
-          polyline = {
-            { x = 0, y = 0 },
-            { x = 103.333, y = 118.667 }
-          },
           properties = {}
         }
       }

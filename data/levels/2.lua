@@ -15,7 +15,7 @@ return {
     {
       type = "objectgroup",
       name = "1",
-      visible = false,
+      visible = true,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -218,7 +218,7 @@ return {
     {
       type = "objectgroup",
       name = "2",
-      visible = false,
+      visible = true,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -342,7 +342,7 @@ return {
     {
       type = "objectgroup",
       name = "3",
-      visible = false,
+      visible = true,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -441,7 +441,7 @@ return {
     {
       type = "objectgroup",
       name = "4",
-      visible = false,
+      visible = true,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -679,7 +679,7 @@ return {
     {
       type = "objectgroup",
       name = "5",
-      visible = false,
+      visible = true,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -836,7 +836,7 @@ return {
     {
       type = "objectgroup",
       name = "6",
-      visible = false,
+      visible = true,
       opacity = 1,
       offsetx = 0,
       offsety = 0,

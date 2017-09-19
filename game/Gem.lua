@@ -11,7 +11,7 @@ local FOLLOW_RANGE = 32
 Gem.static.STATE_FALL = 1
 Gem.static.STATE_FOLLOW = 2
 
-function Gem:enter(x, y)
+function Gem:enter(x, y, spread)
 	Slowable.enter(self)
 	self:setName("gem")
 	self.x = x
@@ -19,8 +19,8 @@ function Gem:enter(x, y)
 	self.z = 5
 	self.state = Gem.static.STATE_FALL
 
-	self.xspeed = love.math.random(-50, 50)
-	self.yspeed = -150 + love.math.random(-20, 20)
+	self.xspeed = love.math.random(-spread, spread)
+	self.yspeed = -150 + love.math.random(-spread/2, spread/2)
 
 	self.targets = self:getScene():findAll("ship")
 	table.insert(self.targets, self:getScene():find("chain"))

@@ -1,8 +1,8 @@
 {
 	image = "data/images/enemies/silo.png",
-	fw = 63,
-	fh = 63,
-	ox = 31,
-	oy = 31,
-	delay = 1.0
+	fw = 52,
+	fh = 32,
+	ox = 26,
+	oy = 16,
+	delay = 0.1
 }

@@ -10,11 +10,15 @@ local options = {
 
 local START_LEVEL = 3
 
+Controller.static.STATE_ENTER  = 1
+Controller.static.STATE_ACTIVE = 2
+Controller.static.STATE_HIDDEN = 3
+
 function Controller:enter(binding)
 	self:setName("titlecontroller")
 	self:reset()
 
-	self.ready = false
+	self.state = Controller.static.STATE_ENTER
 	self.selection = 1
 	self.binding = binding
 
@@ -34,7 +38,11 @@ end
 function Controller:update(dt, rt)
 	local yaxis = self.binding:getAxis("lefty")
 
-	if self.ready then
+	if self.state == Controller.static.STATE_ENTER then
+		if self.binding:wasPressed("confirm") then
+			self:skipEnter()
+		end
+	elseif self.state == Controller.static.STATE_ACTIVE then
 		if self.binding:wasPressed("down") then
 			self.selection = prox.math.wrap(self.selection + 1, 1, #options)
 			self.sfx_blip:play()
@@ -42,20 +50,20 @@ function Controller:update(dt, rt)
 			self.selection = prox.math.wrap(self.selection - 1, 1, #options)
 			self.sfx_blip:play()
 		end
-	end
 
-	if self.ready and self.binding:wasPressed("confirm") then
-		self.sfx_confirm:play()
-		if options[self.selection] == "START" then
-			self:hide()
-			music.stop()
-			self:getScene():add(require("game.Controller")(START_LEVEL, self.binding))
-		elseif options[self.selection] == "CONFIG" then
-			self:hide()
-			self:getScene():add(require("title.OptionsMenu")(self.binding))
-		elseif options[self.selection] == "QUIT" then
-			self:hide()
-			prox.timer.after(1, function() love.event.quit() end)
+		if self.binding:wasPressed("confirm") then
+			self.sfx_confirm:play()
+			if options[self.selection] == "START" then
+				self:hide()
+				music.stop()
+				self:getScene():add(require("game.Controller")(START_LEVEL, self.binding))
+			elseif options[self.selection] == "CONFIG" then
+				self:hide()
+				self:getScene():add(require("title.OptionsMenu")(self.binding))
+			elseif options[self.selection] == "QUIT" then
+				self:hide()
+				prox.timer.after(1, function() love.event.quit() end)
+			end
 		end
 	end
 end
@@ -72,7 +80,7 @@ function Controller:gui()
 		love.graphics.setColor(255, 255, 255, alpha)
 		love.graphics.printf(v, midx-149, 260+(i-1)*30, 300, "center")
 
-		if self.ready and self.selection == i then
+		if self.state == Controller.static.STATE_ACTIVE and self.selection == i then
 			local w = self.sans_font:getWidth(v)
 			love.graphics.line(midx-150, 268+(i-1)*30, midx-w/2-14, 268+(i-1)*30)
 			love.graphics.line(midx+150, 268+(i-1)*30, midx+w/2+14, 268+(i-1)*30)
@@ -84,6 +92,7 @@ end
 
 function Controller:reset(keep_music)
 	self:setEnabled(true)
+	self.state = Controller.static.STATE_ENTER
 
 	if not keep_music then
 		music.playFile("data/music/dots.ogg")
@@ -92,19 +101,33 @@ function Controller:reset(keep_music)
 	self.title_y = 172
 	self.title_alpha = 0
 	prox.timer.after(1, function()
-		prox.timer.tween(2, self, {title_y = 164, title_alpha = 255}, "out-cubic")
+		self.title_fade_timer = prox.timer.tween(2, self, {title_y = 164, title_alpha = 255}, "out-cubic")
 	end)
 
 	self.menu_alpha = 0
 	prox.timer.after(2, function()
-		prox.timer.tween(2, self, {menu_alpha = 255 + (#options-1)*80}, "out-quad")
+		self.menu_fade_timer = prox.timer.tween(2, self, {menu_alpha = 255 + (#options-1)*80}, "out-quad")
 	end)
 
-	prox.timer.after(3, function() self.ready = true end)
+	prox.timer.after(3, function() self.state = Controller.static.STATE_ACTIVE end)
+end
+
+function Controller:skipEnter()
+	if self.title_fade_timer then
+		prox.timer.cancel(self.title_fade_timer)
+	end
+	self.title_y = 164
+	self.title_alpha = 255
+
+	if self.menu_fade_timer then
+		prox.timer.cancel(self.menu_fade_timer)
+	end
+	self.menu_alpha = 255 + (#options-1)*80
+	self.state = Controller.static.STATE_ACTIVE
 end
 
 function Controller:hide()
-	self.ready = false
+	self.state = Controller.static.STATE_HIDDEN
 
 	prox.timer.clear()
 	prox.timer.tween(1, self, {title_alpha = 0, menu_alpha = 0}, "out-quad",

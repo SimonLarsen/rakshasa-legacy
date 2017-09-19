@@ -28,4 +28,8 @@ function Striker:shoot()
 	self:getScene():add(Flash(self.x, self.y))
 end
 
+function Striker:getGems()
+	return 5
+end
+
 return Striker

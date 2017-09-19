@@ -26,4 +26,8 @@ function Viper:shoot()
 	self:getScene():add(Flash(self.x, self.y))
 end
 
+function Viper:getGems()
+	return 5
+end
+
 return Viper

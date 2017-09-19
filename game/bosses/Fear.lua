@@ -32,7 +32,13 @@ function Fear:enter()
 	self.entered_time = 0
 	self.active = false
 
-	self:setRenderer(prox.Sprite("data/images/bosses/preservation/fear/idle.png", 85, 52))
+	self.face_anim = prox.Animation("data/animations/bosses/fear_face_blink.lua")
+	self.body_anim = prox.Animation("data/animations/bosses/fear_idle.lua")
+
+	self:setRenderer(prox.MultiRenderer())
+	self:getRenderer():addRenderer(self.body_anim)
+	self:getRenderer():addRenderer(self.face_anim)
+
 	self:setCollider(prox.BoxCollider(170, 54, 0, -12))
 
 	prox.timer.tween(ENTER_TIME, self, {y = self.desty}, "out-sine", function()
@@ -72,7 +78,7 @@ function Fear:initPatterns()
 	local ptn_spawn_turret_left = LambdaPattern(self, 0, 0,
 		function(o)
 			if not self.left_turret then
-				self:getScene():add(FearBubble(self.x, self.y+32, 48, 148, 2, function()
+				self:getScene():add(FearBubble(self.x, self.y+40, 48, 148, 2, function()
 					self.left_turret = Turret({x = 48, speed = 0, salvo_size = 1})
 					self:getScene():add(self.left_turret)
 					self.left_turret.y = 148
@@ -85,7 +91,7 @@ function Fear:initPatterns()
 	local ptn_spawn_turret_right = LambdaPattern(self, 0, 0,
 		function(o)
 			if not self.right_turret then
-				self:getScene():add(FearBubble(self.x, self.y+32, 272, 148, 2, function()
+				self:getScene():add(FearBubble(self.x, self.y+40, 272, 148, 2, function()
 					self.right_turret = Turret({x = 272, speed = 0, salvo_size = 1})
 					self:getScene():add(self.right_turret)
 					self.right_turret.y = 148
@@ -102,17 +108,16 @@ function Fear:initPatterns()
 		salvo_delay = 999
 	})
 
-	local ptn_target = MultiPattern({
-		BasePattern(self, 52, 8, {
-			salvo_size = 1,
-			salvo_delay = 999,
-			target_player = true
-		}),
-		BasePattern(self, -52, 8, {
-			salvo_size = 1,
-			salvo_delay = 999,
-			target_player = true
-		})
+	local ptn_target_left = BasePattern(self, -52, 8, {
+		salvo_size = 1,
+		salvo_delay = 999,
+		target_player = true
+	})
+
+	local ptn_target_right = BasePattern(self, 52, 8, {
+		salvo_size = 1,
+		salvo_delay = 999,
+		target_player = true
 	})
 
 	local ptn_fan = ChargeFanPattern(self, 0, 0, {
@@ -130,9 +135,8 @@ function Fear:initPatterns()
 	man1:add(ptn_spawn_turret_right, 3)
 	for i=1,2 do
 		man1:add(ptn_down, 1.60)
-		for j=1,2 do
-			man1:add(ptn_target, 1.6)
-		end
+		man1:add(ptn_target_left, 1.6)
+		man1:add(ptn_target_right, 1.6)
 	end
 
 	-- PHASE 2 patterns
@@ -148,6 +152,10 @@ function Fear:initPatterns()
 	-- PHASE 3 patterns
 	local man3 = PatternManager()
 	self.patterns[Fear.static.STATE_PHASE3] = man3
+	for i=1,3 do
+		man3:add(ptn_target_left, 0.7)
+		man3:add(ptn_target_right, 0.7)
+	end
 end
 
 function Fear:kill()

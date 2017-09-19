@@ -3,7 +3,9 @@
 
 	states = {
 		["large"] = "data/animations/ship_exhaust_large.lua",
-		["small"] = "data/animations/ship_exhaust_small.lua"
+		["small"] = "data/animations/ship_exhaust_small.lua",
+		["increase"] = "data/animations/ship_exhaust_increase.lua",
+		["decrease"] = "data/animations/ship_exhaust_decrease.lua"
 	},
 
 	properties = {
@@ -11,7 +13,9 @@
 	},
 
 	transitions = {
-		{ from = "large", to = "small", property = "shooting", value = true },
-		{ from = "small", to = "large", property = "shooting", value = false }
+		{ from = {"large","increase"}, to = "decrease", property = "shooting", value = true },
+		{ from = "decrease", to = "small", property = "_finished", value = true },
+		{ from = {"small","decrease"}, to = "increase", property = "shooting", value = false },
+		{ from = "increase", to = "large", property = "_finished", value = true }
 	}
 }
