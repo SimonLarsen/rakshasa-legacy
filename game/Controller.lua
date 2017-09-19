@@ -72,7 +72,8 @@ Controller.static.STATE_GAMEOVER   = 4
 local levels = {
 	"data/levels/1.lua",
 	"data/levels/2.lua",
-	"data/levels/3.lua"
+	"data/levels/3.lua",
+	"data/levels/4.lua"
 }
 
 function Controller:enter(level, binding)

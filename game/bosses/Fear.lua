@@ -7,6 +7,7 @@ local MultiPattern = require("game.bullets.MultiPattern")
 local LambdaPattern = require("game.bullets.LambdaPattern")
 local ChargeFanPattern = require("game.bullets.ChargeFanPattern")
 local Turret = require("game.enemies.Turret")
+local Patrol = require("game.enemies.Patrol")
 local FearBubble = require("game.bosses.FearBubble")
 
 local Fear = class("game.bosses.Fear", Boss)
@@ -24,15 +25,17 @@ function Fear:enter()
 	Boss.enter(self, "Fear", MAX_HEALTH)
 
 	self.destx = settings.screen_width / 2
-	self.desty = 110
+	self.desty = 120
 	self.x = self.destx
 	self.y = -80
 
 	self.state = Fear.static.STATE_ENTER
 	self.entered_time = 0
 	self.active = false
+	self.puking = 0
+	self.next_blink = 2*love.math.random()+5
 
-	self.face_anim = prox.Animation("data/animations/bosses/fear_face_blink.lua")
+	self.face_anim = prox.Animator("data/animators/bosses/fear_face.lua")
 	self.body_anim = prox.Animation("data/animations/bosses/fear_idle.lua")
 
 	self:setRenderer(prox.MultiRenderer())
@@ -65,9 +68,18 @@ function Fear:update(dt, rt)
 	if self.left_turret and not self.left_turret:isAlive() then self.left_turret = nil end
 	if self.right_turret and not self.right_turret:isAlive() then self.right_turret = nil end
 
-	self.entered_time = self.entered_time + dt
-	self.x = self.destx + math.sin(self.entered_time)*8
-	self.y = self.desty + math.sin(self.entered_time*1.1)*6
+	self.puking = self.puking - dt
+	if self.puking <= 0 then
+		self.entered_time = self.entered_time + dt
+		self.x = self.destx + math.sin(self.entered_time)*8
+		self.y = self.desty + math.sin(self.entered_time*1.1)*6
+	end
+
+	self.next_blink = self.next_blink - dt
+	if self.next_blink <= 0 then
+		self.next_blink = 2*love.math.random()* 5
+		self.face_anim:setProperty("blink", true)
+	end
 
 	self.patterns[self.state]:update(dt)
 end
@@ -78,11 +90,15 @@ function Fear:initPatterns()
 	local ptn_spawn_turret_left = LambdaPattern(self, 0, 0,
 		function(o)
 			if not self.left_turret then
-				self:getScene():add(FearBubble(self.x, self.y+40, 48, 148, 2, function()
-					self.left_turret = Turret({x = 48, speed = 0, salvo_size = 1})
-					self:getScene():add(self.left_turret)
-					self.left_turret.y = 148
-				end))
+				self.face_anim:setProperty("puke", true)
+				self.puking = 0.9
+				prox.timer.after(0.4, function()
+					self:getScene():add(FearBubble(self.x, self.y+36, 48, 148, 2, function()
+						self.left_turret = Turret({x = 48, speed = 0, salvo_size = 1})
+						self:getScene():add(self.left_turret)
+						self.left_turret.y = 148
+					end))
+				end)
 			end
 		end,
 		{ delay = 999 }
@@ -91,11 +107,15 @@ function Fear:initPatterns()
 	local ptn_spawn_turret_right = LambdaPattern(self, 0, 0,
 		function(o)
 			if not self.right_turret then
-				self:getScene():add(FearBubble(self.x, self.y+40, 272, 148, 2, function()
-					self.right_turret = Turret({x = 272, speed = 0, salvo_size = 1})
-					self:getScene():add(self.right_turret)
-					self.right_turret.y = 148
-				end))
+				self.face_anim:setProperty("puke", true)
+				self.puking = 0.9
+				prox.timer.after(0.4, function()
+					self:getScene():add(FearBubble(self.x, self.y+36, 272, 148, 2, function()
+						self.right_turret = Turret({x = 272, speed = 0, salvo_size = 1})
+						self:getScene():add(self.right_turret)
+						self.right_turret.y = 148
+					end))
+				end)
 			end
 		end,
 		{ delay = 999 }
@@ -135,13 +155,15 @@ function Fear:initPatterns()
 	man1:add(ptn_spawn_turret_right, 3)
 	for i=1,2 do
 		man1:add(ptn_down, 1.60)
-		man1:add(ptn_target_left, 1.6)
-		man1:add(ptn_target_right, 1.6)
+		man1:add(ptn_target_left, 2.0)
+		man1:add(ptn_target_right, 2.0)
 	end
 
 	-- PHASE 2 patterns
 	local man2 = PatternManager()
 	self.patterns[Fear.static.STATE_PHASE2] = man2
+	man2:add(ptn_spawn_turret_left, 1.5)
+	man2:add(ptn_spawn_turret_right, 3)
 	man2:add(ptn_fan, 2)
 	man2:add(ptn_fan, 3)
 	man2:add(ptn_leftright, 1.5)

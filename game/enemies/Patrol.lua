@@ -5,7 +5,7 @@ local BasePatrol = require("game.enemies.BasePatrol")
 
 local Patrol = class("game.enemies.Patrol", BasePatrol)
 
-local MAX_HEALTH = 4
+local MAX_HEALTH = 10
 local ENTER_COOLDOWN = 1.0
 local COOLDOWN = 5.0
 local ENTER_TIME = 1.5

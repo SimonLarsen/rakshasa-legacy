@@ -2,9 +2,9 @@ local Enemy = require("game.Enemy")
 
 local BasePatrol = class("game.enemies.BasePatrol", Enemy)
 
-local ENTER_COOLDOWN = 1.0
+local ENTER_COOLDOWN = 0.6
 local COOLDOWN = 5.0
-local ENTER_TIME = 1.5
+local ENTER_TIME = 1.4
 
 BasePatrol.static.STATE_ENTER = 1
 BasePatrol.static.STATE_IDLE  = 2
@@ -17,7 +17,6 @@ function BasePatrol:enter(properties, max_health)
 	self.y = properties.points[1].y
 
 	self.state = BasePatrol.static.STATE_ENTER
-	self.speed = properties.speed or MOVE_SPEED
 	self.cooldown = properties.cooldown or COOLDOWN
 	self.next_shot = self.enter_cooldown or ENTER_COOLDOWN
 	self.player_chain = self:getScene():find("chain")

@@ -4,7 +4,7 @@ local Patrol = require("game.enemies.Patrol")
 
 local FanPatrol = class("game.enemies.FanPatrol", Patrol)
 
-local MAX_HEALTH = 7
+local MAX_HEALTH = 17
 
 function FanPatrol:enter(properties)
 	Patrol.enter(self, properties, MAX_HEALTH)

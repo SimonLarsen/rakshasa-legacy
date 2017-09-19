@@ -4,5 +4,6 @@
 	fh = 50,
 	ox = 25,
 	ot = 25,
-	delay = 0.1
+	delay = 0.08,
+	loop = false
 }

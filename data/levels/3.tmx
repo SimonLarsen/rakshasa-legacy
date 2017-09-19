@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="20" height="30" tilewidth="16" tileheight="16" infinite="0" nextobjectid="13">
+<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="20" height="30" tilewidth="16" tileheight="16" infinite="0" nextobjectid="59">
  <objectgroup name="1">
   <object id="12" name="0" type="FanPatrol" x="158.667" y="-32.6667">
    <polyline points="0,0 1.33333,114.667"/>
@@ -35,6 +35,45 @@
     <property name="type" value="Scout"/>
    </properties>
    <polyline points="0,0 -0.666667,533.333"/>
+  </object>
+ </objectgroup>
+ <objectgroup name="2">
+  <object id="29" name="0" type="Turret" x="128" y="192"/>
+  <object id="32" name="0" type="Turret" x="192" y="192"/>
+  <object id="39" name="2.5" type="Bunker" x="16" y="192"/>
+  <object id="40" name="0" type="Bunker" x="80" y="192"/>
+  <object id="41" name="0" type="Bunker" x="240" y="192"/>
+  <object id="43" name="0" type="Bunker" x="304" y="192"/>
+  <object id="44" name="0.8" type="Bunker" x="48" y="192"/>
+  <object id="45" name="0" type="Bunker" x="272" y="192"/>
+  <object id="47" name="0.8" type="Bunker" x="16" y="191"/>
+  <object id="48" name="0" type="Bunker" x="80" y="191"/>
+  <object id="49" name="0" type="Bunker" x="240" y="191"/>
+  <object id="50" name="0" type="Bunker" x="304" y="191"/>
+  <object id="51" name="3" type="Spawner" x="-32" y="96">
+   <properties>
+    <property name="count" type="int" value="2"/>
+    <property name="delay" type="float" value="0.2"/>
+    <property name="type" value="Scout"/>
+   </properties>
+   <polyline points="0,0 384,0"/>
+  </object>
+  <object id="52" name="0.4" type="AimedDrone" x="-32" y="96">
+   <polyline points="0,0 192,0 192,32"/>
+  </object>
+  <object id="53" name="0.2" type="Spawner" x="-32" y="96">
+   <properties>
+    <property name="count" type="int" value="2"/>
+    <property name="delay" type="float" value="0.2"/>
+    <property name="type" value="Scout"/>
+   </properties>
+   <polyline points="0,0 384,0"/>
+  </object>
+  <object id="54" name="2" type="FanPatrol" x="80" y="-32">
+   <polyline points="0,0 0,128 0,192"/>
+  </object>
+  <object id="55" name="0" type="FanPatrol" x="240" y="-32">
+   <polyline points="0,0 0,128 0,192"/>
   </object>
  </objectgroup>
 </map>
