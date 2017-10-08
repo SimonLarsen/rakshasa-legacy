@@ -36,6 +36,10 @@ function EnemyLaser:update(dt, rt)
 			self.state = EnemyLaser.static.STATE_SHOOT
 			self.time = 0
 			self:getScene():find("screenshaker"):shake(0.3, 1, 60)
+
+			self.hc_shape = HC.rectangle(0, 0, 640, 6)
+			self.hc_shape:moveTo(self.x + math.cos(self.dir)*320, self.y + math.sin(self.dir)*320)
+			self.hc_shape:setRotation(self.dir)
 		end
 	elseif self.state == EnemyLaser.static.STATE_SHOOT then
 		if self.time >= SHOOT_TIME then

@@ -41,7 +41,13 @@ function LaserTurret:shoot()
 	local xdist = self.player_chain.x - self.x
 	local ydist = self.player_chain.y - self.y
 	local dir = math.atan2(ydist, xdist)
-	self:getScene():add(EnemyLaser(self, 0, 0, dir, self.laser_delay))
+	self.laser = self:getScene():add(EnemyLaser(self, 0, 0, dir, self.laser_delay))
+end
+
+function LaserTurret:onRemove()
+	if self.laser then
+		self.laser:remove()
+	end
 end
 
 function LaserTurret:getGems()
