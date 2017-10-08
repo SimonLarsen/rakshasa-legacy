@@ -2,10 +2,10 @@ local music = require("music")
 local Ship = require("game.Ship")
 local Chain = require("game.Chain")
 local Enemy = require("game.Enemy")
+local BaseLaser = require("game.enemies.BaseLaser")
 local EnemyBullet = require("game.EnemyBullet")
 local ScreenShaker = require("game.ScreenShaker")
 local EndText = require("game.EndText")
-local Heart = require("game.Heart")
 local Level = require("game.Level")
 local cpml = require("cpml")
 
@@ -69,15 +69,23 @@ Controller.static.STATE_TRANSITION = 3
 Controller.static.STATE_GAMEOVER   = 4
 
 local levels = {
-	"data/levels/1.lua",
-	"data/levels/2.lua",
-	"data/levels/3.lua",
-	"data/levels/4.lua"
+	[1] = {
+		"data/levels/1-1.lua",
+		"data/levels/1-2.lua",
+		"data/levels/1-3.lua",
+		"data/levels/1-4.lua"
+	},
+	[2] = {
+		"data/levels/2-1.lua"
+	},
+	[3] = {
+	}
 }
 
-function Controller:enter(level, binding)
+function Controller:enter(stage, level, binding)
 	self:setName("controller")
 
+	self.stage = stage
 	self.level = level
 	self:loadLevel()
 	self.lives = 3
@@ -131,7 +139,7 @@ function Controller:update(dt, rt)
 
 	elseif self.state == Controller.static.STATE_ACTIVE then
 		if self.wave > #self.events then
-			self:getScene():add(EndText(self.level))
+			self:getScene():add(EndText(self.stage, self.level))
 			self:progressLevel()
 		elseif self.wave == 0 then
 			if self.time >= 0 then
@@ -141,14 +149,7 @@ function Controller:update(dt, rt)
 				self.warmup = WAVE_PAUSE_TIME
 			end
 		elseif self.step > #self.events[self.wave] then
-			if self:getScene():find(Enemy) == nil
-			and self:getScene():find(Heart) == nil then
-				if self.wave == #self.events then
-					for i,v in ipairs(self:getScene():findAll(EnemyBullet)) do
-						v:kill()
-					end
-				end
-
+			if self:isWaveClear() then
 				self.warmup = self.warmup - dt
 
 				if self.warmup <= 0 then
@@ -243,6 +244,12 @@ function Controller:gui()
 	love.graphics.setColor(255, 255, 255, 255)
 end
 
+function Controller:isWaveClear()
+	return self:getScene():find(Enemy) == nil
+	   and self:getScene():find(BaseLaser) == nil
+	   and (self.wave < #self.events or self:getScene():find(EnemyBullet) == nil)
+end
+
 function Controller:playerHit()
 	if self.lives_tween then prox.timer.cancel(self.lives_tween) end
 	self.lives_tween = prox.timer.tween(1, self, {lives_display = self.lives-1}, "in-quad")
@@ -290,13 +297,12 @@ function Controller:addLives(lives)
 	prox.timer.tween(1, self, {lives_display = self.lives}, "in-quad")
 end
 
-function Controller:addHeart()
-	self:addScore(1000)
-	self:addLives(1)
-end
-
 function Controller:progressLevel()
 	self.level = self.level+1
+	if self.level > #levels[self.stage] then
+		self.stage = self.stage+1
+		self.level = 1
+	end
 	self:loadLevel()
 	self.state = Controller.static.STATE_TRANSITION
 	self.time = 0
@@ -304,7 +310,7 @@ end
 
 function Controller:loadLevel()
 	local level = Level()
-	level:parse(levels[self.level])
+	level:parse(levels[self.stage][self.level])
 	self.events = level:getEvents()
 	self.wave = 1
 	self.step = 1

@@ -21,21 +21,7 @@ return {
       offsety = 0,
       draworder = "topdown",
       properties = {},
-      objects = {
-        {
-          id = 3,
-          name = "0",
-          type = "Viper",
-          shape = "rectangle",
-          x = 160,
-          y = 96,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        }
-      }
+      objects = {}
     }
   }
 }

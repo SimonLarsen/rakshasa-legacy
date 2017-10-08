@@ -1,13 +1,14 @@
-local EnemyBullet = require("game.EnemyBullet")
+local BaseLaser = require("game.enemies.BaseLaser")
 local PlayerBullet = require("game.PlayerBullet")
 local LaserSwitchTurret = require("game.enemies.LaserSwitchTurret")
 
-local LaserSwitch = class("game.enemies.LaserSwitch", EnemyBullet)
+local LaserSwitch = class("game.enemies.LaserSwitch", BaseLaser)
 
 local MOVE_SPEED = 40
 
 function LaserSwitch:enter(properties)
 	assert(#properties.points == 2, "LaserSwitch needs two points.")
+	BaseLaser.enter(self)
 
 	local p1, p2 = properties.points[1], properties.points[2]
 	if p1.x > p2.x then
@@ -34,6 +35,7 @@ function LaserSwitch:enter(properties)
 end
 
 function LaserSwitch:update(dt, rt)
+	BaseLaser.update(self, dt, rt)
 	self.y = self.y + self.speed * dt
 	self.hc_rect:moveTo(self.x, self.y)
 

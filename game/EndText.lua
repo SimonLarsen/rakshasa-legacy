@@ -1,24 +1,10 @@
 local EndText = class("game.EndText", prox.Entity)
 
-local number_names = {
-	"first", "second", "third"
-}
-
-local level_names = {
-	"fear", "vanity", "self"
-}
-
-function EndText:enter(level)
+function EndText:enter(stage, level)
 	self.box_alpha = 0
 	self.text1_alpha = 0
 	self.text2_alpha = 0
 	self.z = 0
-
-	--[[
-	self.img_number = prox.resources.getImage("data/images/text/end_" .. number_names[level] .. ".png")
-	self.img_trans = prox.resources.getImage("data/images/text/end_transcendence.png")
-	self.img_level = prox.resources.getImage("data/images/text/end_" .. level_names[level] .. ".png")
-	]]
 
 	prox.timer.tween(0.01, self, {box_alpha = 255}, "out-quad")
 
@@ -42,17 +28,6 @@ function EndText:gui()
 
 	love.graphics.setColor(255, 255, 255, self.box_alpha)
 	love.graphics.rectangle("fill", midx-160, 0, settings.screen_width, settings.screen_height)
-
-	--[[
-	love.graphics.setColor(0, 0, 0, self.text1_alpha)
-
-	love.graphics.draw(self.img_number, midx, midy-36, 0, 1, 1, math.floor(self.img_number:getWidth()/2), self.img_number:getHeight())
-	love.graphics.draw(self.img_trans, midx, midy, 0, 1, 1, math.floor(self.img_trans:getWidth()/2), self.img_trans:getHeight())
-
-	love.graphics.setColor(0, 0, 0, self.text2_alpha)
-
-	love.graphics.draw(self.img_level, midx, midy+60, 0, 1, 1, math.floor(self.img_level:getWidth()/2), self.img_level:getHeight())
-	]]
 
 	love.graphics.setColor(255, 255, 255, 255)
 end

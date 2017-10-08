@@ -183,16 +183,10 @@ function Chain:kill()
 end
 
 function Chain:onCollide(o)
-	if o:getName() == "heart" then
-		self.controller:addHeart()
-		o:remove()
-	elseif o:getName() == "gem" then
+	if o:getName() == "gem" then
 		self.controller:addGems(o:getGems())
 		self.flash = 0.05
 		o:pickup()
-	elseif o:getName() == "heart" then
-		self.controller:addHeart()
-		o:remove()
 	end
 end
 

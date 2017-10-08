@@ -1,13 +1,14 @@
 local PlayerBullet = require("game.PlayerBullet")
-local EnemyBullet = require("game.EnemyBullet")
+local BaseLaser = require("game.enemies.BaseLaser")
 
-local LaserFan = class("game.enemies.LaserFan", EnemyBullet)
+local LaserFan = class("game.enemies.LaserFan", BaseLaser)
 
 local MOVE_SPEED = 60
 local ROTATION_SPEED = 1
 
 function LaserFan:enter(properties)
 	assert(#properties.points == 2, "LaserFan needs two points.")
+	BaseLaser.enter(self)
 
 	local p1, p2 = properties.points[1], properties.points[2]
 	if p1.x > p2.x then
@@ -49,6 +50,7 @@ function LaserFan:enter(properties)
 end
 
 function LaserFan:update(dt, rt)
+	BaseLaser.update(self, dt, rt)
 	self.y = self.y + self.speed * dt
 	self.dir = self.dir + self.rotation_speed * dt
 

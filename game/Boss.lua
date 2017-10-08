@@ -1,7 +1,6 @@
 local Enemy = require("game.Enemy")
 local EnemyBullet = require("game.EnemyBullet")
 local Gem = require("game.Gem")
-local Heart = require("game.Heart")
 local WhiteFlash = require("game.WhiteFlash")
 local music = require("music")
 
@@ -78,7 +77,6 @@ function Boss:dropGems()
 		local y = self.y + math.sin(angle) * radius
 		self:getScene():add(Gem(x, y))
 	end
-	self:getScene():add(Heart(settings.screen_width/2, settings.screen_height/2))
 end
 
 function Boss:gui()

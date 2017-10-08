@@ -1,14 +1,15 @@
-local EnemyBullet = require("game.EnemyBullet")
+local BaseLaser = require("game.enemies.BaseLaser")
 local PlayerBullet = require("game.PlayerBullet")
 local Flash = require("game.Flash")
 
-local Laser = class("game.enemies.Laser", EnemyBullet)
+local Laser = class("game.enemies.Laser", BaseLaser)
 
 local MAX_HEALTH = 1
 local MOVE_SPEED = 60
 
 function Laser:enter(properties)
 	assert(#properties.points == 2, "Laser needs two points.")
+	BaseLaser.enter(self)
 
 	local p1, p2 = properties.points[1], properties.points[2]
 	if p1.x > p2.x then
@@ -97,11 +98,13 @@ function Laser:enter(properties)
 		end
 	end
 
-	self.hc_rect = HC.rectangle(0, 0, odist, 16)
+	self.hc_rect = HC.rectangle(0, 0, odist+2, 16)
 	self.hc_rect:setRotation(self.dir)
 end
 
 function Laser:update(dt, rt)
+	BaseLaser.update(self, dt, rt)
+
 	self.y = self.y + self.speed * dt
 	self.hc_rect:moveTo(self.x, self.y)
 	

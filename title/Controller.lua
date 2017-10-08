@@ -8,6 +8,7 @@ local options = {
 	"QUIT"
 }
 
+local START_STAGE = 2
 local START_LEVEL = 1
 
 Controller.static.STATE_ENTER  = 1
@@ -56,7 +57,7 @@ function Controller:update(dt, rt)
 			if options[self.selection] == "START" then
 				self:hide()
 				music.stop()
-				self:getScene():add(require("game.Controller")(START_LEVEL, self.binding))
+				self:getScene():add(require("game.Controller")(START_STAGE, START_LEVEL, self.binding))
 			elseif options[self.selection] == "CONFIG" then
 				self:hide()
 				self:getScene():add(require("title.OptionsMenu")(self.binding))
