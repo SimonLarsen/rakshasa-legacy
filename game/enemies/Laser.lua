@@ -5,7 +5,7 @@ local Flash = require("game.Flash")
 local Laser = class("game.enemies.Laser", BaseLaser)
 
 local MAX_HEALTH = 1
-local MOVE_SPEED = 60
+local MOVE_SPEED = 70
 
 function Laser:enter(properties)
 	assert(#properties.points == 2, "Laser needs two points.")
