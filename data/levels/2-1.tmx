@@ -1,17 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="20" height="30" tilewidth="16" tileheight="16" infinite="0" nextobjectid="7">
+<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="20" height="30" tilewidth="16" tileheight="16" infinite="0" nextobjectid="57">
  <objectgroup name="1">
-  <object id="1" name="0" type="Laser" x="18" y="256">
-   <polyline points="0,0 144,0"/>
+  <object id="35" name="0" type="Laser" x="16" y="240">
+   <polyline points="0,0 80,0"/>
   </object>
-  <object id="2" name="3" type="Laser" x="302" y="176">
-   <polyline points="0,0 -128,0"/>
+  <object id="36" name="0" type="Laser" x="304" y="240">
+   <polyline points="0,0 -80,0"/>
   </object>
-  <object id="3" name="3" type="Laser" x="18" y="96">
-   <polyline points="0,0 144,0"/>
+  <object id="31" name="2" type="Silo" x="352" y="80">
+   <properties>
+    <property name="speed" type="float" value="140"/>
+   </properties>
+   <polyline points="0,0 -384,0"/>
   </object>
  </objectgroup>
  <objectgroup name="2">
-  <object id="5" name="0" type="Temple" x="176" y="96"/>
+  <object id="14" name="0" type="Laser" x="128" y="240">
+   <polyline points="-16,0 80,0"/>
+  </object>
+  <object id="16" name="0.2" type="Fighter" x="272" y="-32">
+   <polyline points="0,0 0,128 0,240 0,544"/>
+  </object>
+  <object id="15" name="0.1" type="Fighter" x="48" y="-32">
+   <polyline points="0,0 0,128 0,240 0,544"/>
+  </object>
+  <object id="17" name="2.5" type="Laser" x="16" y="176">
+   <polyline points="0,0 80,0"/>
+  </object>
+  <object id="18" name="0" type="Laser" x="304" y="176">
+   <polyline points="0,0 -80,0"/>
+  </object>
+  <object id="25" name="1" type="Bunker" x="160" y="144"/>
+  <object id="26" name="0.32" type="Bunker" x="128" y="128"/>
+  <object id="27" name="0" type="Bunker" x="192" y="128"/>
+  <object id="30" name="1" type="Turret" x="160" y="64"/>
+ </objectgroup>
+ <objectgroup name="3">
+  <object id="56" name="0" type="LaserTurret" x="160" y="96"/>
  </objectgroup>
 </map>
