@@ -43,6 +43,8 @@ function BasePatrol:enter(properties, max_health)
 end
 
 function BasePatrol:update(dt, rt)
+	dt, rt = Enemy.update(self, dt, rt)
+
 	if self.state == BasePatrol.static.STATE_IDLE then
 		self.idle_time = self.idle_time + dt
 		self.x = self.destx + math.sin(self.idle_time)*3

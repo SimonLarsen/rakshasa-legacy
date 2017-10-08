@@ -36,4 +36,5 @@
  <objecttype name="LaserFan" color="#aa55ff"/>
  <objecttype name="Patrol" color="#ff007f"/>
  <objecttype name="AimedPatrol" color="#ff00ff"/>
+ <objecttype name="FanPatrol" color="#870f55"/>
 </objecttypes>

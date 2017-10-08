@@ -362,7 +362,7 @@ return {
           visible = true,
           polyline = {
             { x = 0, y = 0 },
-            { x = -48, y = 96 }
+            { x = -64, y = 96 }
           },
           properties = {}
         },
@@ -379,7 +379,7 @@ return {
           visible = true,
           polyline = {
             { x = 0, y = 0 },
-            { x = 48, y = 96 }
+            { x = 64, y = 96 }
           },
           properties = {}
         },

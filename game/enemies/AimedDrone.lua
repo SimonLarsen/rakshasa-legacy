@@ -10,7 +10,7 @@ local MAX_HEALTH = 2
 function AimedDrone:enter(properties)
 	Enemy.enter(self, MAX_HEALTH)
 
-	assert(#properties.points == 3, "AimedDrone needs exactly three points.")
+	assert(#properties.points == 3 or #properties.points == 5, "AimedDrone needs either 3 or 5 points.")
 	self.points = properties.points
 	self.speed = properties.speed or MOVE_SPEED
 
@@ -23,6 +23,7 @@ function AimedDrone:enter(properties)
 	self.startx, self.starty = self.x, self.y
 	self.xspeed = xdist / dist * self.speed
 	self.yspeed = ydist / dist * self.speed
+
 	self.shoot_dist = dist
 	self.has_shot = false
 	self.shoot_dir = math.atan2(self.points[3].y - self.points[2].y, self.points[3].x - self.points[2].x)
@@ -40,6 +41,13 @@ function AimedDrone:update(dt, rt)
 	if not self.has_shot and self.dist > self.shoot_dist then
 		self:shoot()
 		self.has_shot = true
+		if #self.points == 5 then
+			local xdist = self.points[5].x - self.x
+			local ydist = self.points[5].y - self.y
+			local dist = math.sqrt(xdist^2 + ydist^2)
+			self.xspeed = xdist / dist * self.speed
+			self.yspeed = ydist / dist * self.speed
+		end
 	end
 
 	if self.has_shot and (self.x < -32 or self.x > settings.screen_width + 32 or self.y < -32 or self.y > settings.screen_height + 32) then

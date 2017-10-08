@@ -28,7 +28,6 @@ local constructors = {
 	Chaser = require("game.enemies.Chaser"),
 	--- patrol types
 	Patrol = require("game.enemies.Patrol"),
-	--AimedPatrol = require("game.enemies.AimedPatrol"),
 	FanPatrol = require("game.enemies.FanPatrol"),
 	--- bomber types
 	Bomber = require("game.enemies.Bomber"),
@@ -144,6 +143,12 @@ function Controller:update(dt, rt)
 		elseif self.step > #self.events[self.wave] then
 			if self:getScene():find(Enemy) == nil
 			and self:getScene():find(Heart) == nil then
+				if self.wave == #self.events then
+					for i,v in ipairs(self:getScene():findAll(EnemyBullet)) do
+						v:kill()
+					end
+				end
+
 				self.warmup = self.warmup - dt
 
 				if self.warmup <= 0 then

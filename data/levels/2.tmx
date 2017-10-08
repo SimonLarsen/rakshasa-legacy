@@ -53,10 +53,10 @@
  </objectgroup>
  <objectgroup name="3">
   <object id="191" name="0" type="Patrol" x="288" y="-32">
-   <polyline points="0,0 -48,96"/>
+   <polyline points="0,0 -64,96"/>
   </object>
   <object id="192" name="0.3" type="Patrol" x="32" y="-32">
-   <polyline points="0,0 48,96"/>
+   <polyline points="0,0 64,96"/>
   </object>
   <object id="219" name="2" type="Turret" x="160" y="112"/>
   <object id="215" name="2" type="Patrol" x="207.333" y="-34.6667">

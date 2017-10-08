@@ -6,9 +6,11 @@ local BasePattern = require("game.bullets.BasePattern")
 local MultiPattern = require("game.bullets.MultiPattern")
 local LambdaPattern = require("game.bullets.LambdaPattern")
 local ChargeFanPattern = require("game.bullets.ChargeFanPattern")
-local Turret = require("game.enemies.Turret")
-local Patrol = require("game.enemies.Patrol")
 local FearBubble = require("game.bosses.FearBubble")
+
+local Turret = require("game.enemies.Turret")
+local Mine = require("game.enemies.Mine")
+local SuperMine = require("game.enemies.SuperMine")
 
 local Fear = class("game.bosses.Fear", Boss)
 
@@ -93,7 +95,7 @@ function Fear:initPatterns()
 				self.face_anim:setProperty("puke", true)
 				self.puking = 0.9
 				prox.timer.after(0.4, function()
-					self:getScene():add(FearBubble(self.x, self.y+36, 48, 148, 2, function()
+					self.left_turret = self:getScene():add(FearBubble(self.x, self.y+36, 48, 148, 2, function()
 						self.left_turret = Turret({x = 48, speed = 0, salvo_size = 1})
 						self:getScene():add(self.left_turret)
 						self.left_turret.y = 148
@@ -110,8 +112,42 @@ function Fear:initPatterns()
 				self.face_anim:setProperty("puke", true)
 				self.puking = 0.9
 				prox.timer.after(0.4, function()
-					self:getScene():add(FearBubble(self.x, self.y+36, 272, 148, 2, function()
+					self.right_turret = self:getScene():add(FearBubble(self.x, self.y+36, 272, 148, 2, function()
 						self.right_turret = Turret({x = 272, speed = 0, salvo_size = 1})
+						self:getScene():add(self.right_turret)
+						self.right_turret.y = 148
+					end))
+				end)
+			end
+		end,
+		{ delay = 999 }
+	)
+
+	local ptn_spawn_mine_left = LambdaPattern(self, 0, 0,
+		function(o)
+			if not self.left_turret then
+				self.face_anim:setProperty("puke", true)
+				self.puking = 0.9
+				prox.timer.after(0.4, function()
+					self.left_turret = self:getScene():add(FearBubble(self.x, self.y+36, 48, 148, 2, function()
+						self.left_turret = SuperMine({x = 48, y = 149, speed = 0.25})
+						self:getScene():add(self.left_turret)
+						self.left_turret.y = 148
+					end))
+				end)
+			end
+		end,
+		{ delay = 999 }
+	)
+
+	local ptn_spawn_mine_right = LambdaPattern(self, 0, 0,
+		function(o)
+			if not self.right_turret then
+				self.face_anim:setProperty("puke", true)
+				self.puking = 0.9
+				prox.timer.after(0.4, function()
+					self.right_turret = self:getScene():add(FearBubble(self.x, self.y+36, 272, 148, 2, function()
+						self.right_turret = SuperMine({x = 272, y = 149, speed = 0.25})
 						self:getScene():add(self.right_turret)
 						self.right_turret.y = 148
 					end))
@@ -148,16 +184,41 @@ function Fear:initPatterns()
 		fan_radius = 40
 	})
 
+	local ptn_salvo_targeted = BasePattern(self, 0, 37, {
+		shot_delay = 0.13,
+		salvo_size = 4,
+		target_player = true,
+		salvo_delay = 999
+	})
+
+	local ptn_down_left = BasePattern(self, -52, 8, {
+		salvo_size = 1,
+		salvo_delay = 999,
+		start_rotation = math.pi/2
+	})
+
+	local ptn_down_right = BasePattern(self, 52, 8, {
+		salvo_size = 1,
+		salvo_delay = 0.51,
+		start_rotation = math.pi/2
+	})
+
+	local ptn_down_leftright = MultiPattern({
+		ptn_down_left,
+		ptn_down_right
+	})
+
 	-- PHASE 1 patterns
 	local man1 = PatternManager()
 	self.patterns[Fear.static.STATE_PHASE1] = man1
 	man1:add(ptn_spawn_turret_left, 1.5)
+	man1:add(ptn_down, 1.60)
+	man1:add(ptn_target_left, 2.0)
+	man1:add(ptn_target_right, 2.0)
 	man1:add(ptn_spawn_turret_right, 3)
-	for i=1,2 do
-		man1:add(ptn_down, 1.60)
-		man1:add(ptn_target_left, 2.0)
-		man1:add(ptn_target_right, 2.0)
-	end
+	man1:add(ptn_down, 1.60)
+	man1:add(ptn_target_left, 2.0)
+	man1:add(ptn_target_right, 2.0)
 
 	-- PHASE 2 patterns
 	local man2 = PatternManager()
@@ -166,17 +227,21 @@ function Fear:initPatterns()
 	man2:add(ptn_spawn_turret_right, 3)
 	man2:add(ptn_fan, 2)
 	man2:add(ptn_fan, 3)
-	man2:add(ptn_leftright, 1.5)
-	man2:add(ptn_target, 1.4)
-	man2:add(ptn_target, 1.5)
-	man2:add(ptn_down, 1.25)
+	man2:add(ptn_down_leftright, 1.0)
 
 	-- PHASE 3 patterns
 	local man3 = PatternManager()
 	self.patterns[Fear.static.STATE_PHASE3] = man3
-	for i=1,3 do
-		man3:add(ptn_target_left, 0.7)
-		man3:add(ptn_target_right, 0.7)
+	for i=1, 2 do
+		if i == 1 then
+			man3:add(ptn_spawn_mine_left, 3)
+		else
+			man3:add(ptn_spawn_mine_right, 3)
+		end
+		man3:add(ptn_salvo_targeted, 2.0)
+		man3:add(ptn_salvo_targeted, 2.0)
+		man3:add(ptn_target_left, 2.0)
+		man3:add(ptn_target_right, 2.0)
 	end
 end
 

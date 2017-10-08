@@ -12,11 +12,21 @@ function Bunker:enter(properties)
 
 	self.x = properties.x
 	self.y = -30
-	self.trigger_y = properties.y
 	self.speed = properties.speed or MOVE_SPEED
+	self.can_shoot = properties.shoot ~= false
 	self.has_shot = false
 
-	self:setRenderer(prox.Animation("data/animations/enemies/bunker.lua"))
+	if properties.time then
+		self.time = properties.time
+	else
+		self.time = (properties.y - self.y) / self.speed
+	end
+
+	if self.can_shoot then
+		self:setRenderer(prox.Animation("data/animations/enemies/armed_bunker.lua"))
+	else
+		self:setRenderer(prox.Animation("data/animations/enemies/bunker.lua"))
+	end
 	self:setCollider(prox.BoxCollider(30, 30))
 end
 
@@ -28,7 +38,8 @@ function Bunker:update(dt, rt)
 		self:remove()
 	end
 
-	if self.y >= self.trigger_y and not self.has_shot then
+	self.time = self.time - dt
+	if self.can_shoot and self.time <= 0 and not self.has_shot then
 		self.has_shot = true
 		self:shoot()
 	end
