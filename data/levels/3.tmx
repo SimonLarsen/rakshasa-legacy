@@ -80,11 +80,13 @@
   </object>
   <object id="105" name="0.2364" type="Bunker" x="106.242" y="324.182">
    <properties>
+    <property name="shoot" type="bool" value="false"/>
     <property name="time" type="float" value="6"/>
    </properties>
   </object>
   <object id="106" name="0" type="Bunker" x="215.667" y="323.75">
    <properties>
+    <property name="shoot" type="bool" value="false"/>
     <property name="time" type="float" value="6"/>
    </properties>
   </object>
@@ -100,11 +102,13 @@
   </object>
   <object id="111" name="0.8294" type="Bunker" x="39.6667" y="248.833">
    <properties>
+    <property name="shoot" type="bool" value="false"/>
     <property name="time" type="float" value="6"/>
    </properties>
   </object>
   <object id="112" name="0" type="Bunker" x="279.992" y="248.11">
    <properties>
+    <property name="shoot" type="bool" value="false"/>
     <property name="time" type="float" value="6"/>
    </properties>
   </object>
@@ -121,11 +125,13 @@
   </object>
   <object id="115" name="0.8166" type="Bunker" x="40.0606" y="167.455">
    <properties>
+    <property name="shoot" type="bool" value="false"/>
     <property name="time" type="float" value="6"/>
    </properties>
   </object>
   <object id="116" name="0" type="Bunker" x="280.3" y="167.545">
    <properties>
+    <property name="shoot" type="bool" value="false"/>
     <property name="time" type="float" value="6"/>
    </properties>
   </object>
@@ -141,11 +147,13 @@
   </object>
   <object id="119" name="0.6766" type="Bunker" x="109" y="91.3333">
    <properties>
+    <property name="shoot" type="bool" value="false"/>
     <property name="time" type="float" value="6"/>
    </properties>
   </object>
   <object id="120" name="0" type="Bunker" x="212.712" y="91.4848">
    <properties>
+    <property name="shoot" type="bool" value="false"/>
     <property name="time" type="float" value="6"/>
    </properties>
   </object>

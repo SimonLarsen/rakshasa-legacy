@@ -46,11 +46,6 @@ function BaseMine:update(dt, rt)
 	or self.time <= 1 and self.time % 0.25 < 0.125 then
 		self:getRenderer():setShader(self.white_shader)
 	end
-	--[[
-	if ydist < 150 and ydist > 50 and prox.time.getTime() % 0.5 < 0.25 
-	or ydist < 50  and prox.time.getTime() % 0.25 < 0.125 then
-	end
-	]]
 end
 
 function BaseMine:getGems()

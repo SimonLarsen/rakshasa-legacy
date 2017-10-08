@@ -1,5 +1,5 @@
 {
-	image = "data/images/enemies/bunker.png",
+	image = "data/images/enemies/bunker_armed.png",
 	fw = 33,
 	fh = 33,
 	ox = 16,

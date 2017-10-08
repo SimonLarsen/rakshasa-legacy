@@ -374,6 +374,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
+            ["shoot"] = false,
             ["time"] = 6
           }
         },
@@ -389,6 +390,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
+            ["shoot"] = false,
             ["time"] = 6
           }
         },
@@ -434,6 +436,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
+            ["shoot"] = false,
             ["time"] = 6
           }
         },
@@ -449,6 +452,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
+            ["shoot"] = false,
             ["time"] = 6
           }
         },
@@ -507,6 +511,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
+            ["shoot"] = false,
             ["time"] = 6
           }
         },
@@ -522,6 +527,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
+            ["shoot"] = false,
             ["time"] = 6
           }
         },
@@ -567,6 +573,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
+            ["shoot"] = false,
             ["time"] = 6
           }
         },
@@ -582,6 +589,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
+            ["shoot"] = false,
             ["time"] = 6
           }
         },
