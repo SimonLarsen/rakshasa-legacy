@@ -15,6 +15,7 @@ function Bunker:enter(properties)
 	self.speed = properties.speed or MOVE_SPEED
 	self.can_shoot = properties.shoot ~= false
 	self.has_shot = false
+	self.charged = false
 
 	if properties.time then
 		self.time = properties.time
@@ -22,8 +23,15 @@ function Bunker:enter(properties)
 		self.time = (properties.y - self.y) / self.speed
 	end
 
-	self:setRenderer(prox.Animator("data/animators/enemies/bunker.lua"))
-	self:getRenderer():setProperty("armed", self.can_shoot)
+	self.base_renderer = prox.Animator("data/animators/enemies/bunker.lua")
+	self.base_renderer:setProperty("armed", self.can_shoot)
+	self:setRenderer(prox.MultiRenderer())
+	self:getRenderer():addRenderer(self.base_renderer)
+
+	if self.can_shoot then
+		self:getRenderer():addRenderer(prox.Animation("data/animations/bullets/enemy_ball.lua"), 1, 1)
+	end
+
 	self:setCollider(prox.BoxCollider(30, 30))
 end
 
@@ -37,15 +45,16 @@ function Bunker:update(dt, rt)
 
 	self.time = self.time - dt
 	if self.can_shoot then
-		if not self.has_shot then
-			if self.time < 0.5 and self.time % 0.25 > 0.125 then
-				self:getRenderer():setShader(self.white_shader)
-			end
-			if self.time <= 0 then
-				self.has_shot = true
-				self:getRenderer():setProperty("armed", false)
-				self:shoot()
-			end
+		if not self.charged and self.time <= 0.06*15 then
+			self.charged = true
+			self:getRenderer():addRenderer(prox.Animation("data/animations/enemies/bunker_charge.lua"))
+		end
+		if not self.has_shot and self.time <= 0 then
+			self.has_shot = true
+			self.base_renderer:setProperty("armed", false)
+			self:shoot()
+			self:getRenderer():removeRenderer(3)
+			self:getRenderer():removeRenderer(2)
 		end
 	end
 end
