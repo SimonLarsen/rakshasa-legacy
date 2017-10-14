@@ -5,7 +5,6 @@ local BasePattern = require("game.bullets.BasePattern")
 
 local Falcon = class("game.enemies.Falcon", Enemy)
 
-local MAX_HEALTH = 50
 local IDLE_TIME = 1.0
 local MOVE_TIME = 1.5
 
@@ -20,7 +19,7 @@ Falcon.static.STATE_IDLE   = 2
 Falcon.static.STATE_MOVING = 3
 
 function Falcon:enter(properties)
-	Enemy.enter(self, MAX_HEALTH, true)
+	Enemy.enter(self, true)
 
 	self.destx = properties.x
 	self.desty = properties.y
@@ -100,10 +99,6 @@ function Falcon:onRemove()
 	if self.timer then
 		prox.timer.cancel(self.timer)
 	end
-end
-
-function Falcon:getGems()
-	return 12
 end
 
 return Falcon

@@ -3,11 +3,10 @@ local Explosion = require("game.Explosion")
 
 local BaseMine = class("game.enemies.BaseMine", Enemy)
 
-local MAX_HEALTH = 10
 local MOVE_SPEED = 45
 
 function BaseMine:enter(properties)
-	Enemy.enter(self, MAX_HEALTH)
+	Enemy.enter(self)
 
 	self.x = properties.x
 	self.y = -25
@@ -46,10 +45,6 @@ function BaseMine:update(dt, rt)
 	or self.time <= 1 and self.time % 0.25 < 0.125 then
 		self:getRenderer():setShader(self.white_shader)
 	end
-end
-
-function BaseMine:getGems()
-	return 3
 end
 
 return BaseMine

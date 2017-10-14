@@ -4,7 +4,6 @@ local Flash = require("game.Flash")
 
 local Laser = class("game.enemies.Laser", BaseLaser)
 
-local MAX_HEALTH = 1
 local MOVE_SPEED = 70
 
 function Laser:enter(properties)

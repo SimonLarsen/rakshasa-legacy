@@ -4,10 +4,8 @@ local Patrol = require("game.enemies.Patrol")
 
 local FanPatrol = class("game.enemies.FanPatrol", Patrol)
 
-local MAX_HEALTH = 17
-
 function FanPatrol:enter(properties)
-	Patrol.enter(self, properties, MAX_HEALTH)
+	Patrol.enter(self, properties)
 end
 
 function FanPatrol:shoot(dir)
@@ -17,10 +15,6 @@ function FanPatrol:shoot(dir)
 	self:getScene():add(EnemyBullet(self.x-6, self.y, dir+0.10))
 	self:getScene():add(EnemyBullet(self.x+6, self.y, dir-0.10))
 	self:getScene():add(Flash(self.x,self.y))
-end
-
-function FanPatrol:getGems()
-	return 7
 end
 
 return FanPatrol

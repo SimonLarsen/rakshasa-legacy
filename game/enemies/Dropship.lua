@@ -4,8 +4,6 @@ local Flash = require("game.Flash")
 
 local Dropship = class("game.enemies.Dropship", Enemy)
 
-local MAX_HEALTH = 12
-
 local ENTER_TIME = 2
 local IDLE_TIME = 1
 local EXIT_TIME = 1.5
@@ -15,7 +13,7 @@ Dropship.static.STATE_IDLE  = 2
 Dropship.static.STATE_EXIT  = 3
 
 function Dropship:enter(properties)
-	Enemy.enter(self, MAX_HEALTH)
+	Enemy.enter(self)
 
 	assert(#properties.points == 3, "Dropship needs three point coordinates.")
 	self.points = properties.points
@@ -61,10 +59,6 @@ function Dropship:shoot()
 	self:getScene():add(EnemyRainBullet(self.x, self.y-6,   0, -140))
 	self:getScene():add(EnemyRainBullet(self.x, self.y-6,  70, -140))
 	self:getScene():add(Flash(self.x, self.y-6))
-end
-
-function Dropship:getGems()
-	return 2
 end
 
 function Dropship:onRemove()

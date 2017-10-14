@@ -5,10 +5,9 @@ local Flash = require("game.Flash")
 local AimedDrone = class("game.enemies.AimedDrone", Enemy)
 
 local MOVE_SPEED = 180
-local MAX_HEALTH = 2
 
 function AimedDrone:enter(properties)
-	Enemy.enter(self, MAX_HEALTH)
+	Enemy.enter(self)
 
 	assert(#properties.points == 3 or #properties.points == 5, "AimedDrone needs either 3 or 5 points.")
 	self.points = properties.points
@@ -61,10 +60,6 @@ end
 function AimedDrone:shoot()
 	self:getScene():add(EnemyBullet(self.x, self.y, self.shoot_dir))
 	self:getScene():add(Flash(self.x, self.y))
-end
-
-function AimedDrone:getGems()
-	return 1
 end
 
 return AimedDrone

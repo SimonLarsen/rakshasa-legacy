@@ -1,12 +1,11 @@
 local Enemy = require("game.Enemy")
 
-local Silo = class("game.Silo", Enemy)
+local Silo = class("game.enemies.Silo", Enemy)
 
-local MAX_HEALTH = 4
 local MOVE_SPEED = 100
 
 function Silo:enter(properties)
-	Enemy.enter(self, MAX_HEALTH, true)
+	Enemy.enter(self, true)
 
 	self.x = properties.points[1].x
 	self.y = properties.points[1].y
@@ -27,10 +26,6 @@ function Silo:update(dt, rt)
 	if dist < 0.5 then
 		self:remove()
 	end
-end
-
-function Silo:getGems()
-	return 30
 end
 
 return Silo

@@ -68,6 +68,13 @@ Controller.static.STATE_ACTIVE     = 2
 Controller.static.STATE_TRANSITION = 3
 Controller.static.STATE_GAMEOVER   = 4
 
+local FOCUS_THRESHOLDS = {
+	[1] = 10,
+	[2] = 20,
+	[3] = 40,
+	[4] = 80
+}
+
 local levels = {
 	[1] = {
 		"data/levels/1-1.lua",
@@ -88,12 +95,20 @@ function Controller:enter(stage, level, binding)
 	self.stage = stage
 	self.level = level
 	self:loadLevel()
+
 	self.lives = 3
-	self.lives_display = self.lives
 	self.score = 0
-	self.score_display = self.score
+	self.score_multiplier = 1
+
+	self.focus = 0
+	self.focus_ = 0
+	self.focus_cooldown = 0
 	self.gems = 0
+
+	self.lives_display = self.lives
+	self.score_display = self.score
 	self.gems_display = self.gems
+
 	self.binding = binding
 	self.state = Controller.static.STATE_WARMUP
 	self.time = 0
@@ -279,6 +294,8 @@ end
 function Controller:addGems(count)
 	self.gems = math.min(self.gems + count, MAX_GEMS)
 	self:addScore(count * 100)
+	
+	self.score_focus = 1
 end
 
 function Controller:useGems(cost)

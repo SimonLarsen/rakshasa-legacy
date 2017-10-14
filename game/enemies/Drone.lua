@@ -5,10 +5,9 @@ local Flash = require("game.Flash")
 local Drone = class("game.enemies.Drone", BaseDrone)
 
 local MOVE_SPEED = 170
-local MAX_HEALTH = 2
 
 function Drone:enter(properties)
-	BaseDrone.enter(self, properties, MAX_HEALTH, MAX_SPEED)
+	BaseDrone.enter(self, properties, MAX_SPEED)
 end
 
 function Drone:getAnimation()
@@ -25,10 +24,6 @@ function Drone:shoot()
 	local dir = math.atan2(ydist, xdist)
 	self:getScene():add(EnemyBullet(self.x, self.y, dir))
 	self:getScene():add(Flash(self.x, self.y))
-end
-
-function Drone:getGems()
-	return 2
 end
 
 return Drone

@@ -2,13 +2,12 @@ local Enemy = require("game.Enemy")
 local EnemyBullet = require("game.EnemyBullet")
 local Flash = require("game.Flash")
 
-local MAX_HEALTH = 3
 local MOVE_SPEED = 50
 
 local Bunker = class("game.enemies.Bunker", Enemy)
 
 function Bunker:enter(properties)
-	Enemy.enter(self, MAX_HEALTH)
+	Enemy.enter(self)
 
 	self.x = properties.x
 	self.y = -30
@@ -62,10 +61,6 @@ end
 function Bunker:shoot()
 	self:getScene():add(EnemyBullet(self.x, self.y, math.pi/2))
 	self:getScene():add(Flash(self.x, self.y))
-end
-
-function Bunker:getGems()
-	return 1
 end
 
 return Bunker

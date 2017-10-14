@@ -4,15 +4,13 @@ local Flash = require("game.Flash")
 
 local Temple = class("game.enemies.Temple", Enemy)
 
-local MAX_HEALTH = 40
-
 local MOVE_SPEED = 25
 local ENTER_COOLDOWN = 1.5
 local SALVO_COOLDOWN = 2.5
 local ENTER_TIME = 1.5
 
 function Temple:enter(properties)
-	Enemy.enter(self, MAX_HEALTH, true)
+	Enemy.enter(self, true)
 
 	self.destx = properties.x
 	self.desty = properties.y
@@ -61,10 +59,6 @@ function Temple:shoot()
 		local sdir = dir + i*0.075
 		self:getScene():add(EnemyChargeBullet(self.x, self.y, self.x+offx, self.y+offy, sdir, 1.0))
 	end
-end
-
-function Temple:getGems()
-	return 10
 end
 
 function Temple:onRemove()

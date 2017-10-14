@@ -4,7 +4,6 @@ local Flash = require("game.Flash")
 
 local Striker = class("game.enemies.Striker", BaseFighter)
 
-local MAX_HEALTH = 5
 local SALVO_COOLDOWN = 3.0
 
 local FAN_COUNT = 5
@@ -12,7 +11,7 @@ local FAN_DIAMETER = 12
 local FAN_ANGLE = 0.16
 
 function Striker:enter(properties)
-	BaseFighter.enter(self, properties, MAX_HEALTH, SALVO_COOLDOWN)
+	BaseFighter.enter(self, properties, SALVO_COOLDOWN)
 end
 
 function Striker:getAnimation()
@@ -30,10 +29,6 @@ function Striker:shoot()
 	self:getScene():add(EnemyBullet(self.x-6, self.y, math.pi/2+0.08))
 	self:getScene():add(EnemyBullet(self.x+6, self.y, math.pi/2-0.08))
 	self:getScene():add(Flash(self.x,self.y))
-end
-
-function Striker:getGems()
-	return 5
 end
 
 return Striker

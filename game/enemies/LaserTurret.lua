@@ -1,15 +1,14 @@
 local Enemy = require("game.Enemy")
 local EnemyLaser = require("game.EnemyLaser")
 
-local LaserTurret = class("game.LaserTurret", Enemy)
+local LaserTurret = class("game.enemies.LaserTurret", Enemy)
 
-local MAX_HEALTH = 12
 local MOVE_SPEED = 35
 local COOLDOWN = 4.2
 local LASER_DELAY = 1.4
 
 function LaserTurret:enter(properties)
-	Enemy.enter(self, MAX_HEALTH)
+	Enemy.enter(self)
 
 	self.x = properties.x
 	self.y = -30
@@ -48,10 +47,6 @@ function LaserTurret:onRemove()
 	if self.laser then
 		self.laser:remove()
 	end
-end
-
-function LaserTurret:getGems()
-	return 3
 end
 
 return LaserTurret

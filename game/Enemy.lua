@@ -4,10 +4,13 @@ local Slowable = require("game.Slowable")
 
 local Enemy = class("game.Enemy", Slowable)
 
+local MAX_HEALTH = prox.serialize.read("data/tables/max_health.lua")
+local GEM_COUNTS = prox.serialize.read("data/tables/gem_counts.lua")
+
 function Enemy:enter(health, large)
 	Slowable.enter(self)
 	self.max_health = health
-	self.health = self.max_health
+	self.health = MAX_HEALTH[self.class.name]
 	self.hit = 0
 	self.large = large or false
 	self.invulnerable = 0
@@ -73,6 +76,10 @@ function Enemy:kill()
 	end
 
 	self:remove()
+end
+
+function Enemy:getGems()
+	return GEM_COUNTS[self.class.name]
 end
 
 return Enemy

@@ -6,8 +6,8 @@ local MOVE_SPEED = 180
 local ENTER_COOLDOWN = 1.1
 local COOLDOWN = 2.5
 
-function BaseDrone:enter(properties, max_health, speed)
-	Enemy.enter(self, max_health)
+function BaseDrone:enter(properties, speed)
+	Enemy.enter(self)
 
 	assert(#properties.points >= 2, "BaseDrone needs at least two points.")
 	self.points = properties.points

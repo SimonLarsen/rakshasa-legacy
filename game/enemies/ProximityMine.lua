@@ -3,12 +3,11 @@ local EnemyBulletExplosion = require("game.EnemyBulletExplosion")
 
 local ProximityMine = class("game.enemies.ProximityMine", Enemy)
 
-local MAX_HEALTH = 12
 local MOVE_SPEED = 45
 local DETONATION_DELAY = 1
 
 function ProximityMine:enter(properties)
-	Enemy.enter(self, MAX_HEALTH)
+	Enemy.enter(self)
 
 	self.x = properties.x
 	self.radius = properties.radius

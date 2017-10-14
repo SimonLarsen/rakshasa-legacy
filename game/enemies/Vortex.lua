@@ -6,13 +6,12 @@ local PatternManager = require("game.bullets.PatternManager")
 
 local Vortex = class("game.enemies.Vortex", Enemy)
 
-local MAX_HEALTH = 60
 local ENTER_TIME = 2.5
 
 local PHASE2_HEALTH = 30
 
 function Vortex:enter(properties)
-	Enemy.enter(self, MAX_HEALTH, true)
+	Enemy.enter(self, true)
 
 	self.destx = properties.x
 	self.desty = properties.y
@@ -98,10 +97,6 @@ end
 function Vortex:onRemove()
 	Enemy.onRemove(self)
 	prox.timer.cancel(self.timer)
-end
-
-function Vortex:getGems()
-	return 20
 end
 
 return Vortex

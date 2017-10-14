@@ -6,12 +6,11 @@ local Flash = require("game.Flash")
 
 local Bomber = class("game.enemies.Bomber", Enemy)
 
-local MAX_HEALTH = 30
 local ENTER_TIME = 2.0
 local COOLDOWN = 6.0
 
 function Bomber:enter(properties)
-	Enemy.enter(self, MAX_HEALTH)
+	Enemy.enter(self)
 	self.destx = properties.points[1].x
 	self.desty = properties.points[1].y
 
@@ -53,10 +52,6 @@ end
 function Bomber:shoot()
 	self:getScene():add(EnemyBulletBomb(self.x, self.y+8, self.x, self.bomb_desty, 1.2, 3, self.pattern))
 	self:getScene():add(Flash(self.x, self.y+8))
-end
-
-function Bomber:getGems()
-	return 12
 end
 
 return Bomber

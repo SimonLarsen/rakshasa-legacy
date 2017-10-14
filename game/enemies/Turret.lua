@@ -4,7 +4,6 @@ local Flash = require("game.Flash")
 
 local Turret = class("game.enemies.Turret", Enemy)
 
-local MAX_HEALTH = 12
 local MOVE_SPEED = 40
 local ENTER_SALVO_COOLDOWN = 2.5
 local SALVO_COOLDOWN = 4.0
@@ -12,7 +11,7 @@ local BULLET_COOLDOWN = 0.18
 local SALVO_SIZE = 4
 
 function Turret:enter(properties)
-	Enemy.enter(self, MAX_HEALTH)
+	Enemy.enter(self)
 
 	self.x = properties.x
 	self.y = -30
@@ -59,10 +58,6 @@ end
 function Turret:shoot()
 	self:getScene():add(EnemyBullet(self.x, self.y, self.shoot_dir))
 	self:getScene():add(Flash(self.x, self.y))
-end
-
-function Turret:getGems()
-	return 2
 end
 
 return Turret

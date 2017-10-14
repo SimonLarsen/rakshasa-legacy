@@ -18,8 +18,8 @@ local ACCELERATION = {
 	[BaseFighter.static.STATE_EXIT]  = 200
 }
 
-function BaseFighter:enter(properties, max_health, salvo_cooldown)
-	Enemy.enter(self, max_health)
+function BaseFighter:enter(properties, salvo_cooldown)
+	Enemy.enter(self)
 
 	assert(#properties.points == 4, "BaseFighter needs four point coordinates")
 	self.points = properties.points
@@ -63,10 +63,6 @@ function BaseFighter:update(dt, rt)
 			self:shoot()
 		end
 	end
-end
-
-function BaseFighter:getGems()
-	return 2
 end
 
 return BaseFighter

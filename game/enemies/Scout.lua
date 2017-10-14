@@ -5,10 +5,9 @@ local Flash = require("game.Flash")
 local Scout = class("game.enemies.Scout", BaseDrone)
 
 local MOVE_SPEED = 180
-local MAX_HEALTH = 1
 
 function Scout:enter(properties)
-	BaseDrone.enter(self, properties, MAX_HEALTH, MOVE_SPEED)
+	BaseDrone.enter(self, properties, MOVE_SPEED)
 end
 
 function Scout:getAnimation()
@@ -20,10 +19,6 @@ function Scout:getCollider()
 end
 
 function Scout:shoot()
-end
-
-function Scout:getGems()
-	return 1
 end
 
 return Scout

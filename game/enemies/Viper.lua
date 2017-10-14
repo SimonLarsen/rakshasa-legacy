@@ -4,11 +4,10 @@ local Flash = require("game.Flash")
 
 local Viper = class("game.enemies.Viper", BaseFighter)
 
-local MAX_HEALTH = 4
 local SALVO_COOLDOWN = 3.5
 
 function Viper:enter(properties)
-	BaseFighter.enter(self, properties, MAX_HEALTH, SALVO_COOLDOWN)
+	BaseFighter.enter(self, properties, SALVO_COOLDOWN)
 end
 
 function Viper:getAnimation()
@@ -24,10 +23,6 @@ function Viper:shoot()
 	self:getScene():add(EnemyBullet(self.x, self.y, math.pi/2))
 	self:getScene():add(EnemyBullet(self.x, self.y, math.pi/2+0.5))
 	self:getScene():add(Flash(self.x, self.y))
-end
-
-function Viper:getGems()
-	return 5
 end
 
 return Viper

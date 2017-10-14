@@ -4,10 +4,8 @@ local Gem = require("game.Gem")
 
 local LaserSwitchTurret = class("game.enemies.LaserSwitchTurret", Enemy)
 
-local MAX_HEALTH = 4
-
 function LaserSwitchTurret:enter(x, y, dir, speed)
-	Enemy.enter(self, MAX_HEALTH)
+	Enemy.enter(self)
 	self.x = x
 	self.y = y
 	self.speed = speed
@@ -46,10 +44,6 @@ function LaserSwitchTurret:kill()
 	self:setCollider(nil)
 	self:getRenderer():setProperty("state", false)
 	self.destroyed = true
-end
-
-function LaserSwitchTurret:getGems()
-	return 5
 end
 
 return LaserSwitchTurret
