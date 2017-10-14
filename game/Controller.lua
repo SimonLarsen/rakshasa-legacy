@@ -59,7 +59,7 @@ local WARMUP_TIME = 2
 local WAVE_PAUSE_TIME = 2
 local TRANSITION_TIME = 9
 
-local MAX_GEMS = 60
+local MAX_GEMS = 120
 local POWER_BAR_LENGTH = 135
 local POWER_BAR_OFFSET = 12
 

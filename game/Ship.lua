@@ -175,11 +175,7 @@ function Ship:setSide(side)
 end
 
 function Ship:onCollide(o, dt, rt)
-	if o:getName() == "gem" then
-		self.controller:addGems(o:getGems())
-		self.flash = 0.05
-		o:pickup()
-	elseif o:getName() == "player_bullet" then
+	if o:getName() == "player_bullet" then
 		o:kill(true)
 	end
 end

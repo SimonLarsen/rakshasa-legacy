@@ -70,7 +70,7 @@ function Enemy:kill()
 	end
 	
 	local num_gems = self:getGems()
-	local spread = math.max(20, num_gems) * 5
+	local spread = math.log(math.max(15, num_gems)) * 30
 	for i=1, num_gems do
 		self:getScene():add(Gem(self.x, self.y, spread))
 	end

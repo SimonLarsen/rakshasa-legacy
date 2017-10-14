@@ -22,8 +22,7 @@ function Gem:enter(x, y, spread)
 	self.xspeed = love.math.random(-spread, spread)
 	self.yspeed = -150 + love.math.random(-spread/2, spread/2)
 
-	self.targets = self:getScene():findAll("ship")
-	table.insert(self.targets, self:getScene():find("chain"))
+	self.player_chain = self:getScene():find("chain")
 
 	local anim = prox.Animation("data/animations/gem.lua")
 	anim._frame = love.math.random(1, anim._frames)
@@ -42,21 +41,13 @@ function Gem:update(dt, rt)
 		self.x = self.x + self.xspeed * dt
 		self.y = self.y + self.yspeed * dt
 
-		local min_dist = 100000
-		local closest_ship = nil
-		for i,v in ipairs(self.targets) do
-			local xdist = v.x - self.x
-			local ydist = v.y - self.y
-			local dist = math.sqrt(xdist^2 + ydist^2)
+		local xdist = self.player_chain.x - self.x
+		local ydist = self.player_chain.y - self.y
+		local dist = math.sqrt(xdist^2 + ydist^2)
 
-			if dist < min_dist then
-				min_dist = dist
-				closest_ship = v
-			end
-		end
-		if min_dist < 64 then
+		if dist < self.player_chain:getPickupRadius() then
 			self.state = Gem.static.STATE_FOLLOW
-			self.following = closest_ship
+			self.following = self.player_chain
 		end
 
 	elseif self.state == Gem.static.STATE_FOLLOW then

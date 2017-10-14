@@ -10,21 +10,29 @@ local INVULNERABLE_TIME = 3
 local FORCE = 4500
 local SHOOTING_COOLDOWN = 0.2
 
-local SWORD_COST = 30
+local SWORD_COST = 60
 
-Chain.static.STATE_ACTIVE = 1
-Chain.static.STATE_DEAD  = 2
+local PICKUP_RADIUS_BIG = 64
+local PICKUP_RADIUS_SMALL = 32
+
+local ENTER_TIME = 1.0
+
+Chain.static.STATE_ENTER = 1
+Chain.static.STATE_ACTIVE = 2
+Chain.static.STATE_DEAD  = 3
 
 function Chain:enter(ship1, ship2)
 	self:setName("chain")
 	self.z = 2
 	self.invulnerable = 0
-	self.state = Chain.static.STATE_ACTIVE
+	self.state = Chain.static.STATE_ENTER
 
 	self.ship1 = ship1
 	self.ship2 = ship2
 	self.direction = 0
 	self.controller = self:getScene():find("controller")
+	self.pickup_radius = 0
+	self.pickup_radius_angle = 0
 
 	self.center_ring = prox.Sprite("data/images/chain_ring.png")
 	self.center_flash = prox.Sprite("data/images/chain_center_flash.png")
@@ -70,7 +78,6 @@ function Chain:update(dt, rt)
 		self.ship2.yspeed = self.ship2.yspeed + ydist / dist * dt * FORCE
 	end
 
-	-- Update power level based on ship distance
 	self.center_flash_alpha = self.center_flash_alpha - math.max(0, 2000*dt)
 
 	-- Update face animator
@@ -81,9 +88,13 @@ function Chain:update(dt, rt)
 		self.face_anim:setProperty("blink", true)
 	end
 
+	self.pickup_radius = prox.math.movetowards(self.pickup_radius, PICKUP_RADIUS_BIG, dt*100)
+	self.pickup_radius_angle = self.pickup_radius_angle + dt
+
 	self.shooting_cooldown = self.shooting_cooldown - dt
 	if self.ship1.cooldown > 0 or self.ship2.cooldown > 0 then
 		self.shooting_cooldown = SHOOTING_COOLDOWN
+		self.pickup_radius = prox.math.movetowards(self.pickup_radius, PICKUP_RADIUS_SMALL, dt*400)
 	end
 	self.face_anim:setProperty("shooting", self.shooting_cooldown > 0)
 
@@ -119,6 +130,10 @@ function Chain:draw()
 	local dist = math.sqrt(xdist^2 + ydist^2)
 	local count = dist / 10
 
+	love.graphics.setColor(211, 80, 80, 80)
+	love.graphics.circle("fill", math.floor(self.x+0.5), math.floor(self.y+0.5), self.pickup_radius)
+	love.graphics.setColor(255, 255, 255, 255)
+
 	if self.dissolve_edge > 0 then
 		self.dissolve_shader:send("filter", self.filter_image)
 		self.dissolve_shader:send("edge", self.dissolve_edge)
@@ -150,7 +165,7 @@ function Chain:draw()
 	love.graphics.setShader()
 
 	if self.center_flash_alpha > 0 then
-		love.graphics.setColor(255, 255, 255, math.max(0, self.center_flash_alpha))
+		love.graphics.setColor(255, 255, 255, self.center_flash_alpha)
 		self.center_flash:draw(self.x, self.y)
 		love.graphics.setColor(255, 255, 255, 255)
 	end
@@ -186,12 +201,17 @@ function Chain:onCollide(o)
 	if o:getName() == "gem" then
 		self.controller:addGems(o:getGems())
 		self.flash = 0.05
+		self.center_flash_alpha = 255
 		o:pickup()
 	end
 end
 
 function Chain:getHCRect()
 	return self.hc_rect
+end
+
+function Chain:getPickupRadius()
+	return self.pickup_radius
 end
 
 return Chain
