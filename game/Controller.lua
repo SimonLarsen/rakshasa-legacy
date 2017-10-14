@@ -56,7 +56,7 @@ local constructors = {
 }
 
 local WARMUP_TIME = 2
-local WAVE_PAUSE_TIME = 2
+local WAVE_PAUSE_TIME = 1
 local TRANSITION_TIME = 9
 
 local MAX_GEMS = 120
@@ -101,7 +101,7 @@ function Controller:enter(stage, level, binding)
 	self.score_multiplier = 1
 
 	self.focus = 0
-	self.focus_ = 0
+	self.focus_meter = 0
 	self.focus_cooldown = 0
 	self.gems = 0
 
@@ -133,6 +133,7 @@ function Controller:enter(stage, level, binding)
 	self.overlay_left = prox.resources.getImage("data/images/overlay_left.png")
 	self.overlay_right = prox.resources.getImage("data/images/overlay_right.png")
 	self.power_overlay = prox.resources.getImage("data/images/power_overlay.png")
+	self.focus_meter_end = prox.resources.getImage("data/images/focus_meter_end.png")
 
 	self.small_font = prox.resources.getImageFont("data/fonts/small.png")
 	self.sans_font = prox.resources.getImageFont("data/fonts/large_sans.png")
@@ -143,6 +144,16 @@ function Controller:update(dt, rt)
 
 	self.score_display = prox.math.movetowards(self.score_display, self.score, dt*800)
 	self.gems_display = prox.math.movetowards(self.gems_display, self.gems, 20*dt)
+
+	self.focus_cooldown = self.focus_cooldown - dt/2
+
+	if self.focus_cooldown <= 0 then
+		self.focus_meter = self.focus_meter - dt/3
+	end
+	if self.focus_meter <= 0 then
+		self.focus = 0
+		self.score_multiplier = 1
+	end
 
 	if self.state == Controller.static.STATE_WARMUP then
 		self.warmup = self.warmup - dt
@@ -223,22 +234,23 @@ function Controller:gui()
 		love.graphics.draw(self.diamond_flash_image, prox.window.getWidth()/2-295+math.floor(self.lives_display)*36, 80)
 	end
 
-	love.graphics.setColor(255, 255, 255)
-	
 	-- power bar
 	love.graphics.setColor(211, 80, 80)
 	local power_width = math.floor(self.gems_display / MAX_GEMS * POWER_BAR_LENGTH + 0.5)
 	love.graphics.rectangle("fill", prox.window.getWidth()/2-320+POWER_BAR_OFFSET, 198, power_width, 33)
+
 	if self.gems_display >= MAX_GEMS/2 then
 		local alpha = math.sqrt((-prox.time.getTime() % 1)) * 255
 		love.graphics.setColor(255, 255, 255, alpha)
 		love.graphics.rectangle("fill", prox.window.getWidth()/2-320+POWER_BAR_OFFSET, 198, POWER_BAR_LENGTH/2, 33)
 	end
+
 	if self.gems_display >= MAX_GEMS then
 		local alpha = math.sqrt((-prox.time.getTime() % 1)) * 255
 		love.graphics.setColor(255, 255, 255, alpha)
 		love.graphics.rectangle("fill", prox.window.getWidth()/2-320+POWER_BAR_OFFSET+POWER_BAR_LENGTH/2, 198, POWER_BAR_LENGTH/2, 33)
 	end
+
 	love.graphics.setColor(255, 255, 255, self.hud_alpha)
 	love.graphics.draw(self.power_overlay, prox.window.getWidth()/2-320, 197)
 
@@ -255,6 +267,15 @@ function Controller:gui()
 		love.graphics.printf("YOUR BEST", midx-149, midy+30, 300, "center")
 		love.graphics.printf(highscore.score, midx-149, midy+50, 300, "center")
 	end
+
+	-- focus bar
+	love.graphics.setColor(211, 80, 80)
+	local focus_bar_height = math.floor(math.max(0, self.focus_meter) * 142 + 0.5)
+	love.graphics.rectangle("fill", prox.window.getWidth()-83, 230-focus_bar_height/2, 7, focus_bar_height)
+
+	love.graphics.setColor(255, 255, 255, self.hud_alpha)
+	love.graphics.draw(self.focus_meter_end, prox.window.getWidth()-83, 157)
+	love.graphics.draw(self.focus_meter_end, prox.window.getWidth()-83, 303, 0, 1, -1)
 
 	love.graphics.setColor(255, 255, 255, 255)
 end
@@ -295,7 +316,14 @@ function Controller:addGems(count)
 	self.gems = math.min(self.gems + count, MAX_GEMS)
 	self:addScore(count * 100)
 	
-	self.score_focus = 1
+	self.focus_meter = 1.0
+	self.focus_cooldown = 1.0
+	self.focus = self.focus + 1
+
+	if self.score_multiplier < #FOCUS_THRESHOLDS and self.focus >= FOCUS_THRESHOLDS[self.score_multiplier] then
+		self.focus = self.focus % FOCUS_THRESHOLDS[self.score_multiplier]
+		self.score_multiplier = self.score_multiplier + 1
+	end
 end
 
 function Controller:useGems(cost)
@@ -311,7 +339,7 @@ end
 function Controller:addLives(lives)
 	if self.lives_tween then prox.timer.cancel(self.lives_tween) end
 	self.lives = prox.math.cap(self.lives + lives, 0, 3)
-	prox.timer.tween(1, self, {lives_display = self.lives}, "in-quad")
+	pÿ7rox.timer.tween(1, self, {lives_display = self.lives}, "in-quad")
 end
 
 function Controller:progressLevel()
