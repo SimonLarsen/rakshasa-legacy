@@ -167,22 +167,22 @@
   </object>
  </objectgroup>
  <objectgroup name="8">
-  <object id="198" name="0" type="AimedDrone" x="320" y="16">
+  <object id="198" name="0" type="AimedDrone" x="328" y="16">
    <polyline points="32,-16 -32,16 -32,48"/>
   </object>
-  <object id="199" name="0" type="AimedDrone" x="32" y="16">
+  <object id="199" name="0" type="AimedDrone" x="24" y="16">
    <polyline points="-64,-16 0,16 0,48"/>
   </object>
-  <object id="200" name="1" type="AimedDrone" x="32" y="96">
+  <object id="200" name="1" type="AimedDrone" x="24" y="96">
    <polyline points="-64,-16 32,32 32,64"/>
   </object>
-  <object id="201" name="0" type="AimedDrone" x="320" y="96">
+  <object id="201" name="0" type="AimedDrone" x="328" y="96">
    <polyline points="32,-16 -64,32 -64,64"/>
   </object>
-  <object id="202" name="1" type="AimedDrone" x="32" y="176">
+  <object id="202" name="1" type="AimedDrone" x="24" y="176">
    <polyline points="-64,-16 64,48 64,80"/>
   </object>
-  <object id="203" name="0" type="AimedDrone" x="320" y="176">
+  <object id="203" name="0" type="AimedDrone" x="328" y="176">
    <polyline points="32,-16 -96,48 -96,80"/>
   </object>
   <object id="208" name="1" type="Fighter" x="160" y="-32">

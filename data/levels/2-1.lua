@@ -217,7 +217,7 @@ return {
         },
         {
           id = 30,
-          name = "1",
+          name = "1.5",
           type = "Turret",
           shape = "rectangle",
           x = 160,

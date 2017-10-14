@@ -33,7 +33,7 @@
   <object id="25" name="1" type="Bunker" x="160" y="144"/>
   <object id="26" name="0.32" type="Bunker" x="128" y="128"/>
   <object id="27" name="0" type="Bunker" x="192" y="128"/>
-  <object id="30" name="1" type="Turret" x="160" y="64"/>
+  <object id="30" name="1.5" type="Turret" x="160" y="64"/>
  </objectgroup>
  <objectgroup name="3">
   <object id="56" name="0" type="LaserTurret" x="160" y="96"/>
