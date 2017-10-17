@@ -1,6 +1,7 @@
 local BallFlash = require("game.BallFlash")
-local EnemyBullet = require("game.EnemyBullet")
 local Sword = require("game.Sword")
+local EnemyBullet = require("game.EnemyBullet")
+local BaseLaser = require("game.enemies.BaseLaser")
 
 local Chain = class("game.Chain", prox.Entity)
 
@@ -114,14 +115,27 @@ function Chain:update(dt, rt)
 	for i,v in ipairs(self:getScene():findAll(EnemyBullet)) do
 		if v:getHCShape() and self.hc_rect:collidesWith(v:getHCShape()) then
 			v:kill(self.invulnerable > 0)
-			if self.invulnerable <= 0 then
-				self.invulnerable = INVULNERABLE_TIME
-				self:getScene():find("screenshaker"):shake(0.5, 8, 60)
-				self.controller:playerHit()
-				self.face_anim:setProperty("hurt", true)
-			end
+			self:hit()
 		end
 	end
+
+	-- Check collision with lasers
+	for i,v in ipairs(self:getScene():findAll(BaseLaser)) do
+		if v:getHCShape() and self.hc_rect:collidesWith(v:getHCShape()) then
+			self:hit()
+		end
+	end
+end
+
+function Chain:hit()
+	if self.invulnerable <= 0 then
+		self.invulnerable = INVULNERABLE_TIME
+		self:getScene():find("screenshaker"):shake(0.5, 8, 60)
+		self.controller:playerHit()
+		self.face_anim:setProperty("hurt", true)
+		return true
+	end
+	return false
 end
 
 function Chain:draw()

@@ -1,5 +1,5 @@
 {
-	image = "data/images/enemies/laser_part_diagonal.png",
+	image = "data/images/enemies/laser_beam_diagonal.png",
 	fw = 24,
 	fh = 24,
 	ox = 12,

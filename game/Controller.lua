@@ -83,7 +83,8 @@ local levels = {
 		"data/levels/1-4.lua"
 	},
 	[2] = {
-		"data/levels/2-1.lua"
+		"data/levels/2-1.lua",
+		"data/levels/2-2.lua"
 	},
 	[3] = {
 	}

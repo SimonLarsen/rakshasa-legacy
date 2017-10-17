@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="20" height="30" tilewidth="16" tileheight="16" infinite="0" nextobjectid="9">
+ <objectgroup name="1">
+  <object id="8" name="0" type="LaserSwitch" x="16" y="144">
+   <polyline points="0,0 288,0"/>
+  </object>
+ </objectgroup>
+</map>

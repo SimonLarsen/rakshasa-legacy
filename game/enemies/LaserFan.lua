@@ -31,11 +31,11 @@ function LaserFan:enter(properties)
 	self.turret_anim = prox.Animation("data/animations/enemies/laser_fan.lua")
 	self.orbit_anim = prox.Animation("data/animations/enemies/laser_fan_orbit.lua")
 
-	self.beamw = (self.dist - 66) / 2
+	self.beamw = (self.dist - 54) / 2
 	self.beam_anim1 = prox.Animation("data/animations/enemies/laser_beam_orthogonal.lua")
-	self.beam_anim1:setScale(self.beamw, 1)
+	self.beam_anim1:setScale(self.beamw+2, 1)
 	self.beam_anim2 = prox.Animation("data/animations/enemies/laser_beam_orthogonal.lua")
-	self.beam_anim2:setScale(self.beamw, 1)
+	self.beam_anim2:setScale(self.beamw+2, 1)
 
 	self.beam_tip1 = prox.Animation("data/animations/enemies/laser_tip.lua")
 	self.beam_tip2 = prox.Animation("data/animations/enemies/laser_tip.lua")
@@ -63,13 +63,13 @@ function LaserFan:update(dt, rt)
 	self.beam_tip1:setRotation(self.dir-math.pi/2)
 	self.beam_tip2:setRotation(self.dir+math.pi/2)
 
-	local ox = math.cos(self.dir) * (32 + self.beamw / 2)
-	local oy = math.sin(self.dir) * (32 + self.beamw / 2)
+	local ox = math.cos(self.dir) * (27 + self.beamw / 2)
+	local oy = math.sin(self.dir) * (27 + self.beamw / 2)
 	self:getRenderer():setOffset(1, -ox, -oy)
 	self:getRenderer():setOffset(2, ox, oy)
 
-	ox = math.cos(self.dir) * (32 + self.beamw)
-	oy = math.sin(self.dir) * (32 + self.beamw)
+	ox = math.cos(self.dir) * (27 + self.beamw)
+	oy = math.sin(self.dir) * (27 + self.beamw)
 	self:getRenderer():setOffset(5, -ox, -oy)
 	self:getRenderer():setOffset(6, ox, oy)
 
@@ -86,10 +86,6 @@ end
 
 function LaserFan:getHCShape()
 	return self.hc_rect
-end
-
-function LaserFan:kill()
-	
 end
 
 return LaserFan

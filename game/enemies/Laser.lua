@@ -41,55 +41,32 @@ function Laser:enter(properties)
 
 	self:setRenderer(prox.MultiRenderer())
 
+	self.turret_anim1 = prox.Animation("data/animations/enemies/laser_spawner.lua")
+	self.turret_anim2 = prox.Animation("data/animations/enemies/laser_spawner.lua")
+
+	self:getRenderer():addRenderer(self.turret_anim1, math.floor(-math.cos(self.dir)*odist/2 + 0.5), math.floor(-math.sin(self.dir)*odist/2 + 0.5))
+	self:getRenderer():addRenderer(self.turret_anim2, math.floor( math.cos(self.dir)*odist/2 + 0.5), math.floor( math.sin(self.dir)*odist/2 + 0.5))
+
+	local beam_anim = prox.Animation("data/animations/enemies/laser_beam_orthogonal.lua")
+	table.insert(self.beam_sprites, beam_anim)
+	self:getRenderer():addRenderer(beam_anim, 0, 0)
 	if ortho then
-		local beam_anim = prox.Animation("data/animations/enemies/laser_beam_orthogonal.lua")
-		table.insert(self.beam_sprites, beam_anim)
-		self:getRenderer():addRenderer(beam_anim, 0, 0)
-		beam_anim:setScale(self.dist, 1)
-		beam_anim:setRotation(self.dir)
-
-		self.turret_anim1 = prox.Animator("data/animators/enemies/laser_turret_orthogonal.lua")
-		self.turret_anim2 = prox.Animator("data/animators/enemies/laser_turret_orthogonal.lua")
-
-		self.turret_anim1:setRotation(self.dir)
-		self.turret_anim1:setOrigin(0,-1)
-		self.turret_anim2:setRotation(self.dir)
-		self.turret_anim2:setScale(-1, 1)
-
-		self:getRenderer():addRenderer(self.turret_anim1, math.floor(-math.cos(self.dir)*odist/2), math.floor(-math.sin(self.dir)*odist/2))
-		self:getRenderer():addRenderer(self.turret_anim2, math.floor( math.cos(self.dir)*odist/2), math.floor( math.sin(self.dir)*odist/2))
+		beam_anim:setScale(self.dist-6, 1)
 	else
-		local beams = math.ceil(xdist / 7)-2
-		local sgnx = prox.math.sign(xdist)
-		local sgny = prox.math.sign(ydist)
-
-		local ox = -sgnx*math.floor(beams*7 / 2+4)
-		local oy = -sgny*math.floor(beams*7 / 2+4)
-
-		for i=1, beams do
-			local spr = prox.Animation("data/animations/enemies/laser_part_diagonal.lua")
-			table.insert(self.beam_sprites, spr)
-			spr:setRotation(self.dir - math.pi/4)
-
-			if self.dir < 0 then
-				self:getRenderer():addRenderer(spr, ox+i*7*sgnx-1, oy+i*7*sgny)
-			else
-				self:getRenderer():addRenderer(spr, ox+i*7*sgnx, oy+i*7*sgny)
-			end
-		end
-
-		self.turret_anim1 = prox.Animator("data/animators/enemies/laser_turret_diagonal.lua")
-		self.turret_anim2 = prox.Animator("data/animators/enemies/laser_turret_diagonal.lua")
-
-		self.turret_anim1:setRotation(self.dir - math.pi/4)
-		self.turret_anim2:setRotation(self.dir - math.pi/4 + math.pi)
-
-		self:getRenderer():addRenderer(self.turret_anim1, math.floor(-math.cos(self.dir)*beams*5), math.floor(-math.sin(self.dir)*beams*5))
-		self:getRenderer():addRenderer(self.turret_anim2, math.floor( math.cos(self.dir)*beams*5), math.floor( math.sin(self.dir)*beams*5))
+		beam_anim:setScale(self.dist-7, 1)
 	end
+	beam_anim:setRotation(self.dir)
 
-	self.turret_anim1:setProperty("state", self.on)
-	self.turret_anim2:setProperty("state", self.on)
+	self.laser_end1 = prox.Animation("data/animations/enemies/laser_end_orthogonal.lua")
+	self.laser_end1:setRotation(self.dir)
+	self.laser_end2 = prox.Animation("data/animations/enemies/laser_end_orthogonal.lua")
+	self.laser_end2:setRotation(self.dir+math.pi)
+
+	self:getRenderer():addRenderer(self.laser_end1, math.floor(-math.cos(self.dir)*odist/2 + 0.5), math.floor(-math.sin(self.dir)*odist/2 + 0.5))
+	self:getRenderer():addRenderer(self.laser_end2, math.floor( math.cos(self.dir)*odist/2 + 0.5), math.floor( math.sin(self.dir)*odist/2 + 0.5))
+
+	--self.turret_anim1:setProperty("state", self.on)
+	--self.turret_anim2:setProperty("state", self.on)
 
 	if self.intervals then
 		for i,v in ipairs(self.beam_sprites) do
@@ -97,7 +74,7 @@ function Laser:enter(properties)
 		end
 	end
 
-	self.hc_rect = HC.rectangle(0, 0, odist+2, 16)
+	self.hc_rect = HC.rectangle(0, 0, odist, 16)
 	self.hc_rect:setRotation(self.dir)
 end
 
@@ -116,8 +93,8 @@ function Laser:update(dt, rt)
 		for i,v in ipairs(self.beam_sprites) do
 			v:setVisible(self.on)
 			v:reset()
-			self.turret_anim1:setProperty("state", self.on)
-			self.turret_anim2:setProperty("state", self.on)
+			--self.turret_anim1:setProperty("state", self.on)
+			--self.turret_anim2:setProperty("state", self.on)
 		end
 	end
 

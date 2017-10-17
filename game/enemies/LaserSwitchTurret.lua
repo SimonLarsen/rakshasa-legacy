@@ -8,6 +8,7 @@ function LaserSwitchTurret:enter(x, y, dir, speed)
 	Enemy.enter(self)
 	self.x = x
 	self.y = y
+	self.z = 2
 	self.speed = speed
 	self.destroyed = false
 
@@ -30,15 +31,21 @@ function LaserSwitchTurret:isDestroyed()
 end
 
 function LaserSwitchTurret:kill()
-	self:getScene():add(Explosion(self.x, self.y, Explosion.static.SIZE_MEDIUM))
-	self:getScene():find("screenshaker"):shake(0.3, 1, 60)
-	self.sfx_explosion1:play()
-
-	for i=1, self:getGems() do
-		self:getScene():add(Gem(
-			self.x + love.math.random(-8, 8),
-			self.y + love.math.random(-8, 8)
-		))
+	if self.large then
+		self:getScene():add(Explosion(self.x, self.y, Explosion.static.SIZE_LARGE))
+		self:getScene():find("screenshaker"):shake(0.5, 2, 60)
+		local sfx = prox.resources.getSound("data/sounds/explosion3.wav")
+		self.sfx_explosion3:play()
+	else
+		self:getScene():add(Explosion(self.x, self.y, Explosion.static.SIZE_MEDIUM))
+		self:getScene():find("screenshaker"):shake(0.3, 1, 60)
+		self.sfx_explosion1:play()
+	end
+	
+	local num_gems = self:getGems()
+	local spread = math.log(math.max(15, num_gems)) * 30
+	for i=1, num_gems do
+		self:getScene():add(Gem(self.x, self.y, spread))
 	end
 
 	self:setCollider(nil)

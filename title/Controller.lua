@@ -9,7 +9,7 @@ local options = {
 }
 
 local START_STAGE = 2
-local START_LEVEL = 1
+local START_LEVEL = 2
 
 Controller.static.STATE_ENTER  = 1
 Controller.static.STATE_ACTIVE = 2
