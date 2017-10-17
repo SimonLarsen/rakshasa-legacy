@@ -60,8 +60,6 @@ function LaserSwitch:update(dt, rt)
 
 	if self.turret_left:isDestroyed() and self.turret_right:isDestroyed() then
 		self:remove()
-		--self.turret_left:remove()
-		--self.turret_right:remove()
 	else
 		for i,v in ipairs(self:getScene():findAll(PlayerBullet)) do
 			if self.hc_rect:collidesWith(v:getHCShape()) then
