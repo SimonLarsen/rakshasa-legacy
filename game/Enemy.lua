@@ -7,10 +7,10 @@ local Enemy = class("game.Enemy", Slowable)
 local MAX_HEALTH = prox.serialize.read("data/tables/max_health.lua")
 local GEM_COUNTS = prox.serialize.read("data/tables/gem_counts.lua")
 
-function Enemy:enter(health, large)
+function Enemy:enter(large)
 	Slowable.enter(self)
-	self.max_health = health
-	self.health = MAX_HEALTH[self.class.name]
+	self.max_health = MAX_HEALTH[self.class.name]
+	self.health = self.max_health
 	self.hit = 0
 	self.large = large or false
 	self.invulnerable = 0

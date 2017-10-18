@@ -22,6 +22,6 @@
 	["game.enemies.Temple"]            = 40,
 	["game.enemies.Fortress"]          = 40,
 	["game.enemies.Falcon"]            = 50,
-	["game.enemies.Vortex"]            = 60,
+	["game.enemies.Vortex"]            = 80,
 	["game.enemies.Silo"]              = 4
 }

@@ -3,7 +3,7 @@ local Enemy = require("game.Enemy")
 local BasePatrol = class("game.enemies.BasePatrol", Enemy)
 
 local ENTER_COOLDOWN = 0.6
-local COOLDOWN = 5.0
+local COOLDOWN = 3.0
 local ENTER_TIME = 1.4
 
 BasePatrol.static.STATE_ENTER = 1

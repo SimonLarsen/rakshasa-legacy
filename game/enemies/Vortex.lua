@@ -1,14 +1,15 @@
 local Enemy = require("game.Enemy")
 local EnemyBullet = require("game.EnemyBullet")
-local BasePattern = require("game.bullets.BasePattern")
 local MultiPattern = require("game.bullets.MultiPattern")
 local PatternManager = require("game.bullets.PatternManager")
+local BasePattern = require("game.bullets.BasePattern")
+local NonePattern = require("game.bullets.NonePattern")
 
 local Vortex = class("game.enemies.Vortex", Enemy)
 
 local ENTER_TIME = 2.5
 
-local PHASE2_HEALTH = 30
+local PHASE2_HEALTH = 40
 
 function Vortex:enter(properties)
 	Enemy.enter(self, true)
@@ -20,6 +21,7 @@ function Vortex:enter(properties)
 	self.entered = false
 	self.entered_time = 0
 	self.phase = 1
+	self.invulnerable = 2.5
 
 	self:setRenderer(prox.Animation("data/animations/enemies/vortex.lua"))
 	self:setCollider(prox.BoxCollider(78, 78))
@@ -28,49 +30,52 @@ function Vortex:enter(properties)
 
 	self.patterns = {}
 	
-	self.patterns[1] = BasePattern(self, {
-		salvo_delay = 0.15,
+	self.patterns[1] = PatternManager()
+
+	self.patterns[1]:add(BasePattern(self, 0, 0, {
+		salvo_delay = 0.10,
 		salvo_size = 1,
 		shot_count = 2,
+		start_rotation = 0,
 		shot_rotation_offset = math.pi,
 		salvo_rotation_offset = 0.16
-	})
+	}), 1.1)
+
+	self.patterns[1]:add(NonePattern(), 0.5)
+
+	self.patterns[1]:add(BasePattern(self, 0, 0, {
+		salvo_delay = 0.10,
+		salvo_size = 1,
+		shot_count = 2,
+		start_rotation = 0,
+		shot_rotation_offset = math.pi,
+		salvo_rotation_offset = -0.16
+	}), 1.1)
+
+	self.patterns[1]:add(NonePattern(), 0.5)
 
 	self.patterns[2] = PatternManager()
 
-	self.patterns[2]:add(BasePattern(self, {
-		salvo_delay = 999,
-		shot_delay = 0.2,
-		salvo_size = 8,
-		target_player = true
-	}), 2.0)
+	for i=1,4 do
+		self.patterns[2]:add(BasePattern(self, 0, 0, {
+			salvo_delay = 999,
+			shot_delay = 0.1,
+			salvo_size = 8,
+			target_player = true
+		}), 0.31)
+
+		self.patterns[2]:add(NonePattern(), 0.8)
+	end
 
 	self.patterns[2]:add(MultiPattern({
-		BasePattern(self, {
-			salvo_delay = 999,
-			shot_delay = 0.13,
-			salvo_size = 8,
-			start_rotation = math.pi/2+0.05,
-			rotation_speed = 0.7
-		}),
-		BasePattern(self, {
-			salvo_delay = 999,
-			shot_delay = 0.13,
-			salvo_size = 8,
-			start_rotation = math.pi/2-0.05,
-			rotation_speed = -0.7
-		})
-	}), 1.5)
-
-	self.patterns[2]:add(MultiPattern({
-		BasePattern(self, {
+		BasePattern(self, 0, 0, {
 			salvo_delay = 999,
 			shot_delay = 0.13,
 			salvo_size = 8,
 			start_rotation = 0,
 			rotation_speed = 0.7
 		}),
-		BasePattern(self, {
+		BasePattern(self, 0, 0, {
 			salvo_delay = 999,
 			shot_delay = 0.13,
 			salvo_size = 8,
@@ -78,6 +83,23 @@ function Vortex:enter(properties)
 			rotation_speed = -0.7
 		})
 	}), 2.0)
+
+	self.patterns[2]:add(MultiPattern({
+		BasePattern(self, 0, 0, {
+			salvo_delay = 999,
+			shot_delay = 0.13,
+			salvo_size = 8,
+			start_rotation = math.pi/2+0.25,
+			rotation_speed = 0.7
+		}),
+		BasePattern(self, 0, 0, {
+			salvo_delay = 999,
+			shot_delay = 0.13,
+			salvo_size = 8,
+			start_rotation = math.pi/2-0.25,
+			rotation_speed = -0.7
+		})
+	}), 1.5)
 end
 
 function Vortex:update(dt, rt)

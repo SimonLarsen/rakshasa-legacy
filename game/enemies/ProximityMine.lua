@@ -37,7 +37,7 @@ function ProximityMine:update(dt, rt)
 
 	if not self.triggered then
 		self.prox_rect:moveTo(self.x, self.y)
-		if self.prox_rect:collidesWith(self.player_chain:getHCRect()) then
+		if self.prox_rect:collidesWith(self.player_chain:getHCShape()) then
 			self.triggered = true
 		end
 	end

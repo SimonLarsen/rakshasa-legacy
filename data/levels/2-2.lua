@@ -8,7 +8,7 @@ return {
   height = 30,
   tilewidth = 16,
   tileheight = 16,
-  nextobjectid = 9,
+  nextobjectid = 11,
   properties = {},
   tilesets = {},
   layers = {
@@ -23,20 +23,16 @@ return {
       properties = {},
       objects = {
         {
-          id = 8,
+          id = 10,
           name = "0",
-          type = "LaserSwitch",
-          shape = "polyline",
-          x = 16,
-          y = 144,
+          type = "Vortex",
+          shape = "rectangle",
+          x = 160,
+          y = 176,
           width = 0,
           height = 0,
           rotation = 0,
           visible = true,
-          polyline = {
-            { x = 0, y = 0 },
-            { x = 288, y = 0 }
-          },
           properties = {}
         }
       }

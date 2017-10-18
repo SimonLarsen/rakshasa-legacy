@@ -33,7 +33,6 @@ function Chain:enter(ship1, ship2)
 	self.direction = 0
 	self.controller = self:getScene():find("controller")
 	self.pickup_radius = 0
-	self.pickup_radius_angle = 0
 
 	self.center_ring = prox.Sprite("data/images/chain_ring.png")
 	self.center_flash = prox.Sprite("data/images/chain_center_flash.png")
@@ -90,7 +89,6 @@ function Chain:update(dt, rt)
 	end
 
 	self.pickup_radius = prox.math.movetowards(self.pickup_radius, PICKUP_RADIUS_BIG, dt*100)
-	self.pickup_radius_angle = self.pickup_radius_angle + dt
 
 	self.shooting_cooldown = self.shooting_cooldown - dt
 	if self.ship1.cooldown > 0 or self.ship2.cooldown > 0 then
@@ -220,7 +218,7 @@ function Chain:onCollide(o)
 	end
 end
 
-function Chain:getHCRect()
+function Chain:getHCShape()
 	return self.hc_rect
 end
 

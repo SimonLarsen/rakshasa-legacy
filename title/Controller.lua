@@ -8,8 +8,8 @@ local options = {
 	"QUIT"
 }
 
-local START_STAGE = 2
-local START_LEVEL = 2
+local START_STAGE = 1
+local START_LEVEL = 3
 
 Controller.static.STATE_ENTER  = 1
 Controller.static.STATE_ACTIVE = 2
