@@ -14,7 +14,7 @@
 	["game.enemies.ProximityMine"]     = 12,
 	["game.enemies.Bunker"]            = 3,
 	["game.enemies.Turret"]            = 12,
-	["game.enemies.LaserTurret"]       = 11,
+	["game.enemies.LaserTurret"]       = 12,
 	["game.enemies.Laser"]             = 0,
 	["game.enemies.LaserSwitch"]       = 0,
 	["game.enemies.LaserSwitchTurret"] = 4,
