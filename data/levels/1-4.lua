@@ -8,7 +8,7 @@ return {
   height = 30,
   tilewidth = 16,
   tileheight = 16,
-  nextobjectid = 115,
+  nextobjectid = 178,
   properties = {},
   tilesets = {},
   layers = {
@@ -286,7 +286,7 @@ return {
           width = 0,
           height = 0,
           rotation = 0,
-          visible = true,
+          visible = false,
           properties = {}
         },
         {
@@ -790,7 +790,9 @@ return {
             { x = -10, y = 12.6667 },
             { x = -282, y = -51.3333 }
           },
-          properties = {}
+          properties = {
+            ["enter_time"] = 2
+          }
         },
         {
           id = 111,
@@ -807,12 +809,487 @@ return {
             { x = 13.3333, y = 8.66667 },
             { x = 285.333, y = -55.3333 }
           },
-          properties = {}
+          properties = {
+            ["enter_time"] = 2
+          }
         },
         {
           id = 114,
           name = "4",
           type = "LaserTurret",
+          shape = "rectangle",
+          x = 160,
+          y = 64,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        }
+      }
+    },
+    {
+      type = "objectgroup",
+      name = "6",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      draworder = "topdown",
+      properties = {},
+      objects = {
+        {
+          id = 118,
+          name = "0",
+          type = "Mine",
+          shape = "rectangle",
+          x = 160,
+          y = 176,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 123,
+          name = "0",
+          type = "Spawner",
+          shape = "polyline",
+          x = -32,
+          y = 160,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polyline = {
+            { x = 0, y = 0 },
+            { x = 384, y = 0 }
+          },
+          properties = {
+            ["count"] = 4,
+            ["delay"] = 0.2,
+            ["type"] = "Scout"
+          }
+        },
+        {
+          id = 119,
+          name = "1.5",
+          type = "Mine",
+          shape = "rectangle",
+          x = 240,
+          y = 176,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 122,
+          name = "1",
+          type = "Spawner",
+          shape = "polyline",
+          x = 352,
+          y = 160,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polyline = {
+            { x = 0, y = 0 },
+            { x = -384, y = 0 }
+          },
+          properties = {
+            ["count"] = 4,
+            ["delay"] = 0.2,
+            ["type"] = "Scout"
+          }
+        },
+        {
+          id = 121,
+          name = "1.5",
+          type = "Mine",
+          shape = "rectangle",
+          x = 80,
+          y = 176,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 124,
+          name = "1",
+          type = "Spawner",
+          shape = "polyline",
+          x = -32,
+          y = 160,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polyline = {
+            { x = 0, y = 0 },
+            { x = 384, y = 0 }
+          },
+          properties = {
+            ["count"] = 4,
+            ["delay"] = 0.2,
+            ["type"] = "Scout"
+          }
+        },
+        {
+          id = 129,
+          name = "3",
+          type = "AimedDrone",
+          shape = "polyline",
+          x = 208,
+          y = -32,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polyline = {
+            { x = 0, y = 0 },
+            { x = -32, y = 160 },
+            { x = -112, y = 544 }
+          },
+          properties = {}
+        },
+        {
+          id = 130,
+          name = "0",
+          type = "AimedDrone",
+          shape = "polyline",
+          x = 112,
+          y = -32,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polyline = {
+            { x = 0, y = 0 },
+            { x = 32, y = 160 },
+            { x = 112, y = 544 }
+          },
+          properties = {}
+        }
+      }
+    },
+    {
+      type = "objectgroup",
+      name = "7",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      draworder = "topdown",
+      properties = {},
+      objects = {
+        {
+          id = 161,
+          name = "0.12",
+          type = "Scout",
+          shape = "polyline",
+          x = 352,
+          y = 224,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polyline = {
+            { x = 0, y = 0 },
+            { x = -384, y = 0 }
+          },
+          properties = {}
+        },
+        {
+          id = 162,
+          name = "0.12",
+          type = "Scout",
+          shape = "polyline",
+          x = 352,
+          y = 208,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polyline = {
+            { x = 0, y = 0 },
+            { x = -384, y = 0 }
+          },
+          properties = {}
+        },
+        {
+          id = 159,
+          name = "0",
+          type = "LaserTurret",
+          shape = "rectangle",
+          x = 80,
+          y = 64,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 160,
+          name = "0",
+          type = "LaserTurret",
+          shape = "rectangle",
+          x = 240,
+          y = 64,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 163,
+          name = "0.12",
+          type = "Scout",
+          shape = "polyline",
+          x = 352,
+          y = 192,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polyline = {
+            { x = 0, y = 0 },
+            { x = -384, y = 0 }
+          },
+          properties = {}
+        },
+        {
+          id = 164,
+          name = "0.12",
+          type = "Scout",
+          shape = "polyline",
+          x = 352,
+          y = 176,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polyline = {
+            { x = 0, y = 0 },
+            { x = -384, y = 0 }
+          },
+          properties = {}
+        },
+        {
+          id = 168,
+          name = "0.5",
+          type = "Scout",
+          shape = "polyline",
+          x = 352,
+          y = 224,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polyline = {
+            { x = 0, y = 0 },
+            { x = -384, y = 0 }
+          },
+          properties = {}
+        },
+        {
+          id = 165,
+          name = "0.12",
+          type = "Scout",
+          shape = "polyline",
+          x = 352,
+          y = 208,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polyline = {
+            { x = 0, y = 0 },
+            { x = -384, y = 0 }
+          },
+          properties = {}
+        },
+        {
+          id = 166,
+          name = "0.12",
+          type = "Scout",
+          shape = "polyline",
+          x = 352,
+          y = 192,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polyline = {
+            { x = 0, y = 0 },
+            { x = -384, y = 0 }
+          },
+          properties = {}
+        },
+        {
+          id = 167,
+          name = "0.12",
+          type = "Scout",
+          shape = "polyline",
+          x = 352,
+          y = 176,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polyline = {
+            { x = 0, y = 0 },
+            { x = -384, y = 0 }
+          },
+          properties = {}
+        },
+        {
+          id = 172,
+          name = "0.5",
+          type = "Scout",
+          shape = "polyline",
+          x = 352,
+          y = 224,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polyline = {
+            { x = 0, y = 0 },
+            { x = -384, y = 0 }
+          },
+          properties = {}
+        },
+        {
+          id = 169,
+          name = "0.12",
+          type = "Scout",
+          shape = "polyline",
+          x = 352,
+          y = 208,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polyline = {
+            { x = 0, y = 0 },
+            { x = -384, y = 0 }
+          },
+          properties = {}
+        },
+        {
+          id = 170,
+          name = "0.12",
+          type = "Scout",
+          shape = "polyline",
+          x = 352,
+          y = 192,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polyline = {
+            { x = 0, y = 0 },
+            { x = -384, y = 0 }
+          },
+          properties = {}
+        },
+        {
+          id = 171,
+          name = "0.12",
+          type = "Scout",
+          shape = "polyline",
+          x = 352,
+          y = 176,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polyline = {
+            { x = 0, y = 0 },
+            { x = -384, y = 0 }
+          },
+          properties = {}
+        },
+        {
+          id = 176,
+          name = "0.5",
+          type = "Scout",
+          shape = "polyline",
+          x = 352,
+          y = 224,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polyline = {
+            { x = 0, y = 0 },
+            { x = -384, y = 0 }
+          },
+          properties = {}
+        },
+        {
+          id = 175,
+          name = "0.12",
+          type = "Scout",
+          shape = "polyline",
+          x = 352,
+          y = 208,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polyline = {
+            { x = 0, y = 0 },
+            { x = -384, y = 0 }
+          },
+          properties = {}
+        },
+        {
+          id = 174,
+          name = "0.12",
+          type = "Scout",
+          shape = "polyline",
+          x = 352,
+          y = 192,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polyline = {
+            { x = 0, y = 0 },
+            { x = -384, y = 0 }
+          },
+          properties = {}
+        },
+        {
+          id = 173,
+          name = "0.12",
+          type = "Scout",
+          shape = "polyline",
+          x = 352,
+          y = 176,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polyline = {
+            { x = 0, y = 0 },
+            { x = -384, y = 0 }
+          },
+          properties = {}
+        },
+        {
+          id = 177,
+          name = "3",
+          type = "Temple",
           shape = "rectangle",
           x = 160,
           y = 64,

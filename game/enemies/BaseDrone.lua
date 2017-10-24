@@ -2,7 +2,6 @@ local Enemy = require("game.Enemy")
 
 local BaseDrone = class("game.enemies.BaseDrone", Enemy)
 
-local MOVE_SPEED = 180
 local ENTER_COOLDOWN = 1.1
 local COOLDOWN = 2.5
 
@@ -11,7 +10,7 @@ function BaseDrone:enter(properties, speed)
 
 	assert(#properties.points >= 2, "BaseDrone needs at least two points.")
 	self.points = properties.points
-	self.speed = speed or MOVE_SPEED
+	self.speed = properties.speed or speed
 	self.x = self.points[1].x
 	self.y = self.points[1].y
 	self.target = 2

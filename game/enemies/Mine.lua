@@ -11,8 +11,8 @@ function Mine:enter(properties)
 end
 
 function Mine:shoot()
-	for i=0,3 do
-		self:getScene():add(EnemyBullet(self.x, self.y, i*math.pi/2))
+	for i=0,7 do
+		self:getScene():add(EnemyBullet(self.x, self.y, i*math.pi/4))
 	end
 end
 

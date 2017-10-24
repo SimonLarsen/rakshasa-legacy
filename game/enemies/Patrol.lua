@@ -5,9 +5,6 @@ local BasePatrol = require("game.enemies.BasePatrol")
 
 local Patrol = class("game.enemies.Patrol", BasePatrol)
 
-local ENTER_COOLDOWN = 1.0
-local ENTER_TIME = 1.5
-
 Patrol.static.STATE_ENTER = 1
 Patrol.static.STATE_IDLE  = 2
 
