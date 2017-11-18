@@ -77,6 +77,7 @@ function EnemyLaser:draw()
 		love.graphics.setLineWidth(8*scale)
 		love.graphics.line(self.x, self.y, self.x+math.cos(self.dir)*500, self.y+math.sin(self.dir)*500)
 	end
+	love.graphics.setLineWidth(1)
 end
 
 function EnemyLaser:getHCShape()
